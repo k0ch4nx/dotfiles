@@ -1,0 +1,86 @@
+tap "felixkratz/formulae"
+tap "hashicorp/tap"
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "jandedobbeleer/oh-my-posh"
+tap "koekeishiya/formulae"
+tap "kortin99/tap"
+
+brew "asciinema" # Record and share terminal sessions
+brew "bat" # Clone of cat(1) with syntax highlighting and Git integration
+brew "bazelisk" # User-friendly launcher for Bazel
+brew "bottom" # Yet another cross-platform graphical process/system monitor
+brew "chezmoi" # Manage your dotfiles across multiple diverse machines, securely
+brew "cloudflared" # Cloudflare Tunnel client (formerly Argo Tunnel)
+brew "cmake" # Cross-platform make
+brew "commitizen" # Defines a standard way of committing rules and communicating it
+brew "delta" # Syntax-highlighting pager for git and diff output
+brew "eza" # Modern, maintained replacement for ls
+brew "fabric-installer" # Installer for Fabric for the vanilla launcher
+brew "fastfetch" # Like neofetch, but much faster because written mostly in C
+brew "fd" # Simple, fast and user-friendly alternative to find
+brew "felixkratz/formulae/borders" # A window border system for macOS
+brew "felixkratz/formulae/sketchybar" # Custom macOS statusbar with shell plugin, interaction and graph support
+brew "felixkratz/formulae/svim" # Turns macOS input fields into real vim buffers
+brew "ferium" # Fast and multi-source CLI program for managing Minecraft mods and modpacks
+brew "ffmpeg" # Play, record, convert, and stream audio and video
+brew "flarectl" # CLI application for interacting with a Cloudflare account
+brew "fzf" # Command-line fuzzy finder written in Go
+brew "fzf-tab" # Replace Zsh's default completion selection menu with fzf
+brew "gh" # GitHub command-line tool
+brew "ghq" # Remote repository management made easy
+brew "git" # Distributed revision control system
+brew "git-cliff" # Highly customizable changelog generator
+brew "gnupg" # GNU Pretty Good Privacy (PGP) package
+brew "gradle" # Open-source build automation tool based on the Groovy and Kotlin DSL
+brew "hashicorp/tap/terraform" # Terraform
+brew "hyperfine" # Command-line benchmarking tool
+brew "imagemagick" # Tools and libraries to manipulate images in many formats
+brew "jandedobbeleer/oh-my-posh/oh-my-posh" # Prompt theme engine for any shell
+brew "koekeishiya/formulae/skhd" # Simple hotkey-daemon for macOS.
+brew "koekeishiya/formulae/yabai" # A tiling window manager for macOS based on binary space partitioning.
+brew "lazygit" # Simple terminal UI for git commands
+brew "lua" # Powerful, lightweight programming language
+brew "mise" # Polyglot runtime manager (asdf rust clone)
+brew "neovim" # Ambitious Vim-fork focused on extensibility and agility
+brew "ollama" # Create, run, and share large language models (LLMs)
+brew "oxker" # Terminal User Interface (TUI) to view & control docker containers
+brew "pkgconf" # Package compiler and linker metadata toolkit
+brew "rage" # Simple, modern, secure file encryption
+brew "ripgrep" # Search tool like grep and The Silver Searcher
+brew "thefuck" # Programmatically correct mistyped console commands
+brew "tokei" # Program that allows you to count code, quickly
+brew "topgrade" # Upgrade all the things
+brew "translate-shell" # Command-line translator using Google Translate and more
+brew "xz" # General-purpose data compression with high compression ratio
+brew "yt-dlp" # Feature-rich command-line audio/video downloader
+brew "zig" # Programming language designed for robustness, optimality, and clarity
+brew "zsh-autosuggestions" # Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-fast-syntax-highlighting" # Feature-rich syntax highlighting for Zsh
+brew "zsh-history-substring-search" # Zsh port of Fish shell's history search
+brew "zsh-syntax-highlighting" # Fish shell like syntax highlighting for zsh
+brew "zsh-vi-mode" # Better and friendly vi(vim) mode plugin for ZSH
+
+cask "adguard" # Stand alone ad blocker
+cask "appflowy" # Open-source project and knowledge management tool
+cask "betterdisplay" # Display management tool
+cask "blender" # 3D creation suite
+cask "chatgpt" # OpenAI's official ChatGPT desktop app
+cask "docker-desktop" # App to build and share containerised applications and microservices
+cask "font-cascadia-code-nf"
+cask "font-jetbrains-mono-nerd-font"
+cask "ghidra" # Software reverse engineering (SRE) suite of tools
+cask "google-cloud-sdk" # Set of tools to manage resources and applications hosted on Google Cloud
+cask "heroic" # Game launcher
+cask "iina" # Free and open-source media player
+cask "intellij-idea-ce" # IDE for Java development - community edition
+cask "mac-mouse-fix" # Mouse utility to add gesture functions and smooth scrolling to 3rd party mice
+cask "minecraft" # Sandbox construction video game
+cask "obs" # Open-source software for live streaming and screen recording
+cask "obsidian" # Knowledge base that works on top of a local folder of plain text Markdown files
+cask "onedrive" # Cloud storage client
+cask "safari-technology-preview" # Web browser
+cask "unity-hub" # Management tool for Unity
+cask "visual-studio-code" # Open-source code editor
+cask "wezterm@nightly" # GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "zoom" # Video communication and virtual meeting platform

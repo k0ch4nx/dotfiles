@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+options=(
+    style=round
+    active_color="gradient(top_left=0xFFFFC640,bottom_right=0xFFBA3AA5)"
+    inactive_color="gradient(top_left=0xAA45C4C0,bottom_right=0xAABA3AA5)"
+    width=6.0
+    hidpi=on
+    blacklist=
+)
+
+borders "${options[@]}"

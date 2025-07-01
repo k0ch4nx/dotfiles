@@ -1,0 +1,14 @@
+diff --git a/lua/mason-null-ls/ensure_installed.lua b/lua/mason-null-ls/ensure_installed.lua
+index 5f18f6a..2f42ffc 100644
+--- a/lua/mason-null-ls/ensure_installed.lua
++++ b/lua/mason-null-ls/ensure_installed.lua
+@@ -27,6 +27,9 @@ local function ensure_installed()
+ 			-- -@param pkg Package
+ 			function(pkg)
+ 				if not pkg:is_installed() then
++					if (pkg:get_installed_version() == pkg:get_latest_version()) or pkg:is_installing() or pkg:is_uninstalling() then
++						return
++					end
+ 					vim.notify(('[mason-null-ls] installing %s'):format(pkg.name))
+ 					pkg:install({
+ 						version = version,

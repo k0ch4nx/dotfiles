@@ -1,0 +1,127 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+    "palette": {
+        "black": "#111111",
+        "white": "#f7f7f7"
+    },
+    "blocks": [
+        {
+            "type": "prompt",
+            "alignment": "left",
+            "segments": [
+                {
+                    "template": "\u250c",
+                    "foreground": "p:white",
+                    "background": "transparent",
+                    "type": "text",
+                    "style": "plain"
+                },
+                {
+                    "properties": {
+                        "linux": "\uf17c",
+                        "macos": "\uf179",
+                        "ubuntu": "\uf31b",
+                        "windows": "\ue62a"
+                    },
+                    "template": " {{.Icon}}{{if .WSL}} (WSL){{end}}\u2800",
+                    "foreground": "p:white",
+                    "background": "#464646",
+                    "type": "os",
+                    "style": "plain"
+                },
+                {
+                    "template": " \uf489 {{.Name}}\u2800",
+                    "foreground": "p:black",
+                    "background": "p:white",
+                    "type": "shell",
+                    "style": "plain"
+                },
+                {
+                    "template": " \uf2c0 {{.HostName}}\ue0bd{{.UserName}}\u2800",
+                    "foreground": "p:black",
+                    "background": "#ffe093",
+                    "type": "session",
+                    "style": "plain"
+                },
+                {
+                    "properties": {
+                        "branch_icon": " \ue0a0 "
+                    },
+                    "template": "{{.HEAD}}\u2800",
+                    "foreground": "p:black",
+                    "background": "#ffffd6",
+                    "type": "git",
+                    "style": "plain"
+                }
+            ]
+        },
+        {
+            "type": "prompt",
+            "alignment": "right",
+            "segments": [
+                {
+                    "properties": {
+                        "style": "austin",
+                        "threshold": 0
+                    },
+                    "template": "{{.FormattedMs}}",
+                    "foreground": "#b3ffde",
+                    "background": "transparent",
+                    "type": "executiontime",
+                    "style": "plain"
+                },
+                {
+                    "properties": {
+                        "time_format": "02/01/06 15:04"
+                    },
+                    "template": "<p:white> · </>{{.CurrentDate | date .Format}}",
+                    "foreground": "#b3ffde",
+                    "background": "transparent",
+                    "type": "time",
+                    "style": "plain"
+                }
+            ]
+        },
+        {
+            "type": "prompt",
+            "alignment": "left",
+            "segments": [
+                {
+                    "properties": {
+                        "folder_icon": "\uf07b",
+                        "folder_separator_template": "<#93d0ff> » </>",
+                        "home_icon": "\ueb06",
+                        "style": "agnoster"
+                    },
+                    "template": "<p:white>\u2514</><#93d0ff>[</> {{.Path}} <#93d0ff>]</>",
+                    "foreground": "p:white",
+                    "background": "transparent",
+                    "type": "path",
+                    "style": "plain"
+                }
+            ]
+        },
+        {
+            "type": "prompt",
+            "alignment": "left",
+            "segments": [
+                {
+                    "properties": {
+                        "always_enabled": true
+                    },
+                    "template": "❯",
+                    "foreground": "#81ff91",
+                    "background": "transparent",
+                    "type": "status",
+                    "style": "plain",
+                    "foreground_templates": [
+                        "{{if gt .Code 0}}#ff3030{{end}}"
+                    ]
+                }
+            ],
+            "newline": true
+        }
+    ],
+    "version": 3,
+    "final_space": true
+}

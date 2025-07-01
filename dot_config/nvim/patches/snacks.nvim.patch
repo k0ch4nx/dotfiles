@@ -1,0 +1,13 @@
+diff --git a/lua/snacks/layout.lua b/lua/snacks/layout.lua
+index 4503fd1..9b15328 100644
+--- a/lua/snacks/layout.lua
++++ b/lua/snacks/layout.lua
+@@ -100,7 +100,7 @@ function M.new(opts)
+           noautocmd = true,
+           backdrop = backdrop,
+           zindex = (self.opts.layout.zindex or 50) + box.depth,
+-          bo = { filetype = "snacks_layout_box", buftype = "nofile" },
++          bo = { filetype = (box[1] and box[1].bo and box[1].bo.filetype) or "snacks_layout_box", buftype = "nofile" },
+           w = { snacks_layout = true },
+           border = box.border,
+         }))

@@ -1,0 +1,16 @@
+[user]
+    email = flutist.sud.0v@icloud.com
+    name = k0ch4nx
+[core]
+    autocrlf = false
+    editor = nvim
+    ignoreCase = false
+    pager = delta
+    quotepath = false
+    safecrlf = true
+[color]
+    ui = auto
+[delta]
+    navigate = true
+[merge]
+    conflictstyle = zdiff3
