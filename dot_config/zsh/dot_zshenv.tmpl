@@ -1,0 +1,7 @@
+. "$HOME/.cargo/env"
+
+export EDITOR="nvim"
+export VISUAL=${EDITOR}
+
+export CF_API_KEY="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_KEY.age" | include | decrypt | trim }}"
+export CF_API_EMAIL="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_EMAIL.age" | include | decrypt | trim }}"

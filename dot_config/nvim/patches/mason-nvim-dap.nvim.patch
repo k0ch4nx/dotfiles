@@ -1,0 +1,14 @@
+diff --git a/lua/mason-nvim-dap/ensure_installed.lua b/lua/mason-nvim-dap/ensure_installed.lua
+index 0c59045..90d7761 100644
+--- a/lua/mason-nvim-dap/ensure_installed.lua
++++ b/lua/mason-nvim-dap/ensure_installed.lua
+@@ -21,6 +21,9 @@ local function ensure_installed()
+ 			-- -@param pkg Package
+ 			function(pkg)
+ 				if not pkg:is_installed() then
++					if (pkg:get_installed_version() == pkg:get_latest_version()) or pkg:is_installing() or pkg:is_uninstalling() then
++						return
++					end
+ 					vim.notify(('[mason-nvim-dap] installing %s'):format(pkg.name))
+ 					pkg:install({
+ 						version = version,

@@ -1,0 +1,13 @@
+**/*.age
+
+{{ if eq .chezmoi.os "darwin" }}
+**/.DS_Store
+{{ end }}
+
+{{ if ne .chezmoi.os "darwin" }}
+.config/borders
+.config/fzf
+.config/homebrew
+.config/yabai
+.config/zsh
+{{ end }}

@@ -1,0 +1,17 @@
+[misc]
+only = [
+    "brew_cask",
+    "brew_formula",
+    # "chezmoi",
+    "custom_commands",
+    "github_cli_extensions",
+    "mise",
+    "rustup",
+    "system",
+    # "vscode",
+]
+
+[commands]
+"Neovim - lazy.nvim" = 'nvim --headless -c "Lazy! sync" -c "qa"'
+"Neovim - Treesitter" = 'nvim --headless -c "lua require(\"nvim-treesitter\").install(\"all\"):wait()" -c "lua require(\"nvim-treesitter\").update():wait()" -c "qa"'
+"Neovim - Mason" = 'nvim --headless -c "MasonInstallAll" -c "qa"'
