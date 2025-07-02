@@ -11,7 +11,10 @@ config.colors = { ---@diagnostic disable-line: missing-fields
         background = "NONE",
     },
 }
-config.font = wezterm.font("JetBrainsMono Nerd Font")
+config.font = wezterm.font_with_fallback({
+    "JetBrainsMono Nerd Font",
+    "ヒラギノ丸ゴ ProN",
+})
 config.font_size = 14
 config.front_end = "OpenGL"
 config.max_fps = 120
