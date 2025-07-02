@@ -30,7 +30,7 @@
                     "style": "plain"
                 },
                 {
-                    "template": " \uf489 {{.Name}}\u2800",
+                    "template": " \uf489 {{.Name}} {{.ShellVersion}} ({{.SHLVL}})\u2800",
                     "foreground": "p:black",
                     "background": "p:white",
                     "type": "shell",
