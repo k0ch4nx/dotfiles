@@ -1,6 +1,7 @@
 [user]
     email = flutist.sud.0v@icloud.com
     name = k0ch4nx
+    signingKey = ~/.ssh/id_rsa.pub
 [core]
     autocrlf = false
     editor = nvim
@@ -10,7 +11,17 @@
     safecrlf = true
 [color]
     ui = auto
+[commit]
+    gpgsign = true
 [delta]
     navigate = true
+[gpg]
+    format = ssh
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
 [merge]
     conflictstyle = zdiff3
+[rebase]
+    autoStash = true
+[tag]
+    gpgSign = true
