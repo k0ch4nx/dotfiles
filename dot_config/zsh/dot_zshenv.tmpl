@@ -7,3 +7,37 @@ export CF_API_KEY="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_KEY
 export CF_API_EMAIL="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_EMAIL.age" | include | decrypt | trim }}"
 
 export FZF_DEFAULT_OPTS_FILE="${XDG_CONFIG_HOME}/fzf/fzfrc"
+
+function eza() {
+    local opts=(
+        # https://github.com/eza-community/eza#display-options
+        "--long"
+        "--color=always"
+        "--color-scale=age"
+        "--color-scale-mode=gradient"
+        "--icons=auto"
+        "--hyperlink"
+
+        # https://github.com/eza-community/eza#filtering-options
+        "--all"
+        "--group-directories-first"
+
+        # https://github.com/eza-community/eza#long-view-options
+        "--binary"
+        "--header"
+        "--links"
+        "--modified"
+        "--mounts"
+        "--blocksize"
+        "--accessed"
+        "--created"
+        "--changed"
+        "--git"
+        "--git-repos"
+        "--time-style=long-iso"
+        "--total-size"
+        "--octal-permissions"
+    )
+
+    command eza "${opts[@]}" "$@"
+}
