@@ -8,6 +8,8 @@ setopt SHARE_HISTORY
 zstyle ":completion:*" menu select
 zstyle ":completion:*" cache-path "${XDG_CACHE_HOME}/zsh/.zcompcache"
 
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
+
 # https://github.com/jeffreytse/zsh-vi-mode?tab=readme-ov-file#command-line-initial-mode
 ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
