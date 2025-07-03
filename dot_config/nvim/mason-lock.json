@@ -26,5 +26,6 @@
   "typescript-language-server": "4.3.4",
   "typos-lsp": "v0.1.40",
   "yaml-language-server": "1.18.0",
+  "yamlfmt": "v0.17.2",
   "zls": "0.14.0"
 }
