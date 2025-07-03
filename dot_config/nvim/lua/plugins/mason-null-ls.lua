@@ -15,6 +15,7 @@ return {
                 "buildifier",
                 "hadolint",
                 "shfmt",
+                "yamlfmt",
             },
             handlers = {
                 function(source_name, methods)
