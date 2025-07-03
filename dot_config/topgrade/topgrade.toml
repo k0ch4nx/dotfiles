@@ -14,7 +14,7 @@ only = [
 [commands]
 "Neovim - lazy.nvim" = 'nvim --headless -c "Lazy! sync" -c "qa"'
 "Neovim - Treesitter" = 'nvim --headless -c "lua require(\"nvim-treesitter\").install(\"all\"):wait()" -c "lua require(\"nvim-treesitter\").update():wait()" -c "qa"'
-"Neovim - Mason" = 'nvim --headless -c "MasonInstallAll" -c "qa"'
+"Neovim - Mason" = 'nvim --headless -c "MasonInstallAll" -c "MasonLock" -c "qa"'
 
 [brew]
 greedy_cask = true

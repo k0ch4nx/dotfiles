@@ -7,5 +7,9 @@ return {
         "williamboman/mason.nvim",
     },
     opts = {},
+    cmd = {
+        "MasonLock",
+        "MasonLockRestore",
+    },
     event = { "VeryLazy" },
 }
