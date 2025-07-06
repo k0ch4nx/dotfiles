@@ -2,3 +2,10 @@
 java = "temurin-"
 node = "latest"
 python = "latest"
+
+[tasks.dot-clean]
+confirm = ""
+run = [
+  "sudo dot_clean -ms /",
+  "sudo fd --type=file --hidden --no-ignore \".DS_Store\" / --exec rm -f {}",
+]
