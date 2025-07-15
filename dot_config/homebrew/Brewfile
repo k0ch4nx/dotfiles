@@ -67,10 +67,11 @@ cask "betterdisplay" # Display management tool
 cask "blender" # 3D creation suite
 cask "chatgpt" # OpenAI's official ChatGPT desktop app
 cask "docker-desktop" # App to build and share containerised applications and microservices
+cask "epic-games" # Launcher for *Epic Games* games
 cask "font-cascadia-code-nf"
 cask "font-jetbrains-mono-nerd-font"
+cask "gcloud-cli" # Set of tools to manage resources and applications hosted on Google Cloud
 cask "ghidra" # Software reverse engineering (SRE) suite of tools
-cask "google-cloud-sdk" # Set of tools to manage resources and applications hosted on Google Cloud
 cask "heroic" # Game launcher
 cask "iina" # Free and open-source media player
 cask "intellij-idea-ce" # IDE for Java development - community edition
@@ -80,6 +81,7 @@ cask "obs" # Open-source software for live streaming and screen recording
 cask "obsidian" # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "onedrive" # Cloud storage client
 cask "safari-technology-preview" # Web browser
+cask "steam" # Video game digital distribution service
 cask "unity-hub" # Management tool for Unity
 cask "visual-studio-code" # Open-source code editor
 cask "wezterm@nightly" # GPU-accelerated cross-platform terminal emulator and multiplexer
