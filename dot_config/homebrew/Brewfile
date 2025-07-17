@@ -72,6 +72,7 @@ cask "font-cascadia-code-nf"
 cask "font-jetbrains-mono-nerd-font"
 cask "gcloud-cli" # Set of tools to manage resources and applications hosted on Google Cloud
 cask "ghidra" # Software reverse engineering (SRE) suite of tools
+cask "google-drive" # Client for the Google Drive storage service
 cask "heroic" # Game launcher
 cask "iina" # Free and open-source media player
 cask "intellij-idea-ce" # IDE for Java development - community edition
