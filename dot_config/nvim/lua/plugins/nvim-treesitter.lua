@@ -3,22 +3,6 @@
 return {
     ---@module "nvim-treesitter"
     "nvim-treesitter/nvim-treesitter",
-    -- ---@return TSConfig
-    -- opts = {
-    --     -- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#supported-languages
-    --     ensure_installed = "all",
-    --     autopairs = {
-    --         enable = true,
-    --     },
-    --     highlight = {
-    --         enable = true,
-    --     },
-    --     indent = {
-    --         enable = true,
-    --     },
-    -- },
-    -- main = "nvim-treesitter.configs",
-    -- build = ":TSUpdate",
     opts = function(self)
         -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main#highlighting
         vim.api.nvim_create_autocmd("FileType", {
@@ -36,7 +20,13 @@ return {
         ---@type TSConfig
         return {}
     end,
-    build = ":TSUpdate",
+    build = function(self)
+        ---@module "nvim-treesitter"
+        local main = require(require("lazy.core.loader").get_main(self))
+
+        main.install("all"):wait()
+        main.update():wait()
+    end,
     branch = "main",
     lazy = false,
 }

@@ -51,6 +51,7 @@ M.table = {
                 end
             end
         end
+
         return result
     end,
 }
