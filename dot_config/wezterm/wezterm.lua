@@ -15,7 +15,7 @@ config.font = wezterm.font_with_fallback({
     "JetBrainsMono Nerd Font",
     "ヒラギノ丸ゴ ProN",
 })
-config.font_size = 14
+config.font_size = 18
 config.front_end = "OpenGL"
 config.max_fps = 120
 config.show_close_tab_button_in_tabs = false ---@diagnostic disable-line: inject-field
