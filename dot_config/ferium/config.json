@@ -1,144 +1,144 @@
 {
-    "profiles": [
+  "profiles": [
+    {
+      "name": "Fabric 1.21.8",
+      "output_dir": "/Users/k0ch4nx/Library/Application Support/minecraft/profiles/Fabric 1.21.8/mods",
+      "game_version": "1.21.8",
+      "mod_loader": "Fabric",
+      "mods": [
         {
-            "name": "Fabric 1.21.7",
-            "output_dir": "/Users/k0ch4nx/Library/Application Support/minecraft/profiles/Fabric 1.21.7/mods",
-            "game_version": "1.21.7",
-            "mod_loader": "Fabric",
-            "mods": [
-                {
-                    "name": "MacOS Input Fixes",
-                    "identifier": {
-                        "ModrinthProject": "x9BrsVME"
-                    }
-                },
-                {
-                    "name": "AppleSkin",
-                    "identifier": {
-                        "ModrinthProject": "EsAfCjCV"
-                    }
-                },
-                {
-                    "name": "Better Controls",
-                    "identifier": {
-                        "ModrinthProject": "ANpj0aBF"
-                    }
-                },
-                {
-                    "name": "Bobby",
-                    "identifier": {
-                        "ModrinthProject": "M08ruV16"
-                    }
-                },
-                {
-                    "name": "Chunky",
-                    "identifier": {
-                        "ModrinthProject": "fALzjamp"
-                    }
-                },
-                {
-                    "name": "Concurrent Chunk Management Engine (Fabric)",
-                    "identifier": {
-                        "ModrinthProject": "VSNURh3q"
-                    }
-                },
-                {
-                    "name": "Ctrl Q",
-                    "identifier": {
-                        "ModrinthProject": "Dxv5rpnB"
-                    }
-                },
-                {
-                    "name": "Fabric API",
-                    "identifier": {
-                        "ModrinthProject": "P7dR8mSH"
-                    }
-                },
-                {
-                    "name": "Fabric Language Kotlin",
-                    "identifier": {
-                        "ModrinthProject": "Ha28R6CL"
-                    }
-                },
-                {
-                    "name": "Iris Shaders",
-                    "identifier": {
-                        "ModrinthProject": "YL57xq9U"
-                    }
-                },
-                {
-                    "name": "LambDynamicLights",
-                    "identifier": {
-                        "ModrinthProject": "yBW8D80W"
-                    }
-                },
-                {
-                    "name": "Litematica",
-                    "identifier": {
-                        "ModrinthProject": "bEpr0Arc"
-                    }
-                },
-                {
-                    "name": "MaLiLib",
-                    "identifier": {
-                        "ModrinthProject": "GcWjdA9I"
-                    }
-                },
-                {
-                    "name": "MiniHUD",
-                    "identifier": {
-                        "ModrinthProject": "UMxybHE8"
-                    }
-                },
-                {
-                    "name": "Mod Menu",
-                    "identifier": {
-                        "ModrinthProject": "mOgUt4GM"
-                    }
-                },
-                {
-                    "name": "Reese's Sodium Options",
-                    "identifier": {
-                        "ModrinthProject": "Bh37bMuy"
-                    }
-                },
-                {
-                    "name": "ReplayMod",
-                    "identifier": {
-                        "ModrinthProject": "Nv2fQJo5"
-                    }
-                },
-                {
-                    "name": "Sodium",
-                    "identifier": {
-                        "ModrinthProject": "AANobbMI"
-                    }
-                },
-                {
-                    "name": "Sodium Extra",
-                    "identifier": {
-                        "ModrinthProject": "PtjYWJkn"
-                    }
-                },
-                {
-                    "name": "Status Effect Bars",
-                    "identifier": {
-                        "ModrinthProject": "x02cBj9Y"
-                    }
-                },
-                {
-                    "name": "YetAnotherConfigLib",
-                    "identifier": {
-                        "ModrinthProject": "1eAoo2KR"
-                    }
-                },
-                {
-                    "name": "Zoomify",
-                    "identifier": {
-                        "ModrinthProject": "w7ThoJFB"
-                    }
-                }
-            ]
+          "name": "AppleSkin",
+          "identifier": {
+            "ModrinthProject": "EsAfCjCV"
+          }
+        },
+        {
+          "name": "Better Controls",
+          "identifier": {
+            "ModrinthProject": "ANpj0aBF"
+          }
+        },
+        {
+          "name": "Bobby",
+          "identifier": {
+            "ModrinthProject": "M08ruV16"
+          }
+        },
+        {
+          "name": "Chunky",
+          "identifier": {
+            "ModrinthProject": "fALzjamp"
+          }
+        },
+        {
+          "name": "Concurrent Chunk Management Engine (Fabric)",
+          "identifier": {
+            "ModrinthProject": "VSNURh3q"
+          }
+        },
+        {
+          "name": "Ctrl Q",
+          "identifier": {
+            "ModrinthProject": "Dxv5rpnB"
+          }
+        },
+        {
+          "name": "Fabric API",
+          "identifier": {
+            "ModrinthProject": "P7dR8mSH"
+          }
+        },
+        {
+          "name": "Fabric Language Kotlin",
+          "identifier": {
+            "ModrinthProject": "Ha28R6CL"
+          }
+        },
+        {
+          "name": "Iris Shaders",
+          "identifier": {
+            "ModrinthProject": "YL57xq9U"
+          }
+        },
+        {
+          "name": "LambDynamicLights",
+          "identifier": {
+            "ModrinthProject": "yBW8D80W"
+          }
+        },
+        {
+          "name": "Litematica",
+          "identifier": {
+            "ModrinthProject": "bEpr0Arc"
+          }
+        },
+        {
+          "name": "MacOS Input Fixes",
+          "identifier": {
+            "ModrinthProject": "x9BrsVME"
+          }
+        },
+        {
+          "name": "MaLiLib",
+          "identifier": {
+            "ModrinthProject": "GcWjdA9I"
+          }
+        },
+        {
+          "name": "MiniHUD",
+          "identifier": {
+            "ModrinthProject": "UMxybHE8"
+          }
+        },
+        {
+          "name": "Mod Menu",
+          "identifier": {
+            "ModrinthProject": "mOgUt4GM"
+          }
+        },
+        {
+          "name": "Reese's Sodium Options",
+          "identifier": {
+            "ModrinthProject": "Bh37bMuy"
+          }
+        },
+        {
+          "name": "ReplayMod",
+          "identifier": {
+            "ModrinthProject": "Nv2fQJo5"
+          }
+        },
+        {
+          "name": "Sodium",
+          "identifier": {
+            "ModrinthProject": "AANobbMI"
+          }
+        },
+        {
+          "name": "Sodium Extra",
+          "identifier": {
+            "ModrinthProject": "PtjYWJkn"
+          }
+        },
+        {
+          "name": "Status Effect Bars",
+          "identifier": {
+            "ModrinthProject": "x02cBj9Y"
+          }
+        },
+        {
+          "name": "YetAnotherConfigLib",
+          "identifier": {
+            "ModrinthProject": "1eAoo2KR"
+          }
+        },
+        {
+          "name": "Zoomify",
+          "identifier": {
+            "ModrinthProject": "w7ThoJFB"
+          }
         }
-    ]
+      ]
+    }
+  ]
 }
