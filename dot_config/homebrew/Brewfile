@@ -13,6 +13,7 @@ brew "bottom" # Yet another cross-platform graphical process/system monitor
 brew "chezmoi" # Manage your dotfiles across multiple diverse machines, securely
 brew "cloudflared" # Cloudflare Tunnel client (formerly Argo Tunnel)
 brew "cmake" # Cross-platform make
+brew "codex" # OpenAI's coding agent that runs in your terminal
 brew "commitizen" # Defines a standard way of committing rules and communicating it
 brew "delta" # Syntax-highlighting pager for git and diff output
 brew "eza" # Modern, maintained replacement for ls
@@ -51,6 +52,7 @@ brew "thefuck" # Programmatically correct mistyped console commands
 brew "tokei" # Program that allows you to count code, quickly
 brew "topgrade" # Upgrade all the things
 brew "translate-shell" # Command-line translator using Google Translate and more
+brew "tree-sitter-cli" # Parser generator tool
 brew "xz" # General-purpose data compression with high compression ratio
 brew "yt-dlp" # Feature-rich command-line audio/video downloader
 brew "zig" # Programming language designed for robustness, optimality, and clarity
@@ -61,20 +63,23 @@ brew "zsh-syntax-highlighting" # Fish shell like syntax highlighting for zsh
 brew "zsh-vi-mode" # Better and friendly vi(vim) mode plugin for ZSH
 
 cask "adguard" # Stand alone ad blocker
-cask "appflowy" # Open-source project and knowledge management tool
+cask "apparency" # Inspect application bundles
 cask "betterdisplay" # Display management tool
 cask "blender" # 3D creation suite
 cask "chatgpt" # OpenAI's official ChatGPT desktop app
+cask "discord" # Voice and text chat software
 cask "docker-desktop" # App to build and share containerised applications and microservices
 cask "epic-games" # Launcher for *Epic Games* games
 cask "font-cascadia-code-nf"
 cask "font-jetbrains-mono-nerd-font"
 cask "gcloud-cli" # Set of tools to manage resources and applications hosted on Google Cloud
 cask "ghidra" # Software reverse engineering (SRE) suite of tools
+cask "gog-galaxy" # Game client
 cask "google-drive" # Client for the Google Drive storage service
 cask "heroic" # Game launcher
 cask "iina" # Free and open-source media player
 cask "intellij-idea-ce" # IDE for Java development - community edition
+cask "kindavim" # Use Vim in input fields and non input fields
 cask "mac-mouse-fix" # Mouse utility to add gesture functions and smooth scrolling to 3rd party mice
 cask "minecraft" # Sandbox construction video game
 cask "obs" # Open-source software for live streaming and screen recording
