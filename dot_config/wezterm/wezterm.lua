@@ -25,6 +25,9 @@ config.tab_max_width = 32
 config.use_fancy_tab_bar = false
 config.window_decorations = "RESIZE"
 config.inactive_pane_hsb = { brightness = 1.0, hue = 1.0, saturation = 1.0 }
+config.command_palette_font_size = config.font_size
+config.command_palette_bg_color = wezterm.color.get_builtin_schemes()[config.color_scheme].ansi[1]
+config.command_palette_fg_color = wezterm.color.get_builtin_schemes()[config.color_scheme].foreground
 
 config.keys = {
     {
