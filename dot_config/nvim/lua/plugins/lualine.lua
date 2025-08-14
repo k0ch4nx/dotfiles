@@ -6,7 +6,6 @@ return {
     ---@module "lualine"
     "nvim-lualine/lualine.nvim",
     dependencies = {
-        "AndreM222/copilot-lualine",
         "nvimtools/none-ls.nvim",
         "rebelot/kanagawa.nvim",
 
@@ -90,7 +89,6 @@ return {
                     {
                         lsp,
                     },
-                    "copilot",
                     "encoding",
                     { -- https://github.com/nvim-lualine/lualine.nvim/wiki/Component-snippets#display-eol-fileformat-as-crlf
                         "fileformat",

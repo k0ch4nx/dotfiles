@@ -7,7 +7,7 @@ return {
         ---@module "blink"
         "saghen/blink.cmp",
         dependencies = {
-            "giuxtaposition/blink-cmp-copilot",
+            "Exafunction/windsurf.nvim",
             "folke/lazydev.nvim",
         },
         ---@type blink.cmp.Config
@@ -81,24 +81,14 @@ return {
                     "path",
                     "snippets",
                     "buffer",
-                    "copilot",
+                    "codeium",
                     "lazydev",
                 },
                 providers = {
-                    copilot = {
-                        name = "copilot",
-                        module = "blink-cmp-copilot",
-                        score_offset = 100,
+                    codeium = {
+                        name = "Codeium",
+                        module = "codeium.blink",
                         async = true,
-                        transform_items = function(_, items)
-                            local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-                            local kind_idx = #CompletionItemKind + 1
-                            CompletionItemKind[kind_idx] = "Copilot"
-                            for _, item in ipairs(items) do
-                                item.kind = kind_idx
-                            end
-                            return items
-                        end,
                     },
                     lazydev = {
                         name = "LazyDev",
@@ -120,9 +110,6 @@ return {
             appearance = {
                 use_nvim_cmp_as_default = true,
                 nerd_font_variant = "normal",
-                kind_icons = {
-                    Copilot = util.nerd_fonts.nf_oct_copilot,
-                },
             },
         },
         build = "cargo build --release",
