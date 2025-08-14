@@ -11,7 +11,6 @@ require("lazy").setup(
             ---@param self LazyPlugin
             cond = function(self)
                 local disabled_plugins = {
-                    "CopilotChat.nvim",
                     "actions-preview.nvim",
                     "hardtime.nvim",
                     "neo-tree.nvim",

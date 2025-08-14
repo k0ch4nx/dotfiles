@@ -20,7 +20,6 @@ M.nerd_fonts = {
     nf_fa_times_circle = "",
     nf_md_close_circle_outline = "󰅚",
     nf_md_lightbulb_outline = "󰌶",
-    nf_oct_copilot = "",
     nf_ple_lower_left_triangle = "",
     nf_ple_lower_right_triangle = "",
     nf_ple_upper_left_triangle = "",
@@ -31,7 +30,7 @@ M.conditions = {
     is_linux = vim.fn.has("linux") == 1,
     is_mac = vim.fn.has("mac") == 1,
     is_windows = vim.fn.has("win32") == 1,
-    is_headless = #vim.api.nvim_list_uis() == 0
+    is_headless = #vim.api.nvim_list_uis() == 0,
 }
 
 M.math = {
