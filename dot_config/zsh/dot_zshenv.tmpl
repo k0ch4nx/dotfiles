@@ -1,12 +1,20 @@
 . "$HOME/.cargo/env"
 
 export EDITOR="nvim"
-export VISUAL=${EDITOR}
+export VISUAL="${EDITOR}"
 
 export CF_API_KEY="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_KEY.age" | include | decrypt | trim }}"
 export CF_API_EMAIL="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_EMAIL.age" | include | decrypt | trim }}"
 
 export FZF_DEFAULT_OPTS_FILE="${XDG_CONFIG_HOME}/fzf/fzfrc"
+
+export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
+export GOPATH="${XDG_DATA_HOME}/go"
+export LESSHISTFILE="${XDG_STATE_HOME}/less/lesshst"
+export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
+export NPM_CONFIG_PREFIX="${HOME}/.local"
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
+export PYTHONHISTFILE="${XDG_STATE_HOME}/python/python_history"
 
 function eza() {
     local opts=(
