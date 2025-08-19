@@ -1,10 +1,8 @@
-local util = require("util")
-
 ---@module "lazy"
 ---@type LazySpec
 return {
     {
-        ---@module "blink"
+        ---@module "blink.cmp"
         "saghen/blink.cmp",
         dependencies = {
             "Exafunction/windsurf.nvim",
@@ -87,6 +85,9 @@ return {
                 providers = {
                     codeium = {
                         name = "Codeium",
+                        enabled = function()
+                            return vim.bo.filetype ~= "snacks_input"
+                        end,
                         module = "codeium.blink",
                         async = true,
                     },
