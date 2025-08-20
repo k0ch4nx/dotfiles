@@ -23,7 +23,7 @@ return {
                     relative = "editor",
                     row = 0,
                     col = vim.o.columns,
-                    width = state.message.width,
+                    width = state.message.width + 2,
                     height = state.message.height,
                     style = "minimal",
                 }
