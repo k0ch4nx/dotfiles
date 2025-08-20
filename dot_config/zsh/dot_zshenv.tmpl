@@ -49,3 +49,24 @@ function eza() {
 
     command eza "${opts[@]}" "$@"
 }
+
+function ghqf {
+    local eza_opts=(
+        "--long"
+        "--color=always"
+        "--color-scale=age"
+        "--color-scale-mode=gradient"
+        "--icons=auto"
+        "--all"
+        "--group-directories-first"
+        "--git"
+        "--no-permissions"
+        "--no-filesize"
+        "--no-user"
+        "--no-time"
+    )
+
+    local preview_cmd="\$(brew --prefix)/bin/eza \$(ghq root)/{} ${eza_opts[@]}"
+
+    cd "$(ghq root)/$(ghq list | fzf --preview "${preview_cmd}")"
+}
