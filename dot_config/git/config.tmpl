@@ -1,7 +1,7 @@
-[user]
-    email = flutist.sud.0v@icloud.com
-    name = k0ch4nx
-    signingKey = ~/.ssh/id_rsa.pub
+[color]
+    ui = auto
+[commit]
+    gpgsign = true
 [core]
     autocrlf = false
     editor = nvim
@@ -9,10 +9,6 @@
     pager = delta
     quotepath = false
     safecrlf = true
-[color]
-    ui = auto
-[commit]
-    gpgsign = true
 [delta]
     navigate = true
 [ghq]
@@ -21,9 +17,15 @@
     format = ssh
 [gpg "ssh"]
     allowedSignersFile = ~/.ssh/allowed_signers
+[init]
+    defaultBranch = main
 [merge]
     conflictstyle = zdiff3
 [rebase]
     autoStash = true
 [tag]
     gpgSign = true
+[user]
+    email = {{ joinPath .chezmoi.sourceDir "dot_config" "git" "email.age" | include | decrypt | trim }}
+    name = k0ch4nx
+    signingKey = ~/.ssh/id_rsa.pub
