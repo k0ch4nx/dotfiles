@@ -15,7 +15,6 @@ brew "cloudflared" # Cloudflare Tunnel client (formerly Argo Tunnel)
 brew "cmake" # Cross-platform make
 brew "codex" # OpenAI's coding agent that runs in your terminal
 brew "commitizen" # Defines a standard way of committing rules and communicating it
-brew "delta" # Syntax-highlighting pager for git and diff output
 brew "eza" # Modern, maintained replacement for ls
 brew "fabric-installer" # Installer for Fabric for the vanilla launcher
 brew "fastfetch" # Like neofetch, but much faster because written mostly in C
@@ -26,11 +25,11 @@ brew "ferium" # Fast and multi-source CLI program for managing Minecraft mods an
 brew "ffmpeg" # Play, record, convert, and stream audio and video
 brew "flarectl" # CLI application for interacting with a Cloudflare account
 brew "fzf" # Command-line fuzzy finder written in Go
-brew "fzf-tab" # Replace Zsh's default completion selection menu with fzf
 brew "gh" # GitHub command-line tool
 brew "ghq" # Remote repository management made easy
 brew "git" # Distributed revision control system
 brew "git-cliff" # Highly customizable changelog generator
+brew "git-delta" # Syntax-highlighting pager for git and diff output
 brew "git-lfs" # Git extension for versioning large files
 brew "gnupg" # GNU Pretty Good Privacy (PGP) package
 brew "gradle" # Open-source build automation tool based on the Groovy and Kotlin DSL
@@ -40,12 +39,13 @@ brew "imagemagick" # Tools and libraries to manipulate images in many formats
 brew "jandedobbeleer/oh-my-posh/oh-my-posh" # Prompt theme engine for any shell
 brew "koekeishiya/formulae/skhd" # Simple hotkey-daemon for macOS.
 brew "koekeishiya/formulae/yabai" # A tiling window manager for macOS based on binary space partitioning.
+brew "kortin99/tap/fzf-tab" # Replace Zsh's default completion selection menu with fzf
 brew "lazygit" # Simple terminal UI for git commands
+brew "librsvg" # Library to render SVG files using Cairo
 brew "lua" # Powerful, lightweight programming language
 brew "mas" # Mac App Store command-line interface
 brew "mise" # Polyglot runtime manager (asdf rust clone)
 brew "neovim" # Ambitious Vim-fork focused on extensibility and agility
-brew "ollama" # Create, run, and share large language models (LLMs)
 brew "oxker" # Terminal User Interface (TUI) to view & control docker containers
 brew "pkgconf" # Package compiler and linker metadata toolkit
 brew "rage" # Simple, modern, secure file encryption
@@ -77,7 +77,6 @@ cask "gcloud-cli" # Set of tools to manage resources and applications hosted on 
 cask "ghidra" # Software reverse engineering (SRE) suite of tools
 cask "gog-galaxy" # Game client
 cask "google-drive" # Client for the Google Drive storage service
-cask "heroic" # Game launcher
 cask "iina" # Free and open-source media player
 cask "intellij-idea-ce" # IDE for Java development - community edition
 cask "kindavim" # Use Vim in input fields and non input fields
@@ -86,9 +85,13 @@ cask "minecraft" # Sandbox construction video game
 cask "obs" # Open-source software for live streaming and screen recording
 cask "obsidian" # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "onedrive" # Cloud storage client
-cask "safari-technology-preview" # Web browser
+cask "prefs-editor" # Graphical user interface for the 'defaults' command
+cask "realforce" # Software for Realforce keyboards and mice
 cask "steam" # Video game digital distribution service
 cask "unity-hub" # Management tool for Unity
 cask "visual-studio-code" # Open-source code editor
 cask "wezterm@nightly" # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "zoom" # Video communication and virtual meeting platform
+
+mas "LINE", id: 539883307
+mas "uBlock Origin Lite", id: 6745342698
