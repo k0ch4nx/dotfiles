@@ -42,6 +42,7 @@ brew "koekeishiya/formulae/skhd" # Simple hotkey-daemon for macOS.
 brew "koekeishiya/formulae/yabai" # A tiling window manager for macOS based on binary space partitioning.
 brew "lazygit" # Simple terminal UI for git commands
 brew "lua" # Powerful, lightweight programming language
+brew "mas" # Mac App Store command-line interface
 brew "mise" # Polyglot runtime manager (asdf rust clone)
 brew "neovim" # Ambitious Vim-fork focused on extensibility and agility
 brew "ollama" # Create, run, and share large language models (LLMs)

@@ -33,6 +33,7 @@ source "$(brew --prefix)/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
 # https://github.com/Homebrew/homebrew-cask/issues/143596#issuecomment-1502165025
 source "$(brew --prefix)/share/zsh/site-functions/_google_cloud_sdk"
+# source <(mas --generate-completion-script zsh)
 source <(rustup completions zsh rustup)
 
 # https://github.com/jeffreytse/zsh-vi-mode/issues/242#issuecomment-1721033298
