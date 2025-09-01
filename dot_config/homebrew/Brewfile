@@ -6,6 +6,7 @@ tap "jandedobbeleer/oh-my-posh"
 tap "koekeishiya/formulae"
 tap "kortin99/tap"
 
+brew "age-plugin-yubikey" # Plugin for encrypting files with age and PIV tokens such as YubiKeys
 brew "asciinema" # Record and share terminal sessions
 brew "bat" # Clone of cat(1) with syntax highlighting and Git integration
 brew "bazelisk" # User-friendly launcher for Bazel
@@ -56,6 +57,7 @@ brew "topgrade" # Upgrade all the things
 brew "translate-shell" # Command-line translator using Google Translate and more
 brew "tree-sitter-cli" # Parser generator tool
 brew "xz" # General-purpose data compression with high compression ratio
+brew "ykman" # Tool for managing your YubiKey configuration
 brew "yt-dlp" # Feature-rich command-line audio/video downloader
 brew "zig" # Programming language designed for robustness, optimality, and clarity
 brew "zsh-autosuggestions" # Fish-like fast/unobtrusive autosuggestions for zsh
