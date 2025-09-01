@@ -5,6 +5,7 @@ only = [
   # "chezmoi",
   "custom_commands",
   "github_cli_extensions",
+  "mas",
   "mise",
   "rustup",
   "system",
