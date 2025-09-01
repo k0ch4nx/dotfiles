@@ -29,3 +29,8 @@
     email = {{ joinPath .chezmoi.sourceDir "dot_config" "git" "email.age" | include | decrypt | trim }}
     name = k0ch4nx
     signingKey = ~/.ssh/id_rsa.pub
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
