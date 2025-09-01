@@ -14,8 +14,10 @@ return {
             ensure_installed = {
                 "buildifier",
                 "hadolint",
+                "shellcheck",
                 "shfmt",
                 "yamlfmt",
+                "yamllint",
             },
             handlers = {
                 function(source_name, methods)
