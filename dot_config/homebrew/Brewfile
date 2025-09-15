@@ -46,6 +46,7 @@ brew "librsvg" # Library to render SVG files using Cairo
 brew "lua" # Powerful, lightweight programming language
 brew "mas" # Mac App Store command-line interface
 brew "mise" # Polyglot runtime manager (asdf rust clone)
+brew "mpv" # Media player based on MPlayer and mplayer2
 brew "neovim" # Ambitious Vim-fork focused on extensibility and agility
 brew "oxker" # Terminal User Interface (TUI) to view & control docker containers
 brew "pkgconf" # Package compiler and linker metadata toolkit
@@ -87,6 +88,7 @@ cask "minecraft" # Sandbox construction video game
 cask "obs" # Open-source software for live streaming and screen recording
 cask "obsidian" # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "onedrive" # Cloud storage client
+cask "parallels" # Desktop virtualization software
 cask "prefs-editor" # Graphical user interface for the 'defaults' command
 cask "realforce" # Software for Realforce keyboards and mice
 cask "steam" # Video game digital distribution service
