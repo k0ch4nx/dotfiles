@@ -97,5 +97,7 @@ cask "visual-studio-code" # Open-source code editor
 cask "wezterm@nightly" # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "zoom" # Video communication and virtual meeting platform
 
+mas "Keepa - Price Tracker", id: 1533805339
 mas "LINE", id: 539883307
+mas "Wayback Machine", id: 1472432422
 mas "uBlock Origin Lite", id: 6745342698
