@@ -41,7 +41,7 @@ yabai -m config                                   \
 # https://github.com/koekeishiya/yabai/issues/719#issuecomment-2038328430
 focus_action='yabai -m window --focus $(yabai -m query --windows --space | jq -r '\''[.[]|select(."is-visible")][0].id'\'')'
 
-for event in space_changed window_destroyed application_terminated; do
+for event in space_changed window_destroyed window_minimized application_terminated; do
     yabai -m signal --add event=$event action="$focus_action"
 done
 
