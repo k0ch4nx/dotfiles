@@ -14,7 +14,9 @@ export LESSHISTFILE="${XDG_STATE_HOME}/less/lesshst"
 export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
 export NPM_CONFIG_PREFIX="${HOME}/.local"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
-export PYTHONHISTFILE="${XDG_STATE_HOME}/python/python_history"
+
+export PYTHONPYCACHEPREFIX="${XDG_CACHE_HOME}/python/__pycache__"
+export PYTHON_HISTORY="${XDG_DATA_HOME}/python/.python_history"
 
 function eza() {
     local opts=(
