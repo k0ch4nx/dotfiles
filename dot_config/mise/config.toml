@@ -9,3 +9,7 @@ run = [
   "sudo dot_clean -ms /",
   "sudo fd --type=file --hidden --no-ignore \".DS_Store\" / --exec rm -f {}",
 ]
+
+[tasks.restart-network]
+confirm = ""
+run = ["sudo ifconfig en0 down", "sudo ifconfig en0 up"]
