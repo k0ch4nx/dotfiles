@@ -26,6 +26,7 @@ brew "ferium" # Fast and multi-source CLI program for managing Minecraft mods an
 brew "ffmpeg" # Play, record, convert, and stream audio and video
 brew "flarectl" # CLI application for interacting with a Cloudflare account
 brew "fzf" # Command-line fuzzy finder written in Go
+brew "gamdl" # Python CLI app for downloading Apple Music songs, music videos and post videos
 brew "gh" # GitHub command-line tool
 brew "ghq" # Remote repository management made easy
 brew "git" # Distributed revision control system
@@ -54,7 +55,7 @@ brew "rage" # Simple, modern, secure file encryption
 brew "ripgrep" # Search tool like grep and The Silver Searcher
 brew "thefuck" # Programmatically correct mistyped console commands
 brew "tokei" # Program that allows you to count code, quickly
-brew "topgrade" # Upgrade all the things
+brew "topgrade", args: ["HEAD"] # Upgrade all the things
 brew "translate-shell" # Command-line translator using Google Translate and more
 brew "tree-sitter-cli" # Parser generator tool
 brew "xz" # General-purpose data compression with high compression ratio
@@ -69,6 +70,7 @@ brew "zsh-vi-mode" # Better and friendly vi(vim) mode plugin for ZSH
 
 cask "apparency" # Inspect application bundles
 cask "betterdisplay" # Display management tool
+cask "bettermouse" # Utility improving 3rd party mouse performance and functionalities
 cask "blender" # 3D creation suite
 cask "chatgpt" # OpenAI's official ChatGPT desktop app
 cask "discord" # Voice and text chat software
@@ -83,8 +85,8 @@ cask "google-drive" # Client for the Google Drive storage service
 cask "iina" # Free and open-source media player
 cask "intellij-idea-ce" # IDE for Java development - community edition
 cask "kindavim" # Use Vim in input fields and non input fields
-cask "mac-mouse-fix" # Mouse utility to add gesture functions and smooth scrolling to 3rd party mice
 cask "minecraft" # Sandbox construction video game
+cask "moonlight" # GameStream client
 cask "obs" # Open-source software for live streaming and screen recording
 cask "obsidian" # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "onedrive" # Cloud storage client
