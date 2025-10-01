@@ -52,6 +52,10 @@ function eza() {
     command eza "${opts[@]}" "$@"
 }
 
+function gamdl {
+    command gamdl --config-path "${XDG_CONFIG_HOME}/gamdl/config.ini" "$@"
+}
+
 function ghqf {
     local eza_opts=(
         "--long"
