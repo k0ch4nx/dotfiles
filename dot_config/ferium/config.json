@@ -37,12 +37,6 @@
           }
         },
         {
-          "name": "Ctrl Q",
-          "identifier": {
-            "ModrinthProject": "Dxv5rpnB"
-          }
-        },
-        {
           "name": "Fabric API",
           "identifier": {
             "ModrinthProject": "P7dR8mSH"
@@ -58,6 +52,12 @@
           "name": "Iris Shaders",
           "identifier": {
             "ModrinthProject": "YL57xq9U"
+          }
+        },
+        {
+          "name": "Key Overlay",
+          "identifier": {
+            "ModrinthProject": "Upv1bw1P"
           }
         },
         {
