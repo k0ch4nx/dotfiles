@@ -13,3 +13,7 @@ run = [
 [tasks.restart-network]
 confirm = ""
 run = ["sudo ifconfig en0 down", "sudo ifconfig en0 up"]
+
+[tasks.restart-audio]
+confirm = ""
+run = ["sudo killall coreaudiod"]
