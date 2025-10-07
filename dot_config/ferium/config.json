@@ -1,9 +1,9 @@
 {
   "profiles": [
     {
-      "name": "Fabric 1.21.8",
-      "output_dir": "/Users/k0ch4nx/Library/Application Support/minecraft/profiles/Fabric 1.21.8/mods",
-      "game_version": "1.21.8",
+      "name": "Fabric 1.21.9",
+      "output_dir": "/Users/k0ch4nx/Library/Application Support/minecraft/profiles/Fabric 1.21.9/mods",
+      "game_version": "1.21.9",
       "mod_loader": "Fabric",
       "mods": [
         {
