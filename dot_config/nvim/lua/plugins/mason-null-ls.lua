@@ -16,6 +16,7 @@ return {
                 "hadolint",
                 "shellcheck",
                 "shfmt",
+                "terraform",
                 "yamlfmt",
                 "yamllint",
             },
