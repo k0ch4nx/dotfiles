@@ -91,7 +91,7 @@
                         "folder_icon": "\uf07b",
                         "folder_separator_template": "<#93d0ff> » </>",
                         "home_icon": "\ueb06",
-                        "style": "agnoster"
+                        "style": "full"
                     },
                     "template": "<p:white>\u2514</><#93d0ff>[</> {{.Path}} <#93d0ff>]</>",
                     "foreground": "p:white",
