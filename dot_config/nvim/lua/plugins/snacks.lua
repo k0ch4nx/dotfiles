@@ -92,6 +92,23 @@ return {
                         },
                     },
                 },
+                win = {
+                    input = {
+                        keys = {
+                            ["<S-Tab>"] = { "<nop>", mode = { "i", "n" } },
+                            ["<Tab>"] = { "select", mode = { "i", "n" } },
+                        },
+                    },
+                    list = {
+                        keys = {
+                            ["<S-Tab>"] = { "<nop>", mode = { "i", "n" } },
+                            ["<Tab>"] = { "select", mode = { "i", "n" } },
+                        },
+                    },
+                },
+                actions = {
+                    select = function(self) self.list:select() end,
+                },
             },
         }
     end,
