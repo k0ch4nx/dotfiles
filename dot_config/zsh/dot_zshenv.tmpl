@@ -6,6 +6,8 @@ export VISUAL="${EDITOR}"
 export CF_API_KEY="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_KEY.age" | include | decrypt | trim }}"
 export CF_API_EMAIL="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_EMAIL.age" | include | decrypt | trim }}"
 
+export CODEX_HOME="${XDG_DATA_HOME}/codex"
+
 export FZF_DEFAULT_OPTS_FILE="${XDG_CONFIG_HOME}/fzf/fzfrc"
 
 export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
@@ -15,8 +17,12 @@ export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
 export NPM_CONFIG_PREFIX="${HOME}/.local"
 export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
 
+export GHQ_ROOT="${HOME}/Developer"
+
 export PYTHONPYCACHEPREFIX="${XDG_CACHE_HOME}/python/__pycache__"
 export PYTHON_HISTORY="${XDG_DATA_HOME}/python/.python_history"
+
+export TF_CLI_CONFIG_FILE="${XDG_CONFIG_HOME}/terraform/terraform.tfrc"
 
 function eza() {
     local opts=(

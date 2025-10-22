@@ -21,6 +21,11 @@ if type brew &>/dev/null; then
     autoload -Uz compinit
     # https://zsh.sourceforge.io/Doc/Release/Completion-System.html#Use-of-compinit
     compinit -d "${XDG_CACHE_HOME}/zsh/.zcompdump"
+
+    autoload -U +X bashcompinit
+    bashcompinit
+
+    complete -o nospace -C "$(brew --prefix)/bin/terraform" terraform
 fi
 
 # https://github.com/Aloxaf/fzf-tab?tab=readme-ov-file#install
