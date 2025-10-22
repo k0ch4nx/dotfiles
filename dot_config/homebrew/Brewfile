@@ -41,9 +41,10 @@ brew "imagemagick" # Tools and libraries to manipulate images in many formats
 brew "jandedobbeleer/oh-my-posh/oh-my-posh" # Prompt theme engine for any shell
 brew "koekeishiya/formulae/skhd" # Simple hotkey-daemon for macOS.
 brew "koekeishiya/formulae/yabai" # A tiling window manager for macOS based on binary space partitioning.
-brew "kortin99/tap/fzf-tab" # Replace Zsh's default completion selection menu with fzf
+brew "kortin99/tap/fzf-tab", args: ["ignore-dependencies"] # Replace Zsh's default completion selection menu with fzf
 brew "lazygit" # Simple terminal UI for git commands
 brew "librsvg" # Library to render SVG files using Cairo
+brew "lizard-analyzer" # Extensible Cyclomatic Complexity Analyzer
 brew "lua" # Powerful, lightweight programming language
 brew "mas" # Mac App Store command-line interface
 brew "mise" # Polyglot runtime manager (asdf rust clone)
@@ -65,7 +66,6 @@ brew "zig" # Programming language designed for robustness, optimality, and clari
 brew "zsh-autosuggestions" # Fish-like fast/unobtrusive autosuggestions for zsh
 brew "zsh-fast-syntax-highlighting" # Feature-rich syntax highlighting for Zsh
 brew "zsh-history-substring-search" # Zsh port of Fish shell's history search
-brew "zsh-syntax-highlighting" # Fish shell like syntax highlighting for zsh
 brew "zsh-vi-mode" # Better and friendly vi(vim) mode plugin for ZSH
 
 cask "apparency" # Inspect application bundles
@@ -87,6 +87,7 @@ cask "intellij-idea-ce" # IDE for Java development - community edition
 cask "kindavim" # Use Vim in input fields and non input fields
 cask "minecraft" # Sandbox construction video game
 cask "moonlight" # GameStream client
+cask "nvidia-geforce-now" # Cloud gaming platform
 cask "obs" # Open-source software for live streaming and screen recording
 cask "obsidian" # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "onedrive" # Cloud storage client
