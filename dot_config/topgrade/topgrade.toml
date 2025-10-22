@@ -1,4 +1,5 @@
 [misc]
+no_retry = true
 only = [
   "brew_cask",
   "brew_formula",
@@ -13,12 +14,19 @@ only = [
 ]
 
 [commands]
+"HomeBrew - uninstall build dependencies" = '''
+leaves=(`brew leaves --installed-as-dependency | xargs`)
+for pkg in "${leaves[@]}"; do
+    brew uninstall "$pkg"
+done
+'''
 "Neovim - lazy.nvim" = 'nvim --headless -c "Lazy! sync" -c "qa"'
 "Neovim - Treesitter" = '''
 nvim --headless -c "lua require(\"nvim-treesitter\").install(\"all\"):wait()" -c "qa"
 nvim --headless -c "lua require(\"nvim-treesitter\").update():wait()" -c "qa"
 '''
 "Neovim - Mason" = 'nvim --headless -c "MasonInstallAll" -c "MasonLock" -c "qa"'
+"Ferium - upgrade" = "ferium upgrade"
 
 [brew]
 greedy_cask = true
