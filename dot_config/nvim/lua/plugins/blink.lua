@@ -30,6 +30,9 @@ return {
                 },
             },
             completion = {
+                keyword = {
+                    range = "full",
+                },
                 trigger = {
                     show_on_insert = true,
                 },
