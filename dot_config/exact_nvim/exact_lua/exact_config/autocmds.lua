@@ -25,17 +25,3 @@ vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained", "BufEnter" }, {
     pattern = "*",
     command = "checktime",
 })
-
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
-    pattern = "*",
-    callback = function()
-        if vim.bo.modified then return end
-
-        local filename = vim.api.nvim_buf_get_name(0)
-        if filename == "" then return end
-
-        if vim.fn.getftime(filename) > 0 then
-            vim.cmd("edit")
-        end
-    end,
-})

@@ -251,6 +251,7 @@ return {
         return {
             show_if_buffers_are_at_least = 0,
             buffers = {
+                focus_on_delete = "prev",
                 delete_on_right_click = false,
             },
             rendering = {
