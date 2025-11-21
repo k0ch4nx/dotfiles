@@ -55,4 +55,32 @@ M.table = {
     end,
 }
 
+M.fn = {
+    get_visual_selection = function()
+        local buffer = vim.api.nvim_get_current_buf()
+
+        local vpos = vim.fn.getpos("v")
+        local cpos = vim.fn.getpos(".")
+
+        local start_row, start_col = vpos[2], vpos[3]
+        local end_row, end_col = cpos[2], cpos[3]
+
+        if start_row > end_row or (start_row == end_row and start_col > end_col) then
+            start_row, end_row = end_row, start_row
+            start_col, end_col = end_col, start_col
+        end
+
+        local lines = vim.api.nvim_buf_get_text(
+            buffer,
+            start_row - 1,
+            start_col - 1,
+            end_row - 1,
+            end_col,
+            {}
+        )
+
+        return table.concat(lines, "\n")
+    end,
+}
+
 return M

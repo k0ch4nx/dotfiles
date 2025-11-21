@@ -8,6 +8,7 @@ return {
     ---@type wk.Opts
     opts = {
         win = {
+            no_overlap = false,
             border = util.opt.winborder,
         },
     },
