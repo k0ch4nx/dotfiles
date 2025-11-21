@@ -14,7 +14,7 @@ return {
         "folke/lazydev.nvim",
         dependencies = {
             "Bilal2453/luvit-meta",
-            "gonstoll/wezterm-types",
+            "DrKJeff16/wezterm-types",
         },
         ---@type lazydev.Config
         ---@diagnostic disable-next-line: missing-fields

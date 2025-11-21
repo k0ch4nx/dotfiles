@@ -1,10 +1,11 @@
 ---@module "lazy"
 ---@type LazySpec
 return {
+    ---@module "textcase"
     "johmsalas/text-case.nvim",
-    dependencies = {
-        "nvim-telescope/telescope.nvim",
-    },
+    -- dependencies = {
+    --     "nvim-telescope/telescope.nvim",
+    -- },
     opts = {},
     config = function(self, opts)
         ---@module "textcase"
