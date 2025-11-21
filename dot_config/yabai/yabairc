@@ -1,54 +1,130 @@
 #!/usr/bin/env sh
 
+#  ______   ______         __    __                                              __                    
+# /      | /      \       /  |  /  |                                            /  |                   
+# $$$$$$/ /$$$$$$  |      $$/  _$$ |_          __   __   __   ______    ______  $$ |   __   _______    
+#   $$ |  $$ |_ $$/       /  |/ $$   |        /  | /  | /  | /      \  /      \ $$ |  /  | /       |   
+#   $$ |  $$   |          $$ |$$$$$$/         $$ | $$ | $$ |/$$$$$$  |/$$$$$$  |$$ |_/$$/ /$$$$$$$/    
+#   $$ |  $$$$/           $$ |  $$ | __       $$ | $$ | $$ |$$ |  $$ |$$ |  $$/ $$   $$<  $$      \    
+#  _$$ |_ $$ |            $$ |  $$ |/  |      $$ \_$$ \_$$ |$$ \__$$ |$$ |      $$$$$$  \  $$$$$$  |__ 
+# / $$   |$$ |            $$ |  $$  $$/       $$   $$   $$/ $$    $$/ $$ |      $$ | $$  |/     $$//  |
+# $$$$$$/ $$/             $$/    $$$$/         $$$$$/$$$$/   $$$$$$/  $$/       $$/   $$/ $$$$$$$/ $$/ 
+#                                                                                                  $/  
+#  __    __                                              __                                            
+# /  |  /  |                                            /  |                                           
+# $$/  _$$ |_          __   __   __   ______    ______  $$ |   __   _______                            
+# /  |/ $$   |        /  | /  | /  | /      \  /      \ $$ |  /  | /       |                           
+# $$ |$$$$$$/         $$ | $$ | $$ |/$$$$$$  |/$$$$$$  |$$ |_/$$/ /$$$$$$$/                            
+# $$ |  $$ | __       $$ | $$ | $$ |$$ |  $$ |$$ |  $$/ $$   $$<  $$      \                            
+# $$ |  $$ |/  |      $$ \_$$ \_$$ |$$ \__$$ |$$ |      $$$$$$  \  $$$$$$  |__                         
+# $$ |  $$  $$/       $$   $$   $$/ $$    $$/ $$ |      $$ | $$  |/     $$//  |                        
+# $$/    $$$$/         $$$$$/$$$$/   $$$$$$/  $$/       $$/   $$/ $$$$$$$/ $$/                         
+
 # https://github.com/koekeishiya/yabai/blob/master/examples/yabairc
 # https://www.gnu.org/software/findutils/manual/html_node/find_html/posix_002dextended-regular-expression-syntax.html
 
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 sudo yabai --load-sa
 
-yabai -m config                                   \
-    external_bar                 off:40:0         \
-    menubar_opacity              1.0              \
-    mouse_follows_focus          off              \
-    focus_follows_mouse          autoraise        \
-    display_arrangement_order    default          \
-    window_origin_display        default          \
-    window_placement             second_child     \
-    window_insertion_point       focused          \
-    window_zoom_persist          on               \
-    window_shadow                on               \
-    window_animation_duration    0.3              \
-    window_animation_easing      ease_in_out_expo \
-    window_opacity_duration      0.0              \
-    active_window_opacity        1.0              \
-    normal_window_opacity        0.90             \
-    window_opacity               off              \
-    insert_feedback_color        0xffd75f5f       \
-    split_ratio                  0.50             \
-    split_type                   auto             \
-    auto_balance                 on               \
-    top_padding                  8                \
-    bottom_padding               8                \
-    left_padding                 8                \
-    right_padding                8                \
-    window_gap                   8                \
-    layout                       bsp              \
-    mouse_modifier               fn               \
-    mouse_action1                move             \
-    mouse_action2                resize           \
-    mouse_drop_action            swap
+yabai -m config \
+	external_bar off:40:0 \
+	menubar_opacity 1.0 \
+	mouse_follows_focus off \
+	focus_follows_mouse autoraise \
+	display_arrangement_order default \
+	window_origin_display default \
+	window_placement second_child \
+	window_insertion_point focused \
+	window_zoom_persist on \
+	window_shadow on \
+	window_animation_duration 0.2 \
+	window_animation_easing ease_in_out_expo \
+	window_opacity_duration 0.0 \
+	active_window_opacity 1.0 \
+	normal_window_opacity 0.90 \
+	window_opacity off \
+	insert_feedback_color 0xffd75f5f \
+	split_ratio 0.50 \
+	split_type auto \
+	auto_balance on \
+	top_padding 8 \
+	bottom_padding 8 \
+	left_padding 8 \
+	right_padding 8 \
+	window_gap 8 \
+	layout bsp \
+	mouse_modifier fn \
+	mouse_action1 move \
+	mouse_action2 resize \
+	mouse_drop_action swap
 
 # https://github.com/koekeishiya/yabai/issues/719#issuecomment-2038328430
 focus_action='yabai -m window --focus $(yabai -m query --windows --space | jq -r '\''[.[]|select(."is-visible")][0].id'\'')'
 
 for event in space_changed window_destroyed window_minimized application_terminated; do
-    yabai -m signal --add event=$event action="$focus_action"
+	yabai -m signal --add event=${event} action="${focus_action}"
 done
 
-yabai -m rule --add app="^システム設定$" manage=off
+center_window_action="$(cat <<'EOF'
+[ -z "${YABAI_WINDOW_ID}" ] && exit 0
+window="$(yabai -m query --windows --window "${YABAI_WINDOW_ID}")"
+display="$(yabai -m query --displays --window "${YABAI_WINDOW_ID}")"
+menubar_height="$(swift -e 'import AppKit; if let screen = NSScreen.main { print(screen.frame.height - screen.visibleFrame.height) }')"
+coords="$(jq \
+  --argjson window "${window}" \
+  --argjson display "${display}" \
+  --argjson mh "${menubar_height}" \
+  -nr '(($display.frame | .x + .w / 2) - ($window.frame.w / 2) | tostring)
+    + ":"
+    + (($display.frame.y + $mh + ($display.frame.h - $mh) / 2) - ($window.frame.h / 2) | tostring)')"
+yabai -m window --move "abs:${coords}"
+EOF
+)"
+
+yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/System Settings.app" | sed 's/\.app$//')$" event=window_created action="${center_window_action}"
+yabai -m signal --add app="^Mac Mouse Fix$" event=window_created action="${center_window_action}"
+yabai -m signal --add app="^IINA$" event=window_created action="${center_window_action}"
+
+yabai -m rule --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/System Settings.app" | sed 's/\.app$//')$" manage=off
 yabai -m rule --add app="^Mac Mouse Fix$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="^Ryujinx$" title!="^Ryujinx Canary [[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+$" manage=off
+
+finder_progress_action="$(cat <<'EOF'
+[ -z "$YABAI_WINDOW_ID" ] && exit 0
+window="$(yabai -m query --windows --window "$YABAI_WINDOW_ID")"
+width="$(printf '%s\n' "$window" | jq -r '.frame.w' | cut -d. -f1)"
+height="$(printf '%s\n' "$window" | jq -r '.frame.h' | cut -d. -f1)"
+
+if [ "$width" -eq 404 ] && [ "$height" -eq 88 ]; then
+    yabai -m window "${YABAI_WINDOW_ID}" --toggle float
+
+    [ -z "${YABAI_WINDOW_ID}" ] && exit 0
+    window="$(yabai -m query --windows --window "${YABAI_WINDOW_ID}")"
+    display="$(yabai -m query --displays --window "${YABAI_WINDOW_ID}")"
+    menubar_height="$(swift -e 'import AppKit; if let screen = NSScreen.main { print(screen.frame.height - screen.visibleFrame.height) }')"
+    coords="$(jq \
+      --argjson window "${window}" \
+      --argjson display "${display}" \
+      --argjson mh "${menubar_height}" \
+      -nr '(($display.frame | .x + .w / 2) - ($window.frame.w / 2) | tostring)
+        + ":"
+        + (($display.frame.y + $mh + ($display.frame.h - $mh) / 2) - ($window.frame.h / 2) | tostring)')"
+    yabai -m window --move "abs:${coords}"
+fi
+EOF
+)"
+
+yabai -m signal --add app='^Finder$' event=window_created action="${finder_progress_action}"
+
+# Handle native tabs
+# https://github.com/koekeishiya/yabai/issues/68#issuecomment-2395591920
+
+yabai -m signal --add app="^Finder$" event=window_created action="yabai -m space --layout bsp"
+yabai -m signal --add app="^Finder$" event=window_destroyed action="yabai -m space --layout bsp"
+
+yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/Utilities/Terminal.app" | sed 's/\.app$//')$" event=window_created action="yabai -m space --layout bsp"
+yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/Utilities/Terminal.app" | sed 's/\.app$//')$" event=window_destroyed action="yabai -m space --layout bsp"
 
 yabai -m rule --apply
 
