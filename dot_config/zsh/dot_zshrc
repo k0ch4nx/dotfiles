@@ -1,8 +1,8 @@
-# https://github.com/zimfw/zimfw/issues/386#issuecomment-912589148
-export HISTFILE="${XDG_CACHE_HOME}/zsh/.zsh_history"
+HISTFILE=${XDG_STATE_HOME}/zsh/history
 
 setopt HIST_IGNORE_DUPS
 setopt SHARE_HISTORY
+setopt globdots
 
 # https://thevaluable.dev/zsh-completion-guide-examples
 zstyle ":completion:*" menu select
