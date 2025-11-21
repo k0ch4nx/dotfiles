@@ -6,6 +6,15 @@ return {
     ---@module "snacks"
     "folke/snacks.nvim",
     opts = function()
+        local actions = require("snacks.explorer.actions")
+
+        actions.actions.explorer_up = function(picker)
+            vim.fn.chdir(vim.fs.dirname(picker:cwd()))
+        end
+        actions.actions.explorer_focus = function(picker)
+            vim.fn.chdir(picker:dir())
+        end
+
         vim.iter(require("snacks.picker.config.layouts"))
             :filter(function(_, config)
                 return type(config) == "table" and type(config.layout) == "table"
@@ -113,9 +122,11 @@ return {
         }
     end,
     keys = {
+        { "<leader>sp", function() Snacks.picker() end },
+        { "<leader>se", function() Snacks.explorer() end },
         { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
         { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
-        -- { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+        { "grr", function() Snacks.picker.lsp_references() end, desc = "References" },
         { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
         { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
     },

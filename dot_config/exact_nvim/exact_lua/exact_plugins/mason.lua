@@ -28,14 +28,23 @@ return {
             local function make_installer(pkg_name)
                 local pkg = registry.get_package(pkg_name)
                 return function()
-                    if (pkg:is_installed() and pkg:get_installed_version() == pkg:get_latest_version()) or pkg:is_installing() or pkg:is_uninstalling() then
+                    local installed_version = pkg:get_installed_version()
+                    local latest_version = pkg:get_latest_version()
+
+                    if (installed_version and installed_version == latest_version) or pkg:is_installing() or pkg:is_uninstalling() then
                         return
                     end
                     total = total + 1
                     async.wait(function(resolve)
                         pkg:install({}, function(success, err)
                             done = done + 1
-                            print(("[%" .. #tostring(total) .. "d/%d] %s"):format(done, total, pkg.name))
+                            print(("[%" .. #tostring(total) .. "d/%d] %s %s -> %s"):format(
+                                done,
+                                total,
+                                pkg.name,
+                                installed_version or "-",
+                                latest_version
+                            ))
                             resolve({ success, pkg, err })
                         end)
                     end)

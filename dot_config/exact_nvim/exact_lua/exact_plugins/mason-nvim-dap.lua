@@ -10,7 +10,6 @@ return {
         return {
             -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
             ensure_installed = {
-                "bzl",
                 "codelldb",
                 "java-debug-adapter",
                 "java-test",
