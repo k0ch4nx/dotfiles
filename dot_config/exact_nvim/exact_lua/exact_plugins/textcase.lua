@@ -14,7 +14,7 @@ return {
         local main = require(require("lazy.core.loader").get_main(self))
         main.setup(opts)
 
-        vim.keymap.set({ "v" }, "<leader>tc", function()
+        vim.keymap.set({ "v" }, "<Leader>tc", function()
             local mode = vim.api.nvim_get_mode().mode
 
             if mode ~= "v" then
