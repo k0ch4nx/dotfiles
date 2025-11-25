@@ -9,9 +9,11 @@ tap "oven-sh/bun"
 
 brew "age-plugin-yubikey" # Plugin for encrypting files with age and PIV tokens such as YubiKeys
 brew "asciinema" # Record and share terminal sessions
+brew "bacon" # Background rust code check
 brew "bat" # Clone of cat(1) with syntax highlighting and Git integration
 brew "bazelisk" # User-friendly launcher for Bazel
 brew "bottom" # Yet another cross-platform graphical process/system monitor
+brew "cargo-nextest" # Next-generation test runner for Rust
 brew "chezmoi" # Manage your dotfiles across multiple diverse machines, securely
 brew "cloudflared" # Cloudflare Tunnel client (formerly Argo Tunnel)
 brew "cmake" # Cross-platform make
@@ -53,6 +55,7 @@ brew "mas" # Mac App Store command-line interface
 brew "mise" # Polyglot runtime manager (asdf rust clone)
 brew "mpv" # Media player based on MPlayer and mplayer2
 brew "neovim" # Ambitious Vim-fork focused on extensibility and agility
+brew "onefetch" # Command-line Git information tool
 brew "openssh" # OpenBSD freely-licensed SSH connectivity tools
 brew "oven-sh/bun/bun" # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oxker" # Terminal User Interface (TUI) to view & control docker containers
