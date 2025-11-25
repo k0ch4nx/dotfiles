@@ -84,6 +84,7 @@ EOF
 yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/System Settings.app" | sed 's/\.app$//')$" event=window_created action="${center_window_action}"
 yabai -m signal --add app="^Mac Mouse Fix$" event=window_created action="${center_window_action}"
 yabai -m signal --add app="^IINA$" event=window_created action="${center_window_action}"
+yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/iPhone Mirroring.app" | sed 's/\.app$//')$" event=window_created action="${center_window_action}"
 
 yabai -m rule --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/System Settings.app" | sed 's/\.app$//')$" manage=off
 yabai -m rule --add app="^Mac Mouse Fix$" manage=off
