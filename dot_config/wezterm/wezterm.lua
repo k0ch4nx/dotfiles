@@ -55,6 +55,7 @@ config.command_palette_bg_color = wezterm.color.get_builtin_schemes()[color_sche
 config.color_scheme = color_scheme
 config.front_end = "OpenGL"
 config.keys = {
+    { key = "q", mods = "CMD", action = wezterm.action.QuitApplication },
     { key = "p", mods = "CTRL|SHIFT", action = wezterm.action.ActivateCommandPalette },
     { key = "n", mods = "CMD", action = wezterm.action.SpawnCommandInNewWindow },
     { key = "t", mods = "CMD", action = wezterm.action.SpawnCommandInNewTab({ cwd = wezterm.home_dir }) },
@@ -102,6 +103,7 @@ config.animation_fps = 120
 config.adjust_window_size_when_changing_font_size = false
 config.status_update_interval = 200
 config.max_fps = 120
+config.enable_kitty_graphics = true
 
 ---@param s string
 ---@return string
