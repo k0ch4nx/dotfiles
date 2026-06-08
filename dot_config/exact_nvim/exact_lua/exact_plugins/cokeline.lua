@@ -26,7 +26,7 @@ return {
         vim.keymap.set("n", "<Leader>bpc", function() mappings.pick("close") end, { silent = true })
         vim.keymap.set("n", "<Leader>bca", function() vim.iter(buffers.get_visible()):each(function(b) b:delete() end) end, { silent = true })
         vim.keymap.set("n", "<Leader>bpcm", function() mappings.pick("close-multiple") end, { silent = true })
-        vim.keymap.set("n", "<Leader>bc", function() buffers.get_current():delete() end, { silent = true })
+        vim.keymap.set("n", "<Leader>bcc", function() buffers.get_current():delete() end, { silent = true })
 
         -- https://github.com/willothy/nvim-cokeline/wiki#equally-sized-buffers
 

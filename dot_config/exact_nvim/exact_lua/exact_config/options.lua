@@ -16,6 +16,7 @@ vim.o.fileformats = "unix,dos,mac"
 vim.o.fillchars = "fold: ,foldopen:󰅀,foldclose:󰅂,foldsep: ,eob: "
 vim.o.foldcolumn = "auto"
 vim.o.foldlevelstart = 99
+vim.opt.helplang:prepend("ja")
 vim.o.hidden = true
 vim.o.laststatus = 3
 vim.o.list = true
@@ -34,9 +35,10 @@ vim.o.tabstop = 4
 vim.o.termguicolors = true
 vim.o.timeoutlen = 300
 vim.o.updatetime = 50
-vim.o.winblend = 10
 vim.o.wildchar = 0
+vim.o.winblend = 10
 vim.o.winborder = "rounded"
+
 
 if util.conditions.is_windows then
     -- https://neovim.io/doc/user/options.html#shell-powershell
@@ -66,6 +68,10 @@ vim.filetype.add({
 
         [".chezmoiignore"] = "gotmpl",
         [".chezmoiremove"] = "gotmpl",
+    },
+    pattern = {
+        ["%.env"] = "dotenv",
+        ["%.env%..+"] = "dotenv",
     },
 })
 

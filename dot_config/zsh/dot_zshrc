@@ -1,6 +1,7 @@
 HISTFILE=${XDG_STATE_HOME}/zsh/history
 
 setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 setopt globdots
 
@@ -9,9 +10,10 @@ zstyle ":completion:*" menu select
 zstyle ":completion:*" cache-path "${XDG_CACHE_HOME}/zsh/.zcompcache"
 
 HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
+zle_highlight=(${zle_highlight:#paste:*} paste:standout)
 
 # https://github.com/jeffreytse/zsh-vi-mode?tab=readme-ov-file#command-line-initial-mode
-ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+ZVM_LINE_INIT_MODE=${ZVM_MODE_INSERT}
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then

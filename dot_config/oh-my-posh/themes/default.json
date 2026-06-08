@@ -17,7 +17,7 @@
                     "style": "plain"
                 },
                 {
-                    "properties": {
+                    "options": {
                         "linux": "\uf17c",
                         "macos": "\uf179",
                         "ubuntu": "\uf31b",
@@ -30,7 +30,7 @@
                     "style": "plain"
                 },
                 {
-                    "template": " \uf489 {{.Name}} {{.ShellVersion}} ({{.SHLVL}})\u2800",
+                    "template": " {{.SHLVL}} \uf489 {{.Name}} {{.ShellVersion}} \udb84\udfe6 {{.Jobs}}\u2800",
                     "foreground": "p:black",
                     "background": "p:white",
                     "type": "shell",
@@ -44,7 +44,14 @@
                     "style": "plain"
                 },
                 {
-                    "properties": {
+                    "type": "python",
+                    "style": "powerline",
+                    "foreground": "#ffd43b",
+                    "background": "#306998",
+                    "template": "  {{ .Full }} "
+                },
+                {
+                    "options": {
                         "branch_icon": " \ue0a0 "
                     },
                     "template": "{{.HEAD}}\u2800",
@@ -60,7 +67,7 @@
             "alignment": "right",
             "segments": [
                 {
-                    "properties": {
+                    "options": {
                         "style": "austin",
                         "threshold": 0
                     },
@@ -71,7 +78,7 @@
                     "style": "plain"
                 },
                 {
-                    "properties": {
+                    "options": {
                         "time_format": "02/01/06 15:04"
                     },
                     "template": "<p:white> · </>{{.CurrentDate | date .Format}}",
@@ -87,7 +94,7 @@
             "alignment": "left",
             "segments": [
                 {
-                    "properties": {
+                    "options": {
                         "folder_icon": "\uf07b",
                         "folder_separator_template": "<#93d0ff> » </>",
                         "home_icon": "\ueb06",
@@ -106,7 +113,7 @@
             "alignment": "left",
             "segments": [
                 {
-                    "properties": {
+                    "options": {
                         "always_enabled": true
                     },
                     "template": "❯",
@@ -122,6 +129,6 @@
             "newline": true
         }
     ],
-    "version": 3,
+    "version": 4,
     "final_space": true
 }

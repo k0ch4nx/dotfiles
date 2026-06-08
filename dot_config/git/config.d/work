@@ -1,0 +1,4 @@
+[user]
+    email = honma1283@se-project.co.jp
+    name = honma1283
+    signingKey = ~/.ssh/id_ed25519_github_work.pub

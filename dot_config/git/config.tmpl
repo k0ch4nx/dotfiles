@@ -1,3 +1,9 @@
+[includeIf "gitdir:{{ if eq .chezmoi.os "darwin" }}~/Developer{{ else }}~/src{{ end }}/github.com/k0ch4nx/"]
+  path = ~/.gitconfig-personal
+
+[includeIf "gitdir:{{ if eq .chezmoi.os "darwin" }}~/Developer{{ else }}~/src{{ end }}/github.com/honma1283/"]
+  path = ~/.gitconfig-work
+
 [color]
     ui = auto
 [commit]
@@ -12,7 +18,11 @@
 [delta]
     navigate = true
 [ghq]
-    root = ~/.local/share/ghq
+{{ if eq .chezmoi.os "darwin" }}
+    root = ~/Developer
+{{ else if eq .chezmoi.os "linux" }}
+    root = ~/src
+{{ end }}
 [gpg]
     format = ssh
 [gpg "ssh"]
@@ -25,10 +35,6 @@
     autoStash = true
 [tag]
     gpgSign = true
-[user]
-    email = {{ joinPath .chezmoi.sourceDir "dot_config" "git" "email.age" | include | decrypt | trim }}
-    name = k0ch4nx
-    signingKey = ~/.ssh/id_ed25519_sk.pub
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f

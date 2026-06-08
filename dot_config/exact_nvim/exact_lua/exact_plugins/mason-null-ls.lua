@@ -13,10 +13,15 @@ return {
         return {
             ensure_installed = {
                 "buildifier",
+                "checkstyle",
+                "google-java-format",
                 "hadolint",
+                "oxfmt",
+                "oxlint",
                 "shellcheck",
                 "shfmt",
                 "terraform",
+                "trivy",
                 "yamlfmt",
                 "yamllint",
             },

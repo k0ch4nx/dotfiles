@@ -4,9 +4,7 @@ return {
     ---@module "mini.cursorword"
     "echasnovski/mini.cursorword",
     opts = function(self)
-
-
-        return { }
+        return {}
     end,
     event = { "BufNewFile", "BufReadPre", "VeryLazy" },
 }

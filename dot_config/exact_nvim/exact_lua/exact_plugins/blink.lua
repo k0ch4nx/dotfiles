@@ -7,6 +7,7 @@ return {
         dependencies = {
             "Exafunction/windsurf.nvim",
             "folke/lazydev.nvim",
+            "saghen/blink.lib",
         },
         ---@type blink.cmp.Config
         opts = {
@@ -71,10 +72,7 @@ return {
                 },
             },
             fuzzy = {
-                implementation = "rust",
-                prebuilt_binaries = {
-                    download = false,
-                },
+                implementation = "prefer_rust",
             },
             sources = {
                 default = {
@@ -105,7 +103,6 @@ return {
                 enabled = true,
                 trigger = {
                     show_on_keyword = true,
-                    show_on_insert = true,
                 },
                 window = {
                     winblend = vim.o.winblend,

@@ -11,8 +11,8 @@ require("lazy").setup(
             ---@param self LazyPlugin
             cond = function(self)
                 local disabled_plugins = {
-                    "actions-preview.nvim",
                     "hardtime.nvim",
+                    "markview.nvim",
                     "neo-tree.nvim",
                     "patchr.nvim",
                     "telescope.nvim",

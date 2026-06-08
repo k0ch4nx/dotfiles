@@ -38,11 +38,12 @@ tabline.setup({
     extensions = {},
 })
 
-config.font_size = 18
+config.font_size = 22
 config.window_decorations = "TITLE|RESIZE|MACOS_USE_BACKGROUND_COLOR_AS_TITLEBAR_COLOR"
 config.font = wezterm.font_with_fallback({
-    "JetBrainsMono Nerd Font",
-    "ヒラギノ丸ゴ ProN",
+    "UDEV Gothic NFLG",
+    -- "JetBrainsMono Nerd Font",
+    -- "ヒラギノ丸ゴ ProN",
 })
 config.colors = {
     tab_bar = {

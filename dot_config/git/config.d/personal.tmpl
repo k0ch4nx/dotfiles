@@ -1,0 +1,4 @@
+[user]
+    email = {{ joinPath .chezmoi.sourceDir "dot_config" "git" "email.age" | include | decrypt | trim }}
+    name = k0ch4nx
+    signingKey = ~/.ssh/id_ed25519_sk.pub
