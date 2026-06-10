@@ -81,15 +81,24 @@ yabai -m window --move "abs:${coords}"
 EOF
 )"
 
-yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/System Settings.app" | sed 's/\.app$//')$" event=window_created action="${center_window_action}"
-yabai -m signal --add app="^Mac Mouse Fix$" event=window_created action="${center_window_action}"
-yabai -m signal --add app="^IINA$" event=window_created action="${center_window_action}"
-yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/iPhone Mirroring.app" | sed 's/\.app$//')$" event=window_created action="${center_window_action}"
+app_display_name() {
+    mdls -name kMDItemDisplayName -raw "$1" |
+        sed 's/\.app$//' |
+        iconv -f UTF-8-MAC -t UTF-8
+}
 
-yabai -m rule --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/System Settings.app" | sed 's/\.app$//')$" manage=off
-yabai -m rule --add app="^Mac Mouse Fix$" manage=off
+yabai -m signal --add app="^$(app_display_name "/System/Applications/System Settings.app")$" event=window_created action="${center_window_action}"
+# yabai -m signal --add app="^Mac Mouse Fix$" event=window_created action="${center_window_action}"
+yabai -m signal --add app="^IINA$" event=window_created action="${center_window_action}"
+yabai -m signal --add app="^$(app_display_name "/System/Applications/iPhone Mirroring.app")$" event=window_created action="${center_window_action}"
+yabai -m signal --add app="^qemu-system-aarch64$" event=window_created action="${center_window_action}"
+
+yabai -m rule --add app="^$(app_display_name "/System/Applications/System Settings.app")$" manage=off
+# yabai -m rule --add app="^Mac Mouse Fix$" manage=off
+yabai -m rule --add app="^$(app_display_name "/System/Applications/Stickies.app")$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="^Ryujinx$" title!="^Ryujinx Canary [[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+$" manage=off
+yabai -m rule --add app="^qemu-system-aarch64$" manage=off
 
 finder_progress_action="$(cat <<'EOF'
 [ -z "$YABAI_WINDOW_ID" ] && exit 0
@@ -97,7 +106,7 @@ window="$(yabai -m query --windows --window "$YABAI_WINDOW_ID")"
 width="$(printf '%s\n' "$window" | jq -r '.frame.w' | cut -d. -f1)"
 height="$(printf '%s\n' "$window" | jq -r '.frame.h' | cut -d. -f1)"
 
-if [ "$width" -eq 404 ] && [ "$height" -eq 88 ]; then
+if [ "$width" -eq 404 ] && { [ "$height" -eq 88 ] || [ "$height" -eq 106 ] || [ "$height" -eq 107 ]; }; then
     yabai -m window "${YABAI_WINDOW_ID}" --toggle float
 
     [ -z "${YABAI_WINDOW_ID}" ] && exit 0
@@ -124,8 +133,8 @@ yabai -m signal --add app='^Finder$' event=window_created action="${finder_progr
 yabai -m signal --add app="^Finder$" event=window_created action="yabai -m space --layout bsp"
 yabai -m signal --add app="^Finder$" event=window_destroyed action="yabai -m space --layout bsp"
 
-yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/Utilities/Terminal.app" | sed 's/\.app$//')$" event=window_created action="yabai -m space --layout bsp"
-yabai -m signal --add app="^$(mdls -name kMDItemDisplayName -raw "/System/Applications/Utilities/Terminal.app" | sed 's/\.app$//')$" event=window_destroyed action="yabai -m space --layout bsp"
+yabai -m signal --add app="^$(app_display_name "/System/Applications/Utilities/Terminal.app")$" event=window_created action="yabai -m space --layout bsp"
+yabai -m signal --add app="^$(app_display_name "/System/Applications/Utilities/Terminal.app")$" event=window_destroyed action="yabai -m space --layout bsp"
 
 yabai -m rule --apply
 

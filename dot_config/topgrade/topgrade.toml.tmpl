@@ -14,7 +14,7 @@ only = [
 ]
 
 [commands]
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
 "HomeBrew - uninstall build dependencies" = '''
 leaves=(`brew leaves --installed-as-dependency | xargs`)
 for pkg in "${leaves[@]}"; do
@@ -37,10 +37,8 @@ nvim --headless -c 'lua local ok, err = pcall(require("codediff.core.installer")
 '''
 
 "Ferium - upgrade" = "ferium upgrade"
-{{ else if includeTemplate "is-wsl" . }}
-
-{{ end }}
-[commands]
+{{- else if includeTemplate "is-wsl" . }}
+{{- end }}
 
 [brew]
 greedy_cask = true

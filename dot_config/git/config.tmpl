@@ -1,8 +1,11 @@
-[includeIf "gitdir:{{ if eq .chezmoi.os "darwin" }}~/Developer{{ else }}~/src{{ end }}/github.com/k0ch4nx/"]
-  path = ~/.gitconfig-personal
+[includeIf "gitdir:{{ output "ghq" "root" | trim }}/github.com/k0ch4nx/"]
+    path = ./config.d/personal
 
-[includeIf "gitdir:{{ if eq .chezmoi.os "darwin" }}~/Developer{{ else }}~/src{{ end }}/github.com/honma1283/"]
-  path = ~/.gitconfig-work
+[includeIf "gitdir:{{ .chezmoi.sourceDir }}/"]
+    path = ./config.d/personal
+
+[includeIf "gitdir:{{ output "ghq" "root" | trim }}/github.com/sep-dev/"]
+    path = ./config.d/work
 
 [color]
     ui = auto
@@ -18,11 +21,11 @@
 [delta]
     navigate = true
 [ghq]
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }}
     root = ~/Developer
-{{ else if eq .chezmoi.os "linux" }}
-    root = ~/src
-{{ end }}
+{{- else if eq .chezmoi.os "linux" }}
+    root = {{ if eq .chezmoi.os "darwin" }}~/Developer{{ else }}~/src{{ end }}
+{{- end }}
 [gpg]
     format = ssh
 [gpg "ssh"]

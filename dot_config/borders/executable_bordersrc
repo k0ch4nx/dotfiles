@@ -2,8 +2,8 @@
 
 options=(
     style=round
-    active_color="gradient(top_left=0xFFFFC640,bottom_right=0xFFBA3AA5)"
-    inactive_color="gradient(top_left=0xAA45C4C0,bottom_right=0xAABA3AA5)"
+    active_color="gradient(top_left=0xFFC7F5FF,bottom_right=0xFF5DAEFF)"
+    inactive_color="gradient(top_left=0xAA6F86A3,bottom_right=0xAA3D536B)"
     width=6.0
     hidpi=on
     blacklist=

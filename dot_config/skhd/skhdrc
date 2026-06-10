@@ -10,6 +10,8 @@ alt - l : yabai -m window --focus east
 
 alt - t : yabai -m window --toggle split
 
+alt - f : yabai -m window --toggle zoom-fullscreen
+
 shift + alt - h : yabai -m window --warp west
 shift + alt - j : yabai -m window --warp south
 shift + alt - k : yabai -m window --warp north

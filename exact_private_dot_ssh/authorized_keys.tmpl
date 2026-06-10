@@ -1,1 +1,1 @@
-{{ joinPath .chezmoi.sourceDir "exact_private_dot_ssh" "encrypted_id_ed25519_sk.pub.age" | include | decrypt | trim }}
+{{ joinPath .chezmoi.sourceDir "exact_private_dot_ssh" "id_ed25519_sk.pub" | include | trim }}
