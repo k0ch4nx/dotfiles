@@ -1,4 +1,4 @@
 [user]
     email = 291656850+honma1283@users.noreply.github.com
     name = honma1283
-    signingKey = ~/.ssh/id_ed25519_github_work.pub
+    signingKey = ~/.ssh/id_ed25519_gh_work.pub
