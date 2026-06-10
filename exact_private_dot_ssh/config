@@ -23,15 +23,3 @@ Host gcp
     IdentityFile ~/.ssh/id_ed25519_sk
     IdentitiesOnly yes
     TCPKeepAlive yes
-
-Host github.com-pers
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_ed25519_sk_gh_auth_pers
-    IdentitiesOnly yes
-
-Host github.com-work
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_ed25519_gh_work
-    IdentitiesOnly yes
