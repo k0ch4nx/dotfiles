@@ -14,6 +14,7 @@ return {
             ensure_installed = {
                 "buildifier",
                 "checkstyle",
+                "csharpier",
                 "google-java-format",
                 "hadolint",
                 "oxfmt",
