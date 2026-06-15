@@ -1,4 +1,6 @@
-local mason_packages = vim.fn.stdpath("data") .. "/mason/packages"
+local mason_root = vim.fn.stdpath("data") .. "/mason"
+local mason_packages = mason_root .. "/packages"
+local lombok_jar = mason_root .. "/share/jdtls/lombok.jar"
 
 ---@return string[]
 local function collect_bundles()
@@ -14,24 +16,22 @@ local function collect_bundles()
         )
     )
 
-    local java_test_patterns = {
-        mason_packages .. "/java-test/extension/server/*.jar",
-    }
-
     local excluded = {
         ["com.microsoft.java.test.runner-jar-with-dependencies.jar"] = true,
         ["jacocoagent.jar"] = true,
     }
 
-    for _, pattern in ipairs(java_test_patterns) do
-        local jars = vim.fn.glob(pattern, true, true)
+    local java_test_jars = vim.fn.glob(
+        mason_packages .. "/java-test/extension/server/*.jar",
+        true,
+        true
+    )
 
-        for _, jar in ipairs(jars) do
-            local name = vim.fn.fnamemodify(jar, ":t")
+    for _, jar in ipairs(java_test_jars) do
+        local name = vim.fn.fnamemodify(jar, ":t")
 
-            if not excluded[name] then
-                table.insert(bundles, jar)
-            end
+        if not excluded[name] then
+            table.insert(bundles, jar)
         end
     end
 
@@ -112,6 +112,10 @@ end
 
 ---@type vim.lsp.Config
 return {
+    cmd = {
+        vim.fn.exepath("jdtls"),
+        "--jvm-arg=-javaagent:" .. lombok_jar,
+    },
     init_options = {
         bundles = collect_bundles(),
     },
