@@ -82,11 +82,6 @@ return {
                     },
                     explorer = {
                         preset = "sidebar",
-                        layout = {
-                            bo = {
-                                filetype = "snacks_explorer",
-                            },
-                        },
                     },
                 },
                 sources = {

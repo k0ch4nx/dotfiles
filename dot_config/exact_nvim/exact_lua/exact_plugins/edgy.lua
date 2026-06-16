@@ -9,7 +9,7 @@ return {
         left = {
             {
                 title = "Explorer",
-                ft = "snacks_explorer",
+                ft = "snacks_layout_box",
                 filter = function(buf, win)
                     return vim.api.nvim_win_get_config(win).relative == ""
                 end,

@@ -5,6 +5,5 @@ return {
     "polirritmico/lazy-local-patcher.nvim",
     ---@type LazyLocalPatcher.Options
     opts = {},
-    -- event = { "VeryLazy" },
     lazy = false,
 }

@@ -10,14 +10,7 @@ require("lazy").setup(
             lazy = true,
             ---@param self LazyPlugin
             cond = function(self)
-                local disabled_plugins = {
-                    "hardtime.nvim",
-                    "markview.nvim",
-                    "neo-tree.nvim",
-                    "patchr.nvim",
-                    "telescope.nvim",
-                    "vim-illuminate",
-                }
+                local disabled_plugins = {}
 
                 return not vim.tbl_contains(disabled_plugins, self.name)
             end,

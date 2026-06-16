@@ -282,7 +282,7 @@ return {
                 },
             },
             sidebar = {
-                filetype = { "snacks_explorer" },
+                filetype = { "snacks_layout_box" },
                 components = {
                     components.sidebar.underline,
                 },
