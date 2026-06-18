@@ -16,8 +16,8 @@ vim.o.fileformats = "unix,dos,mac"
 vim.o.fillchars = "fold: ,foldopen:󰅀,foldclose:󰅂,foldsep: ,eob: "
 vim.o.foldcolumn = "auto"
 vim.o.foldlevelstart = 99
-vim.opt.helplang:prepend("ja")
 vim.o.hidden = true
+vim.o.keywordprg = ""
 vim.o.laststatus = 3
 vim.o.list = true
 vim.o.listchars = "tab: ,space:·,extends:›,precedes:‹,nbsp:␣"
@@ -38,6 +38,7 @@ vim.o.updatetime = 50
 vim.o.wildchar = 0
 vim.o.winblend = 10
 vim.o.winborder = "rounded"
+vim.opt.helplang:prepend("ja")
 
 
 if util.conditions.is_windows then

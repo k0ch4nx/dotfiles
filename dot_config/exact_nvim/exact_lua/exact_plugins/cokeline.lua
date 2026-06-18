@@ -282,7 +282,13 @@ return {
                 },
             },
             sidebar = {
-                filetype = { "snacks_layout_box" },
+                filetype = {
+                    "snacks_layout_box",
+                    "dapui_scopes",
+                    "dapui_watches",
+                    "dapui_stacks",
+                    "dapui_breakpoints",
+                },
                 components = {
                     components.sidebar.underline,
                 },

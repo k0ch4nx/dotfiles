@@ -88,12 +88,14 @@ app_display_name() {
 }
 
 yabai -m signal --add app="^$(app_display_name "/System/Applications/System Settings.app")$" event=window_created action="${center_window_action}"
+yabai -m signal --add app="^$(app_display_name "/System/Applications/Passwords.app")$" event=window_created action="${center_window_action}"
 # yabai -m signal --add app="^Mac Mouse Fix$" event=window_created action="${center_window_action}"
 yabai -m signal --add app="^IINA$" event=window_created action="${center_window_action}"
 yabai -m signal --add app="^$(app_display_name "/System/Applications/iPhone Mirroring.app")$" event=window_created action="${center_window_action}"
 yabai -m signal --add app="^qemu-system-aarch64$" event=window_created action="${center_window_action}"
 
 yabai -m rule --add app="^$(app_display_name "/System/Applications/System Settings.app")$" manage=off
+yabai -m rule --add app="^$(app_display_name "/System/Applications/Passwords.app")$" manage=off
 # yabai -m rule --add app="^Mac Mouse Fix$" manage=off
 yabai -m rule --add app="^$(app_display_name "/System/Applications/Stickies.app")$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
