@@ -16,22 +16,6 @@ return {
                     Snacks.explorer.open()
                 end,
             },
-            {
-                ft = "dapui_scopes",
-                title = "Variables",
-            },
-            {
-                ft = "dapui_watches",
-                title = "Watch",
-            },
-            {
-                ft = "dapui_stacks",
-                title = "Call Stack",
-            },
-            {
-                ft = "dapui_breakpoints",
-                title = "Breakpoints",
-            },
         },
         bottom = {
             {
@@ -47,12 +31,12 @@ return {
                 end,
             },
             {
-                ft = "dapui_console",
-                title = "Debug Console",
+                ft = "dap-view",
+                title = "DAP View",
             },
             {
                 ft = "dap-repl",
-                title = "DAP REPL",
+                title = "DAP View",
             },
         },
         options = {
