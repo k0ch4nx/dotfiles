@@ -1,11 +1,13 @@
-. "$HOME/.cargo/env"
-
 export EDITOR="nvim"
 export VISUAL="${EDITOR}"
 
-export PATH="$PATH:$HOME/.lmstudio/bin"
-export PATH="${HOME}/.local/bin:${PATH}"
-export PATH="/opt/homebrew/opt/ffmpeg-full/bin:${PATH}"
+typeset -U path PATH
+path=(
+    "/opt/homebrew/opt/ffmpeg-full/bin"
+    "${HOME}/.lmstudio/bin"
+    "${HOME}/.local/bin"
+    ${path}
+)
 
 export DO_NOT_TRACK=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
@@ -13,11 +15,6 @@ export HOMEBREW_NO_ANALYTICS=1
 export OMO_SEND_ANONYMOUS_TELEMETRY=0
 
 export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
-
-export CF_API_KEY="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_KEY.age" | include | decrypt | trim }}"
-export CF_API_EMAIL="{{ joinPath .chezmoi.sourceDir "dot_config" "zsh" "CF_API_EMAIL.age" | include | decrypt | trim }}"
-
-export CODEX_HOME="${XDG_DATA_HOME}/codex"
 
 export FZF_DEFAULT_OPTS_FILE="${XDG_CONFIG_HOME}/fzf/fzfrc"
 
@@ -36,62 +33,3 @@ export PYTHONPYCACHEPREFIX="${XDG_CACHE_HOME}/python/__pycache__"
 export PYTHON_HISTORY="${XDG_DATA_HOME}/python/.python_history"
 
 export TF_CLI_CONFIG_FILE="${XDG_CONFIG_HOME}/terraform/terraform.tfrc"
-
-function eza() {
-    local opts=(
-        # https://github.com/eza-community/eza#display-options
-        "--long"
-        "--color=always"
-        "--color-scale=age"
-        "--color-scale-mode=gradient"
-        "--icons=auto"
-        "--hyperlink"
-
-        # https://github.com/eza-community/eza#filtering-options
-        "--all"
-        "--group-directories-first"
-
-        # https://github.com/eza-community/eza#long-view-options
-        "--binary"
-        "--header"
-        "--links"
-        "--modified"
-        "--mounts"
-        "--blocksize"
-        "--accessed"
-        "--created"
-        "--changed"
-        "--git"
-        "--git-repos"
-        "--time-style=long-iso"
-        "--total-size"
-        "--octal-permissions"
-    )
-
-    command eza "${opts[@]}" "$@"
-}
-
-function gamdl {
-    command gamdl --config-path "${XDG_CONFIG_HOME}/gamdl/config.ini" "$@"
-}
-
-function ghqf {
-    local eza_opts=(
-        "--long"
-        "--color=always"
-        "--color-scale=age"
-        "--color-scale-mode=gradient"
-        "--icons=auto"
-        "--all"
-        "--group-directories-first"
-        "--git"
-        "--no-permissions"
-        "--no-filesize"
-        "--no-user"
-        "--no-time"
-    )
-
-    local preview_cmd="\$(brew --prefix)/bin/eza \$(ghq root)/{} ${eza_opts[@]}"
-
-    cd "$(ghq root)/$(ghq list | fzf --preview "${preview_cmd}")"
-}

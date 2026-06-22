@@ -9,7 +9,7 @@ setopt globdots
 zstyle ":completion:*" menu select
 zstyle ":completion:*" cache-path "${XDG_CACHE_HOME}/zsh/.zcompcache"
 
-HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 zle_highlight=(${zle_highlight:#paste:*} paste:standout)
 
 # https://github.com/jeffreytse/zsh-vi-mode?tab=readme-ov-file#command-line-initial-mode
@@ -53,10 +53,68 @@ function zvm_after_init() {
 bindkey -M vicmd "k" history-substring-search-up
 bindkey -M vicmd "j" history-substring-search-down
 
+function eza() {
+    local opts=(
+        # https://github.com/eza-community/eza#display-options
+        "--long"
+        "--color=always"
+        "--color-scale=age"
+        "--color-scale-mode=gradient"
+        "--icons=auto"
+        "--hyperlink"
+
+        # https://github.com/eza-community/eza#filtering-options
+        "--all"
+        "--group-directories-first"
+
+        # https://github.com/eza-community/eza#long-view-options
+        "--binary"
+        "--header"
+        "--links"
+        "--modified"
+        "--mounts"
+        "--blocksize"
+        "--accessed"
+        "--created"
+        "--changed"
+        "--git"
+        "--git-repos"
+        "--time-style=long-iso"
+        "--total-size"
+        "--octal-permissions"
+    )
+
+    command eza "${opts[@]}" "$@"
+}
+
+function gamdl {
+    command gamdl --config-path "${XDG_CONFIG_HOME}/gamdl/config.ini" "$@"
+}
+
+function ghqf {
+    local eza_opts=(
+        "--long"
+        "--color=always"
+        "--color-scale=age"
+        "--color-scale-mode=gradient"
+        "--icons=auto"
+        "--all"
+        "--group-directories-first"
+        "--git"
+        "--no-permissions"
+        "--no-filesize"
+        "--no-user"
+        "--no-time"
+    )
+
+    local preview_cmd="\$(brew --prefix)/bin/eza \$(ghq root)/{} ${eza_opts[@]}"
+
+    cd "$(ghq root)/$(ghq list | fzf --preview "${preview_cmd}")"
+}
+
 # https://mise.jdx.dev/getting-started.html#activate-mise
 eval "$(mise activate zsh)"
 # https://github.com/nvbn/thefuck?tab=readme-ov-file#installation
-eval $(thefuck --alias)
 eval "$(oh-my-posh init zsh --config ${XDG_CONFIG_HOME}/oh-my-posh/themes/default.json)"
 if command -v fastfetch &>/dev/null; then
     if [ ${SHLVL} -eq 1 ]; then

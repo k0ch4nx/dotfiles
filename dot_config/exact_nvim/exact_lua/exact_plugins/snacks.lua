@@ -122,7 +122,7 @@ return {
                 },
             },
             input = {
-                enable = true,
+                enabled = true,
             },
             picker = {
                 hidden = true,

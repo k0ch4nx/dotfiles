@@ -284,6 +284,7 @@ return {
             sidebar = {
                 filetype = {
                     "snacks_layout_box",
+                    "codediff-explorer",
                 },
                 components = {
                     components.sidebar.underline,

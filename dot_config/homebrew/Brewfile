@@ -1,117 +1,111 @@
+tap "anomalyco/tap"
+tap "asmvik/formulae"
 tap "felixkratz/formulae"
 tap "hashicorp/tap"
-tap "homebrew/bundle"
-tap "homebrew/services"
 tap "jandedobbeleer/oh-my-posh"
-tap "koekeishiya/formulae"
 tap "kortin99/tap"
 tap "oven-sh/bun"
 
-brew "age-plugin-yubikey" # Plugin for encrypting files with age and PIV tokens such as YubiKeys
-brew "asciinema" # Record and share terminal sessions
-brew "bacon" # Background rust code check
-brew "bat" # Clone of cat(1) with syntax highlighting and Git integration
-brew "bazelisk" # User-friendly launcher for Bazel
-brew "bottom" # Yet another cross-platform graphical process/system monitor
-brew "cargo-nextest" # Next-generation test runner for Rust
-brew "chezmoi" # Manage your dotfiles across multiple diverse machines, securely
-brew "cloudflared" # Cloudflare Tunnel client (formerly Argo Tunnel)
-brew "cmake" # Cross-platform make
-brew "commitizen" # Defines a standard way of committing rules and communicating it
-brew "eza" # Modern, maintained replacement for ls
-brew "fabric-installer" # Installer for Fabric for the vanilla launcher
-brew "fastfetch" # Like neofetch, but much faster because written mostly in C
-brew "fd" # Simple, fast and user-friendly alternative to find
-brew "felixkratz/formulae/borders" # A window border system for macOS
-brew "felixkratz/formulae/sketchybar" # Custom macOS statusbar with shell plugin, interaction and graph support
-brew "ferium" # Fast and multi-source CLI program for managing Minecraft mods and modpacks
-brew "ffmpeg" # Play, record, convert, and stream audio and video
-brew "flarectl" # CLI application for interacting with a Cloudflare account
-brew "fzf" # Command-line fuzzy finder written in Go
-brew "gamdl" # Python CLI app for downloading Apple Music songs, music videos and post videos
-brew "gh" # GitHub command-line tool
-brew "ghq" # Remote repository management made easy
-brew "git" # Distributed revision control system
-brew "git-cliff" # Highly customizable changelog generator
-brew "git-delta" # Syntax-highlighting pager for git and diff output
-brew "git-lfs" # Git extension for versioning large files
-brew "gnupg" # GNU Pretty Good Privacy (PGP) package
-brew "gradle" # Open-source build automation tool based on the Groovy and Kotlin DSL
-brew "haiti" # Hash type identifier
-brew "hashcat" # World's fastest and most advanced password recovery utility
-brew "hashicorp/tap/terraform" # Terraform
-brew "hyperfine" # Command-line benchmarking tool
-brew "imagemagick" # Tools and libraries to manipulate images in many formats
-brew "jandedobbeleer/oh-my-posh/oh-my-posh" # Prompt theme engine for any shell
-brew "john-jumbo" # Enhanced version of john, a UNIX password cracker
-brew "koekeishiya/formulae/skhd" # Simple hotkey-daemon for macOS.
-brew "koekeishiya/formulae/yabai" # A tiling window manager for macOS based on binary space partitioning.
-brew "kortin99/tap/fzf-tab", args: ["ignore-dependencies"] # Replace Zsh's default completion selection menu with fzf
-brew "lazygit" # Simple terminal UI for git commands
-brew "librsvg" # Library to render SVG files using Cairo
-brew "lizard-analyzer" # Extensible Cyclomatic Complexity Analyzer
-brew "lua" # Powerful, lightweight programming language
-brew "mas" # Mac App Store command-line interface
-brew "mise" # Polyglot runtime manager (asdf rust clone)
-brew "mpv" # Media player based on MPlayer and mplayer2
-brew "neovim" # Ambitious Vim-fork focused on extensibility and agility
-brew "onefetch" # Command-line Git information tool
-brew "openssh" # OpenBSD freely-licensed SSH connectivity tools
-brew "oven-sh/bun/bun" # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
-brew "oxker" # Terminal User Interface (TUI) to view & control docker containers
-brew "pkgconf" # Package compiler and linker metadata toolkit
-brew "rage" # Simple, modern, secure file encryption
-brew "ripgrep" # Search tool like grep and The Silver Searcher
-brew "thefuck" # Programmatically correct mistyped console commands
-brew "tokei" # Program that allows you to count code, quickly
-brew "topgrade", args: ["HEAD"] # Upgrade all the things
-brew "translate-shell" # Command-line translator using Google Translate and more
-brew "tree-sitter-cli" # Parser generator tool
-brew "xz" # General-purpose data compression with high compression ratio
-brew "ykman" # Tool for managing your YubiKey configuration
-brew "yt-dlp" # Feature-rich command-line audio/video downloader
-brew "zig" # Programming language designed for robustness, optimality, and clarity
-brew "zsh-autosuggestions" # Fish-like fast/unobtrusive autosuggestions for zsh
-brew "zsh-fast-syntax-highlighting" # Feature-rich syntax highlighting for Zsh
-brew "zsh-history-substring-search" # Zsh port of Fish shell's history search
-brew "zsh-vi-mode" # Better and friendly vi(vim) mode plugin for ZSH
+brew "age-plugin-yubikey"
+brew "anomalyco/tap/opencode"
+brew "aria2"
+brew "asciinema"
+brew "asmvik/formulae/skhd"
+brew "asmvik/formulae/yabai"
+brew "bacon"
+brew "bat"
+brew "bazelisk"
+brew "bottom"
+brew "chezmoi"
+brew "cloudflared"
+brew "cmake"
+brew "commitizen"
+brew "dotnet"
+brew "eza"
+brew "fabric-installer"
+brew "fastfetch"
+brew "fd"
+brew "felixkratz/formulae/borders"
+brew "felixkratz/formulae/sketchybar"
+brew "ferium"
+brew "ffmpeg-full"
+brew "gh"
+brew "ghq"
+brew "git"
+brew "git-cliff"
+brew "git-delta"
+brew "gitlogue"
+brew "gradle"
+brew "haiti"
+brew "hashcat"
+brew "hashicorp/tap/terraform"
+brew "hf"
+brew "hyperfine"
+brew "imagemagick"
+brew "jandedobbeleer/oh-my-posh/oh-my-posh"
+brew "john-jumbo"
+brew "kortin99/tap/fzf-tab"
+brew "lazygit"
+brew "lizard-analyzer"
+brew "mas"
+brew "mise"
+brew "mpv"
+brew "neovim"
+brew "onefetch"
+brew "openssh"
+brew "oven-sh/bun/bun"
+brew "oxker"
+brew "progress"
+brew "rage"
+brew "tokei"
+brew "topgrade"
+brew "tree-sitter-cli"
+brew "uv"
+brew "ykman"
+brew "zig"
+brew "zsh-autosuggestions"
+brew "zsh-fast-syntax-highlighting"
+brew "zsh-history-substring-search"
+brew "zsh-vi-mode"
 
-cask "apparency" # Inspect application bundles
-cask "betterdisplay" # Display management tool
-cask "bettermouse" # Utility improving 3rd party mouse performance and functionalities
-cask "blender" # 3D creation suite
-cask "chatgpt" # OpenAI's official ChatGPT desktop app
-cask "codex" # OpenAI's coding agent that runs in your terminal
-cask "discord" # Voice and text chat software
-cask "docker-desktop" # App to build and share containerised applications and microservices
-cask "epic-games" # Launcher for *Epic Games* games
-cask "font-cascadia-code-nf"
-cask "font-jetbrains-mono-nerd-font"
-cask "gcloud-cli" # Set of tools to manage resources and applications hosted on Google Cloud
-cask "ghidra" # Software reverse engineering (SRE) suite of tools
-cask "gog-galaxy" # Game client
-cask "google-drive" # Client for the Google Drive storage service
-cask "iina" # Free and open-source media player
-cask "intellij-idea-ce" # IDE for Java development - community edition
-cask "kindavim" # Use Vim in input fields and non input fields
-cask "minecraft" # Sandbox construction video game
-cask "nvidia-geforce-now" # Cloud gaming platform
-cask "obs" # Open-source software for live streaming and screen recording
-cask "obsidian" # Knowledge base that works on top of a local folder of plain text Markdown files
-cask "onedrive" # Cloud storage client
-cask "parallels" # Desktop virtualization software
-cask "parsec" # Remote desktop
-cask "prefs-editor" # Graphical user interface for the 'defaults' command
-cask "qbittorrent" # Peer to peer Bitorrent client
-cask "raspberry-pi-imager" # Imaging utility to install operating systems to a microSD card
-cask "realforce" # Software for Realforce keyboards and mice
-cask "saoimageds9" # Astronomical data visualisation tool
-cask "steam" # Video game digital distribution service
-cask "tor-browser" # Web browser focusing on security
-cask "unity-hub" # Management tool for Unity
-cask "visual-studio-code" # Open-source code editor
-cask "wezterm@nightly" # GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "zoom" # Video communication and virtual meeting platform
+cask "010-editor"
+cask "android-studio"
+cask "apparency"
+cask "betterdisplay"
+cask "bettermouse"
+cask "blender"
+cask "chatgpt"
+cask "discord"
+cask "dolphin"
+cask "epic-games"
+cask "font-udev-gothic-nf"
+cask "gcloud-cli"
+cask "ghidra"
+cask "gog-galaxy"
+cask "google-chrome"
+cask "google-drive"
+cask "iina"
+cask "intellij-idea-oss"
+cask "kindavim"
+cask "lm-studio"
+cask "macfuse"
+cask "minecraft"
+cask "nvidia-geforce-now"
+cask "obs"
+cask "obsidian"
+cask "onedrive"
+cask "orbstack"
+cask "parallels"
+cask "parsec"
+cask "prefs-editor"
+cask "qbittorrent"
+cask "raspberry-pi-imager"
+cask "steam"
+cask "tor-browser"
+cask "unity-hub"
+cask "visual-studio-code"
+cask "wezterm@nightly"
+cask "zoom"
 
 mas "Keepa - Price Tracker", id: 1533805339
 mas "LINE", id: 539883307
