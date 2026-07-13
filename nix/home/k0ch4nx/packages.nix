@@ -1,7 +1,8 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   home.packages = with pkgs; [
     _010editor
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     age-plugin-yubikey
     apparency
     aria2
