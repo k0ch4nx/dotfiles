@@ -1,0 +1,7 @@
+.omo/
+
+/result
+secrets/hosts/*-key.txt
+secrets/rekeyed/
+
+terraform/

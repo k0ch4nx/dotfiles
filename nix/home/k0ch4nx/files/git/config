@@ -1,0 +1,41 @@
+[includeIf "gitdir:~/Developer/github.com/k0ch4nx/"]
+    path = ./config.d/personal
+
+[includeIf "gitdir:~/Developer/github.com/honma1283/"]
+    path = ./config.d/work
+
+[includeIf "gitdir:~/Developer/github.com/sep-dev/"]
+    path = ./config.d/work
+
+[color]
+    ui = auto
+[commit]
+    gpgsign = true
+[core]
+    autocrlf = false
+    editor = nvim
+    ignoreCase = false
+    pager = delta
+    quotepath = false
+    safecrlf = true
+[delta]
+    navigate = true
+[ghq]
+    root = ~/Developer
+[gpg]
+    format = ssh
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
+[init]
+    defaultBranch = main
+[merge]
+    conflictstyle = zdiff3
+[rebase]
+    autoStash = true
+[tag]
+    gpgSign = true
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true

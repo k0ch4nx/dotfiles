@@ -1,0 +1,99 @@
+diff --git a/lua/cokeline/components.lua b/lua/cokeline/components.lua
+index 6a02dce..0f3ecae 100644
+--- a/lua/cokeline/components.lua
++++ b/lua/cokeline/components.lua
+@@ -4,6 +4,7 @@ local config = lazy("cokeline.config")
+ 
+ local rep = string.rep
+ local insert = table.insert
++local concat = table.concat
+ local remove = table.remove
+ 
+ local iter = vim.iter
+@@ -138,6 +139,44 @@ Component.render = function(self, context)
+   return component
+ end
+ 
++---@param text string
++---@param start_col number
++---@param width number
++---@return string
++local function strwidthpart(text, start_col, width)
++  if width <= 0 then
++    return ""
++  end
++
++  local chars = {}
++  local col = 0
++  local slice_col = start_col
++  local len = fn.strcharlen(text)
++  local end_col = start_col + width
++
++  for i = 0, len - 1 do
++    local char = fn.strcharpart(text, i, 1)
++    local char_width = fn.strwidth(char)
++    local next_col = col + char_width
++
++    if col >= start_col and next_col <= end_col then
++      if col > slice_col then
++        insert(chars, rep(" ", col - slice_col))
++      end
++      insert(chars, char)
++      slice_col = next_col
++    end
++
++    col = next_col
++  end
++
++  if slice_col < end_col then
++    insert(chars, rep(" ", end_col - slice_col))
++  end
++
++  return concat(chars)
++end
++
+ ---@generic Cx
+ ---@param self      Component<Cx>
+ ---@param to_width  number
+@@ -154,22 +192,22 @@ Component.shorten = function(self, to_width, direction)
+     local available_width = to_width - 2
+     local start = direction == "left" and self.width - available_width or 0
+     self.text = (direction == "left" and " …%s" or "%s… "):format(
+-      fn.strcharpart(self.text, start, available_width)
++      strwidthpart(self.text, start, available_width)
+     )
+   elseif self.truncation.direction == "middle" then
+     local available_width = to_width - 1
+     local width_left = math.floor(available_width / 2)
+     local width_right = width_left + available_width % 2
+     self.text = ("%s…%s"):format(
+-      fn.strcharpart(self.text, 0, width_left),
+-      fn.strcharpart(self.text, self.width - width_right, width_right)
++      strwidthpart(self.text, 0, width_left),
++      strwidthpart(self.text, self.width - width_right, width_right)
+     )
+   else
+     direction = self.truncation.direction
+     local available_width = to_width - 1
+     local start = direction == "left" and self.width - available_width or 0
+     self.text = (direction == "left" and "…%s" or "%s…"):format(
+-      fn.strcharpart(self.text, start, available_width)
++      strwidthpart(self.text, start, available_width)
+     )
+   end
+ 
+@@ -176,10 +214,13 @@ Component.shorten = function(self, to_width, direction)
+   -- `fn.strcharpart("｜", 0, 1)` will still return "｜" since that character
+   -- takes up two columns. This is to handle such cases.
+-  if fn.strwidth(self.text) ~= to_width then
++  local current_width = fn.strwidth(self.text)
++  if current_width > to_width then
+     local fmt = (direction == "left" and "%s…")
+       or (direction == "right" and "…%s")
+       or "%s "
+     self.text = fmt:format(rep(" ", to_width ~= nil and to_width - 1 or 0))
++  elseif current_width < to_width then
++    self.text = self.text .. rep(" ", to_width - current_width)
+   end
+ 
+   self.width = fn.strwidth(self.text)

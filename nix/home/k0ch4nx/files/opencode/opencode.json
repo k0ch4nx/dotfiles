@@ -1,0 +1,66 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+        "skillsmp": {
+            "type": "local",
+            "command": [
+                "npx",
+                "-y",
+                "skillsmp-mcp-lite"
+            ],
+            "env": {
+                "SKILLSMP_API_KEY": "{env:SKILLSMP_API_KEY}"
+            }
+        }
+    },
+    "lsp": true,
+    "permission": {
+        "*": "ask",
+        "bash": {
+            "*": "ask",
+            "cat *": "allow",
+            "curl *": "allow",
+            "echo *": "allow",
+            "find *": "allow",
+            "grep *": "allow",
+            "head *": "allow",
+            "ls *": "allow",
+            "sleep *": "allow",
+            "wc *": "allow"
+        },
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "context7_query-docs": "allow",
+        "context7_resolve-library-id": "allow",
+        "playwright_*": "allow",
+        "read": "allow",
+        "todoread": "allow",
+        "todowrite": "allow",
+        "webfetch": "allow",
+        "websearch_web_search_exa": "allow",
+        "grep_app_searchGitHub": "allow",
+        "skill": "allow"
+    },
+    "provider": {
+        "lmstudio": {
+            "name": "LMStudio",
+            "npm": "@ai-sdk/openai-compatible",
+            "options": {
+                "baseURL": "http://127.0.0.1:1234/v1"
+            }
+        }
+    },
+    "plugin": [
+        "oh-my-openagent@latest",
+        "@mem0/opencode-plugin",
+        [
+            "github:guochen-thlg/opencode-auto-provider-models",
+            {
+                "provider": [
+                    "lmstudio"
+                ]
+            }
+        ]
+    ]
+}

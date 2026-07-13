@@ -1,0 +1,52 @@
+[misc]
+no_retry = true
+only = [
+  "custom_commands",
+  "github_cli_extensions",
+  "rustup",
+  "system",
+  # "vscode",
+]
+
+[commands]
+"Nix - update flake inputs" = "cd $HOME/Developer/github.com/k0ch4nx/dotfiles && nix flake update"
+"Agenix - rekey" = '''
+set -euo pipefail
+umask 022
+REPO="$HOME/Developer/github.com/k0ch4nx/dotfiles"
+HOST_KEY="$REPO/secrets/hosts/MacBook-Pro-key.txt"
+HOST_PUB="$REPO/secrets/hosts/MacBook-Pro.pub"
+if [ ! -f "$HOST_KEY" ]; then
+  mkdir -p "$(dirname "$HOST_KEY")"
+  rage-keygen -o "$HOST_KEY"
+fi
+chmod 600 "$HOST_KEY"
+rage-keygen -y "$HOST_KEY" > "$HOST_PUB"
+git -C "$REPO" add -f "$HOST_PUB"
+cd "$REPO"
+nix run .#agenix-rekey.aarch64-darwin.rekey
+'''
+"Nix - darwin-rebuild switch" = "cd $HOME/Developer/github.com/k0ch4nx/dotfiles && sudo darwin-rebuild switch --flake .#MacBook-Pro"
+
+"HomeBrew - uninstall build dependencies" = '''
+leaves=(`brew leaves --installed-as-dependency | xargs`)
+for pkg in "${leaves[@]}"; do
+    brew uninstall "$pkg"
+done
+'''
+
+"Neovim - lazy.nvim" = '''
+nvim --headless -c 'lua local ok, err = pcall(vim.cmd, "Lazy! sync"); if not ok then print(err); vim.cmd("cquit") else vim.cmd("qa") end'
+'''
+"Neovim - Treesitter" = '''
+nvim --headless -c 'lua local ok = require("nvim-treesitter").install("all"):wait(); if not ok then print("nvim-treesitter install failed"); vim.cmd("cquit") else vim.cmd("qa") end'
+nvim --headless -c 'lua local ok = require("nvim-treesitter").update():wait(); if not ok then print("nvim-treesitter update failed"); vim.cmd("cquit") else vim.cmd("qa") end'
+'''
+"Neovim - Mason" = '''
+nvim --headless -c 'lua local ok, err = pcall(vim.cmd, "MasonInstallAll"); if not ok then print(err); vim.cmd("cquit") else vim.cmd("MasonLock"); vim.cmd("qa") end'
+'''
+"Neovim - codediff.nvim" = '''
+nvim --headless -c 'lua local ok, err = pcall(require("codediff.core.installer").install); if not ok then print(err); vim.cmd("cquit") else vim.cmd("qa") end'
+'''
+
+"Ferium - upgrade" = "ferium upgrade"

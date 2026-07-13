@@ -1,7 +1,0 @@
-eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || :
-
-source "${HOME}/.cargo/env" 2>/dev/null || :
-source "${HOME}/.orbstack/shell/init.zsh" 2>/dev/null || :
-
-export SHELL_SESSION_DIR="${XDG_STATE_HOME}/zsh/sessions"
-export SHELL_SESSION_FILE="${SHELL_SESSION_DIR}/${TERM_SESSION_ID}"
