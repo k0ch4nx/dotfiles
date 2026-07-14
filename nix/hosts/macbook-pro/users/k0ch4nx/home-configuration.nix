@@ -1,5 +1,6 @@
 {
   imports = [
+    ../../../../modules/home/agent-skills.nix
     ./shell.nix
     ./packages.nix
     ./dotfiles.nix

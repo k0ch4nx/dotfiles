@@ -1,6 +1,6 @@
 {
   age.rekey = {
-    hostPubkey = builtins.readFile ../../secrets/hosts/MacBook-Pro.pub;
+    hostPubkey = builtins.readFile ../../../secrets/hosts/macbook-pro.pub;
     storageMode = "derivation";
     cacheDir = "/private/var/tmp/agenix-rekey-k0ch4nx";
     masterIdentities = [

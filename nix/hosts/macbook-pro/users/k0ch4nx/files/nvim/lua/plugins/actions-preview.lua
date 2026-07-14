@@ -14,7 +14,7 @@ return {
                 vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
                 local opts = { buffer = ev.buf }
-                vim.keymap.set({ "n", "v" }, "<space>ca", require("actions-preview").code_actions, opts)
+                vim.keymap.set({ "n", "v" }, "gra", require("actions-preview").code_actions, opts)
             end,
         })
 

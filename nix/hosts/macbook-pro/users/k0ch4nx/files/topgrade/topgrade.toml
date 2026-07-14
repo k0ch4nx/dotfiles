@@ -14,8 +14,8 @@ only = [
 set -euo pipefail
 umask 022
 REPO="$HOME/Developer/github.com/k0ch4nx/dotfiles"
-HOST_KEY="$REPO/secrets/hosts/MacBook-Pro-key.txt"
-HOST_PUB="$REPO/secrets/hosts/MacBook-Pro.pub"
+HOST_KEY="$REPO/secrets/hosts/macbook-pro-key.txt"
+HOST_PUB="$REPO/secrets/hosts/macbook-pro.pub"
 if [ ! -f "$HOST_KEY" ]; then
   mkdir -p "$(dirname "$HOST_KEY")"
   rage-keygen -o "$HOST_KEY"
@@ -26,7 +26,7 @@ git -C "$REPO" add -f "$HOST_PUB"
 cd "$REPO"
 nix run .#agenix-rekey.aarch64-darwin.rekey
 '''
-"Nix - darwin-rebuild switch" = "cd $HOME/Developer/github.com/k0ch4nx/dotfiles && sudo darwin-rebuild switch --flake .#MacBook-Pro"
+"Nix - darwin-rebuild switch" = "cd $HOME/Developer/github.com/k0ch4nx/dotfiles && sudo darwin-rebuild switch --flake .#macbook-pro"
 
 "HomeBrew - uninstall build dependencies" = '''
 leaves=(`brew leaves --installed-as-dependency | xargs`)

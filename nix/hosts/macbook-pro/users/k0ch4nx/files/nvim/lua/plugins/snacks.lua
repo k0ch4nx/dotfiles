@@ -121,6 +121,52 @@ return {
             end
         end
 
+        ---@param picker snacks.Picker
+        ---@param item snacks.picker.Item?
+        ---@return boolean
+        local function should_open_current(picker, item)
+            local navigating_explorer = picker.opts.source == "explorer" and item and item.dir
+            return not not (
+                item
+                and not navigating_explorer
+                and #picker.list.selected > 0
+                and not picker.list:is_selected(item)
+            )
+        end
+
+        ---@param action string
+        ---@return snacks.picker.Action
+        local function open_current_if_unselected(action)
+            return {
+                action = function(picker, item)
+                    picker:norm(function()
+                        if not should_open_current(picker, item) then
+                            picker:action(action)
+                            return
+                        end
+
+                        local original_selected = picker.selected
+                        local instance_selected = rawget(picker, "selected")
+                        picker.selected = function(self, opts)
+                            if opts and opts.fallback then
+                                return { item }
+                            end
+                            return original_selected(self, opts)
+                        end
+
+                        local ok, err = xpcall(function()
+                            picker:action(action)
+                        end, debug.traceback)
+                        rawset(picker, "selected", instance_selected)
+
+                        if not ok then
+                            error(err)
+                        end
+                    end)
+                end,
+            }
+        end
+
         vim.iter(require("snacks.picker.config.layouts"))
         ---@param config snacks.picker.layout.Config
             :filter(function(_, config)
@@ -210,6 +256,13 @@ return {
                         layout = {
                             preset = "explorer",
                         },
+                        win = {
+                            list = {
+                                keys = {
+                                    ["l"] = "open_current",
+                                },
+                            },
+                        },
                     },
                     icons = {
                         layout = {
@@ -247,21 +300,44 @@ return {
                 win = {
                     input = {
                         keys = {
-                            ["<S-Tab>"] = { "<nop>", mode = { "i", "n" } },
+                            ["<CR>"] = { "open_current", mode = { "i", "n" } },
+                            ["<S-CR>"] = { { "pick_win", "jump_current" }, mode = { "i", "n" } },
+                            ["<S-Tab>"] = { "select_clear", mode = { "i", "n" } },
                             ["<Tab>"] = { "select", mode = { "i", "n" } },
+                            ["<C-s>"] = { "split_current", mode = { "i", "n" } },
+                            ["<C-t>"] = { "tab_current", mode = { "i", "n" } },
+                            ["<C-v>"] = { "vsplit_current", mode = { "i", "n" } },
                         },
                     },
                     list = {
                         keys = {
-                            ["<S-Tab>"] = { "<nop>", mode = { "i", "n" } },
-                            ["<Tab>"] = { "select", mode = { "i", "n" } },
+                            ["<2-LeftMouse>"] = "open_current",
+                            ["<CR>"] = "open_current",
+                            ["<S-CR>"] = { { "pick_win", "jump_current" } },
+                            ["<S-Tab>"] = "select_clear",
+                            ["<Tab>"] = { "select", mode = { "n", "x" } },
+                            ["<C-s>"] = "split_current",
+                            ["<C-t>"] = "tab_current",
+                            ["<C-v>"] = "vsplit_current",
                         },
                     },
                 },
                 actions = {
-                    select = function(self)
-                        self.list:select()
-                    end,
+                    select = {
+                        action = function(picker)
+                            picker.list:select()
+                        end,
+                    },
+                    select_clear = {
+                        action = function(picker)
+                            picker.list:set_selected()
+                        end,
+                    },
+                    open_current = open_current_if_unselected("confirm"),
+                    jump_current = open_current_if_unselected("jump"),
+                    split_current = open_current_if_unselected("edit_split"),
+                    vsplit_current = open_current_if_unselected("edit_vsplit"),
+                    tab_current = open_current_if_unselected("tab"),
                     explorer_up = function(picker)
                         vim.fn.chdir(vim.fs.dirname(picker:cwd()))
                     end,

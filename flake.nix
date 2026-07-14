@@ -2,6 +2,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/master";
 
+    blueprint = {
+      url = "github:numtide/blueprint";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -10,6 +15,22 @@
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    genshijin = {
+      url = "github:InterfaceX-co-jp/genshijin";
+      flake = false;
+    };
+
+    natural-japanese = {
+      url = "github:coji/natural-japanese";
+      flake = false;
     };
 
     agenix = {
@@ -24,30 +45,27 @@
   };
 
   outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      nix-darwin,
-      home-manager,
-      agenix,
-      agenix-rekey,
-      ...
-    }:
+    inputs:
     let
-      system = "aarch64-darwin";
-    in
-    {
-      darwinConfigurations."MacBook-Pro" = nix-darwin.lib.darwinSystem {
-        inherit system;
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./nix/hosts/MacBook-Pro
+      blueprint = inputs.blueprint {
+        inherit inputs;
+        prefix = "nix/";
+        systems = [
+          "aarch64-darwin"
+          "x86_64-linux"
         ];
-      };
 
-      agenix-rekey = agenix-rekey.configure {
-        userFlake = self;
-        inherit (self) darwinConfigurations;
+        nixpkgs = {
+          config.allowUnfree = true;
+          overlays = import ./nix/overlays;
+        };
+      };
+    in
+    blueprint
+    // {
+      agenix-rekey = inputs.agenix-rekey.configure {
+        userFlake = inputs.self;
+        inherit (inputs.self) darwinConfigurations;
       };
     };
 }
