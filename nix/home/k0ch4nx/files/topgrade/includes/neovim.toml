@@ -1,0 +1,5 @@
+[commands]
+"Neovim - lazy.nvim" = "$HOME/.config/topgrade/commands/common/neovim-lazy.sh"
+"Neovim - Treesitter" = "$HOME/.config/topgrade/commands/common/neovim-treesitter.sh"
+"Neovim - Mason" = "$HOME/.config/topgrade/commands/common/neovim-mason.sh"
+"Neovim - codediff.nvim" = "$HOME/.config/topgrade/commands/common/neovim-codediff.sh"

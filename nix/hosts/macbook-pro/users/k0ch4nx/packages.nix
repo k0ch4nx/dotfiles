@@ -17,7 +17,6 @@
     cloudflared
     cmake
     commitizen
-    delta
     discord
     dolphin-emu
     dotnet-sdk_10
@@ -27,10 +26,7 @@
     ffmpeg-full
     gh
     ghidra
-    ghq
-    git
     git-cliff
-    git-lfs
     gitlogue
     google-chrome
     google-cloud-sdk
@@ -65,7 +61,6 @@
     temurin-bin-25
     terraform
     tokei
-    topgrade
     tree-sitter
     udev-gothic-nf
     vscode

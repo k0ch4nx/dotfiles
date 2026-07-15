@@ -15,7 +15,7 @@
 
   age = {
     identityPaths = [
-      "/Users/k0ch4nx/Developer/github.com/k0ch4nx/dotfiles/secrets/hosts/macbook-pro-key.txt"
+      "${config.dotfiles.path}/secrets/hosts/macbook-pro-key.txt"
     ];
 
     secrets = {

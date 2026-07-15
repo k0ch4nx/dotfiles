@@ -3,7 +3,10 @@
 {
   imports = [
     ../../modules/home/agent-skills.nix
+    ../../modules/home/dotfiles.nix
+    ./git.nix
     ./neovim.nix
+    ./topgrade.nix
   ];
 
   home = {

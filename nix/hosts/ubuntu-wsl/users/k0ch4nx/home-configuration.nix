@@ -1,4 +1,8 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -7,15 +11,24 @@
 
   home.packages = with pkgs; [
     fzf
-    topgrade
   ];
 
-  xdg.configFile."topgrade/topgrade.toml".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Developer/github.com/k0ch4nx/dotfiles/nix/hosts/ubuntu-wsl/users/k0ch4nx/files/topgrade/topgrade.toml";
+  dotfiles.ghqRoot = "${config.home.homeDirectory}/src";
+
+  xdg.configFile = {
+    "topgrade/topgrade.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/hosts/ubuntu-wsl/users/k0ch4nx/files/topgrade/topgrade.toml";
+      # Replace the previous directory-level ~/.config/topgrade link.
+      force = true;
+    };
+    "topgrade/commands/host".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/hosts/ubuntu-wsl/users/k0ch4nx/files/topgrade/commands";
+    "topgrade/includes/host".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/hosts/ubuntu-wsl/users/k0ch4nx/files/topgrade/includes";
+  };
 
   programs = {
     bash.enable = true;
-    git.enable = true;
     home-manager.enable = true;
   };
 }

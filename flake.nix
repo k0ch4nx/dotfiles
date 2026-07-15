@@ -35,6 +35,11 @@
       flake = false;
     };
 
+    kaynetik-skills = {
+      url = "github:kaynetik/skills";
+      flake = false;
+    };
+
     agenix = {
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";

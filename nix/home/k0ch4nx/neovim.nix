@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  nvimDir = "${config.home.homeDirectory}/Developer/github.com/k0ch4nx/dotfiles/nix/home/k0ch4nx/files/nvim";
+  nvimDir = "${config.dotfiles.path}/nix/home/k0ch4nx/files/nvim";
 in
 {
   home.packages = [ pkgs.neovim ];

@@ -10,7 +10,12 @@ fi
 readonly MODE="${1:-apply}"
 readonly EXPECTED_USER="k0ch4nx"
 readonly DOTFILES_REF="${DOTFILES_REF:-main}"
-readonly DOTFILES_REPOSITORY="https://github.com/k0ch4nx/dotfiles.git"
+readonly GHQ_ROOT="${HOME}/src"
+readonly DOTFILES_REMOTE="github.com"
+readonly DOTFILES_USER="${EXPECTED_USER}"
+readonly DOTFILES_REPO="dotfiles"
+readonly DOTFILES_REPOSITORY="https://${DOTFILES_REMOTE}/${DOTFILES_USER}/${DOTFILES_REPO}.git"
+readonly DOTFILES_SSH_REPOSITORY="git@${DOTFILES_REMOTE}:${DOTFILES_USER}/${DOTFILES_REPO}.git"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 readonly SCRIPT_DIR
 DOTFILES_DIR=""
@@ -18,14 +23,14 @@ DOTFILES_DIR=""
 if [[ "${MODE}" == "--check" ]]; then
   DOTFILES_DIR="$(cd "${SCRIPT_DIR}/.." && pwd -P)"
 elif [[ "${MODE}" == "apply" ]]; then
-  DOTFILES_DIR="${HOME}/Developer/github.com/k0ch4nx/dotfiles"
+  DOTFILES_DIR="${GHQ_ROOT}/${DOTFILES_REMOTE}/${DOTFILES_USER}/${DOTFILES_REPO}"
 else
   echo "usage: wsl.sh [--check]" >&2
   exit 2
 fi
 readonly DOTFILES_DIR
 
-readonly TOPGRADE_CONFIG="${DOTFILES_DIR}/nix/hosts/ubuntu-wsl/users/k0ch4nx/files/topgrade/topgrade.toml"
+readonly TOPGRADE_CONFIG="${HOME}/.config/topgrade/topgrade.toml"
 
 nix_installer=""
 NIX_BIN=""
@@ -95,7 +100,7 @@ clone_or_update_dotfiles() {
 
   # The single-quoted script is intentionally expanded only by the Nix-provided Bash.
   # shellcheck disable=SC2016
-  nix_cmd shell --inputs-from "github:k0ch4nx/dotfiles?ref=${DOTFILES_REF}" \
+  nix_cmd shell --inputs-from "github:${DOTFILES_USER}/${DOTFILES_REPO}?ref=${DOTFILES_REF}" \
     nixpkgs#bash \
     nixpkgs#coreutils \
     nixpkgs#git \
@@ -105,6 +110,7 @@ clone_or_update_dotfiles() {
       repository=$1
       destination=$2
       ref=$3
+      ssh_repository=$4
 
       if [[ ! -e "${destination}" ]]; then
         mkdir -p "$(dirname "${destination}")"
@@ -130,7 +136,7 @@ clone_or_update_dotfiles() {
 
       origin=$(git -C "${destination}" remote get-url origin)
       case "${origin}" in
-        https://github.com/k0ch4nx/dotfiles.git|git@github.com:k0ch4nx/dotfiles.git)
+        "${repository}"|"${ssh_repository}")
           ;;
         *)
           echo "bootstrap(wsl): unexpected origin URL: ${origin}" >&2
@@ -140,7 +146,7 @@ clone_or_update_dotfiles() {
 
       git -C "${destination}" fetch origin "${ref}"
       git -C "${destination}" merge --ff-only "origin/${ref}"
-    ' bootstrap "${DOTFILES_REPOSITORY}" "${DOTFILES_DIR}" "${DOTFILES_REF}"
+    ' bootstrap "${DOTFILES_REPOSITORY}" "${DOTFILES_DIR}" "${DOTFILES_REF}" "${DOTFILES_SSH_REPOSITORY}"
 }
 
 build_activation_package() {
@@ -160,18 +166,24 @@ build_home_path() {
 check_wsl_configuration() {
   local activation_package
   local home_path
+  local topgrade_home
+  local topgrade_config
 
   log "Building the WSL Home Manager activation package"
   activation_package="$(build_activation_package)"
   [[ -x "${activation_package}/activate" ]] || die "Home Manager activation script is missing"
+  topgrade_home="${activation_package}/home-files"
+  topgrade_config="${topgrade_home}/.config/topgrade/topgrade.toml"
+  [[ -f "${topgrade_config}" ]] || die "Topgrade config not found in the Home Manager generation"
 
   log "Building the WSL Home Manager environment"
   home_path="$(build_home_path)"
   [[ -x "${home_path}/bin/topgrade" ]] || die "Topgrade is missing from the Home Manager environment"
-  [[ -f "${TOPGRADE_CONFIG}" ]] || die "Topgrade config not found: ${TOPGRADE_CONFIG}"
 
   log "Checking the WSL Topgrade configuration"
-  "${home_path}/bin/topgrade" --dry-run --config "${TOPGRADE_CONFIG}"
+  HOME="${topgrade_home}" \
+    XDG_CONFIG_HOME="${topgrade_home}/.config" \
+    "${home_path}/bin/topgrade" --dry-run --config "${topgrade_config}"
 }
 
 apply_home_configuration() {

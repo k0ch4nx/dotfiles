@@ -1,3 +1,5 @@
+{ config, ... }:
+
 {
   imports = [
     ../../../../home/k0ch4nx
@@ -11,4 +13,6 @@
     username = "k0ch4nx";
     homeDirectory = "/Users/k0ch4nx";
   };
+
+  dotfiles.ghqRoot = "${config.home.homeDirectory}/Developer";
 }

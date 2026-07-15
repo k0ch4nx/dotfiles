@@ -1,0 +1,2 @@
+[commands]
+"Nix - update flake inputs" = "$HOME/.config/topgrade/commands/common/nix-update-flake.sh"

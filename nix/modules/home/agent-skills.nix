@@ -18,11 +18,17 @@
         input = "natural-japanese";
         subdir = "skills";
       };
+
+      kaynetik-skills = {
+        input = "kaynetik-skills";
+        filter.nameRegex = "ultimate-nixos";
+      };
     };
 
     skills.enable = [
       "genshijin"
       "natural-japanese"
+      "ultimate-nixos"
     ];
 
     targets.opencode.enable = true;
