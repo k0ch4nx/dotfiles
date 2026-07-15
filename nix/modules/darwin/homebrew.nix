@@ -1,10 +1,21 @@
-{ ... }:
+{ inputs, ... }:
 {
+  imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
+
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = false;
+    user = "k0ch4nx";
+    autoMigrate = true;
+  };
+
   homebrew = {
     enable = true;
 
     onActivation = {
-      autoUpdate = true;
+      # nix-homebrew's wrapper loses Homebrew's original PATH when auto-update
+      # re-executes brew, which prevents brew bundle from finding mas.
+      autoUpdate = false;
       upgrade = true;
       cleanup = "none";
     };

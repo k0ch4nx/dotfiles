@@ -11,5 +11,5 @@
     flake.modules.agenix.rekey
   ];
 
-  networking.hostName = "macbook-pro";
+  networking.hostName = "MacBook-Pro";
 }

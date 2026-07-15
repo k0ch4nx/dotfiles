@@ -197,9 +197,6 @@
     XDG_DATA_HOME = "${config.xdg.dataHome}";
     XDG_STATE_HOME = "${config.xdg.stateHome}";
 
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-
     DO_NOT_TRACK = "1";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
     HOMEBREW_NO_ANALYTICS = "1";

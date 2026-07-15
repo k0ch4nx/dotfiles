@@ -1,34 +1,21 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
-    ../../../../modules/home/agent-skills.nix
+    ../../../../home/k0ch4nx
   ];
 
-  home = {
-    stateVersion = "25.11";
+  home.packages = with pkgs; [
+    fzf
+    topgrade
+  ];
 
-    packages = with pkgs; [
-      bat
-      eza
-      fd
-      fzf
-      neovim
-      ripgrep
-      uv
-    ];
-
-    sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-    };
-  };
+  xdg.configFile."topgrade/topgrade.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Developer/github.com/k0ch4nx/dotfiles/nix/hosts/ubuntu-wsl/users/k0ch4nx/files/topgrade/topgrade.toml";
 
   programs = {
     bash.enable = true;
     git.enable = true;
     home-manager.enable = true;
   };
-
-  xdg.enable = true;
 }

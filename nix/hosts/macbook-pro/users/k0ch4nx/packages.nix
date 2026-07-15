@@ -9,7 +9,6 @@
     asciinema
     azahar
     bacon
-    bat
     bazelisk
     betterdisplay
     blender
@@ -22,10 +21,8 @@
     discord
     dolphin-emu
     dotnet-sdk_10
-    eza
     fabric-installer
     fastfetch
-    fd
     ferium
     ffmpeg-full
     gh
@@ -49,7 +46,6 @@
     lmstudio
     mas
     mpv
-    neovim
     nixfmt
     nodejs_latest
     oh-my-posh
@@ -63,7 +59,6 @@
     python3Packages.lizard
     qbittorrent
     rage
-    ripgrep
     rustup
     ryubing
     skhd
@@ -73,7 +68,6 @@
     topgrade
     tree-sitter
     udev-gothic-nf
-    uv
     vscode
     wezterm
     yabai

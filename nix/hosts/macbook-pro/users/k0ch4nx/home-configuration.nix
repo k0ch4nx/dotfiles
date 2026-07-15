@@ -1,6 +1,6 @@
 {
   imports = [
-    ../../../../modules/home/agent-skills.nix
+    ../../../../home/k0ch4nx
     ./shell.nix
     ./packages.nix
     ./dotfiles.nix
@@ -10,6 +10,5 @@
   home = {
     username = "k0ch4nx";
     homeDirectory = "/Users/k0ch4nx";
-    stateVersion = "25.11";
   };
 }

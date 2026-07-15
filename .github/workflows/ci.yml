@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macos:
+    name: macOS
+    runs-on: macos-15
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Run Darwin bootstrap check
+        run: bash bootstrap/darwin.sh --check
+
+  wsl:
+    name: WSL
+    runs-on: windows-2025
+    timeout-minutes: 120
+    steps:
+      - name: Install Ubuntu on WSL
+        uses: Ubuntu/WSL/.github/actions/wsl-install@main
+        with:
+          distro: Ubuntu-24.04
+      - name: Check out repository in WSL
+        uses: Ubuntu/WSL/.github/actions/wsl-checkout@main
+        with:
+          distro: Ubuntu-24.04
+          working-dir: /tmp/dotfiles
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run WSL bootstrap check
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@main
+        with:
+          distro: Ubuntu-24.04
+          working-dir: /tmp/dotfiles
+          exec: |
+            git remote set-url origin https://github.com/${{ github.repository }}.git
+            bash bootstrap/wsl.sh --check

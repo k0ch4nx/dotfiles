@@ -9,19 +9,6 @@
     "fzf".source = ./files/fzf;
     "git".source = ./files/git;
     "lazygit".source = ./files/lazygit;
-    "nvim/.luarc.jsonc".source = ./files/nvim/.luarc.jsonc;
-    "nvim/after".source = ./files/nvim/after;
-    "nvim/init.lua".source = ./files/nvim/init.lua;
-    "nvim/lua".source = ./files/nvim/lua;
-    "nvim/patches".source = ./files/nvim/patches;
-    "nvim/lazy-lock.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/Users/k0ch4nx/Developer/github.com/k0ch4nx/dotfiles/nix/hosts/macbook-pro/users/k0ch4nx/files/nvim/lazy-lock.json";
-      force = true;
-    };
-    "nvim/mason-lock.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/Users/k0ch4nx/Developer/github.com/k0ch4nx/dotfiles/nix/hosts/macbook-pro/users/k0ch4nx/files/nvim/mason-lock.json";
-      force = true;
-    };
     "oh-my-posh".source = ./files/oh-my-posh;
     "sketchybar".source = ./files/sketchybar;
     "skhd".source = ./files/skhd;
