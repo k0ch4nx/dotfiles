@@ -62,7 +62,7 @@ if ! is_ci; then
   exec </dev/tty
 fi
 
-install_nix --no-daemon "${HOME}/.nix-profile/etc/profile.d/nix.sh"
+install_nix --daemon /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 if is_ci; then
   log "Building the WSL Home Manager activation package"

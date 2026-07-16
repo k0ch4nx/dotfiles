@@ -90,6 +90,18 @@ prepare_yubikey_identity() {
   mv "${identity_tmp}" "${YUBIKEY_IDENTITY}"
 }
 
+create_ci_dummy_secrets() {
+  log "Creating dummy rekeyed secrets for the CI build"
+
+  (
+    cd "${DOTFILES_DIR}"
+    nix_cmd run \
+      --no-update-lock-file \
+      "${DOTFILES_DIR}#agenix-rekey.aarch64-darwin.rekey" \
+      -- --dummy
+  )
+}
+
 trap cleanup EXIT
 
 [[ "$(uname -s)" == "Darwin" ]] || die "this script only supports macOS"
@@ -106,6 +118,7 @@ prepare_command_line_tools
 install_nix --daemon /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 if is_ci; then
+  create_ci_dummy_secrets
   log "Building the macOS system without activating it"
   build_flake_path "${SYSTEM_ATTRIBUTE}" >/dev/null
   check_flake

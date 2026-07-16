@@ -29,7 +29,6 @@ jobs:
         run: |
           bash -n bootstrap/*.sh
           bash bootstrap/darwin.sh
-          bash bootstrap/darwin.sh
           git diff --exit-code -- flake.lock
 
   wsl:
@@ -53,6 +52,7 @@ jobs:
           distro: Ubuntu-24.04
           working-dir: /tmp/dotfiles
           exec: |
+            set -euo pipefail
             git remote set-url origin https://github.com/${{ github.repository }}.git
             bash -n bootstrap/*.sh
             CI=1 bash bootstrap/wsl.sh
