@@ -1,12 +1,9 @@
-{ config, ... }:
+{ config, flake, ... }:
 
 {
   imports = [
     ../../../../home/k0ch4nx
-    ./shell.nix
-    ./packages.nix
-    ./dotfiles.nix
-    ./secrets.nix
+    flake.homeModules.darwin
   ];
 
   home = {

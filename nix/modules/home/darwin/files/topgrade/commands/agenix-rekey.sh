@@ -17,4 +17,8 @@ chmod 600 "$HOST_KEY"
 rage-keygen -y "$HOST_KEY" > "$HOST_PUB"
 git -C "$REPO" add -f "$HOST_PUB"
 cd "$REPO"
-nix run .#agenix-rekey.aarch64-darwin.rekey
+nix_args=()
+if [[ -n "${BOOTSTRAP_NO_FLAKE_UPDATE:-}" ]]; then
+  nix_args+=(--no-update-lock-file)
+fi
+nix run "${nix_args[@]}" .#agenix-rekey.aarch64-darwin.rekey

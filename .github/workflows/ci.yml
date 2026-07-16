@@ -17,14 +17,20 @@ concurrency:
 jobs:
   macos:
     name: macOS
-    runs-on: macos-15
+    runs-on: macos-26
     timeout-minutes: 360
     steps:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Run Darwin bootstrap check
-        run: bash bootstrap/darwin.sh --check
+      - name: Build the Darwin configuration
+        env:
+          CI: "1"
+        run: |
+          bash -n bootstrap/*.sh
+          bash bootstrap/darwin.sh
+          bash bootstrap/darwin.sh
+          git diff --exit-code -- flake.lock
 
   wsl:
     name: WSL
@@ -32,20 +38,23 @@ jobs:
     timeout-minutes: 120
     steps:
       - name: Install Ubuntu on WSL
-        uses: Ubuntu/WSL/.github/actions/wsl-install@main
+        uses: Ubuntu/WSL/.github/actions/wsl-install@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         with:
           distro: Ubuntu-24.04
       - name: Check out repository in WSL
-        uses: Ubuntu/WSL/.github/actions/wsl-checkout@main
+        uses: Ubuntu/WSL/.github/actions/wsl-checkout@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         with:
           distro: Ubuntu-24.04
           working-dir: /tmp/dotfiles
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run WSL bootstrap check
-        uses: Ubuntu/WSL/.github/actions/wsl-bash@main
+      - name: Build the WSL configuration
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         with:
           distro: Ubuntu-24.04
           working-dir: /tmp/dotfiles
           exec: |
             git remote set-url origin https://github.com/${{ github.repository }}.git
-            bash bootstrap/wsl.sh --check
+            bash -n bootstrap/*.sh
+            CI=1 bash bootstrap/wsl.sh
+            CI=1 bash bootstrap/wsl.sh
+            git diff --exit-code -- flake.lock

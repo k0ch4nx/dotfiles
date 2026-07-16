@@ -1,0 +1,29 @@
+{ inputs, pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    _010editor
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    apparency
+    azahar
+    betterdisplay
+    blender
+    discord
+    dolphin-emu
+    fabric-installer
+    ferium
+    ghidra
+    google-chrome
+    iina
+    jankyborders
+    lmstudio
+    mas
+    orbstack
+    qbittorrent
+    ryubing
+    skhd
+    udev-gothic-nf
+    vscode
+    wezterm
+    yabai
+  ];
+}

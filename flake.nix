@@ -70,6 +70,9 @@
     in
     blueprint
     // {
+      homeConfigurations."k0ch4nx@ubuntu-wsl" =
+        blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl";
+
       agenix-rekey = inputs.agenix-rekey.configure {
         userFlake = inputs.self;
         inherit (inputs.self) darwinConfigurations;
