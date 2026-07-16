@@ -167,6 +167,36 @@ return {
             }
         end
 
+        local function explorer_add(picker, item)
+            local target_dir = item and Snacks.picker.util.dir(item) or picker:dir()
+
+            Snacks.input({
+                prompt = 'Add a new file or directory (directories end with a "/")',
+            }, function(value)
+                if not value or value:find("^%s$") then
+                    return
+                end
+
+                local path = vim.fs.normalize(target_dir .. "/" .. value)
+                local is_file = value:sub(-1) ~= "/"
+                local dir = is_file and vim.fs.dirname(path) or path
+                if is_file and vim.uv.fs_stat(path) then
+                    Snacks.notify.warn("File already exists:\n- `" .. path .. "`")
+                    return
+                end
+
+                vim.fn.mkdir(dir, "p")
+                if is_file then
+                    io.open(path, "w"):close()
+                end
+
+                local Tree = require("snacks.explorer.tree")
+                Tree:open(dir)
+                Tree:refresh(dir)
+                require("snacks.explorer.actions").update(picker, { target = path })
+            end)
+        end
+
         vim.iter(require("snacks.picker.config.layouts"))
         ---@param config snacks.picker.layout.Config
             :filter(function(_, config)
@@ -338,6 +368,7 @@ return {
                     split_current = open_current_if_unselected("edit_split"),
                     vsplit_current = open_current_if_unselected("edit_vsplit"),
                     tab_current = open_current_if_unselected("tab"),
+                    explorer_add = explorer_add,
                     explorer_up = function(picker)
                         vim.fn.chdir(vim.fs.dirname(picker:cwd()))
                     end,
