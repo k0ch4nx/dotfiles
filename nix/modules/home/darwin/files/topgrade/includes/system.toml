@@ -1,4 +1,0 @@
-[commands]
-"Agenix - rekey" = "$HOME/.config/topgrade/commands/host/agenix-rekey.sh"
-"Nix - darwin-rebuild switch" = "$HOME/.config/topgrade/commands/host/darwin-rebuild.sh"
-"HomeBrew - uninstall build dependencies" = "$HOME/.config/topgrade/commands/host/homebrew-uninstall-build-dependencies.sh"

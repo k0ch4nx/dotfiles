@@ -44,10 +44,8 @@ else
   DOTFILES_DIR="${GHQ_ROOT}/${DOTFILES_REMOTE}/${DOTFILES_USER}/${DOTFILES_REPO}"
 fi
 readonly DOTFILES_DIR
-
-readonly ACTIVATION_ATTRIBUTE="homeConfigurations.\"${EXPECTED_USER}@ubuntu-wsl\".activationPackage"
-readonly HOME_PATH_ATTRIBUTE="homeConfigurations.\"${EXPECTED_USER}@ubuntu-wsl\".config.home.path"
-readonly HOST_TOPGRADE_DIR="${DOTFILES_DIR}/nix/modules/home/wsl/files/topgrade"
+readonly DOTFILES_HOST="${EXPECTED_USER}@ubuntu-wsl"
+export DOTFILES_DIR DOTFILES_HOST
 
 trap cleanup EXIT
 
@@ -65,18 +63,23 @@ fi
 install_nix --daemon /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 if is_ci; then
-  log "Building the WSL Home Manager activation package"
-  activation_package="$(build_flake_path "${ACTIVATION_ATTRIBUTE}")"
-  [[ -x "${activation_package}/activate" ]] || die "Home Manager activation script is missing"
-  check_flake
+  run_flake_command home-manager-build
+  run_flake_command dotfiles-check
   log "WSL bootstrap build completed successfully"
   exit
 fi
 
 clone_or_update_dotfiles
 
-log "Building the Nix-managed Home Manager environment"
-home_path="$(build_flake_path "${HOME_PATH_ATTRIBUTE}")"
-run_topgrade "${home_path}" "" "${HOST_TOPGRADE_DIR}"
+run_flake_command nix-update
+run_flake_command home-manager-switch
+
+run_optional_flake_command neovim-lazy
+run_optional_flake_command neovim-treesitter
+run_optional_flake_command neovim-mason
+run_optional_flake_command neovim-codediff
+run_optional_flake_command apt-upgrade
+
+finish_optional_flake_commands
 
 log "Bootstrap completed successfully"

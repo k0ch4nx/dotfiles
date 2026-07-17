@@ -54,22 +54,48 @@
   outputs =
     inputs:
     let
+      systems = [
+        "aarch64-darwin"
+        "x86_64-linux"
+      ];
+
       blueprint = inputs.blueprint {
         inherit inputs;
         prefix = "nix/";
-        systems = [
-          "aarch64-darwin"
-          "x86_64-linux"
-        ];
+        inherit systems;
 
         nixpkgs = {
           config.allowUnfree = true;
           overlays = import ./nix/overlays;
         };
       };
+
+      pkgsFor =
+        system:
+        import inputs.nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = import ./nix/overlays;
+        };
+
+      commandPackages = inputs.nixpkgs.lib.genAttrs systems (
+        system: import ./nix/update-commands { pkgs = pkgsFor system; }
+      );
     in
     blueprint
     // {
+      packages = inputs.nixpkgs.lib.genAttrs systems (
+        system:
+        inputs.nixpkgs.lib.attrByPath [ "packages" system ] { } blueprint
+        // commandPackages.${system}
+      );
+
+      checks = inputs.nixpkgs.lib.genAttrs systems (
+        system:
+        inputs.nixpkgs.lib.attrByPath [ "checks" system ] { } blueprint
+        // commandPackages.${system}
+      );
+
       homeConfigurations."k0ch4nx@ubuntu-wsl" =
         blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl";
 

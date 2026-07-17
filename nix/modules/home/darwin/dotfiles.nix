@@ -12,18 +12,6 @@
     "lazygit".source = ./files/lazygit;
     "sketchybar".source = ./files/sketchybar;
     "skhd".source = ./files/skhd;
-    "topgrade/topgrade.toml" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/modules/home/darwin/files/topgrade/topgrade.toml";
-      force = true;
-    };
-    "topgrade/commands/host" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/modules/home/darwin/files/topgrade/commands";
-      force = true;
-    };
-    "topgrade/includes/host" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/modules/home/darwin/files/topgrade/includes";
-      force = true;
-    };
     "wezterm".source = ./files/wezterm;
     "yabai".source = ./files/yabai;
     "ferium/config.json" = {

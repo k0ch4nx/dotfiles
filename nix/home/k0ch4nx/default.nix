@@ -8,7 +8,6 @@
     ./neovim.nix
     ./shell.nix
     ./ssh.nix
-    ./topgrade.nix
   ];
 
   home = {

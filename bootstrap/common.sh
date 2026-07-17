@@ -5,10 +5,10 @@ readonly DOTFILES_USER="${EXPECTED_USER}"
 readonly DOTFILES_REPO="dotfiles"
 readonly DOTFILES_REPOSITORY="https://${DOTFILES_REMOTE}/${DOTFILES_USER}/${DOTFILES_REPO}.git"
 readonly DOTFILES_SSH_REPOSITORY="git@${DOTFILES_REMOTE}:${DOTFILES_USER}/${DOTFILES_REPO}.git"
-readonly TOPGRADE_CONFIG="${HOME}/.config/topgrade/topgrade.toml"
 
 nix_installer=""
 NIX_BIN=""
+FAILED_COMMANDS=()
 
 is_ci() {
   [[ -n "${CI+x}" ]]
@@ -106,6 +106,8 @@ clone_or_update_dotfiles() {
 
   # The single-quoted script is intentionally expanded only by the Nix-provided Bash.
   # shellcheck disable=SC2016
+  # DOTFILES_REF is defined by each platform entrypoint before this file is sourced.
+  # shellcheck disable=SC2153
   nix_cmd shell --no-update-lock-file \
     --inputs-from "github:${DOTFILES_USER}/${DOTFILES_REPO}?ref=${DOTFILES_REF}" \
     nixpkgs#bash \
@@ -137,11 +139,6 @@ clone_or_update_dotfiles() {
         exit 1
       }
 
-      [[ -z "$(git -C "${destination}" status --porcelain)" ]] || {
-        echo "bootstrap(${bootstrap_name}): ${destination} has uncommitted changes; refusing to update it" >&2
-        exit 1
-      }
-
       origin=$(git -C "${destination}" remote get-url origin)
       case "${origin}" in
         "${repository}"|"${ssh_repository}")
@@ -151,6 +148,11 @@ clone_or_update_dotfiles() {
           exit 1
           ;;
       esac
+
+      if [[ -n "$(git -C "${destination}" status --porcelain)" ]]; then
+        echo "bootstrap(${bootstrap_name}): ${destination} has local changes; skipping the remote update"
+        exit
+      fi
 
       git -C "${destination}" fetch origin "${ref}"
       git -C "${destination}" merge --ff-only "origin/${ref}"
@@ -162,84 +164,45 @@ clone_or_update_dotfiles() {
     "${BOOTSTRAP_NAME}"
 }
 
-build_flake_path() {
-  local attribute=$1
+run_flake_command() {
+  local package=$1
 
-  nix_cmd build \
+  [[ "${package}" =~ ^[a-z0-9][a-z0-9-]*$ ]] || die "invalid update package name: ${package}"
+  case "${package}" in
+    agenix-rekey|apt-upgrade|darwin-build|darwin-ci-secrets|darwin-switch|dotfiles-check|ferium-upgrade|github-cli-extensions|home-manager-build|home-manager-switch|homebrew-clean-build-dependencies|macos-update|neovim-codediff|neovim-lazy|neovim-mason|neovim-treesitter|nix-update|rustup-update)
+      ;;
+    *)
+      die "update package is not allowed: ${package}"
+      ;;
+  esac
+
+  log "Running ${package}"
+  nix_cmd run \
     --no-update-lock-file \
-    --no-link \
-    --print-out-paths \
-    "${DOTFILES_DIR}#${attribute}"
+    "${DOTFILES_DIR}#${package}"
 }
 
-check_flake() {
-  log "Checking flake outputs"
-  nix_cmd flake check \
-    --no-update-lock-file \
-    "${DOTFILES_DIR}"
-}
+run_optional_flake_command() {
+  local package=$1
 
-ensure_bootstrap_link() {
-  local destination=$1
-  local source=$2
-
-  [[ -e "${source}" ]] || die "Topgrade source not found: ${source}"
-
-  if [[ -e "${destination}" && "${destination}" -ef "${source}" ]]; then
+  if run_flake_command "${package}"; then
     return
   fi
 
-  if [[ -e "${destination}" || -L "${destination}" ]]; then
-    die "refusing to replace existing Topgrade path: ${destination}"
-  fi
-
-  mkdir -p "$(dirname "${destination}")"
-  ln -s "${source}" "${destination}"
+  FAILED_COMMANDS+=("${package}")
+  echo "bootstrap(${BOOTSTRAP_NAME}): ${package} failed; continuing" >&2
 }
 
-prepare_topgrade_config() {
-  local host_topgrade_dir=$1
-  local common_topgrade_dir="${DOTFILES_DIR}/nix/home/${EXPECTED_USER}/files/topgrade"
-  local topgrade_dir="${HOME}/.config/topgrade"
+finish_optional_flake_commands() {
+  local package
 
-  if [[ "${TOPGRADE_CONFIG}" -ef "${host_topgrade_dir}/topgrade.toml" \
-    && "${topgrade_dir}/commands/common" -ef "${common_topgrade_dir}/commands" \
-    && "${topgrade_dir}/commands/host" -ef "${host_topgrade_dir}/commands" \
-    && "${topgrade_dir}/includes/common" -ef "${common_topgrade_dir}/includes" \
-    && "${topgrade_dir}/includes/host" -ef "${host_topgrade_dir}/includes" ]]; then
-    log "Using existing Topgrade configuration"
+  if [[ ${#FAILED_COMMANDS[@]} -eq 0 ]]; then
     return
   fi
 
-  log "Preparing the initial Topgrade configuration"
-  ensure_bootstrap_link "${TOPGRADE_CONFIG}" "${host_topgrade_dir}/topgrade.toml"
-  ensure_bootstrap_link "${topgrade_dir}/commands/common" "${common_topgrade_dir}/commands"
-  ensure_bootstrap_link "${topgrade_dir}/commands/host" "${host_topgrade_dir}/commands"
-  ensure_bootstrap_link "${topgrade_dir}/includes/common" "${common_topgrade_dir}/includes"
-  ensure_bootstrap_link "${topgrade_dir}/includes/host" "${host_topgrade_dir}/includes"
-}
-
-run_topgrade() {
-  local home_path=$1
-  local extra_path=$2
-  local host_topgrade_dir=$3
-  local topgrade_path="${home_path}/bin/topgrade"
-  local runtime_path="${home_path}/bin:${NIX_BIN%/nix}:${PATH}"
-
-  [[ -x "${topgrade_path}" ]] || die "Topgrade is missing from the Home Manager environment"
-  if [[ -n "${extra_path}" ]]; then
-    runtime_path="${extra_path}:${runtime_path}"
-  fi
-
-  prepare_topgrade_config "${host_topgrade_dir}"
-  [[ -f "${TOPGRADE_CONFIG}" ]] || die "Topgrade config not found: ${TOPGRADE_CONFIG}"
-
-  log "Running Topgrade with the repository configuration"
-  (
-    cd "${DOTFILES_DIR}"
-    export BOOTSTRAP_NO_FLAKE_UPDATE=1
-    export DOTFILES_DIR
-    export PATH="${runtime_path}"
-    "${topgrade_path}" --config "${TOPGRADE_CONFIG}"
-  )
+  echo "bootstrap(${BOOTSTRAP_NAME}): update commands failed:" >&2
+  for package in "${FAILED_COMMANDS[@]}"; do
+    echo "  - ${package}" >&2
+  done
+  return 1
 }
