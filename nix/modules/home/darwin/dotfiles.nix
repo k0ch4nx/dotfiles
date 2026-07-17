@@ -6,12 +6,10 @@
       source = ./files/borders/bordersrc;
       executable = true;
     };
-    "fzf".source = ./files/fzf;
     "git/ignore".text = ''
       .DS_Store
     '';
     "lazygit".source = ./files/lazygit;
-    "oh-my-posh".source = ./files/oh-my-posh;
     "sketchybar".source = ./files/sketchybar;
     "skhd".source = ./files/skhd;
     "topgrade/topgrade.toml" = {

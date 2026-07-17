@@ -1,12 +1,9 @@
 {
   config,
-  pkgs,
   ...
 }:
 
 {
-  home.packages = [ pkgs.fzf ];
-
   xdg.configFile = {
     "topgrade/topgrade.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/modules/home/wsl/files/topgrade/topgrade.toml";
