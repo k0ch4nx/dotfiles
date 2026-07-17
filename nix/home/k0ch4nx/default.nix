@@ -6,6 +6,7 @@
     ../../modules/home/dotfiles.nix
     ./git.nix
     ./neovim.nix
+    ./ssh.nix
     ./topgrade.nix
   ];
 
