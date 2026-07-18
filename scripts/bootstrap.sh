@@ -9,6 +9,7 @@ readonly repo="dotfiles"
 host=""
 ghq_root=""
 dotfiles_dir=""
+force_rekey=false
 
 function is_github_actions() {
     [[ "${GITHUB_ACTIONS:-}" == "true" ]]
@@ -71,6 +72,18 @@ function install_nix() {
     fi
 }
 
+function run_age_keygen() {
+    if command -v rage-keygen >/dev/null 2>&1; then
+        rage-keygen "$@"
+    else
+        nix \
+            --extra-experimental-features 'nix-command flakes' \
+            shell nixpkgs#rage \
+            -c rage-keygen \
+            "$@"
+    fi
+}
+
 function prepare_dotfiles() {
     if is_github_actions; then
         dotfiles_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
@@ -85,6 +98,32 @@ function prepare_dotfiles() {
         get "${user}/${repo}"
 
     dotfiles_dir="${ghq_root}/${domain}/${user}/${repo}"
+}
+
+function ensure_host_identity() {
+    if is_github_actions || ! is_darwin; then
+        return
+    fi
+
+    local identity_dir="${dotfiles_dir}/secrets/hosts"
+    local identity_name="${host}-${user}"
+    local private_key="${identity_dir}/${identity_name}-key.txt"
+    local public_key_file="${identity_dir}/${identity_name}.pub"
+    local public_key
+
+    mkdir -p "${identity_dir}"
+
+    if [[ ! -f "${private_key}" ]]; then
+        run_age_keygen -o "${private_key}"
+        force_rekey=true
+    fi
+
+    public_key="$(run_age_keygen -y "${private_key}")"
+
+    if [[ ! -f "${public_key_file}" ]] || [[ "$(<"${public_key_file}")" != "${public_key}" ]]; then
+        printf '%s\n' "${public_key}" >"${public_key_file}"
+        force_rekey=true
+    fi
 }
 
 function update_nix() {
@@ -125,16 +164,25 @@ function run_agenix_rekey() {
             run \
             --impure \
             --no-update-lock-file \
-            "${dotfiles_dir}#agenix-rekey.${system}.rekey" \
+            "path:${dotfiles_dir}#agenix-rekey.${system}.rekey" \
             -- \
             --dummy
+    elif [[ "${force_rekey}" == true ]]; then
+        NIX_CONFIG="${nix_config}" nix \
+            --extra-experimental-features 'nix-command flakes' \
+            run \
+            --impure \
+            --no-update-lock-file \
+            "path:${dotfiles_dir}#agenix-rekey.${system}.rekey" \
+            -- \
+            --force
     else
         NIX_CONFIG="${nix_config}" nix \
             --extra-experimental-features 'nix-command flakes' \
             run \
             --impure \
             --no-update-lock-file \
-            "${dotfiles_dir}#agenix-rekey.${system}.rekey"
+            "path:${dotfiles_dir}#agenix-rekey.${system}.rekey"
     fi
 }
 
@@ -148,14 +196,14 @@ function build_nix() {
                 build \
                 --impure \
                 --no-update-lock-file \
-                ".#darwinConfigurations.${host}.config.system.build.toplevel"
+                "path:.#darwinConfigurations.${host}.config.system.build.toplevel"
         elif is_wsl; then
             nix \
                 --extra-experimental-features 'nix-command flakes' \
                 build \
                 --impure \
                 --no-update-lock-file \
-                ".#homeConfigurations.\"${user}@${host}\".activationPackage"
+                "path:.#homeConfigurations.\"${user}@${host}\".activationPackage"
         fi
     )
 }
@@ -169,7 +217,7 @@ function apply_nix() {
         if command -v darwin-rebuild >/dev/null 2>&1; then
             sudo darwin-rebuild switch \
                 --impure \
-                --flake "${dotfiles_dir}#${host}"
+                --flake "path:${dotfiles_dir}#${host}"
         else
             sudo nix \
                 --extra-experimental-features 'nix-command flakes' \
@@ -177,12 +225,12 @@ function apply_nix() {
                 -- \
                 switch \
                 --impure \
-                --flake "${dotfiles_dir}#${host}"
+                --flake "path:${dotfiles_dir}#${host}"
         fi
     elif is_wsl; then
         if command -v home-manager >/dev/null 2>&1; then
             home-manager switch \
-                --flake "${dotfiles_dir}#${user}@${host}"
+                --flake "path:${dotfiles_dir}#${user}@${host}"
         else
             "${dotfiles_dir}/result/activate"
         fi
@@ -207,7 +255,12 @@ function install_neovim_treesitter_parsers() {
     nvim \
         --headless \
         -c 'luafile -' <<'LUA'
-local ok = require("nvim-treesitter").install("all"):wait()
+local treesitter = require("nvim-treesitter")
+local unavailable = { problog = true, prolog = true }
+local parsers = vim.tbl_filter(function(parser)
+    return not unavailable[parser]
+end, treesitter.get_available())
+local ok = treesitter.install(parsers):wait()
 if not ok then
     vim.cmd("cquit")
 else
@@ -220,7 +273,12 @@ function update_neovim_treesitter_parsers() {
     nvim \
         --headless \
         -c 'luafile -' <<'LUA'
-local ok = require("nvim-treesitter").update():wait()
+local treesitter = require("nvim-treesitter")
+local unavailable = { problog = true, prolog = true }
+local parsers = vim.tbl_filter(function(parser)
+    return not unavailable[parser]
+end, treesitter.get_installed())
+local ok = treesitter.update(parsers):wait()
 if not ok then
     vim.cmd("cquit")
 else
@@ -286,9 +344,14 @@ function update_apt() {
 }
 
 function main() {
+    if ! is_github_actions; then
+        set -x
+    fi
+
     detect_platform
     install_nix
     prepare_dotfiles
+    ensure_host_identity
 
     update_nix
     run_agenix_rekey

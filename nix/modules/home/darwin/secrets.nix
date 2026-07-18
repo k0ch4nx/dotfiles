@@ -2,6 +2,7 @@
   inputs,
   flake,
   config,
+  hostName,
   lib,
   ...
 }:
@@ -15,10 +16,15 @@
 
   age = {
     identityPaths = [
-      "${config.dotfiles.path}/secrets/hosts/macbook-pro-key.txt"
+      "${config.dotfiles.path}/secrets/hosts/${hostName}-${config.home.username}-key.txt"
     ];
 
     secrets = {
+      "env-gh-token" = {
+        rekeyFile = ../../../../secrets/env/gh-token.age;
+        path = "${config.programs.zsh.dotDir}/env/gh-token";
+        mode = "600";
+      };
       "env-mem0-api-key" = {
         rekeyFile = ../../../../secrets/env/mem0-api-key.age;
         path = "${config.programs.zsh.dotDir}/env/mem0-api-key";

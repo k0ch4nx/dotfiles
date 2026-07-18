@@ -4,6 +4,7 @@ let
     "age1kleelkfhfkqc2mysqsu0x0e6atczl97xx7mrssvm726qnh8n6p0sdmrj3q"
   ];
   secretNames = [
+    "env/gh-token.age"
     "env/mem0-api-key.age"
     "env/skillsmp-api-key.age"
     "ssh/id_ed25519.age"

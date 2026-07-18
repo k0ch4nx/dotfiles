@@ -150,6 +150,9 @@
       '';
 
       envExtra = ''
+        if [ -f "${config.programs.zsh.dotDir}/env/gh-token" ]; then
+          export GH_TOKEN="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/gh-token")"
+        fi
         if [ -f "${config.programs.zsh.dotDir}/env/mem0-api-key" ]; then
           export MEM0_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/mem0-api-key")"
         fi

@@ -1,4 +1,9 @@
-{ flake, inputs, ... }:
+{
+  flake,
+  hostName,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -10,6 +15,8 @@
     inputs.agenix-rekey.darwinModules.default
     flake.modules.agenix.rekey
   ];
+
+  home-manager.extraSpecialArgs = { inherit hostName; };
 
   networking.hostName = "MacBook-Pro";
 }

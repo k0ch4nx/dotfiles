@@ -7,8 +7,6 @@ let
     ./azahar.nix
     ./blender.nix
     ./dolphin-emu.nix
-    ./mpv.nix
-    ./qbittorrent.nix
     ./sfml.nix
     ./whisper-cpp.nix
   ];

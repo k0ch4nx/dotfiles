@@ -22,7 +22,13 @@
     ryubing
     skhd
     udev-gothic-nf
-    vscode
+    (vscode.overrideAttrs (old: {
+      postPatch =
+        builtins.replaceStrings
+          [ "Contents/Resources/app/node_modules/@vscode/ripgrep-universal" ]
+          [ "Contents/Resources/app/node_modules.asar.unpacked/@vscode/ripgrep-universal" ]
+          old.postPatch;
+    }))
     wezterm
     yabai
   ];
