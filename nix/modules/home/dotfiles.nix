@@ -2,6 +2,7 @@
 
 let
   cfg = config.dotfiles;
+  environmentPath = builtins.getEnv "DOTFILES_DIR";
 in
 {
   options.dotfiles = {
@@ -36,7 +37,11 @@ in
   };
 
   config = {
-    dotfiles.path = "${cfg.ghqRoot}/${cfg.remote}/${cfg.user}/${cfg.repo}";
+    dotfiles.path =
+      if environmentPath != "" then
+        environmentPath
+      else
+        "${cfg.ghqRoot}/${cfg.remote}/${cfg.user}/${cfg.repo}";
 
     home.sessionVariables.DOTFILES_DIR = cfg.path;
 
