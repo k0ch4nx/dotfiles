@@ -1,8 +1,4 @@
 let
-  commonOverlayPaths = [
-    ./commitizen.nix
-  ];
-
   darwinOverlayPaths = [
     ./azahar.nix
     ./blender.nix
@@ -15,5 +11,4 @@ let
     path: final: prev:
     if prev.stdenv.isDarwin then (import path) final prev else { };
 in
-(builtins.map (path: import path) commonOverlayPaths)
-++ (builtins.map onlyDarwin darwinOverlayPaths)
+(builtins.map onlyDarwin darwinOverlayPaths)

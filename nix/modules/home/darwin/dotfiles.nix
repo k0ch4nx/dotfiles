@@ -1,5 +1,14 @@
 { config, ... }:
 
+let
+  restartLaunchAgent = label: ''
+    userId="$(id -u)"
+    if launchctl print "gui/$userId/${label}" >/dev/null 2>&1; then
+      launchctl kickstart -k "gui/$userId/${label}"
+    fi
+  '';
+in
+
 {
   xdg.configFile = {
     "borders/bordersrc" = {
@@ -11,9 +20,15 @@
     '';
     "lazygit".source = ./files/lazygit;
     "sketchybar".source = ./files/sketchybar;
-    "skhd".source = ./files/skhd;
+    "skhd" = {
+      source = ./files/skhd;
+      onChange = restartLaunchAgent "org.nixos.skhd";
+    };
     "wezterm".source = ./files/wezterm;
-    "yabai".source = ./files/yabai;
+    "yabai" = {
+      source = ./files/yabai;
+      onChange = restartLaunchAgent "org.nixos.yabai";
+    };
     "ferium/config.json" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/modules/home/darwin/files/ferium/config.json";
       force = true;

@@ -24,7 +24,7 @@
       bun
       cloudflared
       cmake
-      commitizen
+      cocogitto
       dotnet-sdk_10
       eza
       fd

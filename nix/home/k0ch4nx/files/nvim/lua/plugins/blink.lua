@@ -87,7 +87,7 @@ return {
                     codeium = {
                         name = "Codeium",
                         enabled = function()
-                            return vim.bo.filetype ~= "snacks_input"
+                            return vim.api.nvim_buf_get_name(0) ~= ""
                         end,
                         module = "codeium.blink",
                         async = true,

@@ -97,12 +97,14 @@ yabai -m signal --add app="^$(app_display_name "/System/Applications/Passwords.a
 # yabai -m signal --add app="^Mac Mouse Fix$" event=window_created action="${center_window_action}"
 yabai -m signal --add app="^IINA$" event=window_created action="${center_window_action}"
 yabai -m signal --add app="^$(app_display_name "/System/Applications/iPhone Mirroring.app")$" event=window_created action="${center_window_action}"
+yabai -m signal --add app="^$(app_display_name "/Applications/Google Drive.app")$" event=window_created action="${center_window_action}"
 yabai -m signal --add app="^qemu-system-aarch64$" event=window_created action="${center_window_action}"
 
 yabai -m rule --add app="^$(app_display_name "/System/Applications/System Settings.app")$" manage=off
 yabai -m rule --add app="^$(app_display_name "/System/Applications/Passwords.app")$" manage=off
 # yabai -m rule --add app="^Mac Mouse Fix$" manage=off
 yabai -m rule --add app="^$(app_display_name "/System/Applications/Stickies.app")$" manage=off
+yabai -m rule --add app="^$(app_display_name "/Applications/Google Drive.app")$" manage=off
 yabai -m rule --add app="^IINA$" manage=off
 yabai -m rule --add app="^Ryujinx$" title!="^Ryujinx Canary [[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+$" manage=off
 yabai -m rule --add app="^qemu-system-aarch64$" manage=off
