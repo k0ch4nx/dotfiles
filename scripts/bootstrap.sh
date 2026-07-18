@@ -102,10 +102,16 @@ function update_nix() {
 }
 
 function run_agenix_rekey() {
+    local nix_config="${NIX_CONFIG:-}"
     local system
 
+    if [[ -n "${nix_config}" ]]; then
+        nix_config+=$'\n'
+    fi
+    nix_config+="extra-experimental-features = nix-command flakes"
+
     system="$(
-        nix \
+        NIX_CONFIG="${nix_config}" nix \
             --extra-experimental-features 'nix-command flakes' \
             eval \
             --raw \
@@ -114,7 +120,7 @@ function run_agenix_rekey() {
     )"
 
     if is_github_actions; then
-        nix \
+        NIX_CONFIG="${nix_config}" nix \
             --extra-experimental-features 'nix-command flakes' \
             run \
             --impure \
@@ -123,7 +129,7 @@ function run_agenix_rekey() {
             -- \
             --dummy
     else
-        nix \
+        NIX_CONFIG="${nix_config}" nix \
             --extra-experimental-features 'nix-command flakes' \
             run \
             --impure \
