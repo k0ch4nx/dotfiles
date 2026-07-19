@@ -44,7 +44,15 @@ jobs:
       - name: Initialize providers without the HCP Terraform backend
         run: terraform init -backend=false -input=false -lockfile=readonly
       - name: Validate configuration
-        run: terraform validate -no-color
+        run: terraform validate -no-color 2>&1 | tee terraform-validate.log
+      - name: Upload validation log
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: terraform-r2-validation-log
+          path: infra/r2/terraform-validate.log
+          if-no-files-found: error
+          retention-days: 1
 
   plan:
     name: Plan
