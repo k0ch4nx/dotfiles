@@ -35,6 +35,26 @@
       flake = false;
     };
 
+    i-have-adhd = {
+      url = "github:ayghri/i-have-adhd";
+      flake = false;
+    };
+
+    hashicorp-agent-skills = {
+      url = "github:hashicorp/agent-skills";
+      flake = false;
+    };
+
+    openai-skills = {
+      url = "github:openai/skills";
+      flake = false;
+    };
+
+    trailofbits-skills = {
+      url = "github:trailofbits/skills";
+      flake = false;
+    };
+
     kaynetik-skills = {
       url = "github:kaynetik/skills";
       flake = false;

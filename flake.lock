@@ -259,6 +259,22 @@
         "type": "github"
       }
     },
+    "hashicorp-agent-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784153118,
+        "narHash": "sha256-+vUP2LGCTXF5vxC8noviigXp0gSVLQ4Hp/0EGWDdVr4=",
+        "owner": "hashicorp",
+        "repo": "agent-skills",
+        "rev": "8c6573abbd21e8094fab8f538eb5f97db63133fd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hashicorp",
+        "repo": "agent-skills",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -298,6 +314,22 @@
         "owner": "nix-community",
         "ref": "master",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "i-have-adhd": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784476576,
+        "narHash": "sha256-gvJ1M+T/Hjft2/rgha82YRNRcRDFXu2pMtA72pa/HsE=",
+        "owner": "ayghri",
+        "repo": "i-have-adhd",
+        "rev": "72c33eee81ea439cf01991e93729adfce2ffc99e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ayghri",
+        "repo": "i-have-adhd",
         "type": "github"
       }
     },
@@ -374,17 +406,33 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1784478998,
-        "narHash": "sha256-kCKi3lCm5nbrWlGHZs2wqmY5DExKwVAhQ6KHmYfb6gc=",
+        "lastModified": 1784485425,
+        "narHash": "sha256-u1E4MmZ2g1NdefbgMLbAxY9IgaD4dFUJMI6Jb9FZeWc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5151a4174bece5446f9b5e4348784ec9c1ba5c9b",
+        "rev": "6c8d6f2640cf5de91bb8ee0c3923a67332059efe",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "master",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "openai-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782268572,
+        "narHash": "sha256-t4oGnFg0YpxJaQiFpgTiwYhaFoZK6wPDiqvHoG0bXiU=",
+        "owner": "openai",
+        "repo": "skills",
+        "rev": "49f948faa9258a0c61caceaf225e179651397431",
+        "type": "github"
+      },
+      "original": {
+        "owner": "openai",
+        "repo": "skills",
         "type": "github"
       }
     },
@@ -420,13 +468,17 @@
         "blueprint": "blueprint",
         "cloudflare-skills": "cloudflare-skills",
         "genshijin": "genshijin",
+        "hashicorp-agent-skills": "hashicorp-agent-skills",
         "home-manager": "home-manager_2",
+        "i-have-adhd": "i-have-adhd",
         "kaynetik-skills": "kaynetik-skills",
         "natural-japanese": "natural-japanese",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
-        "superpowers": "superpowers"
+        "openai-skills": "openai-skills",
+        "superpowers": "superpowers",
+        "trailofbits-skills": "trailofbits-skills"
       }
     },
     "superpowers": {
@@ -472,6 +524,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "trailofbits-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782832486,
+        "narHash": "sha256-hOA3v+QFGJLkw7OVPSzjtCZXS7zU792AfqGNdSNgsgA=",
+        "owner": "trailofbits",
+        "repo": "skills",
+        "rev": "cfe5d7b1619e47fb5b38b7e2561dad7e5f1e89af",
+        "type": "github"
+      },
+      "original": {
+        "owner": "trailofbits",
+        "repo": "skills",
         "type": "github"
       }
     },

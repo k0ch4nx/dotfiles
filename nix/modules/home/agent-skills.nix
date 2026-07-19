@@ -9,19 +9,10 @@
     enable = true;
 
     sources = {
-      genshijin = {
-        input = "genshijin";
+      anthropic-skills = {
+        input = "anthropic-skills";
         subdir = "skills";
-      };
-
-      natural-japanese = {
-        input = "natural-japanese";
-        subdir = "skills";
-      };
-
-      kaynetik-skills = {
-        input = "kaynetik-skills";
-        filter.nameRegex = "ultimate-nixos";
+        filter.nameRegex = "frontend-design";
       };
 
       cloudflare-skills = {
@@ -29,15 +20,48 @@
         subdir = "skills";
       };
 
+      genshijin = {
+        input = "genshijin";
+        subdir = "skills";
+      };
+
+      hashicorp-agent-skills = {
+        input = "hashicorp-agent-skills";
+        subdir = "terraform/code-generation/skills";
+        filter.nameRegex = "terraform-style-guide";
+      };
+
+      i-have-adhd = {
+        input = "i-have-adhd";
+        subdir = "skills";
+        filter.nameRegex = "i-have-adhd";
+      };
+
+      kaynetik-skills = {
+        input = "kaynetik-skills";
+        filter.nameRegex = "ultimate-nixos";
+      };
+
+      natural-japanese = {
+        input = "natural-japanese";
+        subdir = "skills";
+      };
+
+      openai-skills = {
+        input = "openai-skills";
+        subdir = "skills/.curated";
+        filter.nameRegex = "gh-fix-ci";
+      };
+
       superpowers = {
         input = "superpowers";
         subdir = "skills";
       };
 
-      anthropic-skills = {
-        input = "anthropic-skills";
-        subdir = "skills";
-        filter.nameRegex = "frontend-design";
+      trailofbits-skills = {
+        input = "trailofbits-skills";
+        subdir = "plugins/insecure-defaults/skills";
+        filter.nameRegex = "insecure-defaults";
       };
     };
 
@@ -53,13 +77,17 @@
       "executing-plans"
       "finishing-a-development-branch"
       "frontend-design"
+      "gh-fix-ci"
       "genshijin"
+      "i-have-adhd"
+      "insecure-defaults"
       "natural-japanese"
       "receiving-code-review"
       "requesting-code-review"
       "sandbox-sdk"
       "subagent-driven-development"
       "systematic-debugging"
+      "terraform-style-guide"
       "test-driven-development"
       "turnstile-spin"
       "ultimate-nixos"

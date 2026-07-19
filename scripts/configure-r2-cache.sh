@@ -35,6 +35,7 @@ if [[ -n "${nix_config}" ]]; then
     nix_config+=$'\n'
 fi
 
+nix_config+="extra-experimental-features = nix-command flakes"$'\n'
 nix_config+="extra-substituters = ${cache}"$'\n'
 nix_config+="extra-trusted-public-keys = ${NIX_CACHE_LOCAL_PUBLIC_KEY} ${NIX_CACHE_CI_PUBLIC_KEY}"$'\n'
 nix_config+="fallback = true"
