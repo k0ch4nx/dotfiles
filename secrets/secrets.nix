@@ -15,8 +15,7 @@ let
   ];
   optionalSecretNames = [
     "nix-cache-local-private-key.age"
-    "r2-local-read-credentials.age"
-    "r2-local-write-credentials.age"
+    "r2-credentials.age"
   ];
   secretNames =
     requiredSecretNames ++ builtins.filter (name: builtins.pathExists ./${name}) optionalSecretNames;

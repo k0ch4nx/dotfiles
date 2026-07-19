@@ -2,10 +2,10 @@ set -euo pipefail
 
 readonly bucket="${R2_CACHE_BUCKET:-dotfiles-nix-cache}"
 readonly account_id="${CLOUDFLARE_ACCOUNT_ID:?CLOUDFLARE_ACCOUNT_ID is required}"
-readonly credentials_file="${R2_WRITE_CREDENTIALS_FILE:-/run/agenix/r2-local-write-credentials}"
+readonly credentials_file="${R2_CREDENTIALS_FILE:-/run/agenix/r2-credentials}"
 readonly private_key_file="${NIX_CACHE_PRIVATE_KEY_FILE:-/run/agenix/nix-cache-local-private-key}"
 readonly dotfiles_dir="${DOTFILES_DIR:-${PWD}}"
-readonly cache="s3://${bucket}?endpoint=${account_id}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2-write"
+readonly cache="s3://${bucket}?endpoint=${account_id}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2"
 closure_file=""
 
 function cleanup() {
@@ -17,7 +17,7 @@ function cleanup() {
 trap cleanup EXIT
 
 if [[ ! -r "${credentials_file}" ]]; then
-    printf 'R2 write credentials are not readable: %s\n' "${credentials_file}" >&2
+    printf 'R2 credentials are not readable: %s\n' "${credentials_file}" >&2
     exit 1
 fi
 

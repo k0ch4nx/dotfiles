@@ -8,7 +8,7 @@ let
     mkOption
     types
     ;
-  r2Cache = "s3://${cfg.bucket}?endpoint=${cfg.accountId}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2-read";
+  r2Cache = "s3://${cfg.bucket}?endpoint=${cfg.accountId}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2";
   standardSubstituters = [
     "https://cache.nixos.org/"
     "https://nix-community.cachix.org"
@@ -46,16 +46,10 @@ in
       description = "Public half of the dotfiles-r2-ci-1 signing key.";
     };
 
-    readCredentialsSecret = mkOption {
+    credentialsSecret = mkOption {
       type = types.path;
-      default = ../../../secrets/r2-local-read-credentials.age;
-      description = "agenix-rekey file containing the nix-r2-read AWS profile.";
-    };
-
-    writeCredentialsSecret = mkOption {
-      type = types.path;
-      default = ../../../secrets/r2-local-write-credentials.age;
-      description = "agenix-rekey file containing the nix-r2-write AWS profile.";
+      default = ../../../secrets/r2-credentials.age;
+      description = "agenix-rekey file containing the shared nix-r2 AWS profile.";
     };
 
     localPrivateKeySecret = mkOption {
@@ -95,12 +89,8 @@ in
           message = "dotfiles.nixCache.ciPublicKey must be the dotfiles-r2-ci-1 public key.";
         }
         {
-          assertion = builtins.pathExists cfg.readCredentialsSecret;
-          message = "The local R2 read credentials age file does not exist.";
-        }
-        {
-          assertion = builtins.pathExists cfg.writeCredentialsSecret;
-          message = "The local R2 write credentials age file does not exist.";
+          assertion = builtins.pathExists cfg.credentialsSecret;
+          message = "The R2 credentials age file does not exist.";
         }
         {
           assertion = builtins.pathExists cfg.localPrivateKeySecret;
@@ -109,17 +99,17 @@ in
       ];
 
       age.secrets = {
-        r2-local-read-credentials = {
-          rekeyFile = cfg.readCredentialsSecret;
+        r2-root-credentials = {
+          rekeyFile = cfg.credentialsSecret;
           path = "/var/root/.aws/credentials";
           owner = "root";
           group = "wheel";
           mode = "600";
         };
 
-        r2-local-write-credentials = {
-          rekeyFile = cfg.writeCredentialsSecret;
-          path = "/run/agenix/r2-local-write-credentials";
+        r2-user-credentials = {
+          rekeyFile = cfg.credentialsSecret;
+          path = "/run/agenix/r2-credentials";
           owner = config.system.primaryUser;
           group = "staff";
           mode = "600";
