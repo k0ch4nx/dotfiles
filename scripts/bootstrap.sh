@@ -101,7 +101,7 @@ function prepare_dotfiles() {
 }
 
 function ensure_host_identity() {
-    if is_github_actions || ! is_darwin; then
+    if is_github_actions; then
         return
     fi
 
@@ -124,6 +124,8 @@ function ensure_host_identity() {
         printf '%s\n' "${public_key}" >"${public_key_file}"
         force_rekey=true
     fi
+
+    export AGENIX_REKEY_HOST_PUBKEY="${public_key}"
 }
 
 function update_nix() {
@@ -243,11 +245,44 @@ function apply_nix() {
     elif is_wsl; then
         if command -v home-manager >/dev/null 2>&1; then
             home-manager switch \
+                --impure \
                 --flake "path:${dotfiles_dir}#${user}@${host}"
         else
             "${dotfiles_dir}/result/activate"
         fi
     fi
+}
+
+function push_nix_cache() {
+    if is_github_actions; then
+        return
+    fi
+
+    nix \
+        --extra-experimental-features 'nix-command flakes' \
+        run \
+        --impure \
+        --no-update-lock-file \
+        "path:${dotfiles_dir}#cache-push"
+}
+
+function collect_nix_garbage() {
+    if is_github_actions; then
+        return
+    fi
+
+    local gc_command
+    gc_command="$(command -v nix-collect-garbage)"
+
+    "${gc_command}" \
+        --delete-older-than 1d \
+        --option keep-outputs false \
+        --option keep-derivations false
+
+    sudo "${gc_command}" \
+        --delete-older-than 1d \
+        --option keep-outputs false \
+        --option keep-derivations false
 }
 
 function update_neovim_plugins() {
@@ -370,6 +405,7 @@ function main() {
     run_agenix_rekey
     build_nix
     apply_nix
+    push_nix_cache
 
     if ! is_github_actions; then
         update_rust
@@ -383,6 +419,7 @@ function main() {
 
     update_macos
     update_apt
+    collect_nix_garbage
 }
 
 main

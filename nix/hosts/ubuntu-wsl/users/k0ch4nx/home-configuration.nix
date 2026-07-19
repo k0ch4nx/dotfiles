@@ -10,6 +10,8 @@
     flake.homeModules.wsl
   ];
 
+  _module.args.hostName = "ubuntu-wsl";
+
   dotfiles.ghqRoot = "${config.home.homeDirectory}/src";
 
   home = {

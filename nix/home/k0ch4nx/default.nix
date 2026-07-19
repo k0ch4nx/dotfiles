@@ -4,6 +4,7 @@
   imports = [
     ../../modules/home/agent-skills.nix
     ../../modules/home/dotfiles.nix
+    ../../modules/home/secrets.nix
     ./git.nix
     ./neovim.nix
     ./shell.nix

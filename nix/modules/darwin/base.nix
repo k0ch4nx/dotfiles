@@ -12,10 +12,13 @@
   };
 
   nix.settings = {
+    auto-optimise-store = true;
     experimental-features = [
       "nix-command"
       "flakes"
     ];
+    keep-derivations = false;
+    keep-outputs = false;
     trusted-users = [
       "root"
       "k0ch4nx"

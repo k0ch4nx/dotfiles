@@ -79,6 +79,7 @@
       agenix-rekey = inputs.agenix-rekey.configure {
         userFlake = inputs.self;
         inherit (inputs.self) darwinConfigurations;
+        inherit (inputs.self) homeConfigurations;
       };
     };
 }

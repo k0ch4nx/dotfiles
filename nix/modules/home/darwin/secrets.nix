@@ -1,24 +1,11 @@
 {
-  inputs,
-  flake,
   config,
-  hostName,
   lib,
   ...
 }:
 
 {
-  imports = [
-    inputs.agenix.homeManagerModules.default
-    inputs.agenix-rekey.homeManagerModules.default
-    flake.modules.agenix.rekey
-  ];
-
   age = {
-    identityPaths = [
-      "${config.dotfiles.path}/secrets/hosts/${hostName}-${config.home.username}-key.txt"
-    ];
-
     secrets = {
       "env-gh-token" = {
         rekeyFile = ../../../../secrets/env/gh-token.age;
