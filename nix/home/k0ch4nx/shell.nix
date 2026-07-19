@@ -46,8 +46,6 @@
         zstyle ":completion:*" menu select
         zstyle ":completion:*" cache-path "${config.xdg.cacheHome}/zsh/.zcompcache"
 
-        source "${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh"
-
         # gcloud completion
         if type brew &>/dev/null && [ -f "$(brew --prefix)/share/zsh/site-functions/_google_cloud_sdk" ]; then
           source "$(brew --prefix)/share/zsh/site-functions/_google_cloud_sdk"
@@ -135,6 +133,8 @@
 
         autoload -Uz compinit
         compinit -d "${config.xdg.cacheHome}/zsh/.zcompdump"
+
+        source "${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh"
 
         autoload -U +X bashcompinit
         bashcompinit

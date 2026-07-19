@@ -134,7 +134,20 @@ function update_nix() {
     (
         cd "${dotfiles_dir}"
 
-        nix \
+        if [[ "${GH_TOKEN+x}" != x ]]; then
+            exec nix \
+                --extra-experimental-features 'nix-command flakes' \
+                flake update
+        fi
+
+        set +x
+        local nix_config="${NIX_CONFIG:-}"
+        if [[ -n "${nix_config}" ]]; then
+            nix_config+=$'\n'
+        fi
+        nix_config+="access-tokens = github.com=${GH_TOKEN}"
+
+        NIX_CONFIG="${nix_config}" exec nix \
             --extra-experimental-features 'nix-command flakes' \
             flake update
     )
