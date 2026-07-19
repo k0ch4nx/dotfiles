@@ -124,8 +124,6 @@ function ensure_host_identity() {
         printf '%s\n' "${public_key}" >"${public_key_file}"
         force_rekey=true
     fi
-
-    export AGENIX_REKEY_HOST_PUBKEY="${public_key}"
 }
 
 function update_nix() {

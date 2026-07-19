@@ -99,5 +99,5 @@ jobs:
           exec: |
             eval "$(RUNNER_TEMP=/tmp ./scripts/configure-r2-cache.sh)"
 
-            GITHUB_ACTIONS=true ./scripts/bootstrap.sh
+            GITHUB_ACTIONS=true source ./scripts/bootstrap.sh
             nix flake check --impure --no-update-lock-file

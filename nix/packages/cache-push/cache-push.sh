@@ -78,6 +78,16 @@ nix store sign \
     --key-file "${private_key_file}" \
     --stdin <"${closure_file}"
 
-nix copy \
-    --to "${cache}" \
-    --stdin <"${closure_file}"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    # The caller can read the closure list; only the Nix store paths require root.
+    # shellcheck disable=SC2024
+    sudo -H env \
+        "AWS_SHARED_CREDENTIALS_FILE=${AWS_SHARED_CREDENTIALS_FILE}" \
+        "$(command -v nix)" copy \
+        --to "${cache}" \
+        --stdin <"${closure_file}"
+else
+    nix copy \
+        --to "${cache}" \
+        --stdin <"${closure_file}"
+fi

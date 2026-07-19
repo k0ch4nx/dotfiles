@@ -8,11 +8,8 @@
 let
   userName = if config ? home then config.home.username else config.system.primaryUser;
   hostPubkeyPath = ../../../secrets/hosts/${hostName}-${userName}.pub;
-  environmentHostPubkey = builtins.getEnv "AGENIX_REKEY_HOST_PUBKEY";
   hostPubkey =
-    if environmentHostPubkey != "" then
-      environmentHostPubkey
-    else if builtins.pathExists hostPubkeyPath then
+    if builtins.pathExists hostPubkeyPath then
       builtins.readFile hostPubkeyPath
     else
       null;
