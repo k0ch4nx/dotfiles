@@ -8,11 +8,7 @@
 let
   userName = if config ? home then config.home.username else config.system.primaryUser;
   hostPubkeyPath = ../../../secrets/hosts/${hostName}-${userName}.pub;
-  hostPubkey =
-    if builtins.pathExists hostPubkeyPath then
-      builtins.readFile hostPubkeyPath
-    else
-      null;
+  hostPubkey = if builtins.pathExists hostPubkeyPath then builtins.readFile hostPubkeyPath else null;
 in
 {
   age.rekey = {
