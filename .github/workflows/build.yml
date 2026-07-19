@@ -39,7 +39,7 @@ jobs:
 
       - name: Build the Darwin configuration
         run: |
-          ./scripts/bootstrap.sh
+          source ./scripts/bootstrap.sh
           dirname "$(command -v nix)" >>"${GITHUB_PATH}"
 
       - name: Check all flake outputs

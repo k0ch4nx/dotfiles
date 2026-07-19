@@ -38,7 +38,9 @@ jobs:
         run: ./scripts/configure-r2-cache.sh
 
       - name: Install Nix and verify the current configuration
-        run: ./scripts/bootstrap.sh
+        run: |
+          source ./scripts/bootstrap.sh
+          dirname "$(command -v nix)" >>"${GITHUB_PATH}"
 
       - name: Update flake.lock
         id: update
