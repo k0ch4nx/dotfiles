@@ -37,13 +37,13 @@ jobs:
 
           credentials="${RUNNER_TEMP}/r2-credentials"
           umask 077
-          printf '[nix-r2]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
+          printf '[nix-cache]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
             "${R2_ACCESS_KEY_ID}" \
             "${R2_SECRET_ACCESS_KEY}" >"${credentials}"
           sudo install -d -m 700 /var/root/.aws
           sudo install -m 600 "${credentials}" /var/root/.aws/credentials
 
-          cache="s3://${R2_CACHE_BUCKET:-dotfiles-nix-cache}?endpoint=${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2"
+          cache="s3://${R2_CACHE_BUCKET:-dotfiles-nix-cache}?endpoint=${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-cache"
           {
             echo 'NIX_CONFIG<<EOF'
             printf '%s\n' "${NIX_CONFIG:-}"
@@ -82,14 +82,14 @@ jobs:
 
           credentials="${RUNNER_TEMP}/r2-credentials"
           umask 077
-          printf '[nix-r2]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
+          printf '[nix-cache]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
             "${R2_ACCESS_KEY_ID}" \
             "${R2_SECRET_ACCESS_KEY}" >"${credentials}"
           sudo install -d -m 700 /var/root/.aws
           sudo install -m 600 "${credentials}" /var/root/.aws/credentials
           printf 'R2_CREDENTIALS_FILE=%s\n' "${credentials}" >>"${GITHUB_ENV}"
 
-          cache="s3://${R2_CACHE_BUCKET:-dotfiles-nix-cache}?endpoint=${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2"
+          cache="s3://${R2_CACHE_BUCKET:-dotfiles-nix-cache}?endpoint=${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-cache"
           {
             echo 'NIX_CONFIG<<EOF'
             printf '%s\n' "${NIX_CONFIG:-}"
@@ -153,13 +153,13 @@ jobs:
               credentials="$(mktemp)"
               trap 'rm -f "${credentials}"' EXIT
               chmod 600 "${credentials}"
-              printf '[nix-r2]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
+              printf '[nix-cache]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
                 "${R2_ACCESS_KEY_ID}" \
                 "${R2_SECRET_ACCESS_KEY}" >"${credentials}"
               sudo install -d -m 700 /root/.aws
               sudo install -m 600 "${credentials}" /root/.aws/credentials
 
-              cache="s3://${R2_CACHE_BUCKET:-dotfiles-nix-cache}?endpoint=${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2"
+              cache="s3://${R2_CACHE_BUCKET:-dotfiles-nix-cache}?endpoint=${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-cache"
               NIX_CONFIG="${NIX_CONFIG:-}"$'\n'"extra-substituters = ${cache}"$'\n'"extra-trusted-public-keys = ${NIX_CACHE_LOCAL_PUBLIC_KEY} ${NIX_CACHE_CI_PUBLIC_KEY}"$'\n'"fallback = true"
               export NIX_CONFIG
             else

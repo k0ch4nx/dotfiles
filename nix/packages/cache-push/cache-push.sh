@@ -5,7 +5,7 @@ readonly account_id="${CLOUDFLARE_ACCOUNT_ID:?CLOUDFLARE_ACCOUNT_ID is required}
 readonly credentials_file="${R2_CREDENTIALS_FILE:-/run/agenix/r2-credentials}"
 readonly private_key_file="${NIX_CACHE_PRIVATE_KEY_FILE:-/run/agenix/nix-cache-local-private-key}"
 readonly dotfiles_dir="${DOTFILES_DIR:-${PWD}}"
-readonly cache="s3://${bucket}?endpoint=${account_id}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2"
+readonly cache="s3://${bucket}?endpoint=${account_id}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-cache"
 closure_file=""
 
 function cleanup() {

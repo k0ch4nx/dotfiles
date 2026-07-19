@@ -8,7 +8,7 @@ let
     mkOption
     types
     ;
-  r2Cache = "s3://${cfg.bucket}?endpoint=${cfg.accountId}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-r2";
+  r2Cache = "s3://${cfg.bucket}?endpoint=${cfg.accountId}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=nix-cache";
   standardSubstituters = [
     "https://cache.nixos.org/"
     "https://nix-community.cachix.org"
@@ -49,7 +49,7 @@ in
     credentialsSecret = mkOption {
       type = types.path;
       default = ../../../secrets/r2-credentials.age;
-      description = "agenix-rekey file containing the shared nix-r2 AWS profile.";
+      description = "agenix-rekey file containing the shared nix-cache AWS profile.";
     };
 
     localPrivateKeySecret = mkOption {
