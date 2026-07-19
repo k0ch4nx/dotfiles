@@ -59,6 +59,12 @@ in
       ShowSeconds = true;
     };
 
+    CustomSystemPreferences = {
+      "/Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist" = {
+        DADisableEjectNotification = true;
+      };
+    };
+
     CustomUserPreferences = {
       NSGlobalDomain."com.apple.mouse.linear" = true;
 

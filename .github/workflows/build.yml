@@ -38,7 +38,9 @@ jobs:
         run: ./scripts/configure-r2-cache.sh
 
       - name: Build the Darwin configuration
-        run: ./scripts/bootstrap.sh
+        run: |
+          ./scripts/bootstrap.sh
+          dirname "$(command -v nix)" >>"${GITHUB_PATH}"
 
       - name: Check all flake outputs
         run: nix flake check --impure --no-update-lock-file
@@ -72,9 +74,17 @@ jobs:
 
     steps:
       - name: Install Ubuntu on WSL
-        uses: Ubuntu/WSL/.github/actions/wsl-install@main
-        with:
-          distro: Ubuntu-24.04
+        shell: powershell
+        run: |
+          winget install --id Microsoft.WSL --exact --source winget --accept-source-agreements --accept-package-agreements --silent --verbose
+          # Installing an already-current WSL package may return nonzero; the commands below verify it directly.
+
+          $env:WSL_UTF8 = 1
+          wsl.exe --install Ubuntu-24.04 --web-download --no-launch
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          wsl.exe --distribution Ubuntu-24.04 -- echo Created a new distro with user: '$(whoami)'
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Check out repository in WSL
         uses: Ubuntu/WSL/.github/actions/wsl-checkout@main
