@@ -20,6 +20,12 @@
         subdir = "skills";
       };
 
+      dot-skills = {
+        input = "dot-skills";
+        subdir = "skills/.experimental";
+        filter.nameRegex = "shell";
+      };
+
       genshijin = {
         input = "genshijin";
         subdir = "skills";
@@ -62,6 +68,12 @@
         input = "trailofbits-skills";
         subdir = "plugins/insecure-defaults/skills";
         filter.nameRegex = "insecure-defaults";
+      };
+
+      wshobson-agents = {
+        input = "wshobson-agents";
+        subdir = "plugins/shell-scripting/skills";
+        filter.nameRegex = "bash-defensive-patterns";
       };
     };
 

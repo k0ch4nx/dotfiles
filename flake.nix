@@ -35,6 +35,16 @@
       flake = false;
     };
 
+    dot-skills = {
+      url = "github:pproenca/dot-skills";
+      flake = false;
+    };
+
+    wshobson-agents = {
+      url = "github:wshobson/agents";
+      flake = false;
+    };
+
     i-have-adhd = {
       url = "github:ayghri/i-have-adhd";
       flake = false;

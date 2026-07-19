@@ -72,6 +72,19 @@ function install_nix() {
     fi
 }
 
+function trust_github_actions_runner() {
+    if ! is_github_actions || ! is_darwin; then
+        return
+    fi
+
+    local trusted_user
+    trusted_user="$(id -un)"
+
+    printf 'extra-trusted-users = %s\n' "${trusted_user}" |
+        sudo tee -a /etc/nix/nix.conf >/dev/null
+    sudo launchctl kickstart -k system/org.nixos.nix-daemon
+}
+
 function run_age_keygen() {
     if command -v rage-keygen >/dev/null 2>&1; then
         rage-keygen "$@"
@@ -396,6 +409,7 @@ function main() {
 
     detect_platform
     install_nix
+    trust_github_actions_runner
     prepare_dotfiles
     ensure_host_identity
 
