@@ -133,6 +133,7 @@ jobs:
             set -euo pipefail
 
             eval "$(RUNNER_TEMP=/tmp ./scripts/configure-r2-cache.sh)"
+            source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
             umask 077
             private_key="$(mktemp /tmp/nix-cache-ci-private-key.XXXXXX)"
