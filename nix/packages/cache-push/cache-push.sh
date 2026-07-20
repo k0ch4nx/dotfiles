@@ -83,7 +83,9 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     # shellcheck disable=SC2024
     sudo -H env \
         "AWS_SHARED_CREDENTIALS_FILE=${AWS_SHARED_CREDENTIALS_FILE}" \
-        "$(command -v nix)" copy \
+        "$(command -v nix)" \
+        --extra-experimental-features 'nix-command flakes' \
+        copy \
         --to "${cache}" \
         --stdin <"${closure_file}"
 else
