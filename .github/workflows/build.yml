@@ -111,3 +111,34 @@ jobs:
 
             GITHUB_ACTIONS=true source ./scripts/bootstrap.sh
             nix flake check --impure --no-update-lock-file
+
+      - name: Sign and upload the WSL closure
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@main
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
+          NIX_CACHE_LOCAL_PUBLIC_KEY: ${{ vars.NIX_CACHE_LOCAL_PUBLIC_KEY }}
+          NIX_CACHE_CI_PUBLIC_KEY: ${{ vars.NIX_CACHE_CI_PUBLIC_KEY }}
+          NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
+          WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u:CLOUDFLARE_ACCOUNT_ID/u:R2_CACHE_BUCKET/u:NIX_CACHE_LOCAL_PUBLIC_KEY/u:NIX_CACHE_CI_PUBLIC_KEY/u:NIX_CACHE_PRIVATE_KEY/u
+        with:
+          distro: Ubuntu-24.04
+          working-dir: /tmp/dotfiles
+          exec: |
+            set -euo pipefail
+
+            eval "$(RUNNER_TEMP=/tmp ./scripts/configure-r2-cache.sh)"
+
+            umask 077
+            private_key="$(mktemp /tmp/nix-cache-ci-private-key.XXXXXX)"
+            trap 'rm -f "${private_key}"' EXIT
+            printf '%s\n' "${NIX_CACHE_PRIVATE_KEY}" >"${private_key}"
+
+            NIX_CACHE_PRIVATE_KEY_FILE="${private_key}" \
+              DOTFILES_DIR=/tmp/dotfiles \
+              nix run path:.#cache-push
