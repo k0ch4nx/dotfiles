@@ -51,11 +51,6 @@
           source "$(brew --prefix)/share/zsh/site-functions/_google_cloud_sdk"
         fi
 
-        # rustup completions
-        if command -v rustup &>/dev/null; then
-          source <(rustup completions zsh rustup)
-        fi
-
         function zvm_after_init() {
           if command -v fzf &>/dev/null; then
             source <(fzf --zsh)
@@ -133,6 +128,11 @@
 
         autoload -Uz compinit
         compinit -d "${config.xdg.cacheHome}/zsh/.zcompdump"
+
+        # rustup completions
+        if command -v rustup &>/dev/null; then
+          source <(rustup completions zsh rustup)
+        fi
 
         source "${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh"
 
