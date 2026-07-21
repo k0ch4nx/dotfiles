@@ -167,49 +167,53 @@ function update_nix() {
 }
 
 function run_agenix_rekey() {
-    local nix_config="${NIX_CONFIG:-}"
-    local system
+    (
+        cd "${dotfiles_dir}"
 
-    if [[ -n "${nix_config}" ]]; then
-        nix_config+=$'\n'
-    fi
-    nix_config+="extra-experimental-features = nix-command flakes"
+        local nix_config="${NIX_CONFIG:-}"
+        local system
 
-    system="$(
-        NIX_CONFIG="${nix_config}" nix \
-            --extra-experimental-features 'nix-command flakes' \
-            eval \
-            --raw \
-            --impure \
-            --expr 'builtins.currentSystem'
-    )"
+        if [[ -n "${nix_config}" ]]; then
+            nix_config+=$'\n'
+        fi
+        nix_config+="extra-experimental-features = nix-command flakes"
 
-    if is_github_actions; then
-        NIX_CONFIG="${nix_config}" nix \
-            --extra-experimental-features 'nix-command flakes' \
-            run \
-            --impure \
-            --no-update-lock-file \
-            "path:${dotfiles_dir}#agenix-rekey.${system}.rekey" \
-            -- \
-            --dummy
-    elif [[ "${force_rekey}" == true ]]; then
-        NIX_CONFIG="${nix_config}" nix \
-            --extra-experimental-features 'nix-command flakes' \
-            run \
-            --impure \
-            --no-update-lock-file \
-            "path:${dotfiles_dir}#agenix-rekey.${system}.rekey" \
-            -- \
-            --force
-    else
-        NIX_CONFIG="${nix_config}" nix \
-            --extra-experimental-features 'nix-command flakes' \
-            run \
-            --impure \
-            --no-update-lock-file \
-            "path:${dotfiles_dir}#agenix-rekey.${system}.rekey"
-    fi
+        system="$(
+            NIX_CONFIG="${nix_config}" nix \
+                --extra-experimental-features 'nix-command flakes' \
+                eval \
+                --raw \
+                --impure \
+                --expr 'builtins.currentSystem'
+        )"
+
+        if is_github_actions; then
+            NIX_CONFIG="${nix_config}" nix \
+                --extra-experimental-features 'nix-command flakes' \
+                run \
+                --impure \
+                --no-update-lock-file \
+                "path:.#agenix-rekey.${system}.rekey" \
+                -- \
+                --dummy
+        elif [[ "${force_rekey}" == true ]]; then
+            NIX_CONFIG="${nix_config}" nix \
+                --extra-experimental-features 'nix-command flakes' \
+                run \
+                --impure \
+                --no-update-lock-file \
+                "path:.#agenix-rekey.${system}.rekey" \
+                -- \
+                --force
+        else
+            NIX_CONFIG="${nix_config}" nix \
+                --extra-experimental-features 'nix-command flakes' \
+                run \
+                --impure \
+                --no-update-lock-file \
+                "path:.#agenix-rekey.${system}.rekey"
+        fi
+    )
 }
 
 function build_nix() {
