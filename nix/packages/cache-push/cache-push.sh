@@ -72,9 +72,14 @@ if [[ "${toplevel}" != /nix/store/* ]]; then
 fi
 
 closure_file="$(mktemp)"
-nix path-info --recursive "${toplevel}" >"${closure_file}"
+nix \
+    --extra-experimental-features 'nix-command flakes' \
+    path-info \
+    --recursive "${toplevel}" >"${closure_file}"
 
-nix store sign \
+nix \
+    --extra-experimental-features 'nix-command flakes' \
+    store sign \
     --key-file "${private_key_file}" \
     --stdin <"${closure_file}"
 
@@ -89,7 +94,9 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
         --to "${cache}" \
         --stdin <"${closure_file}"
 else
-    nix copy \
+    nix \
+        --extra-experimental-features 'nix-command flakes' \
+        copy \
         --to "${cache}" \
         --stdin <"${closure_file}"
 fi
