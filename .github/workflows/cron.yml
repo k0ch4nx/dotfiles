@@ -8,19 +8,50 @@ on:
 
   workflow_dispatch:
 
-permissions:
-  actions: write
-  contents: write
-  pull-requests: write
-
 concurrency:
   group: flake-update
   cancel-in-progress: false
 
 jobs:
+  check:
+    name: Check for an existing update
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      proceed: ${{ steps.pull-request.outputs.proceed }}
+
+    steps:
+      - name: Check for an open flake update pull request
+        id: pull-request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          open_pr_number="$(
+            gh pr list \
+              --repo "${GITHUB_REPOSITORY}" \
+              --state open \
+              --base main \
+              --head automation/flake-update \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
+
+          if [[ -n "${open_pr_number}" ]]; then
+            printf 'An update pull request is already open: #%s\n' "${open_pr_number}"
+            printf 'proceed=false\n' >>"${GITHUB_OUTPUT}"
+          else
+            printf 'proceed=true\n' >>"${GITHUB_OUTPUT}"
+          fi
+
   update:
     name: Validate and publish an update
+    needs: check
+    if: needs.check.outputs.proceed == 'true'
     runs-on: macos-26
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -79,7 +110,7 @@ jobs:
           DOTFILES_DIR: ${{ github.workspace }}
         run: nix run path:.#cache-push
 
-      - name: Create or update the rolling pull request
+      - name: Create the pull request
         id: create-pull-request
         if: steps.update.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
@@ -98,19 +129,10 @@ jobs:
 
             The updated flake and Darwin closure were built successfully,
             and the signed closure was uploaded to the private R2 cache
-            before this pull request was updated.
-
-      - name: Run checks for the updated rolling pull request
-        if: steps.create-pull-request.outputs.pull-request-operation == 'updated'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_BRANCH: ${{ steps.create-pull-request.outputs.pull-request-branch }}
-        run: gh workflow run build.yml --repo "${GITHUB_REPOSITORY}" --ref "${PR_BRANCH}"
+            before this pull request was created.
 
       - name: Enable auto-merge
-        if: >-
-          steps.create-pull-request.outputs.pull-request-operation == 'created' ||
-          steps.create-pull-request.outputs.pull-request-operation == 'updated'
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         env:
           GH_TOKEN: ${{ secrets.FLAKE_UPDATE_TOKEN }}
           PR_NUMBER: ${{ steps.create-pull-request.outputs.pull-request-number }}
