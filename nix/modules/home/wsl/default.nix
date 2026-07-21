@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ pkgs.stdenv.cc ];
+  home.packages = [
+    pkgs.stdenv.cc
+    pkgs.unzip
+  ];
 }
