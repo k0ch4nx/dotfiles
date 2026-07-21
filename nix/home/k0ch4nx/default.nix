@@ -7,6 +7,7 @@
     ../../modules/home/secrets.nix
     ./git.nix
     ./neovim.nix
+    ./opencode.nix
     ./secrets.nix
     ./shell.nix
     ./ssh.nix

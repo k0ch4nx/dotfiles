@@ -35,16 +35,5 @@ in
     };
   };
 
-  home.file = {
-    ".config/opencode/opencode.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/modules/home/darwin/files/opencode/opencode.json";
-      force = true;
-    };
-    ".config/opencode/oh-my-openagent.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${config.dotfiles.path}/nix/modules/home/darwin/files/opencode/oh-my-openagent.json";
-      force = true;
-    };
-
-    ".hushlogin".text = "";
-  };
+  home.file.".hushlogin".text = "";
 }
