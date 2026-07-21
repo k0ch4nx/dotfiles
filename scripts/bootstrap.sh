@@ -290,13 +290,7 @@ function apply_nix() {
                 --flake "path:${dotfiles_dir}#${host}"
         fi
     elif is_wsl; then
-        if command -v home-manager >/dev/null 2>&1; then
-            home-manager switch \
-                --impure \
-                --flake "path:${dotfiles_dir}#${user}@${host}"
-        else
-            "${dotfiles_dir}/result/activate"
-        fi
+        "${dotfiles_dir}/result/activate"
     fi
 }
 
