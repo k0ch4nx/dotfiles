@@ -286,6 +286,15 @@ function build_nix() {
                 build \
                 --impure \
                 --no-update-lock-file \
+                --out-link result-system \
+                "path:.#systemConfigs.${host}"
+
+            nix \
+                --extra-experimental-features 'nix-command flakes' \
+                build \
+                --impure \
+                --no-update-lock-file \
+                --out-link result-home \
                 "path:.#homeConfigurations.\"${user}@${host}\".activationPackage"
         fi
     )
@@ -311,7 +320,9 @@ function apply_nix() {
                 --flake "path:${dotfiles_dir}#${host}"
         fi
     elif is_wsl; then
-        "${dotfiles_dir}/result/activate"
+        sudo "${dotfiles_dir}/result-system/bin/register-profile"
+        sudo "${dotfiles_dir}/result-system/bin/activate"
+        "${dotfiles_dir}/result-home/activate"
     fi
 }
 
