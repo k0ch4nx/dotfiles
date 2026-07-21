@@ -85,6 +85,25 @@ function trust_github_actions_runner() {
     sudo launchctl kickstart -k system/org.nixos.nix-daemon
 }
 
+function trust_wsl_user() {
+    if ! is_wsl || [[ "$(id -u)" == 0 ]]; then
+        return
+    fi
+
+    local trusted_user
+    local trust_setting
+    trusted_user="$(id -un)"
+    trust_setting="extra-trusted-users = ${trusted_user}"
+
+    if sudo grep -Fqx "${trust_setting}" /etc/nix/nix.conf; then
+        return
+    fi
+
+    printf '%s\n' "${trust_setting}" |
+        sudo tee -a /etc/nix/nix.conf >/dev/null
+    sudo systemctl restart nix-daemon.service
+}
+
 function run_age_keygen() {
     if command -v rage-keygen >/dev/null 2>&1; then
         rage-keygen "$@"
@@ -427,6 +446,7 @@ function main() {
     detect_platform
     install_nix
     trust_github_actions_runner
+    trust_wsl_user
     prepare_dotfiles
     ensure_host_identity
 
