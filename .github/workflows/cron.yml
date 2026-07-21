@@ -44,8 +44,10 @@ jobs:
 
       - name: Update flake.lock
         id: update
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          nix flake update
+          nix --option access-tokens "github.com=${GH_TOKEN}" flake update
 
           if git diff --quiet -- flake.lock; then
             echo 'changed=false' >>"${GITHUB_OUTPUT}"
