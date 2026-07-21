@@ -171,12 +171,22 @@ function run_agenix_rekey() {
         cd "${dotfiles_dir}"
 
         local nix_config="${NIX_CONFIG:-}"
+        local plugin
         local system
 
         if [[ -n "${nix_config}" ]]; then
             nix_config+=$'\n'
         fi
         nix_config+="extra-experimental-features = nix-command flakes"
+
+        plugin="$(
+            NIX_CONFIG="${nix_config}" nix \
+                --extra-experimental-features 'nix-command flakes' \
+                build \
+                --no-link \
+                --print-out-paths \
+                'nixpkgs#age-plugin-yubikey^out'
+        )"
 
         system="$(
             NIX_CONFIG="${nix_config}" nix \
@@ -188,7 +198,8 @@ function run_agenix_rekey() {
         )"
 
         if is_github_actions; then
-            NIX_CONFIG="${nix_config}" nix \
+            PATH="${plugin}/bin:${PATH}" \
+                NIX_CONFIG="${nix_config}" nix \
                 --extra-experimental-features 'nix-command flakes' \
                 run \
                 --impure \
@@ -197,7 +208,8 @@ function run_agenix_rekey() {
                 -- \
                 --dummy
         elif [[ "${force_rekey}" == true ]]; then
-            NIX_CONFIG="${nix_config}" nix \
+            PATH="${plugin}/bin:${PATH}" \
+                NIX_CONFIG="${nix_config}" nix \
                 --extra-experimental-features 'nix-command flakes' \
                 run \
                 --impure \
@@ -206,7 +218,8 @@ function run_agenix_rekey() {
                 -- \
                 --force
         else
-            NIX_CONFIG="${nix_config}" nix \
+            PATH="${plugin}/bin:${PATH}" \
+                NIX_CONFIG="${nix_config}" nix \
                 --extra-experimental-features 'nix-command flakes' \
                 run \
                 --impure \
