@@ -104,6 +104,27 @@ function trust_wsl_user() {
     sudo systemctl restart nix-daemon.service
 }
 
+function configure_wsl_login_shell() {
+    if is_github_actions || ! is_wsl; then
+        return
+    fi
+
+    local passwd_entry
+    local zsh_path="${HOME}/.nix-profile/bin/zsh"
+
+    [[ -x "${zsh_path}" ]] || exit 1
+
+    if ! grep -Fqx "${zsh_path}" /etc/shells; then
+        printf '%s\n' "${zsh_path}" |
+            sudo tee -a /etc/shells >/dev/null
+    fi
+
+    passwd_entry="$(getent passwd "${user}")"
+    if [[ "${passwd_entry##*:}" != "${zsh_path}" ]]; then
+        sudo chsh -s "${zsh_path}" "${user}"
+    fi
+}
+
 function run_age_keygen() {
     if command -v rage-keygen >/dev/null 2>&1; then
         rage-keygen "$@"
@@ -448,6 +469,7 @@ function main() {
     run_agenix_rekey
     build_nix
     apply_nix
+    configure_wsl_login_shell
     push_nix_cache
 
     if ! is_github_actions; then
