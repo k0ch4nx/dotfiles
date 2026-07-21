@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
   contents: write
   pull-requests: write
 
@@ -84,6 +85,7 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.FLAKE_UPDATE_TOKEN }}
+          branch-token: ${{ secrets.GITHUB_TOKEN }}
           sign-commits: true
           branch: automation/flake-update
           base: main
@@ -97,6 +99,13 @@ jobs:
             The updated flake and Darwin closure were built successfully,
             and the signed closure was uploaded to the private R2 cache
             before this pull request was updated.
+
+      - name: Run checks for the updated rolling pull request
+        if: steps.create-pull-request.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_BRANCH: ${{ steps.create-pull-request.outputs.pull-request-branch }}
+        run: gh workflow run build.yml --repo "${GITHUB_REPOSITORY}" --ref "${PR_BRANCH}"
 
       - name: Enable auto-merge
         if: >-
