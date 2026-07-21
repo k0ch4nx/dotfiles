@@ -82,6 +82,7 @@ jobs:
         if: steps.update.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
+          sign-commits: true
           branch: automation/flake-update
           base: main
           delete-branch: true
