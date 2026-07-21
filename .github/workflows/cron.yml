@@ -79,6 +79,7 @@ jobs:
         run: nix run path:.#cache-push
 
       - name: Create or update the rolling pull request
+        id: create-pull-request
         if: steps.update.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
@@ -96,3 +97,12 @@ jobs:
             The updated flake and Darwin closure were built successfully,
             and the signed closure was uploaded to the private R2 cache
             before this pull request was updated.
+
+      - name: Enable auto-merge
+        if: >-
+          steps.create-pull-request.outputs.pull-request-operation == 'created' ||
+          steps.create-pull-request.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ secrets.FLAKE_UPDATE_TOKEN }}
+          PR_NUMBER: ${{ steps.create-pull-request.outputs.pull-request-number }}
+        run: gh pr merge --repo "${GITHUB_REPOSITORY}" --merge --auto "${PR_NUMBER}"
