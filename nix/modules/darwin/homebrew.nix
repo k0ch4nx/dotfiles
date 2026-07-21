@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ config, inputs, ... }:
 {
   imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
 
@@ -7,6 +7,8 @@
     enableRosetta = false;
     user = "k0ch4nx";
     autoMigrate = true;
+    taps."jackielii/homebrew-tap" = inputs.homebrew-jackielii-tap;
+    trust.casks = [ "jackielii/tap/skhd-zig" ];
   };
 
   homebrew = {
@@ -20,7 +22,7 @@
 
     greedyCasks = true;
 
-    taps = [ ];
+    taps = builtins.attrNames config.nix-homebrew.taps;
 
     brews = [ ];
 
@@ -35,6 +37,7 @@
       "gog-galaxy"
       "google-drive"
       "intellij-idea-oss"
+      "jackielii/tap/skhd-zig"
       "kindavim"
       "macfuse"
       "minecraft"

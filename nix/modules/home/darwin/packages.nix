@@ -20,7 +20,6 @@
     orbstack
     qbittorrent
     ryubing
-    skhd
     udev-gothic-nf
     (vscode.overrideAttrs (old: {
       postPatch =
@@ -30,6 +29,5 @@
           old.postPatch;
     }))
     wezterm
-    yabai
   ];
 }

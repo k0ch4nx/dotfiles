@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
   restartLaunchAgent = label: ''
@@ -20,10 +20,7 @@ in
     '';
     "lazygit".source = ./files/lazygit;
     "sketchybar".source = ./files/sketchybar;
-    "skhd" = {
-      source = ./files/skhd;
-      onChange = restartLaunchAgent "org.nixos.skhd";
-    };
+    "skhd".source = ./files/skhd;
     "wezterm".source = ./files/wezterm;
     "yabai" = {
       source = ./files/yabai;
@@ -34,6 +31,23 @@ in
       force = true;
     };
   };
+
+  home.activation.skhdService = lib.hm.dag.entryAfter [ "onFilesChange" ] ''
+    skhd="/Applications/skhd.app/Contents/MacOS/skhd"
+    legacyServiceLabel="org.nixos.skhd"
+    legacyServicePlist="${config.home.homeDirectory}/Library/LaunchAgents/$legacyServiceLabel.plist"
+
+    if [ -x "$skhd" ]; then
+      userId="$(/usr/bin/id -u)"
+
+      if /bin/launchctl print "gui/$userId/$legacyServiceLabel" >/dev/null 2>&1 || [ -f "$legacyServicePlist" ]; then
+        $DRY_RUN_CMD /bin/launchctl bootout "gui/$userId/$legacyServiceLabel" >/dev/null 2>&1 || true
+        $DRY_RUN_CMD /bin/rm -f "$legacyServicePlist"
+      fi
+
+      $DRY_RUN_CMD "$skhd" --install-service
+    fi
+  '';
 
   home.file.".hushlogin".text = "";
 }

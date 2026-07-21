@@ -12,7 +12,7 @@ resource "cloudflare_r2_bucket_lifecycle" "nix_cache" {
 
     delete_objects_transition = {
       condition = {
-        max_age = 604800
+        max_age = 259200
         type    = "Age"
       }
     }
