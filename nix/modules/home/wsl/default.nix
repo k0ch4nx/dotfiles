@@ -2,7 +2,7 @@
 
 {
   home.packages = [
-    pkgs.docker-client
+    pkgs.docker
     pkgs.stdenv.cc
     pkgs.unzip
   ];
