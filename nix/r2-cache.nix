@@ -40,21 +40,25 @@ in
 
   credentialsGenerator =
     {
-      accessKeyFile,
-      secretKeyFile,
+      accessKeySecret,
+      secretKeySecret,
     }:
     {
-      tags = [ "r2" ];
+      dependencies = {
+        accessKeyId = accessKeySecret;
+        secretAccessKey = secretKeySecret;
+      };
 
       script =
         {
           decrypt,
+          deps,
           lib,
           ...
         }:
         ''
-          accessKeyId="$(${decrypt} ${lib.escapeShellArg (builtins.toString accessKeyFile)})"
-          secretAccessKey="$(${decrypt} ${lib.escapeShellArg (builtins.toString secretKeyFile)})"
+          accessKeyId="$(${decrypt} ${lib.escapeShellArg deps.accessKeyId.file})"
+          secretAccessKey="$(${decrypt} ${lib.escapeShellArg deps.secretAccessKey.file})"
 
           [ -n "$accessKeyId" ]
           [ -n "$secretAccessKey" ]
