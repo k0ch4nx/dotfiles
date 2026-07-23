@@ -289,6 +289,7 @@ return {
                         win = {
                             list = {
                                 keys = {
+                                    ["d"] = { "explorer_delete", mode = { "n", "x" } },
                                     ["l"] = "open_current",
                                 },
                             },
@@ -369,6 +370,12 @@ return {
                     vsplit_current = open_current_if_unselected("edit_vsplit"),
                     tab_current = open_current_if_unselected("tab"),
                     explorer_add = explorer_add,
+                    explorer_delete = function(picker)
+                        if vim.fn.mode():find("^[vV]") then
+                            picker.list:select()
+                        end
+                        picker:action("explorer_del")
+                    end,
                     explorer_up = function(picker)
                         vim.fn.chdir(vim.fs.dirname(picker:cwd()))
                     end,

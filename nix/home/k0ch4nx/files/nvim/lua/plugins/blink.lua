@@ -13,6 +13,26 @@ return {
         opts = {
             keymap = {
                 preset = "enter",
+                ["<CR>"] = {
+                    function(cmp)
+                        if vim.bo.filetype ~= "snacks_input" then
+                            return cmp.accept()
+                        end
+
+                        local function confirm()
+                            vim.cmd.stopinsert()
+                            vim.schedule(function()
+                                vim.api.nvim_input(vim.keycode("<CR>"))
+                            end)
+                        end
+
+                        if not cmp.accept({ callback = confirm }) then
+                            confirm()
+                        end
+                        return true
+                    end,
+                    "fallback",
+                },
             },
             cmdline = {
                 keymap = {
