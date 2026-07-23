@@ -19,6 +19,7 @@ function main() {
         if [[ "${GITHUB_ACTIONS:-}" == "true" ]]; then
             PATH="${plugin}/bin:${PATH}" \
                 nix run \
+                --accept-flake-config \
                 --impure \
                 --no-update-lock-file \
                 "path:.#agenix-rekey.${system}.rekey" \
@@ -29,12 +30,14 @@ function main() {
 
         PATH="${plugin}/bin:${PATH}" \
             nix run \
+            --accept-flake-config \
             --impure \
             --no-update-lock-file \
             "path:.#agenix-rekey.${system}.generate"
 
         PATH="${plugin}/bin:${PATH}" \
             nix run \
+            --accept-flake-config \
             --impure \
             --no-update-lock-file \
             "path:.#agenix-rekey.${system}.rekey"
