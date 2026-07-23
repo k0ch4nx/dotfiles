@@ -6,7 +6,7 @@
 
 let
   cache = import ../../r2-cache.nix;
-  credentialsFile = cache.rootCredentialsFile.darwin;
+  host = cache.hosts.macbook-pro;
   dotfilesDir = builtins.getEnv "DOTFILES_DIR";
   resolvedDotfilesDir =
     if dotfilesDir != "" then
@@ -15,56 +15,29 @@ let
       "/Users/k0ch4nx/Developer/github.com/k0ch4nx/dotfiles";
 in
 {
-  config = {
-    assertions = [
-      {
-        assertion = builtins.pathExists ../../../secrets/r2-access-key-id.age;
-        message = "The R2 access key ID age file does not exist.";
-      }
-      {
-        assertion = builtins.pathExists ../../../secrets/r2-secret-access-key.age;
-        message = "The R2 secret access key age file does not exist.";
-      }
-    ];
+  config = lib.mkMerge [
+    {
+      nix.settings = cache.mkNixSettings lib;
 
-    age = {
-      identityPaths = [
-        "${resolvedDotfilesDir}/secrets/hosts/macbook-pro-k0ch4nx-key.txt"
-      ];
+      launchd.daemons.nix-daemon.serviceConfig.EnvironmentVariables = {
+        AWS_SHARED_CREDENTIALS_FILE = host.credentialsFile;
+      };
+    }
 
-      secrets = {
-        r2-root-access-key-id = {
-          rekeyFile = ../../../secrets/r2-access-key-id.age;
-          intermediary = true;
-        };
+    (lib.mkIf (!cache.isGitHubActions) {
+      assertions = cache.secretAssertions;
 
-        r2-root-secret-access-key = {
-          rekeyFile = ../../../secrets/r2-secret-access-key.age;
-          intermediary = true;
-        };
+      age = {
+        identityPaths = [
+          "${resolvedDotfilesDir}/secrets/hosts/macbook-pro-k0ch4nx-key.txt"
+        ];
 
-        r2-root-credentials = {
-          rekeyFile = ../../../secrets/r2-credentials.age;
-          generator = cache.credentialsGenerator {
-            accessKeySecret = config.age.secrets.r2-root-access-key-id;
-            secretKeySecret = config.age.secrets.r2-root-secret-access-key;
-          };
-          path = credentialsFile;
-          owner = "root";
-          group = "wheel";
-          mode = "600";
+        secrets = cache.mkCredentialsSecrets {
+          inherit config;
+          credentialsFile = host.credentialsFile;
+          group = host.credentialsGroup;
         };
       };
-    };
-
-    nix.settings = {
-      substituters = lib.mkForce cache.substituters;
-      trusted-public-keys = lib.mkForce cache.trustedPublicKeys;
-      fallback = true;
-    };
-
-    launchd.daemons.nix-daemon.serviceConfig.EnvironmentVariables = {
-      AWS_SHARED_CREDENTIALS_FILE = credentialsFile;
-    };
-  };
+    })
+  ];
 }
