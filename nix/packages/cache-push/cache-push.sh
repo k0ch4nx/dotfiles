@@ -2,12 +2,12 @@ set -euo pipefail
 
 readonly bucket="${R2_CACHE_BUCKET:-${DEFAULT_R2_CACHE_BUCKET}}"
 readonly account_id="${CLOUDFLARE_ACCOUNT_ID:-${DEFAULT_CLOUDFLARE_ACCOUNT_ID}}"
-readonly profile="${R2_CACHE_PROFILE:-${DEFAULT_R2_CACHE_PROFILE}}"
 readonly config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
-readonly credentials_file="${R2_CREDENTIALS_FILE:-${config_home}/nix-cache/credentials}"
+readonly access_key_file="${config_home}/nix-cache/access-key-id"
+readonly secret_key_file="${config_home}/nix-cache/secret-access-key"
 readonly private_key_file="${NIX_CACHE_PRIVATE_KEY_FILE:-${config_home}/nix-cache/private-key}"
 readonly dotfiles_dir="${DOTFILES_DIR:-${PWD}}"
-readonly cache="s3://${bucket}?endpoint=${account_id}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=${profile}"
+readonly cache="s3://${bucket}?endpoint=${account_id}.r2.cloudflarestorage.com&scheme=https&region=auto"
 closure_file=""
 
 function default_target() {
@@ -21,6 +21,26 @@ function default_target() {
     fi
 }
 
+function read_credential() {
+    local file="$1"
+    local label="$2"
+    local value
+
+    if [[ ! -r "${file}" ]]; then
+        printf '%s is not readable: %s\n' "${label}" "${file}" >&2
+        exit 1
+    fi
+
+    value="$(<"${file}")"
+
+    if [[ -z "${value}" ]] || [[ "${value}" == *$'\n'* ]]; then
+        printf '%s must contain exactly one non-empty value.\n' "${label}" >&2
+        exit 1
+    fi
+
+    printf '%s' "${value}"
+}
+
 function cleanup() {
     if [[ -n "${closure_file}" ]]; then
         rm -f "${closure_file}"
@@ -29,9 +49,18 @@ function cleanup() {
 
 trap cleanup EXIT
 
-if [[ ! -r "${credentials_file}" ]]; then
-    printf 'R2 credentials are not readable: %s\n' "${credentials_file}" >&2
+access_key_id="${R2_ACCESS_KEY_ID:-}"
+secret_access_key="${R2_SECRET_ACCESS_KEY:-}"
+
+if [[ -n "${access_key_id}" && -z "${secret_access_key}" ]] ||
+    [[ -z "${access_key_id}" && -n "${secret_access_key}" ]]; then
+    printf 'R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY must be provided together.\n' >&2
     exit 1
+fi
+
+if [[ -z "${access_key_id}" ]]; then
+    access_key_id="$(read_credential "${access_key_file}" 'R2 access key ID')"
+    secret_access_key="$(read_credential "${secret_key_file}" 'R2 secret access key')"
 fi
 
 if [[ ! -r "${private_key_file}" ]]; then
@@ -53,8 +82,6 @@ target="${1:-${NIX_CACHE_TARGET:-}}"
 if [[ -z "${target}" ]]; then
     target="$(default_target)"
 fi
-
-export AWS_SHARED_CREDENTIALS_FILE="${credentials_file}"
 
 toplevel="$({
     nix build \
@@ -84,17 +111,23 @@ nix \
     --stdin <"${closure_file}"
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
-    # The caller can read the closure list; only the Nix store paths require root.
+    readonly root_nix="/nix/var/nix/profiles/default/bin/nix"
+    [[ -x "${root_nix}" ]] || exit 1
+
+    # The caller can read the closure list; only Nix store access requires root.
     # shellcheck disable=SC2024
-    sudo -H env \
-        "AWS_SHARED_CREDENTIALS_FILE=${AWS_SHARED_CREDENTIALS_FILE}" \
-        "$(command -v nix)" \
+    AWS_ACCESS_KEY_ID="${access_key_id}" \
+        AWS_SECRET_ACCESS_KEY="${secret_access_key}" \
+        sudo --preserve-env=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY \
+        "${root_nix}" \
         --extra-experimental-features 'nix-command flakes' \
         copy \
         --to "${cache}" \
         --stdin <"${closure_file}"
 else
-    nix \
+    AWS_ACCESS_KEY_ID="${access_key_id}" \
+        AWS_SECRET_ACCESS_KEY="${secret_access_key}" \
+        nix \
         --extra-experimental-features 'nix-command flakes' \
         copy \
         --to "${cache}" \

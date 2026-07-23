@@ -1,6 +1,7 @@
 .omo/
 
 /result
+/result-*
 
 secrets/hosts/*
 !secrets/hosts/*.pub

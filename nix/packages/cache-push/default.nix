@@ -12,7 +12,6 @@ pkgs.writeShellApplication {
   runtimeEnv = {
     DEFAULT_CLOUDFLARE_ACCOUNT_ID = cache.accountId;
     DEFAULT_R2_CACHE_BUCKET = cache.bucket;
-    DEFAULT_R2_CACHE_PROFILE = cache.profile;
   };
   text = builtins.readFile ./cache-push.sh;
 

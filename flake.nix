@@ -128,13 +128,59 @@
     in
     blueprint
     // {
+      cacheSettings = import ./nix/r2-cache.nix;
+
+      darwinConfigurations = blueprint.darwinConfigurations // {
+        cache-bootstrap = inputs.nix-darwin.lib.darwinSystem {
+          modules = [ ./nix/cache-bootstrap/darwin.nix ];
+          specialArgs = {
+            flake = inputs.self;
+            inherit inputs;
+            hostName = "macbook-pro";
+          };
+        };
+      };
+
+      systemConfigs = blueprint.systemConfigs // {
+        cache-bootstrap = inputs.system-manager.lib.makeSystemConfig {
+          modules = [ ./nix/cache-bootstrap/wsl.nix ];
+          extraSpecialArgs = {
+            flake = inputs.self;
+            inherit inputs;
+            hostName = "ubuntu-wsl";
+          };
+        };
+      };
+
       homeConfigurations."k0ch4nx@ubuntu-wsl" =
         blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl";
 
-      agenix-rekey = inputs.agenix-rekey.configure {
-        userFlake = inputs.self;
-        inherit (inputs.self) darwinConfigurations;
-        inherit (inputs.self) homeConfigurations;
-      };
+      agenix-rekey =
+        (inputs.agenix-rekey.configure {
+          userFlake = inputs.self;
+
+          darwinConfigurations = {
+            inherit (inputs.self.darwinConfigurations) cache-bootstrap macbook-pro;
+          };
+
+          systems = [
+            "aarch64-darwin"
+          ];
+        })
+        // (inputs.agenix-rekey.configure {
+          userFlake = inputs.self;
+
+          nixosConfigurations = {
+            inherit (inputs.self.systemConfigs) cache-bootstrap ubuntu-wsl;
+          };
+
+          homeConfigurations = {
+            inherit (inputs.self.homeConfigurations) "k0ch4nx@ubuntu-wsl";
+          };
+
+          systems = [
+            "x86_64-linux"
+          ];
+        });
     };
 }

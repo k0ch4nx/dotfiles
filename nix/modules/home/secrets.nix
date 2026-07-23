@@ -23,9 +23,15 @@ in
     ];
 
     secrets = {
-      r2-credentials = {
-        rekeyFile = ../../../secrets/r2-credentials.age;
-        path = "${cacheDirectory}/credentials";
+      r2-access-key-id = {
+        rekeyFile = ../../../secrets/r2-access-key-id.age;
+        path = "${cacheDirectory}/access-key-id";
+        mode = "600";
+      };
+
+      r2-secret-access-key = {
+        rekeyFile = ../../../secrets/r2-secret-access-key.age;
+        path = "${cacheDirectory}/secret-access-key";
         mode = "600";
       };
 
@@ -41,7 +47,6 @@ in
   home.sessionVariables = {
     CLOUDFLARE_ACCOUNT_ID = cache.accountId;
     R2_CACHE_BUCKET = cache.bucket;
-    R2_CREDENTIALS_FILE = config.age.secrets.r2-credentials.path;
     NIX_CACHE_PRIVATE_KEY_FILE = config.age.secrets.nix-cache-local-private-key.path;
   };
 }

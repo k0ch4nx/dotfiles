@@ -27,20 +27,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Configure the R2 cache
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rekey secrets for evaluation
         env:
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
-          NIX_CACHE_LOCAL_PUBLIC_KEY: ${{ vars.NIX_CACHE_LOCAL_PUBLIC_KEY }}
-          NIX_CACHE_CI_PUBLIC_KEY: ${{ vars.NIX_CACHE_CI_PUBLIC_KEY }}
-        run: ./scripts/configure-r2-cache.sh
+          DOTFILES_DIR: ${{ github.workspace }}
+        run: ./scripts/steps/080-rekey-secrets.sh
 
       - name: Build the Darwin configuration
-        run: |
-          source ./scripts/bootstrap.sh
-          dirname "$(command -v nix)" >>"${GITHUB_PATH}"
+        env:
+          DOTFILES_DIR: ${{ github.workspace }}
+          DOTFILES_HOST: macbook-pro
+          DOTFILES_USER: k0ch4nx
+          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
+          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
+        run: ./scripts/steps/090-build-nix-configuration.sh
 
       - name: Check all flake outputs
         run: nix flake check --impure --no-update-lock-file
@@ -63,10 +67,12 @@ jobs:
           github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
           DOTFILES_DIR: ${{ github.workspace }}
-        run: nix run path:.#cache-push
+        run: ./scripts/steps/120-push-nix-cache.sh
 
   ubuntu-wsl:
     name: Ubuntu WSL
@@ -87,59 +93,68 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Check out repository in WSL
-        uses: Ubuntu/WSL/.github/actions/wsl-checkout@main
+        uses: Ubuntu/WSL/.github/actions/wsl-checkout@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         with:
           distro: Ubuntu-24.04
           working-dir: /tmp/dotfiles
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and check the WSL configuration
-        uses: Ubuntu/WSL/.github/actions/wsl-bash@main
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         env:
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
-          NIX_CACHE_LOCAL_PUBLIC_KEY: ${{ vars.NIX_CACHE_LOCAL_PUBLIC_KEY }}
-          NIX_CACHE_CI_PUBLIC_KEY: ${{ vars.NIX_CACHE_CI_PUBLIC_KEY }}
-          WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u:CLOUDFLARE_ACCOUNT_ID/u:R2_CACHE_BUCKET/u:NIX_CACHE_LOCAL_PUBLIC_KEY/u:NIX_CACHE_CI_PUBLIC_KEY/u
-        with:
-          distro: Ubuntu-24.04
-          working-dir: /tmp/dotfiles
-          exec: |
-            eval "$(RUNNER_TEMP=/tmp ./scripts/configure-r2-cache.sh)"
-
-            GITHUB_ACTIONS=true source ./scripts/bootstrap.sh
-            nix flake check --impure --no-update-lock-file
-
-      - name: Sign and upload the WSL closure
-        if: >-
-          github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-        uses: Ubuntu/WSL/.github/actions/wsl-bash@main
-        env:
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
-          NIX_CACHE_LOCAL_PUBLIC_KEY: ${{ vars.NIX_CACHE_LOCAL_PUBLIC_KEY }}
-          NIX_CACHE_CI_PUBLIC_KEY: ${{ vars.NIX_CACHE_CI_PUBLIC_KEY }}
-          NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
-          WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u:CLOUDFLARE_ACCOUNT_ID/u:R2_CACHE_BUCKET/u:NIX_CACHE_LOCAL_PUBLIC_KEY/u:NIX_CACHE_CI_PUBLIC_KEY/u:NIX_CACHE_PRIVATE_KEY/u
+          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
+          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
+          WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u
         with:
           distro: Ubuntu-24.04
           working-dir: /tmp/dotfiles
           exec: |
             set -euo pipefail
 
-            eval "$(RUNNER_TEMP=/tmp ./scripts/configure-r2-cache.sh)"
+            GITHUB_ACTIONS=true \
+              DOTFILES_HOST=ubuntu-wsl \
+              ./scripts/steps/020-install-nix.sh
+            source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+            GITHUB_ACTIONS=true \
+              DOTFILES_DIR=/tmp/dotfiles \
+              ./scripts/steps/080-rekey-secrets.sh
+
+            GITHUB_ACTIONS=true \
+              DOTFILES_DIR=/tmp/dotfiles \
+              DOTFILES_HOST=ubuntu-wsl \
+              DOTFILES_USER=k0ch4nx \
+              ./scripts/steps/090-build-nix-configuration.sh
+
+            nix flake check --impure --no-update-lock-file
+
+      - name: Sign and upload the WSL closure
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
+        env:
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
+          NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
+          WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u:CLOUDFLARE_ACCOUNT_ID/u:R2_CACHE_BUCKET/u:NIX_CACHE_PRIVATE_KEY/u
+        with:
+          distro: Ubuntu-24.04
+          working-dir: /tmp/dotfiles
+          exec: |
+            set -euo pipefail
+
             source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
             umask 077
             private_key="$(mktemp /tmp/nix-cache-ci-private-key.XXXXXX)"
             trap 'rm -f "${private_key}"' EXIT
             printf '%s\n' "${NIX_CACHE_PRIVATE_KEY}" >"${private_key}"
+            unset NIX_CACHE_PRIVATE_KEY
 
-            NIX_CACHE_PRIVATE_KEY_FILE="${private_key}" \
+            GITHUB_ACTIONS=true \
+              NIX_CACHE_PRIVATE_KEY_FILE="${private_key}" \
               DOTFILES_DIR=/tmp/dotfiles \
-              nix run path:.#cache-push
+              ./scripts/steps/120-push-nix-cache.sh

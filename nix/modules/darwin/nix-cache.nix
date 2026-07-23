@@ -1,15 +1,18 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  cfg = config.dotfiles.nixCache;
   cache = import ../../r2-cache.nix;
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    types
-    ;
-  r2Cache = "s3://${cfg.bucket}?endpoint=${cfg.accountId}.r2.cloudflarestorage.com&scheme=https&region=auto&profile=${cache.profile}";
+  credentialsFile = cache.rootCredentialsFile.darwin;
+  accessKeyFile = config.age.secrets.r2-root-access-key-id.path;
+  secretKeyFile = config.age.secrets.r2-root-secret-access-key.path;
+  dotfilesDir = builtins.getEnv "DOTFILES_DIR";
+  resolvedDotfilesDir =
+    if dotfilesDir != "" then dotfilesDir else "/Users/k0ch4nx/Developer/github.com/k0ch4nx/dotfiles";
   standardSubstituters = [
     "https://cache.nixos.org/"
     "https://nix-community.cachix.org"
@@ -20,86 +23,98 @@ let
   ];
 in
 {
-  options.dotfiles.nixCache = {
-    enable = mkEnableOption "the private Cloudflare R2 Nix binary cache";
+  config = {
+    assertions = [
+      {
+        assertion = builtins.pathExists ../../../secrets/r2-access-key-id.age;
+        message = "The R2 access key ID age file does not exist.";
+      }
+      {
+        assertion = builtins.pathExists ../../../secrets/r2-secret-access-key.age;
+        message = "The R2 secret access key age file does not exist.";
+      }
+    ];
 
-    accountId = mkOption {
-      type = types.nullOr types.str;
-      default = cache.accountId;
-      description = "Cloudflare account ID used to construct the private R2 endpoint.";
-    };
-
-    bucket = mkOption {
-      type = types.str;
-      default = cache.bucket;
-      description = "R2 bucket containing the Nix binary cache.";
-    };
-
-    localPublicKey = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = "Public half of the nix-cache-local-1 signing key.";
-    };
-
-    ciPublicKey = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = "Public half of the nix-cache-ci-1 signing key.";
-    };
-
-    credentialsSecret = mkOption {
-      type = types.path;
-      default = ../../../secrets/r2-credentials.age;
-      description = "agenix-rekey file containing the shared nix-cache AWS profile.";
-    };
-  };
-
-  config = lib.mkMerge [
-    {
-      nix.settings = {
-        substituters = lib.mkForce (lib.optionals cfg.enable [ r2Cache ] ++ standardSubstituters);
-        trusted-public-keys = lib.mkForce (
-          lib.optionals cfg.enable [
-            cfg.localPublicKey
-            cfg.ciPublicKey
-          ]
-          ++ standardPublicKeys
-        );
-        fallback = true;
-      };
-    }
-
-    (mkIf cfg.enable {
-      assertions = [
-        {
-          assertion = cfg.accountId != null && cfg.accountId != "";
-          message = "dotfiles.nixCache.accountId must be set when the R2 cache is enabled.";
-        }
-        {
-          assertion = cfg.localPublicKey != null && lib.hasPrefix "nix-cache-local-1:" cfg.localPublicKey;
-          message = "dotfiles.nixCache.localPublicKey must be the nix-cache-local-1 public key.";
-        }
-        {
-          assertion = cfg.ciPublicKey != null && lib.hasPrefix "nix-cache-ci-1:" cfg.ciPublicKey;
-          message = "dotfiles.nixCache.ciPublicKey must be the nix-cache-ci-1 public key.";
-        }
-        {
-          assertion = builtins.pathExists cfg.credentialsSecret;
-          message = "The R2 credentials age file does not exist.";
-        }
+    age = {
+      identityPaths = [
+        "${resolvedDotfilesDir}/secrets/hosts/macbook-pro-k0ch4nx-key.txt"
       ];
 
-      age.secrets = {
-        r2-root-credentials = {
-          rekeyFile = cfg.credentialsSecret;
-          path = "/var/root/.aws/credentials";
+      secrets = {
+        r2-root-access-key-id = {
+          rekeyFile = ../../../secrets/r2-access-key-id.age;
           owner = "root";
           group = "wheel";
-          mode = "600";
+          mode = "400";
+        };
+
+        r2-root-secret-access-key = {
+          rekeyFile = ../../../secrets/r2-secret-access-key.age;
+          owner = "root";
+          group = "wheel";
+          mode = "400";
         };
       };
+    };
 
-      nix.envVars.AWS_SHARED_CREDENTIALS_FILE = "/var/root/.aws/credentials";
-    })
-  ];
+    nix.settings = {
+      substituters = lib.mkForce ([ cache.url ] ++ standardSubstituters);
+      trusted-public-keys = lib.mkForce (
+        [
+          cache.localPublicKey
+          cache.ciPublicKey
+        ]
+        ++ standardPublicKeys
+      );
+      fallback = true;
+    };
+
+    launchd.daemons = {
+      nix-daemon.serviceConfig.EnvironmentVariables.AWS_SHARED_CREDENTIALS_FILE = credentialsFile;
+
+      r2-nix-cache-credentials = {
+        script = ''
+          set -eu
+
+          attempts=0
+          while [ ! -r "${accessKeyFile}" ] || [ ! -r "${secretKeyFile}" ]; do
+            attempts=$((attempts + 1))
+            if [ "$attempts" -ge 30 ]; then
+              exit 1
+            fi
+            ${pkgs.coreutils}/bin/sleep 1
+          done
+
+          accessKeyId="$(${pkgs.coreutils}/bin/cat "${accessKeyFile}")"
+          secretAccessKey="$(${pkgs.coreutils}/bin/cat "${secretKeyFile}")"
+
+          [ -n "$accessKeyId" ] || exit 1
+          [ -n "$secretAccessKey" ] || exit 1
+          [ "''${#accessKeyId}" -eq 32 ] || exit 1
+          [ "''${#secretAccessKey}" -eq 64 ] || exit 1
+
+          ${pkgs.coreutils}/bin/install -d -m 700 -o root -g wheel "$(${pkgs.coreutils}/bin/dirname "${credentialsFile}")"
+          temporaryFile="$(${pkgs.coreutils}/bin/mktemp "${credentialsFile}.XXXXXX")"
+          trap '${pkgs.coreutils}/bin/rm -f "$temporaryFile"' EXIT HUP INT TERM
+
+          printf '[default]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
+            "$accessKeyId" \
+            "$secretAccessKey" >"$temporaryFile"
+          ${pkgs.coreutils}/bin/chown root:wheel "$temporaryFile"
+          ${pkgs.coreutils}/bin/chmod 600 "$temporaryFile"
+          ${pkgs.coreutils}/bin/mv -f "$temporaryFile" "${credentialsFile}"
+          trap - EXIT HUP INT TERM
+        '';
+
+        serviceConfig = {
+          RunAtLoad = true;
+          KeepAlive.SuccessfulExit = false;
+          WatchPaths = [
+            accessKeyFile
+            secretKeyFile
+          ];
+        };
+      };
+    };
+  };
 }

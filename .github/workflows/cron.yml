@@ -45,10 +45,10 @@ jobs:
           fi
 
   update:
-    name: Validate and publish an update
+    name: Publish an update
     needs: check
     if: needs.check.outputs.proceed == 'true'
-    runs-on: macos-26
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
@@ -59,56 +59,30 @@ jobs:
         with:
           ref: main
 
-      - name: Configure the R2 cache
-        env:
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
-          NIX_CACHE_LOCAL_PUBLIC_KEY: ${{ vars.NIX_CACHE_LOCAL_PUBLIC_KEY }}
-          NIX_CACHE_CI_PUBLIC_KEY: ${{ vars.NIX_CACHE_CI_PUBLIC_KEY }}
-        run: ./scripts/configure-r2-cache.sh
-
-      - name: Install Nix and verify the current configuration
-        run: |
-          source ./scripts/bootstrap.sh
-          dirname "$(command -v nix)" >>"${GITHUB_PATH}"
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update flake.lock
         id: update
         env:
+          DOTFILES_DIR: ${{ github.workspace }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          nix --option access-tokens "github.com=${GH_TOKEN}" flake update
+          ./scripts/steps/070-update-flake-lock.sh
 
-          if git diff --quiet -- flake.lock; then
-            echo 'changed=false' >>"${GITHUB_OUTPUT}"
-          else
-            echo 'changed=true' >>"${GITHUB_OUTPUT}"
+          unexpected_paths="$(git diff --name-only -- . ':(exclude)flake.lock')"
+          if [[ -n "${unexpected_paths}" ]]; then
+            printf 'Unexpected paths changed:\n%s\n' "${unexpected_paths}" >&2
+            exit 1
           fi
 
-      - name: Check the updated flake
-        if: steps.update.outputs.changed == 'true'
-        run: nix flake check --impure --no-update-lock-file
-
-      - name: Prepare the CI signing key
-        if: steps.update.outputs.changed == 'true'
-        env:
-          NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
-        run: |
-          private_key="${RUNNER_TEMP}/nix-cache-ci-private-key"
-
-          umask 077
-          printf '%s\n' "${NIX_CACHE_PRIVATE_KEY}" >"${private_key}"
-          printf 'NIX_CACHE_PRIVATE_KEY_FILE=%s\n' "${private_key}" >>"${GITHUB_ENV}"
-
-      - name: Build, sign, and upload the updated Darwin closure
-        if: steps.update.outputs.changed == 'true'
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
-          DOTFILES_DIR: ${{ github.workspace }}
-        run: nix run path:.#cache-push
+          if git diff --quiet -- flake.lock; then
+            printf 'changed=false\n' >>"${GITHUB_OUTPUT}"
+          else
+            printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
+          fi
 
       - name: Create the pull request
         id: create-pull-request
@@ -127,9 +101,7 @@ jobs:
           body: |
             Automated hourly flake input update.
 
-            The updated flake and Darwin closure were built successfully,
-            and the signed closure was uploaded to the private R2 cache
-            before this pull request was created.
+            Build validation is handled by the pull request checks.
 
       - name: Enable auto-merge
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'

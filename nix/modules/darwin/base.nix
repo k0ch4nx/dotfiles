@@ -21,6 +21,8 @@
     keep-outputs = false;
     trusted-users = [
       "root"
+      "runner"
+
       "k0ch4nx"
     ];
   };
