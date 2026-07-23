@@ -1,4 +1,9 @@
+let
+  cache = import ./nix/r2-cache.nix;
+in
 {
+  nixConfig = cache.settings;
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/master";
 
@@ -124,11 +129,23 @@
           overlays = import ./nix/overlays;
         };
       };
-
     in
     blueprint
     // {
-      cacheSettings = import ./nix/r2-cache.nix;
+      cacheSettings = cache;
+
+      configurationBuilds = {
+        macbook-pro.system =
+          blueprint.darwinConfigurations.macbook-pro.config.system.build.toplevel;
+
+        ubuntu-wsl = {
+          system = blueprint.systemConfigs.ubuntu-wsl;
+          home =
+            blueprint.legacyPackages.x86_64-linux.homeConfigurations
+              ."k0ch4nx@ubuntu-wsl"
+              .activationPackage;
+        };
+      };
 
       darwinConfigurations = blueprint.darwinConfigurations // {
         cache-bootstrap = inputs.nix-darwin.lib.darwinSystem {
