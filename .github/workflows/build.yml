@@ -37,17 +37,23 @@ jobs:
           DOTFILES_DIR: ${{ github.workspace }}
         run: ./scripts/steps/080-rekey-secrets.sh
 
+      - name: Prepare the Nix cache
+        env:
+          DOTFILES_DIR: ${{ github.workspace }}
+          DOTFILES_HOST: macbook-pro
+          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
+          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
+        run: ./scripts/steps/085-prepare-nix-cache.sh
+
       - name: Build the Darwin configuration
         env:
           DOTFILES_DIR: ${{ github.workspace }}
           DOTFILES_HOST: macbook-pro
           DOTFILES_USER: k0ch4nx
-          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
-          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
         run: ./scripts/steps/090-build-nix-configuration.sh
 
       - name: Check all flake outputs
-        run: nix flake check --impure --no-update-lock-file
+        run: nix flake check --impure --no-update-lock-file --accept-flake-config
 
       - name: Prepare the CI signing key
         if: >-
@@ -123,10 +129,15 @@ jobs:
             GITHUB_ACTIONS=true \
               DOTFILES_DIR=/tmp/dotfiles \
               DOTFILES_HOST=ubuntu-wsl \
+              ./scripts/steps/085-prepare-nix-cache.sh
+
+            GITHUB_ACTIONS=true \
+              DOTFILES_DIR=/tmp/dotfiles \
+              DOTFILES_HOST=ubuntu-wsl \
               DOTFILES_USER=k0ch4nx \
               ./scripts/steps/090-build-nix-configuration.sh
 
-            nix flake check --impure --no-update-lock-file
+            nix flake check --impure --no-update-lock-file --accept-flake-config
 
       - name: Sign and upload the WSL closure
         if: >-
