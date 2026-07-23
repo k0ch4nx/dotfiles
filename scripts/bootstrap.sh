@@ -86,8 +86,7 @@ function main() {
         https://github.com/k0ch4nx/dotfiles.git
 
     readonly DOTFILES_DIR="${GHQ_ROOT}/github.com/${DOTFILES_USER}/dotfiles"
-    DOTFILES_FORCE_REKEY=false
-    export DOTFILES_DIR DOTFILES_FORCE_REKEY
+    export DOTFILES_DIR
 
     [[ -f "${DOTFILES_DIR}/flake.nix" ]] || exit 1
 
@@ -95,6 +94,7 @@ function main() {
     source "${DOTFILES_DIR}/scripts/steps/060-ensure-host-identity.sh"
     source "${DOTFILES_DIR}/scripts/steps/070-update-flake-lock.sh"
     source "${DOTFILES_DIR}/scripts/steps/080-rekey-secrets.sh"
+    source "${DOTFILES_DIR}/scripts/steps/085-prepare-nix-cache.sh"
     source "${DOTFILES_DIR}/scripts/steps/090-build-nix-configuration.sh"
     source "${DOTFILES_DIR}/scripts/steps/100-activate-nix-configuration.sh"
     source "${DOTFILES_DIR}/scripts/steps/110-configure-wsl-login-shell.sh"
