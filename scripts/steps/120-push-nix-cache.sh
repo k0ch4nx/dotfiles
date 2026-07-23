@@ -7,8 +7,8 @@ set -euo pipefail
 function main() {
     [[ ! "${DOTFILES_DIR:-}" ]] && exit 1
 
-    nix \
-        run \
+    nix run \
+        --accept-flake-config \
         --impure \
         --no-update-lock-file \
         "path:${DOTFILES_DIR}#cache-push"
