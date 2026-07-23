@@ -32,11 +32,6 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Rekey secrets for evaluation
-        env:
-          DOTFILES_DIR: ${{ github.workspace }}
-        run: ./scripts/steps/080-rekey-secrets.sh
-
       - name: Prepare the Nix cache
         env:
           DOTFILES_DIR: ${{ github.workspace }}
@@ -44,6 +39,11 @@ jobs:
           R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
           R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
         run: ./scripts/steps/085-prepare-nix-cache.sh
+
+      - name: Rekey secrets for evaluation
+        env:
+          DOTFILES_DIR: ${{ github.workspace }}
+        run: ./scripts/steps/080-rekey-secrets.sh
 
       - name: Build the Darwin configuration
         env:
@@ -124,12 +124,12 @@ jobs:
 
             GITHUB_ACTIONS=true \
               DOTFILES_DIR=/tmp/dotfiles \
-              ./scripts/steps/080-rekey-secrets.sh
+              DOTFILES_HOST=ubuntu-wsl \
+              ./scripts/steps/085-prepare-nix-cache.sh
 
             GITHUB_ACTIONS=true \
               DOTFILES_DIR=/tmp/dotfiles \
-              DOTFILES_HOST=ubuntu-wsl \
-              ./scripts/steps/085-prepare-nix-cache.sh
+              ./scripts/steps/080-rekey-secrets.sh
 
             GITHUB_ACTIONS=true \
               DOTFILES_DIR=/tmp/dotfiles \
