@@ -77,29 +77,32 @@ function prepare_ci_credentials() {
 
     local credentials
     local credentials_dir
-    local temporary_file
 
     credentials="$(credentials_file)"
     credentials_dir="${credentials%/*}"
 
-    set +x
-    umask 077
-    temporary_file="$(mktemp /tmp/r2-credentials.XXXXXX)"
-    trap 'rm -f "${temporary_file}"' RETURN
+    (
+        local temporary_file
 
-    printf \
-        '[default]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
-        "${R2_ACCESS_KEY_ID}" \
-        "${R2_SECRET_ACCESS_KEY}" \
-        >"${temporary_file}"
+        set +x
+        umask 077
+        temporary_file="$(mktemp /tmp/r2-credentials.XXXXXX)"
+        trap 'rm -f "${temporary_file}"' EXIT HUP INT TERM
 
-    if ((EUID == 0)); then
-        install -d -m 700 "${credentials_dir}"
-        install -m 600 "${temporary_file}" "${credentials}"
-    else
-        sudo /usr/bin/install -d -m 700 "${credentials_dir}"
-        sudo /usr/bin/install -m 600 "${temporary_file}" "${credentials}"
-    fi
+        printf \
+            '[default]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
+            "${R2_ACCESS_KEY_ID}" \
+            "${R2_SECRET_ACCESS_KEY}" \
+            >"${temporary_file}"
+
+        if ((EUID == 0)); then
+            install -d -m 700 "${credentials_dir}"
+            install -m 600 "${temporary_file}" "${credentials}"
+        else
+            sudo /usr/bin/install -d -m 700 "${credentials_dir}"
+            sudo /usr/bin/install -m 600 "${temporary_file}" "${credentials}"
+        fi
+    )
 
     unset R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
 }
