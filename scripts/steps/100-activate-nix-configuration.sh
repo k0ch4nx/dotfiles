@@ -2,33 +2,36 @@
 
 set -euo pipefail
 
-[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != "true" ]] && exit 1
+[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
-function main() {
-    if [[ "${GITHUB_ACTIONS:-}" == "true" ]]; then
-        exit 1
-    fi
+main() (
+    local system_result="${DOTFILES_SYSTEM_RESULT:-}"
 
-    [[ ! "${DOTFILES_DIR:-}" ]] && exit 1
-    [[ ! "${DOTFILES_HOST:-}" ]] && exit 1
-    [[ "${DOTFILES_SYSTEM_RESULT:-}" != /nix/store/* ]] && exit 1
-    [[ "${DOTFILES_SYSTEM_RESULT}" == *$'\n'* ]] && exit 1
+    [[ "${system_result}" != *$'\n'* ]] || return 1
+    [[ "${system_result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || return 1
 
-    if [[ "${DOTFILES_HOST}" == "macbook-pro" ]]; then
+    case "$(uname -s)" in
+    Darwin)
         sudo /nix/var/nix/profiles/default/bin/nix-env \
             --profile /nix/var/nix/profiles/system \
-            --set "${DOTFILES_SYSTEM_RESULT}"
-        sudo "${DOTFILES_SYSTEM_RESULT}/sw/bin/darwin-rebuild" activate
-    elif [[ "${DOTFILES_HOST}" == "ubuntu-wsl" ]]; then
-        [[ "${DOTFILES_HOME_RESULT:-}" != /nix/store/* ]] && exit 1
-        [[ "${DOTFILES_HOME_RESULT}" == *$'\n'* ]] && exit 1
+            --set "${system_result}"
 
-        sudo "${DOTFILES_SYSTEM_RESULT}/bin/register-profile"
-        sudo "${DOTFILES_SYSTEM_RESULT}/bin/activate"
-        "${DOTFILES_HOME_RESULT}/activate"
-    else
-        exit 1
-    fi
-}
+        sudo "${system_result}/sw/bin/darwin-rebuild" activate
+        ;;
+    Linux)
+        local home_result="${DOTFILES_HOME_RESULT:-}"
+
+        [[ "${home_result}" != *$'\n'* ]] || return 1
+        [[ "${home_result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || return 1
+
+        sudo "${system_result}/bin/register-profile"
+        sudo "${system_result}/bin/activate"
+        "${home_result}/activate"
+        ;;
+    *)
+        return 1
+        ;;
+    esac
+)
 
 main

@@ -2,30 +2,39 @@
 
 set -euo pipefail
 
-[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != "true" ]] && exit 1
+[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
-function main() {
-    [[ ! "${DOTFILES_DIR:-}" ]] && exit 1
+main() (
+    [[ -n "${DOTFILES_DIR:-}" ]] || {
+        printf 'DOTFILES_DIR is not set\n' >&2
+        exit 1
+    }
 
-    (
-        cd "${DOTFILES_DIR}" || exit 1
+    if [[ "${GITHUB_ACTIONS:-}" != 'true' ]]; then
+        set -x
+    fi
 
-        set +x
+    cd -- "${DOTFILES_DIR}"
 
-        if [[ -z "${GH_TOKEN:-}" ]]; then
-            exec nix flake update
+    set +x
+
+    if [[ -z "${GH_TOKEN:-}" ]]; then
+        if [[ "${GITHUB_ACTIONS:-}" != 'true' ]]; then
+            set -x
         fi
 
-        local nix_config="${NIX_CONFIG:-}"
+        exec nix flake update
+    fi
 
-        if [[ -n "${nix_config}" ]]; then
-            nix_config+=$'\n'
-        fi
+    local nix_config="${NIX_CONFIG:-}"
 
-        nix_config+="access-tokens = github.com=${GH_TOKEN}"
+    if [[ -n "${nix_config}" ]]; then
+        nix_config+=$'\n'
+    fi
 
-        NIX_CONFIG="${nix_config}" exec nix flake update
-    )
-}
+    nix_config+="access-tokens = github.com=${GH_TOKEN}"
+
+    NIX_CONFIG="${nix_config}" exec nix flake update
+)
 
 main

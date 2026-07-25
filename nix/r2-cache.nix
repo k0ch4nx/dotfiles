@@ -1,3 +1,13 @@
+# r2-cache.nix — single source of truth for the R2 binary cache configuration.
+#
+# Consumed by:
+#   - nix/modules/flake-file.nix  (flake nixConfig: substituters / trusted-public-keys / fallback)
+#   - nix/modules/darwin/nix-cache.nix, nix/modules/system-manager/nix-cache.nix
+#     (nix.settings, secret assertions, credentials secrets)
+#   - outputs.nix (exposed as `cacheSettings` for scripts/steps/*.sh)
+#
+# After changing substituters/trustedPublicKeys, run `nix run .#write-flake` to
+# regenerate flake.nix.
 let
   accountId = "6118f982b348f7b37129655ee4160301";
   bucket = "nix-cache";
@@ -64,19 +74,13 @@ in
 
   isGitHubActions = builtins.getEnv "GITHUB_ACTIONS" == "true";
 
-  settings = {
-    inherit substituters;
-    trusted-public-keys = trustedPublicKeys;
-    fallback = true;
-  };
-
-  hosts = {
-    macbook-pro = {
+  systems = {
+    aarch64-darwin = {
       credentialsFile = "/var/root/.aws/credentials";
       credentialsGroup = "wheel";
     };
 
-    ubuntu-wsl = {
+    x86_64-linux = {
       credentialsFile = "/root/.aws/credentials";
       credentialsGroup = "root";
     };
@@ -85,11 +89,9 @@ in
   secretAssertions = [
     {
       assertion = builtins.pathExists accessKeyFile;
-      message = "The R2 access key ID age file does not exist.";
     }
     {
       assertion = builtins.pathExists secretKeyFile;
-      message = "The R2 secret access key age file does not exist.";
     }
   ];
 

@@ -2,71 +2,83 @@
 
 set -euo pipefail
 
-[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != "true" ]] && exit 1
+[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
-function main() {
-    local credentials
-    local credentials_dir
-    local result
+function main() (
+    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+        set +x
 
-    [[ -n "${DOTFILES_DIR:-}" ]] || exit 1
-    [[ -n "${DOTFILES_HOST:-}" ]] || exit 1
-
-    case "${DOTFILES_HOST}" in
-        macbook-pro)
-            credentials="/var/root/.aws/credentials"
-            ;;
-        ubuntu-wsl)
-            credentials="/root/.aws/credentials"
-            ;;
-        *)
-            exit 1
-            ;;
-    esac
-
-    if [[ "${GITHUB_ACTIONS:-}" == "true" ]]; then
         if [[ -z "${R2_ACCESS_KEY_ID:-}" && -z "${R2_SECRET_ACCESS_KEY:-}" ]]; then
             return
         fi
 
-        [[ -n "${R2_ACCESS_KEY_ID:-}" ]] || exit 1
-        [[ -n "${R2_SECRET_ACCESS_KEY:-}" ]] || exit 1
+        [[ -n "${R2_ACCESS_KEY_ID:-}" ]]
+        [[ -n "${R2_SECRET_ACCESS_KEY:-}" ]]
+    fi
 
-        credentials_dir="${credentials%/*}"
+    [[ -n "${DOTFILES_DIR:-}" ]]
 
-        (
-            local temporary_file
+    cd -- "${DOTFILES_DIR}"
 
-            set +x
+    local system
+    system="$(
+        nix eval \
+            --impure \
+            --raw \
+            --expr 'builtins.currentSystem'
+    )"
+
+    local credentials
+    credentials="$(
+        nix eval \
+            --accept-flake-config \
+            --impure \
+            --no-update-lock-file \
+            --raw \
+            "path:.#cacheSettings.systems.\"${system}\".credentialsFile"
+    )"
+
+    local cache_url
+    cache_url="$(
+        nix eval \
+            --accept-flake-config \
+            --impure \
+            --no-update-lock-file \
+            --raw \
+            'path:.#cacheSettings.url'
+    )"
+
+    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+        if ((EUID == 0)); then
+            install -d -m 700 "${credentials%/*}"
+
+            sh -c '
             umask 077
-            temporary_file="$(mktemp /tmp/r2-credentials.XXXXXX)"
-            trap 'rm -f "${temporary_file}"' EXIT HUP INT TERM
+            cat >"$1"
+        ' sh "${credentials}" <<EOF
+[default]
+aws_access_key_id = ${R2_ACCESS_KEY_ID}
+aws_secret_access_key = ${R2_SECRET_ACCESS_KEY}
+EOF
+        else
+            sudo install -d -m 700 "${credentials%/*}"
 
-            printf \
-                '[default]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
-                "${R2_ACCESS_KEY_ID}" \
-                "${R2_SECRET_ACCESS_KEY}" \
-                >"${temporary_file}"
-
-            if ((EUID == 0)); then
-                install -d -m 700 "${credentials_dir}"
-                install -m 600 "${temporary_file}" "${credentials}"
-            else
-                sudo /usr/bin/install -d -m 700 "${credentials_dir}"
-                sudo /usr/bin/install -m 600 "${temporary_file}" "${credentials}"
-            fi
-        )
+            sudo sh -c '
+            umask 077
+            cat >"$1"
+        ' sh "${credentials}" <<EOF
+[default]
+aws_access_key_id = ${R2_ACCESS_KEY_ID}
+aws_secret_access_key = ${R2_SECRET_ACCESS_KEY}
+EOF
+        fi
 
         unset R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
-        return
-    fi
+    elif ! sudo test -s "${credentials}"; then
+        local result
 
-    if sudo /bin/test -s "${credentials}"; then
-        return
-    fi
-
-    case "${DOTFILES_HOST}" in
-        macbook-pro)
+        case "${system}" in
+        aarch64-darwin)
             result="$(
                 nix build \
                     --accept-flake-config \
@@ -74,17 +86,18 @@ function main() {
                     --no-link \
                     --no-update-lock-file \
                     --print-out-paths \
-                    "path:${DOTFILES_DIR}#darwinConfigurations.cache-bootstrap.config.system.build.toplevel"
+                    'path:.#darwinConfigurations.cache-bootstrap.config.system.build.toplevel'
             )"
 
-            [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || exit 1
+            [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] ||
+                return 1
             nix path-info "${result}" >/dev/null
 
             sudo "${result}/sw/bin/darwin-rebuild" activate
-            sudo /bin/launchctl kickstart -k system/org.nixos.activate-agenix
-            sudo /bin/launchctl kickstart -k system/org.nixos.nix-daemon
+            sudo launchctl \
+                kickstart -k system/org.nixos.activate-agenix
             ;;
-        ubuntu-wsl)
+        x86_64-linux)
             result="$(
                 nix build \
                     --accept-flake-config \
@@ -92,21 +105,46 @@ function main() {
                     --no-link \
                     --no-update-lock-file \
                     --print-out-paths \
-                    "path:${DOTFILES_DIR}#systemConfigs.cache-bootstrap"
+                    'path:.#systemConfigs.cache-bootstrap'
             )"
 
-            [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || exit 1
+            [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] ||
+                return 1
             nix path-info "${result}" >/dev/null
 
             sudo "${result}/bin/register-profile"
             sudo "${result}/bin/activate"
-            sudo /usr/bin/systemctl daemon-reload
-            sudo /usr/bin/systemctl start agenix-install-secrets.service
-            sudo /usr/bin/systemctl restart nix-daemon.service
+            sudo systemctl daemon-reload
+            sudo systemctl \
+                start agenix-install-secrets.service
             ;;
-    esac
+        *)
+            return 1
+            ;;
+        esac
 
-    sudo /bin/test -s "${credentials}"
-}
+        for _ in {1..30}; do
+            sudo test -s "${credentials}" && break
+            sleep 1
+        done
+
+        sudo test -s "${credentials}" || return 1
+
+        case "${system}" in
+        aarch64-darwin)
+            sudo launchctl \
+                kickstart -k system/org.nixos.nix-daemon
+            ;;
+        x86_64-linux)
+            sudo systemctl restart nix-daemon.service
+            ;;
+        esac
+    fi
+
+    sudo -H env \
+        "AWS_SHARED_CREDENTIALS_FILE=${credentials}" \
+        nix store info \
+        --store "${cache_url}"
+)
 
 main

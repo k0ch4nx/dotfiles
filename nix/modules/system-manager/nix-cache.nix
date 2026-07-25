@@ -8,19 +8,12 @@
 
 let
   cache = import ../../r2-cache.nix;
-  host = cache.hosts.ubuntu-wsl;
+  system = cache.systems.x86_64-linux;
   dotfilesDir = builtins.getEnv "DOTFILES_DIR";
   resolvedDotfilesDir =
-    if dotfilesDir != "" then
-      dotfilesDir
-    else
-      "/home/k0ch4nx/src/github.com/k0ch4nx/dotfiles";
+    if dotfilesDir != "" then dotfilesDir else "/home/k0ch4nx/src/github.com/k0ch4nx/dotfiles";
   hostPubkeyPath = ../../../secrets/hosts/ubuntu-wsl-k0ch4nx.pub;
-  hostPubkey =
-    if builtins.pathExists hostPubkeyPath then
-      builtins.readFile hostPubkeyPath
-    else
-      null;
+  hostPubkey = if builtins.pathExists hostPubkeyPath then builtins.readFile hostPubkeyPath else null;
 in
 {
   imports = [
@@ -37,7 +30,7 @@ in
     mode = "0644";
     text = ''
       [Service]
-      Environment="AWS_SHARED_CREDENTIALS_FILE=${host.credentialsFile}"
+      Environment="AWS_SHARED_CREDENTIALS_FILE=${system.credentialsFile}"
     '';
   };
 
@@ -59,8 +52,8 @@ in
 
     secrets = cache.mkCredentialsSecrets {
       inherit config;
-      credentialsFile = host.credentialsFile;
-      group = host.credentialsGroup;
+      inherit (system) credentialsFile;
+      group = system.credentialsGroup;
     };
   };
 

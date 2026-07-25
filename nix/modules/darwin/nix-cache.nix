@@ -6,13 +6,10 @@
 
 let
   cache = import ../../r2-cache.nix;
-  host = cache.hosts.macbook-pro;
+  system = cache.systems.aarch64-darwin;
   dotfilesDir = builtins.getEnv "DOTFILES_DIR";
   resolvedDotfilesDir =
-    if dotfilesDir != "" then
-      dotfilesDir
-    else
-      "/Users/k0ch4nx/Developer/github.com/k0ch4nx/dotfiles";
+    if dotfilesDir != "" then dotfilesDir else "/Users/k0ch4nx/Developer/github.com/k0ch4nx/dotfiles";
 in
 {
   config = lib.mkMerge [
@@ -20,7 +17,7 @@ in
       nix.settings = cache.mkNixSettings lib;
 
       launchd.daemons.nix-daemon.serviceConfig.EnvironmentVariables = {
-        AWS_SHARED_CREDENTIALS_FILE = host.credentialsFile;
+        AWS_SHARED_CREDENTIALS_FILE = system.credentialsFile;
       };
     }
 
@@ -34,8 +31,8 @@ in
 
         secrets = cache.mkCredentialsSecrets {
           inherit config;
-          credentialsFile = host.credentialsFile;
-          group = host.credentialsGroup;
+          inherit (system) credentialsFile;
+          group = system.credentialsGroup;
         };
       };
     })

@@ -2,17 +2,17 @@
 
 set -euo pipefail
 
-[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != "true" ]] && exit 1
+[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
 function main() {
-    if [[ "${GITHUB_ACTIONS:-}" == "true" ]] || [[ "${DOTFILES_HOST:-}" != "ubuntu-wsl" ]]; then
+    if [[ "$(uname -s)" != 'Linux' ]]; then
         return
     fi
 
-    sudo /usr/bin/apt update
-    sudo /usr/bin/apt full-upgrade -y
-    sudo /usr/bin/apt autoremove --purge -y
-    sudo /usr/bin/do-release-upgrade
+    sudo apt-get update
+    sudo apt-get full-upgrade -y
+    sudo apt-get autoremove --purge -y
+    sudo do-release-upgrade
 }
 
 main

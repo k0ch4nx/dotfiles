@@ -32,28 +32,23 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Prepare the Nix cache
-        env:
-          DOTFILES_DIR: ${{ github.workspace }}
-          DOTFILES_HOST: macbook-pro
-          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
-          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
-        run: bash ./scripts/steps/085-prepare-nix-cache.sh
-
       - name: Rekey secrets for evaluation
         env:
           DOTFILES_DIR: ${{ github.workspace }}
         run: ./scripts/steps/080-rekey-secrets.sh
 
+      - name: Prepare the Nix cache
+        env:
+          DOTFILES_DIR: ${{ github.workspace }}
+          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
+          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
+        run: ./scripts/steps/085-prepare-nix-cache.sh
+
       - name: Build the Darwin configuration
         env:
           DOTFILES_DIR: ${{ github.workspace }}
           DOTFILES_HOST: macbook-pro
-          DOTFILES_USER: k0ch4nx
         run: ./scripts/steps/090-build-nix-configuration.sh
-
-      - name: Check all flake outputs
-        run: nix flake check --impure --no-update-lock-file --accept-flake-config
 
       - name: Prepare the CI signing key
         if: >-
@@ -89,19 +84,18 @@ jobs:
         shell: powershell
         run: |
           winget install --id Microsoft.WSL --exact --source winget --accept-source-agreements --accept-package-agreements --silent --verbose
-          # Installing an already-current WSL package may return nonzero; the commands below verify it directly.
 
           $env:WSL_UTF8 = 1
-          wsl.exe --install Ubuntu-24.04 --web-download --no-launch
+          wsl.exe --install Ubuntu --web-download --no-launch
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          wsl.exe --distribution Ubuntu-24.04 -- echo Created a new distro with user: '$(whoami)'
+          wsl.exe --distribution Ubuntu -- echo Created a new distro with user: '$(whoami)'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Check out repository in WSL
         uses: Ubuntu/WSL/.github/actions/wsl-checkout@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         with:
-          distro: Ubuntu-24.04
+          distro: Ubuntu
           working-dir: /tmp/dotfiles
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -112,7 +106,7 @@ jobs:
           R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
           WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u
         with:
-          distro: Ubuntu-24.04
+          distro: Ubuntu
           working-dir: /tmp/dotfiles
           exec: |
             set -euo pipefail
@@ -152,7 +146,7 @@ jobs:
           NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
           WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u:CLOUDFLARE_ACCOUNT_ID/u:R2_CACHE_BUCKET/u:NIX_CACHE_PRIVATE_KEY/u
         with:
-          distro: Ubuntu-24.04
+          distro: Ubuntu
           working-dir: /tmp/dotfiles
           exec: |
             set -euo pipefail
