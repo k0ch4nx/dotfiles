@@ -48,48 +48,23 @@ function main() (
             'path:.#cacheSettings.url'
     )"
 
+    [[ "${credentials}" == /* ]]
+    [[ "${cache_url}" == s3://* ]]
+
     if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
-        if ((EUID == 0)); then
-            install -d -m 700 "${credentials%/*}"
+        sudo install -d -m 700 "${credentials%/*}"
 
-            sh -c '
+        sudo sh -c '
             umask 077
             cat >"$1"
+            chmod 600 "$1"
         ' sh "${credentials}" <<EOF
 [default]
 aws_access_key_id = ${R2_ACCESS_KEY_ID}
 aws_secret_access_key = ${R2_SECRET_ACCESS_KEY}
 EOF
-        else
-            sudo install -d -m 700 "${credentials%/*}"
-
-            sudo sh -c '
-            umask 077
-            cat >"$1"
-        ' sh "${credentials}" <<EOF
-[default]
-aws_access_key_id = ${R2_ACCESS_KEY_ID}
-aws_secret_access_key = ${R2_SECRET_ACCESS_KEY}
-EOF
-        fi
 
         unset R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
-
-        case "${system}" in
-        aarch64-darwin)
-            sudo launchctl setenv \
-                AWS_SHARED_CREDENTIALS_FILE "${credentials}"
-            sudo launchctl \
-                kickstart -k system/org.nixos.nix-daemon
-            ;;
-        x86_64-linux)
-            if sudo systemctl is-active --quiet nix-daemon.service 2>/dev/null; then
-                sudo systemctl set-environment \
-                    "AWS_SHARED_CREDENTIALS_FILE=${credentials}"
-                sudo systemctl restart nix-daemon.service
-            fi
-            ;;
-        esac
     elif ! sudo test -s "${credentials}"; then
         local result
 
@@ -107,7 +82,6 @@ EOF
 
             [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] ||
                 return 1
-            nix path-info "${result}" >/dev/null
 
             sudo "${result}/sw/bin/darwin-rebuild" activate
             sudo launchctl \
@@ -126,7 +100,6 @@ EOF
 
             [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] ||
                 return 1
-            nix path-info "${result}" >/dev/null
 
             sudo "${result}/bin/register-profile"
             sudo "${result}/bin/activate"
@@ -145,17 +118,18 @@ EOF
         done
 
         sudo test -s "${credentials}" || return 1
-
-        case "${system}" in
-        aarch64-darwin)
-            sudo launchctl \
-                kickstart -k system/org.nixos.nix-daemon
-            ;;
-        x86_64-linux)
-            sudo systemctl restart nix-daemon.service
-            ;;
-        esac
     fi
+
+    case "${system}" in
+    aarch64-darwin)
+        sudo launchctl \
+            kickstart -k system/org.nixos.nix-daemon
+        ;;
+    x86_64-linux)
+        sudo systemctl restart nix-daemon.service
+        ;;
+    *) return 1 ;;
+    esac
 
     sudo -H env \
         "AWS_SHARED_CREDENTIALS_FILE=${credentials}" \
