@@ -77,11 +77,15 @@ EOF
 
         case "${system}" in
         aarch64-darwin)
+            sudo launchctl setenv \
+                AWS_SHARED_CREDENTIALS_FILE "${credentials}"
             sudo launchctl \
                 kickstart -k system/org.nixos.nix-daemon
             ;;
         x86_64-linux)
             if sudo systemctl is-active --quiet nix-daemon.service 2>/dev/null; then
+                sudo systemctl set-environment \
+                    "AWS_SHARED_CREDENTIALS_FILE=${credentials}"
                 sudo systemctl restart nix-daemon.service
             fi
             ;;
