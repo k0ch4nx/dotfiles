@@ -113,7 +113,9 @@ jobs:
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
-          exec: ./scripts/steps/010-install-nix.sh
+          exec: |
+            ./scripts/steps/010-install-nix.sh
+            sudo ln -s /nix/var/nix/profiles/default/bin/nix /usr/local/bin/nix
 
       - name: Rekey secrets for evaluation
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
