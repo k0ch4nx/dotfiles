@@ -19,5 +19,29 @@
       path = "${config.programs.zsh.dotDir}/env/skillsmp-api-key";
       mode = "600";
     };
+
+    "env-gemini-api-key" = {
+      rekeyFile = ../../../secrets/env/gemini-api-key.age;
+      path = "${config.programs.zsh.dotDir}/env/gemini-api-key";
+      mode = "600";
+    };
+
+    "env-nvidia-api-key" = {
+      rekeyFile = ../../../secrets/env/nvidia-api-key.age;
+      path = "${config.programs.zsh.dotDir}/env/nvidia-api-key";
+      mode = "600";
+    };
+
+    "env-opencode-api-key" = {
+      rekeyFile = ../../../secrets/env/opencode-api-key.age;
+      path = "${config.programs.zsh.dotDir}/env/opencode-api-key";
+      mode = "600";
+    };
+
+    "env-openrouter-api-key" = {
+      rekeyFile = ../../../secrets/env/openrouter-api-key.age;
+      path = "${config.programs.zsh.dotDir}/env/openrouter-api-key";
+      mode = "600";
+    };
   };
 }

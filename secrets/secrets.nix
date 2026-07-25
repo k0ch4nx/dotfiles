@@ -5,7 +5,11 @@ let
   ];
   requiredSecretNames = [
     "env/gh-token.age"
+    "env/gemini-api-key.age"
     "env/mem0-api-key.age"
+    "env/nvidia-api-key.age"
+    "env/opencode-api-key.age"
+    "env/openrouter-api-key.age"
     "env/skillsmp-api-key.age"
     "ssh/id_ed25519.age"
     "ssh/id_ed25519_gh_work.age"

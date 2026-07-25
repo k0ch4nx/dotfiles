@@ -62,6 +62,11 @@ in
         inputs.home-manager.follows = "home-manager";
       };
 
+      llm-agents = {
+        url = "github:numtide/llm-agents.nix";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
       genshijin = {
         url = "github:InterfaceX-co-jp/genshijin";
         flake = false;

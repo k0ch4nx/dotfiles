@@ -29,9 +29,9 @@ function main() {
     export DOTFILES_DIR
 
     if [[ -n "${BASH_SOURCE[0]:-}" && -f "${BASH_SOURCE[0]:-}" ]]; then
-        source "${DOTFILES_DIR}/scripts/steps/020-install-nix.sh"
+        source "${DOTFILES_DIR}/scripts/steps/010-install-nix.sh"
     else
-        source <(curl -fsSL "https://github.com/k0ch4nx/dotfiles/raw/refs/heads/main/scripts/steps/020-install-nix.sh")
+        source <(curl -fsSL "https://github.com/k0ch4nx/dotfiles/raw/refs/heads/main/scripts/steps/010-install-nix.sh")
     fi
 
     nix \
@@ -41,22 +41,22 @@ function main() {
         get \
         https://github.com/${DOTFILES_USER}/dotfiles.git
 
-    source "${DOTFILES_DIR}/scripts/steps/060-ensure-host-identity.sh"
-    source "${DOTFILES_DIR}/scripts/steps/070-update-flake-lock.sh"
-    source "${DOTFILES_DIR}/scripts/steps/080-rekey-secrets.sh"
-    source "${DOTFILES_DIR}/scripts/steps/085-prepare-nix-cache.sh"
-    source "${DOTFILES_DIR}/scripts/steps/090-build-nix-configuration.sh"
-    source "${DOTFILES_DIR}/scripts/steps/100-activate-nix-configuration.sh"
-    source "${DOTFILES_DIR}/scripts/steps/120-push-nix-cache.sh"
-    source "${DOTFILES_DIR}/scripts/steps/130-update-rust.sh"
-    source "${DOTFILES_DIR}/scripts/steps/140-update-neovim-plugins.sh"
-    source "${DOTFILES_DIR}/scripts/steps/150-install-neovim-treesitter-parsers.sh"
-    source "${DOTFILES_DIR}/scripts/steps/160-update-neovim-treesitter-parsers.sh"
-    source "${DOTFILES_DIR}/scripts/steps/170-update-neovim-mason-packages.sh"
-    source "${DOTFILES_DIR}/scripts/steps/180-update-neovim-codediff.sh"
-    source "${DOTFILES_DIR}/scripts/steps/200-update-macos.sh"
-    source "${DOTFILES_DIR}/scripts/steps/210-update-ubuntu.sh"
-    source "${DOTFILES_DIR}/scripts/steps/220-collect-nix-garbage.sh"
+    source "${DOTFILES_DIR}/scripts/steps/020-ensure-host-identity.sh"
+    source "${DOTFILES_DIR}/scripts/steps/030-update-flake-lock.sh"
+    source "${DOTFILES_DIR}/scripts/steps/040-rekey-secrets.sh"
+    source "${DOTFILES_DIR}/scripts/steps/050-prepare-nix-cache.sh"
+    source "${DOTFILES_DIR}/scripts/steps/060-build-nix-configuration.sh"
+    source "${DOTFILES_DIR}/scripts/steps/070-activate-nix-configuration.sh"
+    source "${DOTFILES_DIR}/scripts/steps/080-push-nix-cache.sh"
+    source "${DOTFILES_DIR}/scripts/steps/090-update-rust.sh"
+    source "${DOTFILES_DIR}/scripts/steps/100-update-neovim-plugins.sh"
+    source "${DOTFILES_DIR}/scripts/steps/110-install-neovim-treesitter-parsers.sh"
+    source "${DOTFILES_DIR}/scripts/steps/120-update-neovim-treesitter-parsers.sh"
+    source "${DOTFILES_DIR}/scripts/steps/130-update-neovim-mason-packages.sh"
+    source "${DOTFILES_DIR}/scripts/steps/140-update-neovim-codediff.sh"
+    source "${DOTFILES_DIR}/scripts/steps/150-update-macos.sh"
+    source "${DOTFILES_DIR}/scripts/steps/160-update-ubuntu.sh"
+    source "${DOTFILES_DIR}/scripts/steps/170-collect-nix-garbage.sh"
 }
 
 main

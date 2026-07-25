@@ -77,6 +77,10 @@
       url = "github:kaynetik/skills";
       flake = false;
     };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     natural-japanese = {
       url = "github:coji/natural-japanese";
       flake = false;
