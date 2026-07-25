@@ -14,6 +14,9 @@ function main() (
 
         [[ -n "${R2_ACCESS_KEY_ID:-}" ]]
         [[ -n "${R2_SECRET_ACCESS_KEY:-}" ]]
+        unset AWS_SESSION_TOKEN
+        export AWS_ACCESS_KEY_ID="${R2_ACCESS_KEY_ID}"
+        export AWS_SECRET_ACCESS_KEY="${R2_SECRET_ACCESS_KEY}"
     fi
 
     [[ -n "${DOTFILES_DIR:-}" ]]
@@ -64,7 +67,11 @@ aws_access_key_id = ${R2_ACCESS_KEY_ID}
 aws_secret_access_key = ${R2_SECRET_ACCESS_KEY}
 EOF
 
-        unset R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
+        unset \
+            AWS_ACCESS_KEY_ID \
+            AWS_SECRET_ACCESS_KEY \
+            R2_ACCESS_KEY_ID \
+            R2_SECRET_ACCESS_KEY
     elif ! sudo test -s "${credentials}"; then
         local result
 
