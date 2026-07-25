@@ -8,6 +8,26 @@ inputs:
 let
   cache = import ./nix/r2-cache.nix;
 
+  # HACK: agenix-rekey doesn't expose an `armor` option for generated secrets.
+  # Wrap rage so that encryption produces ASCII-armored .age files.
+  # -a only applies when encrypting; detect -e/--encrypt and add it there.
+  rageWithArmor =
+    p:
+    p.writeShellScriptBin "rage" ''
+      set -euo pipefail
+      is_encrypt=0
+      for arg in "$@"; do
+        case "$arg" in
+          -e|--encrypt) is_encrypt=1 ;;
+        esac
+      done
+      if [[ "$is_encrypt" == 1 ]]; then
+        exec ${p.rage}/bin/rage -a "$@"
+      else
+        exec ${p.rage}/bin/rage "$@"
+      fi
+    '';
+
   systems = [
     "aarch64-darwin"
     "x86_64-linux"
@@ -91,6 +111,7 @@ blueprint
   agenix-rekey =
     (inputs.agenix-rekey.configure {
       userFlake = inputs.self;
+      agePackage = rageWithArmor;
 
       darwinConfigurations = {
         inherit (inputs.self.darwinConfigurations) cache-bootstrap macbook-pro;
@@ -102,6 +123,7 @@ blueprint
     })
     // (inputs.agenix-rekey.configure {
       userFlake = inputs.self;
+      agePackage = rageWithArmor;
 
       nixosConfigurations = {
         inherit (inputs.self.systemConfigs) cache-bootstrap ubuntu-wsl;
