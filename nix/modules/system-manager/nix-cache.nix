@@ -34,7 +34,7 @@ in
     '';
   };
 
-  age = lib.mkIf (!cache.isGitHubActions) {
+  age = {
     rekey = {
       storageMode = "derivation";
       cacheDir = "/var/tmp/agenix-rekey-k0ch4nx";
@@ -45,7 +45,8 @@ in
     // lib.optionalAttrs (hostPubkey != null) {
       inherit hostPubkey;
     };
-
+  }
+  // lib.optionalAttrs (!cache.isGitHubActions) {
     identityPaths = [
       "${resolvedDotfilesDir}/secrets/hosts/ubuntu-wsl-k0ch4nx-key.txt"
     ];
