@@ -14,9 +14,6 @@ function main() (
 
         [[ -n "${R2_ACCESS_KEY_ID:-}" ]]
         [[ -n "${R2_SECRET_ACCESS_KEY:-}" ]]
-        unset AWS_SESSION_TOKEN
-        export AWS_ACCESS_KEY_ID="${R2_ACCESS_KEY_ID}"
-        export AWS_SECRET_ACCESS_KEY="${R2_SECRET_ACCESS_KEY}"
     fi
 
     [[ -n "${DOTFILES_DIR:-}" ]]
@@ -34,21 +31,17 @@ function main() (
     local credentials
     credentials="$(
         nix eval \
-            --accept-flake-config \
             --impure \
-            --no-update-lock-file \
             --raw \
-            "path:.#cacheSettings.systems.\"${system}\".credentialsFile"
+            --expr "(import ./nix/r2-cache.nix).systems.\"${system}\".credentialsFile"
     )"
 
     local cache_url
     cache_url="$(
         nix eval \
-            --accept-flake-config \
             --impure \
-            --no-update-lock-file \
             --raw \
-            'path:.#cacheSettings.url'
+            --expr '(import ./nix/r2-cache.nix).url'
     )"
 
     [[ "${credentials}" == /* ]]
@@ -67,11 +60,7 @@ aws_access_key_id = ${R2_ACCESS_KEY_ID}
 aws_secret_access_key = ${R2_SECRET_ACCESS_KEY}
 EOF
 
-        unset \
-            AWS_ACCESS_KEY_ID \
-            AWS_SECRET_ACCESS_KEY \
-            R2_ACCESS_KEY_ID \
-            R2_SECRET_ACCESS_KEY
+        unset R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
     elif ! sudo test -s "${credentials}"; then
         local result
 
