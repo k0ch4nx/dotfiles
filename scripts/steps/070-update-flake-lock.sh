@@ -23,7 +23,7 @@ main() (
             set -x
         fi
 
-        exec nix flake update
+        exec nix flake update --accept-flake-config
     fi
 
     local nix_config="${NIX_CONFIG:-}"
@@ -34,7 +34,7 @@ main() (
 
     nix_config+="access-tokens = github.com=${GH_TOKEN}"
 
-    NIX_CONFIG="${nix_config}" exec nix flake update
+    NIX_CONFIG="${nix_config}" exec nix flake update --accept-flake-config
 )
 
 main

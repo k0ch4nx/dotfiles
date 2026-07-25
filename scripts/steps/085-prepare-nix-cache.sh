@@ -74,6 +74,18 @@ EOF
         fi
 
         unset R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
+
+        case "${system}" in
+        aarch64-darwin)
+            sudo launchctl \
+                kickstart -k system/org.nixos.nix-daemon
+            ;;
+        x86_64-linux)
+            if sudo systemctl is-active --quiet nix-daemon.service 2>/dev/null; then
+                sudo systemctl restart nix-daemon.service
+            fi
+            ;;
+        esac
     elif ! sudo test -s "${credentials}"; then
         local result
 
