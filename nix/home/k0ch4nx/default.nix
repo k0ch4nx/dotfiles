@@ -8,6 +8,7 @@
     ./git.nix
     ./neovim.nix
     ./opencode.nix
+    ./omp.nix
     ./secrets.nix
     ./shell.nix
     ./ssh.nix

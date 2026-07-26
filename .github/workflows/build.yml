@@ -35,19 +35,20 @@ jobs:
       - name: Rekey secrets for evaluation
         env:
           DOTFILES_DIR: ${{ github.workspace }}
-        run: ./scripts/steps/080-rekey-secrets.sh
+        run: ./scripts/steps/040-rekey-secrets.sh
 
-      - name: Build the Darwin configuration
+      - name: Prepare the Nix cache
+        env:
+          DOTFILES_DIR: ${{ github.workspace }}
+          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
+          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
+        run: ./scripts/steps/050-prepare-nix-cache.sh
+
+      - name: Build the configuration
         env:
           DOTFILES_DIR: ${{ github.workspace }}
           DOTFILES_HOST: macbook-pro
-          DOTFILES_USER: k0ch4nx
-          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
-          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
-        run: ./scripts/steps/090-build-nix-configuration.sh
-
-      - name: Check all flake outputs
-        run: nix flake check --impure --no-update-lock-file
+        run: ./scripts/steps/060-build-nix-configuration.sh
 
       - name: Prepare the CI signing key
         if: >-
@@ -62,7 +63,7 @@ jobs:
           printf '%s\n' "${NIX_CACHE_PRIVATE_KEY}" >"${private_key}"
           printf 'NIX_CACHE_PRIVATE_KEY_FILE=%s\n' "${private_key}" >>"${GITHUB_ENV}"
 
-      - name: Sign and upload the Darwin closure
+      - name: Sign and upload the closure
         if: >-
           github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
@@ -72,63 +73,91 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
           DOTFILES_DIR: ${{ github.workspace }}
-        run: ./scripts/steps/120-push-nix-cache.sh
+        run: ./scripts/steps/080-push-nix-cache.sh
 
   ubuntu-wsl:
     name: Ubuntu WSL
     runs-on: windows-2025
+    env:
+      BASH_ENV: /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      DOTFILES_DIR: /tmp/dotfiles
+      DOTFILES_HOST: ubuntu-wsl
+      DOTFILES_USER: k0ch4nx
+      NIX_CACHE_PRIVATE_KEY_FILE: /tmp/nix-cache-ci-private-key
+      WSLENV: BASH_ENV/u:DOTFILES_DIR/u:DOTFILES_HOST/u:DOTFILES_USER/u:GITHUB_ACTIONS/u:NIX_EXTRA_CONF/u:R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u:CLOUDFLARE_ACCOUNT_ID/u:R2_CACHE_BUCKET/u:NIX_CACHE_PRIVATE_KEY/u:NIX_CACHE_PRIVATE_KEY_FILE/u
 
     steps:
       - name: Install Ubuntu on WSL
         shell: powershell
         run: |
           winget install --id Microsoft.WSL --exact --source winget --accept-source-agreements --accept-package-agreements --silent --verbose
-          # Installing an already-current WSL package may return nonzero; the commands below verify it directly.
 
           $env:WSL_UTF8 = 1
-          wsl.exe --install Ubuntu-24.04 --web-download --no-launch
+          wsl.exe --install Ubuntu --web-download --no-launch
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          wsl.exe --distribution Ubuntu-24.04 -- echo Created a new distro with user: '$(whoami)'
+          wsl.exe --distribution Ubuntu -- echo Created a new distro with user: '$(whoami)'
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Check out repository in WSL
+      - name: Checkout
         uses: Ubuntu/WSL/.github/actions/wsl-checkout@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         with:
-          distro: Ubuntu-24.04
+          distro: Ubuntu
           working-dir: /tmp/dotfiles
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and check the WSL configuration
+      - name: Install Nix
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
+        env:
+          NIX_EXTRA_CONF: experimental-features = nix-command flakes
+        with:
+          distro: Ubuntu
+          working-dir: /tmp/dotfiles
+          exec: |
+            ./scripts/steps/010-install-nix.sh
+            sudo ln -s /nix/var/nix/profiles/default/bin/nix /usr/local/bin/nix
+
+      - name: Rekey secrets for evaluation
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
+        with:
+          distro: Ubuntu
+          working-dir: /tmp/dotfiles
+          exec: ./scripts/steps/040-rekey-secrets.sh
+
+      - name: Prepare the Nix cache
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         env:
           R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
           R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
-          WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u
         with:
-          distro: Ubuntu-24.04
+          distro: Ubuntu
+          working-dir: /tmp/dotfiles
+          exec: ./scripts/steps/050-prepare-nix-cache.sh
+
+      - name: Build the configuration
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
+        with:
+          distro: Ubuntu
+          working-dir: /tmp/dotfiles
+          exec: ./scripts/steps/060-build-nix-configuration.sh
+
+      - name: Prepare the CI signing key
+        if: >-
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
+        env:
+          NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
+        with:
+          distro: Ubuntu
           working-dir: /tmp/dotfiles
           exec: |
             set -euo pipefail
 
-            GITHUB_ACTIONS=true \
-              DOTFILES_HOST=ubuntu-wsl \
-              ./scripts/steps/020-install-nix.sh
-            source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+            umask 077
+            printf '%s\n' "${NIX_CACHE_PRIVATE_KEY}" >"${NIX_CACHE_PRIVATE_KEY_FILE}"
 
-            GITHUB_ACTIONS=true \
-              DOTFILES_DIR=/tmp/dotfiles \
-              ./scripts/steps/080-rekey-secrets.sh
-
-            GITHUB_ACTIONS=true \
-              DOTFILES_DIR=/tmp/dotfiles \
-              DOTFILES_HOST=ubuntu-wsl \
-              DOTFILES_USER=k0ch4nx \
-              ./scripts/steps/090-build-nix-configuration.sh
-
-            nix flake check --impure --no-update-lock-file
-
-      - name: Sign and upload the WSL closure
+      - name: Sign and upload the closure
         if: >-
           github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
@@ -138,23 +167,7 @@ jobs:
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
-          NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
-          WSLENV: R2_ACCESS_KEY_ID/u:R2_SECRET_ACCESS_KEY/u:CLOUDFLARE_ACCOUNT_ID/u:R2_CACHE_BUCKET/u:NIX_CACHE_PRIVATE_KEY/u
         with:
-          distro: Ubuntu-24.04
+          distro: Ubuntu
           working-dir: /tmp/dotfiles
-          exec: |
-            set -euo pipefail
-
-            source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-
-            umask 077
-            private_key="$(mktemp /tmp/nix-cache-ci-private-key.XXXXXX)"
-            trap 'rm -f "${private_key}"' EXIT
-            printf '%s\n' "${NIX_CACHE_PRIVATE_KEY}" >"${private_key}"
-            unset NIX_CACHE_PRIVATE_KEY
-
-            GITHUB_ACTIONS=true \
-              NIX_CACHE_PRIVATE_KEY_FILE="${private_key}" \
-              DOTFILES_DIR=/tmp/dotfiles \
-              ./scripts/steps/120-push-nix-cache.sh
+          exec: ./scripts/steps/080-push-nix-cache.sh

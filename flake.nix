@@ -1,186 +1,115 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
+  description = "k0ch4nx dotfiles — nix-darwin + system-manager + Home Manager";
+
+  outputs = inputs: import ./outputs.nix inputs;
+
+  nixConfig = {
+    fallback = true;
+    substituters = [
+      "https://cache.nixos.org/?priority=10"
+      "https://nix-community.cachix.org?priority=20"
+      "s3://nix-cache?endpoint=6118f982b348f7b37129655ee4160301.r2.cloudflarestorage.com&scheme=https&region=auto&priority=30"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "nix-cache-local:GpHBxUjXDkgtfjKeAD/cuGY8pnCjSsZhc8plkslpfFk="
+      "nix-cache-ci:8fZtfHt16O6CvXJlPH0H4uqHTs61K5iruLvTAIFIPmU="
+    ];
+  };
+
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
-
-    blueprint = {
-      url = "github:numtide/blueprint";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-
-    homebrew-jackielii-tap = {
-      url = "github:jackielii/homebrew-tap";
-      flake = false;
-    };
-
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    system-manager = {
-      url = "github:numtide/system-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    agent-skills = {
-      url = "github:Kyure-A/agent-skills-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
-    genshijin = {
-      url = "github:InterfaceX-co-jp/genshijin";
-      flake = false;
-    };
-
-    natural-japanese = {
-      url = "github:coji/natural-japanese";
-      flake = false;
-    };
-
-    dot-skills = {
-      url = "github:pproenca/dot-skills";
-      flake = false;
-    };
-
-    wshobson-agents = {
-      url = "github:wshobson/agents";
-      flake = false;
-    };
-
-    i-have-adhd = {
-      url = "github:ayghri/i-have-adhd";
-      flake = false;
-    };
-
-    hashicorp-agent-skills = {
-      url = "github:hashicorp/agent-skills";
-      flake = false;
-    };
-
-    openai-skills = {
-      url = "github:openai/skills";
-      flake = false;
-    };
-
-    trailofbits-skills = {
-      url = "github:trailofbits/skills";
-      flake = false;
-    };
-
-    kaynetik-skills = {
-      url = "github:kaynetik/skills";
-      flake = false;
-    };
-
-    cloudflare-skills = {
-      url = "github:cloudflare/skills";
-      flake = false;
-    };
-
-    superpowers = {
-      url = "github:obra/superpowers";
-      flake = false;
-    };
-
-    anthropic-skills = {
-      url = "github:anthropics/skills";
-      flake = false;
-    };
-
     agenix = {
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     agenix-rekey = {
       url = "github:oddlama/agenix-rekey";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  outputs =
-    inputs:
-    let
-      systems = [
-        "aarch64-darwin"
-        "x86_64-linux"
-      ];
-
-      blueprint = inputs.blueprint {
-        inherit inputs;
-        prefix = "nix/";
-        inherit systems;
-
-        nixpkgs = {
-          config.allowUnfree = true;
-          overlays = import ./nix/overlays;
-        };
+    agent-skills = {
+      url = "github:Kyure-A/agent-skills-nix";
+      inputs = {
+        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs";
       };
-
-    in
-    blueprint
-    // {
-      cacheSettings = import ./nix/r2-cache.nix;
-
-      darwinConfigurations = blueprint.darwinConfigurations // {
-        cache-bootstrap = inputs.nix-darwin.lib.darwinSystem {
-          modules = [ ./nix/cache-bootstrap/darwin.nix ];
-          specialArgs = {
-            flake = inputs.self;
-            inherit inputs;
-            hostName = "macbook-pro";
-          };
-        };
-      };
-
-      systemConfigs = blueprint.systemConfigs // {
-        cache-bootstrap = inputs.system-manager.lib.makeSystemConfig {
-          modules = [ ./nix/cache-bootstrap/wsl.nix ];
-          extraSpecialArgs = {
-            flake = inputs.self;
-            inherit inputs;
-            hostName = "ubuntu-wsl";
-          };
-        };
-      };
-
-      homeConfigurations."k0ch4nx@ubuntu-wsl" =
-        blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl";
-
-      agenix-rekey =
-        (inputs.agenix-rekey.configure {
-          userFlake = inputs.self;
-
-          darwinConfigurations = {
-            inherit (inputs.self.darwinConfigurations) cache-bootstrap macbook-pro;
-          };
-
-          systems = [
-            "aarch64-darwin"
-          ];
-        })
-        // (inputs.agenix-rekey.configure {
-          userFlake = inputs.self;
-
-          nixosConfigurations = {
-            inherit (inputs.self.systemConfigs) cache-bootstrap ubuntu-wsl;
-          };
-
-          homeConfigurations = {
-            inherit (inputs.self.homeConfigurations) "k0ch4nx@ubuntu-wsl";
-          };
-
-          systems = [
-            "x86_64-linux"
-          ];
-        });
     };
+    anthropic-skills = {
+      url = "github:anthropics/skills";
+      flake = false;
+    };
+    blueprint = {
+      url = "github:numtide/blueprint";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    cloudflare-skills = {
+      url = "github:cloudflare/skills";
+      flake = false;
+    };
+    dot-skills = {
+      url = "github:pproenca/dot-skills";
+      flake = false;
+    };
+    flake-file.url = "github:denful/flake-file";
+    genshijin = {
+      url = "github:InterfaceX-co-jp/genshijin";
+      flake = false;
+    };
+    hashicorp-agent-skills = {
+      url = "github:hashicorp/agent-skills";
+      flake = false;
+    };
+    home-manager = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    homebrew-jackielii-tap = {
+      url = "github:jackielii/homebrew-tap";
+      flake = false;
+    };
+    i-have-adhd = {
+      url = "github:ayghri/i-have-adhd";
+      flake = false;
+    };
+    kaynetik-skills = {
+      url = "github:kaynetik/skills";
+      flake = false;
+    };
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    natural-japanese = {
+      url = "github:coji/natural-japanese";
+      flake = false;
+    };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    openai-skills = {
+      url = "github:openai/skills";
+      flake = false;
+    };
+    superpowers = {
+      url = "github:obra/superpowers";
+      flake = false;
+    };
+    system-manager = {
+      url = "github:numtide/system-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    trailofbits-skills = {
+      url = "github:trailofbits/skills";
+      flake = false;
+    };
+    wshobson-agents = {
+      url = "github:wshobson/agents";
+      flake = false;
+    };
+  };
 }

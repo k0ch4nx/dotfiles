@@ -15,7 +15,7 @@ concurrency:
 jobs:
   check:
     name: Check for an existing update
-    runs-on: ubuntu-latest
+    runs-on: macos-26
     permissions:
       pull-requests: read
     outputs:
@@ -48,7 +48,7 @@ jobs:
     name: Publish an update
     needs: check
     if: needs.check.outputs.proceed == 'true'
-    runs-on: ubuntu-latest
+    runs-on: macos-26
     permissions:
       contents: write
       pull-requests: write
@@ -70,7 +70,7 @@ jobs:
           DOTFILES_DIR: ${{ github.workspace }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./scripts/steps/070-update-flake-lock.sh
+          ./scripts/steps/030-update-flake-lock.sh
 
           unexpected_paths="$(git diff --name-only -- . ':(exclude)flake.lock')"
           if [[ -n "${unexpected_paths}" ]]; then

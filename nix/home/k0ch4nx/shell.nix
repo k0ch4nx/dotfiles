@@ -159,6 +159,18 @@
         if [ -f "${config.programs.zsh.dotDir}/env/skillsmp-api-key" ]; then
           export SKILLSMP_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/skillsmp-api-key")"
         fi
+        if [ -f "${config.programs.zsh.dotDir}/env/gemini-api-key" ]; then
+          export GEMINI_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/gemini-api-key")"
+        fi
+        if [ -f "${config.programs.zsh.dotDir}/env/nvidia-api-key" ]; then
+          export NVIDIA_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/nvidia-api-key")"
+        fi
+        if [ -f "${config.programs.zsh.dotDir}/env/opencode-api-key" ]; then
+          export OPENCODE_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/opencode-api-key")"
+        fi
+        if [ -f "${config.programs.zsh.dotDir}/env/openrouter-api-key" ]; then
+          export OPENROUTER_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/openrouter-api-key")"
+        fi
       '';
     };
 
