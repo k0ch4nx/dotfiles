@@ -44,6 +44,7 @@
       "nvidia-geforce-now"
       "obs"
       "onedrive"
+      "openchamber"
       "parallels"
       "parsec"
       "prefs-editor"
