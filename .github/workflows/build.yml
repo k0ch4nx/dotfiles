@@ -40,8 +40,8 @@ jobs:
       - name: Prepare the Nix cache
         env:
           DOTFILES_DIR: ${{ github.workspace }}
-          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
-          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         run: ./scripts/steps/050-prepare-nix-cache.sh
 
       - name: Build the configuration
@@ -127,8 +127,8 @@ jobs:
       - name: Prepare the Nix cache
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         env:
-          R2_ACCESS_KEY_ID: ${{ github.event_name != 'pull_request' && secrets.R2_ACCESS_KEY_ID || '' }}
-          R2_SECRET_ACCESS_KEY: ${{ github.event_name != 'pull_request' && secrets.R2_SECRET_ACCESS_KEY || '' }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
