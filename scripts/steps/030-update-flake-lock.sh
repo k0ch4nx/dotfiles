@@ -18,23 +18,23 @@ main() (
 
     set +x
 
-    if [[ -z "${GH_TOKEN:-}" ]]; then
-        if [[ "${GITHUB_ACTIONS:-}" != 'true' ]]; then
-            set -x
+    if [[ -n "${GH_TOKEN:-}" ]]; then
+        local nix_config="${NIX_CONFIG:-}"
+
+        if [[ -n "${nix_config}" ]]; then
+            nix_config+=$'\n'
         fi
 
-        exec nix flake update --accept-flake-config
+        nix_config+="access-tokens = github.com=${GH_TOKEN}"
+        export NIX_CONFIG="${nix_config}"
     fi
 
-    local nix_config="${NIX_CONFIG:-}"
-
-    if [[ -n "${nix_config}" ]]; then
-        nix_config+=$'\n'
+    if [[ "${GITHUB_ACTIONS:-}" != 'true' ]]; then
+        set -x
     fi
 
-    nix_config+="access-tokens = github.com=${GH_TOKEN}"
-
-    NIX_CONFIG="${nix_config}" exec nix flake update --accept-flake-config
+    nix run --accept-flake-config .#write-flake
+    exec nix flake update --accept-flake-config
 )
 
 main
