@@ -62,22 +62,22 @@
         },
         "openai": {
             "whitelist": [
-                "gpt-5.6-luna",
-                "gpt-5.6-sol",
                 "gpt-5.6-terra",
+                "gpt-5.6-sol",
             ]
         },
         "opencode-go": {
             "whitelist": [
                 "deepseek-v4-flash",
+                "qwen3.7-plus",
+                "deepseek-v4-pro",
                 "kimi-k2.7-code",
                 "kimi-k3",
-                "qwen3.7-plus",
             ],
         },
     },
     "plugin": [
-        "oh-my-openagent@latest",
+        "oh-my-opencode-slim@latest",
         "@mem0/opencode-plugin",
         [
             "github:guochen-thlg/opencode-auto-provider-models",
