@@ -10,7 +10,10 @@ function main() {
         --option keep-outputs false \
         --option keep-derivations false
 
-    sudo nix-collect-garbage \
+    local root_nix_collect_garbage='/nix/var/nix/profiles/default/bin/nix-collect-garbage'
+    [[ -x "${root_nix_collect_garbage}" ]]
+
+    sudo "${root_nix_collect_garbage}" \
         --delete-older-than 1d \
         --option keep-outputs false \
         --option keep-derivations false

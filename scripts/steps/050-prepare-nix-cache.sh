@@ -127,9 +127,12 @@ EOF
     *) return 1 ;;
     esac
 
+    local root_nix='/nix/var/nix/profiles/default/bin/nix'
+    [[ -x "${root_nix}" ]] || return 1
+
     sudo -H env \
         "AWS_SHARED_CREDENTIALS_FILE=${credentials}" \
-        nix store info \
+        "${root_nix}" store info \
         --store "${cache_url}"
 )
 

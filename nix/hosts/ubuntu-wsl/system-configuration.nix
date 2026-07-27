@@ -4,6 +4,8 @@
   imports = [
     flake.modules.system-manager.docker
     flake.modules.system-manager.nix-cache
+    flake.modules.system-manager.pcscd
+    flake.modules.system-manager.yubikey
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";

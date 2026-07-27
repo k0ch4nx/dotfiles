@@ -12,7 +12,10 @@ function main() {
     sudo apt-get update
     sudo apt-get full-upgrade -y
     sudo apt-get autoremove --purge -y
-    sudo do-release-upgrade
+
+    if sudo do-release-upgrade --check-dist-upgrade-only; then
+        sudo do-release-upgrade
+    fi
 }
 
 main
