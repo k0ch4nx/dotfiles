@@ -3,155 +3,84 @@
     "agents": {
         "sisyphus": {
             "model": "opencode-go/kimi-k2.7-code",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ],
             "ultrawork": {
-                "model": "opencode-go/kimi-k3"
+                "model": "opencode-go/kimi-k3",
+                "variant": "max"
             }
         },
         "hephaestus": {
             "model": "openai/gpt-5.6-sol",
-            "fallback_models": [
-                "nvidia/deepseek-ai/deepseek-v4-pro"
-            ]
+            "variant": "medium"
         },
         "oracle": {
             "model": "openai/gpt-5.6-sol",
-            "fallback_models": [
-                "nvidia/z-ai/glm-5.2"
-            ]
+            "variant": "xhigh"
         },
         "librarian": {
-            "model": "openai/gpt-5.4-mini-fast",
-            "fallback_models": [
-                "nvidia/minimaxai/minimax-m3"
-            ]
+            "model": "opencode-go/deepseek-v4-flash",
+            "variant": "max"
         },
         "explore": {
-            "model": "openai/gpt-5.4-mini-fast",
-            "fallback_models": [
-                "nvidia/minimaxai/minimax-m3"
-            ]
+            "model": "opencode-go/deepseek-v4-flash",
+            "variant": "max"
         },
         "multimodal-looker": {
             "model": "openai/gpt-5.6-sol",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ]
+            "variant": "low"
         },
         "prometheus": {
-            "model": "opencode-go/kimi-k2.7-code",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ]
+            "model": "opencode-go/kimi-k2.7-code"
         },
         "metis": {
-            "model": "opencode-go/kimi-k2.7",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ]
+            "model": "opencode-go/kimi-k2.7-code"
         },
         "momus": {
             "model": "openai/gpt-5.6-terra",
-            "fallback_models": [
-                "nvidia/z-ai/glm-5.2"
-            ]
+            "variant": "high"
         },
         "atlas": {
-            "model": "opencode-go/kimi-k2.7-code",
-            "fallback_models": [
-                "nvidia/minimaxai/minimax-m3"
-            ]
+            "model": "openai/gpt-5.6-sol",
+            "variant": "medium"
         },
         "sisyphus-junior": {
-            "model": "opencode-go/kimi-k2.7-code",
-            "fallback_models": [
-                "nvidia/minimaxai/minimax-m3"
-            ]
+            "model": "openai/gpt-5.6-sol",
+            "variant": "medium"
         }
     },
     "categories": {
         "visual-engineering": {
             "model": "opencode-go/qwen3.7-plus",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ]
+            "variant": "max"
         },
         "ultrabrain": {
             "model": "openai/gpt-5.6-sol",
-            "fallback_models": [
-                "nvidia/z-ai/glm-5.2"
-            ]
+            "variant": "xhigh"
         },
         "deep": {
             "model": "openai/gpt-5.6-terra",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ]
+            "variant": "xhigh"
         },
         "artistry": {
             "model": "opencode-go/qwen3.7-plus",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ]
+            "variant": "max"
         },
         "quick": {
-            "model": "openai/gpt-5.4-mini",
-            "fallback_models": [
-                "nvidia/minimaxai/minimax-m3"
-            ]
+            "model": "opencode-go/deepseek-v4-flash",
+            "variant": "max"
         },
         "unspecified-low": {
             "model": "openai/gpt-5.6-luna",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ]
+            "variant": "xhigh"
         },
         "unspecified-high": {
-            "model": "opencode-go/kimi-k2.7-code",
-            "fallback_models": [
-                "nvidia/moonshotai/kimi-k2.6"
-            ]
+            "model": "opencode-go/kimi-k2.7-code"
         },
         "writing": {
-            "model": "opencode-go/kimi-k2.7-code",
-            "fallback_models": [
-                "nvidia/minimaxai/minimax-m3"
-            ]
-        }
-    },
-    "background_task": {
-        "defaultConcurrency": 5,
-        "providerConcurrency": {
-            "openai": 2,
-            "opencode-go": 3,
-            "nvidia": 2,
-            "openrouter": 2
-        },
-        "modelConcurrency": {
-            "opencode-go/kimi-k2.7-code": 1,
-            "opencode-go/kimi-k3": 1
+            "model": "opencode-go/kimi-k2.7-code"
         }
     },
     "runtime_fallback": {
-        "enabled": true,
-        "retry_on_errors": [
-            400,
-            401,
-            403,
-            404,
-            410,
-            429,
-            500,
-            502,
-            503,
-            504
-        ],
-        "max_fallback_attempts": 4,
-        "cooldown_seconds": 15,
-        "timeout_seconds": 15,
-        "notify_on_fallback": true
+        "enabled": false
     },
     "telemetry": false
 }

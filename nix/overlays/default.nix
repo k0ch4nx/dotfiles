@@ -3,8 +3,6 @@ let
     ./azahar.nix
     ./blender.nix
     ./dolphin-emu.nix
-    ./sfml.nix
-    ./whisper-cpp.nix
   ];
 
   onlyDarwin =
