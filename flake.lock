@@ -695,10 +695,27 @@
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
         "openai-skills": "openai-skills",
+        "spring-boot-skills": "spring-boot-skills",
         "superpowers": "superpowers",
         "system-manager": "system-manager",
         "trailofbits-skills": "trailofbits-skills",
         "wshobson-agents": "wshobson-agents"
+      }
+    },
+    "spring-boot-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1783171077,
+        "narHash": "sha256-wyj2wlhDe7P+u2dcPSrwb0k6s3VLnUXT/k5Tz0bmqis=",
+        "owner": "rrezartprebreza",
+        "repo": "spring-boot-skills",
+        "rev": "72ed30a2a902f39607d59c3e538206804dcc2129",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rrezartprebreza",
+        "repo": "spring-boot-skills",
+        "type": "github"
       }
     },
     "superpowers": {

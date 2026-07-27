@@ -9,5 +9,9 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/opencode.json";
       force = true;
     };
+    ".config/opencode/oh-my-openagent.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/oh-my-openagent.json";
+      force = true;
+    };
   };
 }

@@ -52,6 +52,7 @@
         }
     },
     "plugin": [
+        "oh-my-openagent@latest",
         "@mem0/opencode-plugin",
         [
             "github:guochen-thlg/opencode-auto-provider-models",

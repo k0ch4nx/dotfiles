@@ -59,6 +59,11 @@
         filter.nameRegex = "gh-fix-ci";
       };
 
+      spring-boot-skills = {
+        input = "spring-boot-skills";
+        subdir = "skills/spring-boot-4";
+      };
+
       superpowers = {
         input = "superpowers";
         subdir = "skills";

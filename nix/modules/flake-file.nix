@@ -117,6 +117,11 @@ in
         flake = false;
       };
 
+      spring-boot-skills = {
+        url = "github:rrezartprebreza/spring-boot-skills";
+        flake = false;
+      };
+
       superpowers = {
         url = "github:obra/superpowers";
         flake = false;
