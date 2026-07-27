@@ -15,6 +15,12 @@
         filter.nameRegex = "frontend-design";
       };
 
+      mattpocock-skills = {
+        input = "mattpocock-skills";
+        subdir = "skills";
+        filter.nameRegex = "^(engineering|productivity)/.+";
+      };
+
       cloudflare-skills = {
         input = "cloudflare-skills";
         subdir = "skills";

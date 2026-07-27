@@ -8,6 +8,11 @@ StrictHostKeyChecking no
 UserKnownHostsFile /dev/null
 LogLevel ERROR
 
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/control/%C
+    ControlPersist 15s
+
 Host ubuntu-server
     HostName ubuntu-server.ssh.k0ch4nx.dev
     User k0ch4nx

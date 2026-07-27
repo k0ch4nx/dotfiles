@@ -83,6 +83,10 @@
       url = "github:numtide/llm-agents.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mattpocock-skills = {
+      url = "github:mattpocock/skills";
+      flake = false;
+    };
     natural-japanese = {
       url = "github:coji/natural-japanese";
       flake = false;

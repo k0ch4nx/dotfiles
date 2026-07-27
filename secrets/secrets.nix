@@ -1,6 +1,6 @@
 let
   publicKeys = [
-    "age1yubikey1qv4j58tmzzfvtu03zn0mmfwtp7e9p0324lf0u22hkd6raveqlascczcwtly"
+    "age1yubikey1qtum9xqdvxfhh7ucyv0ep7hg0ykym234aez8g4j77fdw9h9pac7wxnazp8e"
     "age1kleelkfhfkqc2mysqsu0x0e6atczl97xx7mrssvm726qnh8n6p0sdmrj3q"
   ];
   requiredSecretNames = [

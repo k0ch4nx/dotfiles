@@ -132,6 +132,11 @@ in
         flake = false;
       };
 
+      mattpocock-skills = {
+        url = "github:mattpocock/skills";
+        flake = false;
+      };
+
       agenix = {
         url = "github:ryantm/agenix/main";
         inputs.nixpkgs.follows = "nixpkgs";

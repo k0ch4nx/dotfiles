@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   age.secrets = {
@@ -43,4 +43,11 @@
     ".ssh/id_ed25519_sk_gh_auth_pers.pub".source = ./files/ssh/id_ed25519_sk_gh_auth_pers.pub;
     ".ssh/id_ed25519_sk_gh_sign_pers.pub".source = ./files/ssh/id_ed25519_sk_gh_sign_pers.pub;
   };
+
+  home.activation.createSshControlDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    $DRY_RUN_CMD ${pkgs.coreutils}/bin/install \
+      -d \
+      -m 0700 \
+      "${config.home.homeDirectory}/.ssh/control"
+  '';
 }
