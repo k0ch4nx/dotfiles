@@ -482,11 +482,11 @@
     "i-have-adhd": {
       "flake": false,
       "locked": {
-        "lastModified": 1785106000,
-        "narHash": "sha256-KBtjiy1unXuMYn0d++2wEhy54k7AO+VTZYeVvRtNLxI=",
+        "lastModified": 1785248554,
+        "narHash": "sha256-+HsjBh6MnjRobK8TfrrdkQJcdddDyxYiW9lGEY1InXs=",
         "owner": "ayghri",
         "repo": "i-have-adhd",
-        "rev": "c784dcb56b07c8c103323f308b25f7b055008baa",
+        "rev": "9c79e209b0450e40d73a0332ec782d63df1f2497",
         "type": "github"
       },
       "original": {
@@ -608,11 +608,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1785245553,
-        "narHash": "sha256-Sd9tA+NqEw/mtvTD8/rZhT58aYV3v+PKHHiYYB4LNTE=",
+        "lastModified": 1785253009,
+        "narHash": "sha256-lu8FMgkYgTaLHGTDumjGf//+RzCOH6TVMMfyXpV8rw0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "232a2e792ab2cf2d74316989c340ce6bd508668e",
+        "rev": "023b63b43493cdc3f8fff8261c105418171fb305",
         "type": "github"
       },
       "original": {
