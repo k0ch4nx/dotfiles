@@ -1,9 +1,8 @@
 .omo/
+.terraform/
 
 /result
 /result-*
 
 secrets/hosts/*
 !secrets/hosts/*.pub
-
-terraform/

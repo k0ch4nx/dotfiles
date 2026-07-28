@@ -6,6 +6,10 @@ resource "cloudflare_r2_bucket_lifecycle" "nix_cache" {
     id      = "expire-after-3d"
     enabled = true
 
+    conditions = {
+      prefix = ""
+    }
+
     delete_objects_transition = {
       condition = {
         max_age = 259200
