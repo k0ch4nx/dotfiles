@@ -12,6 +12,8 @@
     flake.modules.agenix.rekey
   ];
 
+  dotfiles.agenixRekey.localStorageDir = ../.. + "/secrets/rekeyed/cache-bootstrap/darwin";
+
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking.hostName = "MacBook-Pro";
 

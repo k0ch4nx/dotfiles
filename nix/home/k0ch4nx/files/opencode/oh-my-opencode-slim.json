@@ -1,8 +1,5 @@
 {
     "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
-    "companion": {
-        "enabled": true
-    },
     "disabled_agents": [],
     "image_routing": "auto",
     "preset": "best",
@@ -57,7 +54,8 @@
                 "mcps": []
             },
             "fixer": {
-                "model": "opencode-go/kimi-k2.7-code",
+                "model": "openai/gpt-5.6-luna",
+                "variant": "high",
                 "skills": [],
                 "mcps": []
             },

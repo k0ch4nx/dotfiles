@@ -62,6 +62,7 @@
         },
         "openai": {
             "whitelist": [
+                "gpt-5.6-luna",
                 "gpt-5.6-terra",
                 "gpt-5.6-sol",
             ]
@@ -77,7 +78,6 @@
         },
     },
     "plugin": [
-        "oh-my-opencode-slim@latest",
         "@mem0/opencode-plugin",
         [
             "github:guochen-thlg/opencode-auto-provider-models",
@@ -86,6 +86,7 @@
                     "lm-studio"
                 ]
             }
-        ]
+        ],
+        "oh-my-opencode-slim@latest",
     ]
 }

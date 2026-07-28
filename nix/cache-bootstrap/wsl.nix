@@ -3,6 +3,8 @@
 {
   imports = [ flake.modules.system-manager.nix-cache ];
 
+  dotfiles.agenixRekey.localStorageDir = ../.. + "/secrets/rekeyed/cache-bootstrap/wsl";
+
   nixpkgs.hostPlatform = "x86_64-linux";
 
   nix = {

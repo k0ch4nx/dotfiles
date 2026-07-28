@@ -1,9 +1,9 @@
 {
   "actions-preview.nvim": { "branch": "master", "commit": "0ac9c2aa3cfc8c885321c0862b50b6b1c3392405" },
-  "blink.cmp": { "branch": "main", "commit": "0a58f44ca5286eb6fe142cc26c279ac4e9ac66a8" },
+  "blink.cmp": { "branch": "main", "commit": "d33327a0ed7bfe3cd5dfa2fdd2738ad74f9e0ea3" },
   "blink.lib": { "branch": "main", "commit": "5876dd95deeb70aadbe9f1c0b7117a135061cdac" },
   "budoux.lua": { "branch": "main", "commit": "7f23658b127b9a74aae5b388fefcd997be30cbfc" },
-  "codediff.nvim": { "branch": "main", "commit": "1739102d1cc7153ea9f8f7df7d6a6134ebc46111" },
+  "codediff.nvim": { "branch": "main", "commit": "d3eb933df1de9e246186b33f61e40eb7752a92b2" },
   "crates.nvim": { "branch": "main", "commit": "694357861ec9ebf12475ddcdd04ea45a0923c32d" },
   "edgy.nvim": { "branch": "main", "commit": "8bfd2808994a988c975694122f68624b8a219f5f" },
   "fidget.nvim": { "branch": "main", "commit": "6f793b2bcd2d35e201c09520f698bb763220908a" },

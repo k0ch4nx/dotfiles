@@ -11,9 +11,14 @@ let
   hostPubkey = if builtins.pathExists hostPubkeyPath then builtins.readFile hostPubkeyPath else null;
 in
 {
-  age.rekey = {
-    storageMode = "derivation";
-    cacheDir = "/var/tmp/agenix-rekey-${userName}";
+  options.dotfiles.agenixRekey.localStorageDir = lib.mkOption {
+    type = lib.types.path;
+    description = "Git-tracked directory containing this configuration's rekeyed age files.";
+  };
+
+  config.age.rekey = {
+    storageMode = "local";
+    localStorageDir = config.dotfiles.agenixRekey.localStorageDir;
     masterIdentities = [
       ../../../secrets/master/yubikey-identity.pub
     ];

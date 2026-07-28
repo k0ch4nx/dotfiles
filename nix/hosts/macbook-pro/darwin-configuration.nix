@@ -17,6 +17,8 @@
     flake.modules.agenix.rekey
   ];
 
+  dotfiles.agenixRekey.localStorageDir = ../../.. + "/secrets/rekeyed/macbook-pro/system";
+
   home-manager.extraSpecialArgs = { inherit hostName; };
 
   networking.hostName = "MacBook-Pro";

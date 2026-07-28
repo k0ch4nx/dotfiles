@@ -9,6 +9,10 @@ function main() (
 
     cd -- "${DOTFILES_DIR}"
 
+    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+        return 0
+    fi
+
     local restore_system_pcscd_service=false
     local restore_system_pcscd_socket=false
     local stop_bootstrap_pcscd=false
@@ -111,14 +115,6 @@ function main() (
             --impure \
             --no-update-lock-file \
             "path:.#agenix-rekey.${system}.rekey"
-    else
-        nix run \
-            --accept-flake-config \
-            --impure \
-            --no-update-lock-file \
-            "path:.#agenix-rekey.${system}.rekey" \
-            -- \
-            --dummy
     fi
 )
 
