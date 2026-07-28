@@ -1,6 +1,5 @@
 variable "cloudflare_account_id" {
-  description = "Cloudflare account ID that owns the R2 bucket."
-  type        = string
+  type = string
 
   validation {
     condition     = length(trimspace(var.cloudflare_account_id)) > 0
@@ -9,9 +8,8 @@ variable "cloudflare_account_id" {
 }
 
 variable "bucket_name" {
-  description = "Name of the private R2 bucket used as the Nix binary cache."
-  type        = string
-  default     = "dotfiles-nix-cache"
+  type    = string
+  default = "dotfiles-nix-cache"
 
   validation {
     condition     = length(trimspace(var.bucket_name)) > 0
@@ -20,9 +18,8 @@ variable "bucket_name" {
 }
 
 variable "location" {
-  description = "R2 location hint used when the bucket is first created."
-  type        = string
-  default     = "apac"
+  type    = string
+  default = "apac"
 
   validation {
     condition     = contains(["apac", "eeur", "enam", "weur", "wnam", "oc"], var.location)

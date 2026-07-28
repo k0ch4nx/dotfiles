@@ -3,12 +3,8 @@ resource "cloudflare_r2_bucket_lifecycle" "nix_cache" {
   bucket_name = cloudflare_r2_bucket.nix_cache.name
 
   rules = [{
-    id      = "delete-after-seven-days"
+    id      = "expire-after-3d"
     enabled = true
-
-    conditions = {
-      prefix = ""
-    }
 
     delete_objects_transition = {
       condition = {
