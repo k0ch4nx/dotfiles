@@ -42,7 +42,6 @@
       hashcat
       hyperfine
       imagemagick
-      inputs.jcode-nur.packages.${pkgs.stdenv.hostPlatform.system}.jcode
       john
       lazygit
       mpv

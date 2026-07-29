@@ -67,11 +67,6 @@ in
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
-      jcode-nur = {
-        url = "github:shanyouli/nur-packages";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-
       genshijin = {
         url = "github:InterfaceX-co-jp/genshijin";
         flake = false;

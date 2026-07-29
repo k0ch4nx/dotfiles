@@ -75,10 +75,6 @@
       url = "github:ayghri/i-have-adhd";
       flake = false;
     };
-    jcode-nur = {
-      url = "github:shanyouli/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     kaynetik-skills = {
       url = "github:kaynetik/skills";
       flake = false;
