@@ -27,7 +27,7 @@
   "pyrefly": "1.1.1",
   "roslyn-language-server": "5.8.0-1.26266.2",
   "ruff": "0.16.0",
-  "rust-analyzer": "2026-07-20",
+  "rust-analyzer": "2026-07-27",
   "shellcheck": "v0.11.0",
   "shfmt": "v3.13.1",
   "snyk": "v1.1306.1",

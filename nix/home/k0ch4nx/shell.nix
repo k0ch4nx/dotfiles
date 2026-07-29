@@ -5,6 +5,22 @@
   ...
 }:
 
+let
+  envFiles = builtins.readDir ../../../secrets/env;
+  envSecretNames = builtins.map
+    (fileName: builtins.substring 0 (builtins.stringLength fileName - 4) fileName)
+    (builtins.filter
+      (fileName: envFiles.${fileName} == "regular" && builtins.match ".*\\.age" fileName != null)
+      (builtins.attrNames envFiles));
+  toEnvVarName = name: lib.toUpper (builtins.replaceStrings [ "-" ] [ "_" ] name);
+  envExports = builtins.concatStringsSep "\n" (
+    builtins.map (name: ''
+      if [ -f "${config.programs.zsh.dotDir}/env/${name}" ]; then
+        export ${toEnvVarName name}="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/${name}")"
+      fi
+    '') envSecretNames
+  );
+in
 {
   programs = {
     zsh = {
@@ -149,29 +165,7 @@
         export PATH="/etc/profiles/per-user/${config.home.username}/bin:$HOME/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:$PATH"
       '';
 
-      envExtra = ''
-        if [ -f "${config.programs.zsh.dotDir}/env/gh-token" ]; then
-          export GH_TOKEN="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/gh-token")"
-        fi
-        if [ -f "${config.programs.zsh.dotDir}/env/mem0-api-key" ]; then
-          export MEM0_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/mem0-api-key")"
-        fi
-        if [ -f "${config.programs.zsh.dotDir}/env/skillsmp-api-key" ]; then
-          export SKILLSMP_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/skillsmp-api-key")"
-        fi
-        if [ -f "${config.programs.zsh.dotDir}/env/gemini-api-key" ]; then
-          export GEMINI_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/gemini-api-key")"
-        fi
-        if [ -f "${config.programs.zsh.dotDir}/env/nvidia-api-key" ]; then
-          export NVIDIA_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/nvidia-api-key")"
-        fi
-        if [ -f "${config.programs.zsh.dotDir}/env/opencode-api-key" ]; then
-          export OPENCODE_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/opencode-api-key")"
-        fi
-        if [ -f "${config.programs.zsh.dotDir}/env/openrouter-api-key" ]; then
-          export OPENROUTER_API_KEY="$(tr -d '\n' < "${config.programs.zsh.dotDir}/env/openrouter-api-key")"
-        fi
-      '';
+      envExtra = envExports;
     };
 
     oh-my-posh = {

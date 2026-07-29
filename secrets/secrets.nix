@@ -3,14 +3,13 @@ let
     "age1yubikey1qtum9xqdvxfhh7ucyv0ep7hg0ykym234aez8g4j77fdw9h9pac7wxnazp8e"
     "age1kleelkfhfkqc2mysqsu0x0e6atczl97xx7mrssvm726qnh8n6p0sdmrj3q"
   ];
-  requiredSecretNames = [
-    "env/gh-token.age"
-    "env/gemini-api-key.age"
-    "env/mem0-api-key.age"
-    "env/nvidia-api-key.age"
-    "env/opencode-api-key.age"
-    "env/openrouter-api-key.age"
-    "env/skillsmp-api-key.age"
+  envFiles = builtins.readDir ./env;
+  envSecretNames = builtins.map
+    (fileName: builtins.substring 0 (builtins.stringLength fileName - 4) fileName)
+    (builtins.filter
+      (fileName: envFiles.${fileName} == "regular" && builtins.match ".*\\.age" fileName != null)
+      (builtins.attrNames envFiles));
+  requiredSecretNames = (builtins.map (name: "env/${name}.age") envSecretNames) ++ [
     "ssh/id_ed25519.age"
     "ssh/id_ed25519_gh_work.age"
     "ssh/id_ed25519_sk.age"
