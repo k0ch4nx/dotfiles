@@ -26,6 +26,12 @@
         subdir = "skills";
       };
 
+      critique = {
+        input = "gemini-cli";
+        subdir = "tools/gemini-cli-bot/.gemini/skills";
+        filter.nameRegex = "^critique$";
+      };
+
       ecc = {
         input = "ecc";
         subdir = "skills";

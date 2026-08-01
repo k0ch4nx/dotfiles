@@ -150,6 +150,11 @@ in
         flake = false;
       };
 
+      gemini-cli = {
+        url = "github:google-gemini/gemini-cli";
+        flake = false;
+      };
+
       agenix = {
         url = "github:ryantm/agenix/main";
         inputs.nixpkgs.follows = "nixpkgs";

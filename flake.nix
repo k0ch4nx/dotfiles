@@ -67,6 +67,10 @@
       flake = false;
     };
     flake-file.url = "github:denful/flake-file";
+    gemini-cli = {
+      url = "github:google-gemini/gemini-cli";
+      flake = false;
+    };
     genshijin = {
       url = "github:InterfaceX-co-jp/genshijin";
       flake = false;
