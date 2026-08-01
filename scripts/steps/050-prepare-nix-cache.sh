@@ -8,12 +8,12 @@ function main() (
     if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
         set +x
 
-        if [[ -z "${R2_ACCESS_KEY_ID:-}" && -z "${R2_SECRET_ACCESS_KEY:-}" ]]; then
+        if [[ -z "${R2_RO_ACCESS_KEY_ID:-}" && -z "${R2_RO_SECRET_ACCESS_KEY:-}" ]]; then
             return
         fi
 
-        [[ -n "${R2_ACCESS_KEY_ID:-}" ]]
-        [[ -n "${R2_SECRET_ACCESS_KEY:-}" ]]
+        [[ -n "${R2_RO_ACCESS_KEY_ID:-}" ]]
+        [[ -n "${R2_RO_SECRET_ACCESS_KEY:-}" ]]
     fi
 
     [[ -n "${DOTFILES_DIR:-}" ]]
@@ -56,11 +56,11 @@ function main() (
             chmod 600 "$1"
         ' sh "${credentials}" <<EOF
 [default]
-aws_access_key_id = ${R2_ACCESS_KEY_ID}
-aws_secret_access_key = ${R2_SECRET_ACCESS_KEY}
+aws_access_key_id = ${R2_RO_ACCESS_KEY_ID}
+aws_secret_access_key = ${R2_RO_SECRET_ACCESS_KEY}
 EOF
 
-        unset R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY
+        unset R2_RO_ACCESS_KEY_ID R2_RO_SECRET_ACCESS_KEY
     elif ! sudo test -s "${credentials}"; then
         local result
 

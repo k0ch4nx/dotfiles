@@ -1,8 +1,8 @@
 let
   accountId = "6118f982b348f7b37129655ee4160301";
   bucket = "nix-cache";
-  accessKeyFile = ../secrets/r2-access-key-id.age;
-  secretKeyFile = ../secrets/r2-secret-access-key.age;
+  roAccessKeyFile = ../secrets/r2-ro-access-key-id.age;
+  roSecretKeyFile = ../secrets/r2-ro-secret-access-key.age;
   url = "s3://${bucket}?endpoint=${accountId}.r2.cloudflarestorage.com&scheme=https&region=auto&priority=30";
   localPublicKey = "nix-cache-local:GpHBxUjXDkgtfjKeAD/cuGY8pnCjSsZhc8plkslpfFk=";
   ciPublicKey = "nix-cache-ci:8fZtfHt16O6CvXJlPH0H4uqHTs61K5iruLvTAIFIPmU=";
@@ -80,10 +80,10 @@ in
 
   secretAssertions = [
     {
-      assertion = builtins.pathExists accessKeyFile;
+      assertion = builtins.pathExists roAccessKeyFile;
     }
     {
-      assertion = builtins.pathExists secretKeyFile;
+      assertion = builtins.pathExists roSecretKeyFile;
     }
   ];
 
@@ -100,21 +100,21 @@ in
       group,
     }:
     {
-      r2-root-access-key-id = {
-        rekeyFile = accessKeyFile;
+      r2-root-ro-access-key-id = {
+        rekeyFile = roAccessKeyFile;
         intermediary = true;
       };
 
-      r2-root-secret-access-key = {
-        rekeyFile = secretKeyFile;
+      r2-root-ro-secret-access-key = {
+        rekeyFile = roSecretKeyFile;
         intermediary = true;
       };
 
       r2-root-credentials = {
         rekeyFile = ../secrets/r2-credentials.age;
         generator = credentialsGenerator {
-          accessKeySecret = config.age.secrets.r2-root-access-key-id;
-          secretKeySecret = config.age.secrets.r2-root-secret-access-key;
+          accessKeySecret = config.age.secrets.r2-root-ro-access-key-id;
+          secretKeySecret = config.age.secrets.r2-root-ro-secret-access-key;
         };
         path = credentialsFile;
         owner = "root";

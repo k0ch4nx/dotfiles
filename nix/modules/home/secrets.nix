@@ -23,14 +23,14 @@ in
     ];
 
     secrets = {
-      r2-access-key-id = {
-        rekeyFile = ../../../secrets/r2-access-key-id.age;
+      r2-rw-access-key-id = {
+        rekeyFile = ../../../secrets/r2-rw-access-key-id.age;
         path = "${cacheDirectory}/access-key-id";
         mode = "600";
       };
 
-      r2-secret-access-key = {
-        rekeyFile = ../../../secrets/r2-secret-access-key.age;
+      r2-rw-secret-access-key = {
+        rekeyFile = ../../../secrets/r2-rw-secret-access-key.age;
         path = "${cacheDirectory}/secret-access-key";
         mode = "600";
       };

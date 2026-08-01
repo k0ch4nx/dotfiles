@@ -196,12 +196,12 @@ function main() (
     )}"
 
     local config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
-    local access_key_id="${R2_ACCESS_KEY_ID:-}"
-    local secret_access_key="${R2_SECRET_ACCESS_KEY:-}"
+    local access_key_id="${R2_RW_ACCESS_KEY_ID:-}"
+    local secret_access_key="${R2_RW_SECRET_ACCESS_KEY:-}"
 
     if [[ -n "${access_key_id}" && -z "${secret_access_key}" ]] ||
         [[ -z "${access_key_id}" && -n "${secret_access_key}" ]]; then
-        printf 'R2_ACCESS_KEY_ID and R2_SECRET_ACCESS_KEY must be provided together.\n' >&2
+        printf 'R2_RW_ACCESS_KEY_ID and R2_RW_SECRET_ACCESS_KEY must be provided together.\n' >&2
         return 1
     fi
 

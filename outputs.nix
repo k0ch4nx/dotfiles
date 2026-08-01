@@ -97,7 +97,7 @@ blueprint
   systemConfigs = blueprint.systemConfigs // {
     cache-bootstrap = inputs.system-manager.lib.makeSystemConfig {
       modules = [ ./nix/cache-bootstrap/wsl.nix ];
-      extraSpecialArgs = {
+      specialArgs = {
         flake = inputs.self;
         inherit inputs;
         hostName = "ubuntu-wsl";
