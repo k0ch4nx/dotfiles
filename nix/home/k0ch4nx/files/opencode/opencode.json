@@ -88,5 +88,7 @@
             }
         ],
         "oh-my-opencode-slim@latest",
+        "@tarquinen/opencode-dcp@latest",
+        "opencode-vibeguard"
     ]
 }

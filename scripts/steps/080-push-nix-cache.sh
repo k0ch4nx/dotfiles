@@ -104,6 +104,7 @@ function main() (
 
     local closure_file=''
 
+    # shellcheck disable=SC2329
     function cleanup() {
         [[ -z "${closure_file}" ]] || rm -f "${closure_file}"
     }

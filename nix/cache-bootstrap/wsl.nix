@@ -3,7 +3,10 @@
 {
   imports = [ flake.modules.system-manager.nix-cache ];
 
-  dotfiles.agenixRekey.localStorageDir = ../.. + "/secrets/rekeyed/cache-bootstrap/wsl";
+  age.rekey.localStorageDir = import ../modules/agenix/rekey-dirs.nix {
+    hostName = "ubuntu-wsl";
+    scope = "system";
+  };
 
   nixpkgs.hostPlatform = "x86_64-linux";
 

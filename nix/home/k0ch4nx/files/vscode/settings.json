@@ -1,0 +1,16 @@
+{
+  "chat.agent.enabled": false,
+  "chat.commandCenter.enabled": false,
+  "chat.titleBar.openInAgentsWindow.enabled": false,
+  "chat.disableAIFeatures": true,
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": "off",
+  "github.copilot.editor.enableCodeActions": false,
+  "github.copilot.enable": {
+    "*": false
+  },
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "scm.defaultViewMode": "tree",
+  "update.mode": "none",
+  "workbench.iconTheme": "material-icon-theme"
+}

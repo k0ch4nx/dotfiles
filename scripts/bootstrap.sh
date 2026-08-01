@@ -31,6 +31,7 @@ function main() {
     if [[ -n "${BASH_SOURCE[0]:-}" && -f "${BASH_SOURCE[0]:-}" ]]; then
         source "${DOTFILES_DIR}/scripts/steps/010-install-nix.sh"
     else
+        # shellcheck disable=SC1090
         source <(curl -fsSL "https://github.com/k0ch4nx/dotfiles/raw/refs/heads/main/scripts/steps/010-install-nix.sh")
     fi
 
@@ -48,6 +49,7 @@ function main() {
     source "${DOTFILES_DIR}/scripts/steps/060-build-nix-configuration.sh"
     source "${DOTFILES_DIR}/scripts/steps/070-activate-nix-configuration.sh"
     source "${DOTFILES_DIR}/scripts/steps/080-push-nix-cache.sh"
+    source "${DOTFILES_DIR}/scripts/steps/081-touch-nix-cache.sh"
     source "${DOTFILES_DIR}/scripts/steps/090-update-rust.sh"
     source "${DOTFILES_DIR}/scripts/steps/100-update-neovim-plugins.sh"
     source "${DOTFILES_DIR}/scripts/steps/110-install-neovim-treesitter-parsers.sh"

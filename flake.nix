@@ -42,9 +42,17 @@
       url = "github:anthropics/skills";
       flake = false;
     };
+    autoskills = {
+      url = "github:midudev/autoskills";
+      flake = false;
+    };
     blueprint = {
       url = "github:numtide/blueprint";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    cc-templates = {
+      url = "github:davila7/claude-code-templates";
+      flake = false;
     };
     cloudflare-skills = {
       url = "github:cloudflare/skills";
@@ -54,9 +62,17 @@
       url = "github:pproenca/dot-skills";
       flake = false;
     };
+    ecc = {
+      url = "github:affaan-m/ecc";
+      flake = false;
+    };
     flake-file.url = "github:denful/flake-file";
     genshijin = {
       url = "github:InterfaceX-co-jp/genshijin";
+      flake = false;
+    };
+    google-skills = {
+      url = "github:google/skills";
       flake = false;
     };
     hashicorp-agent-skills = {
@@ -79,10 +95,6 @@
       url = "github:kaynetik/skills";
       flake = false;
     };
-    llm-agents = {
-      url = "github:numtide/llm-agents.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     mattpocock-skills = {
       url = "github:mattpocock/skills";
       flake = false;
@@ -101,6 +113,10 @@
       url = "github:openai/skills";
       flake = false;
     };
+    openclaw = {
+      url = "github:openclaw/openclaw";
+      flake = false;
+    };
     spring-boot-skills = {
       url = "github:rrezartprebreza/spring-boot-skills";
       flake = false;
@@ -112,6 +128,10 @@
     system-manager = {
       url = "github:numtide/system-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    terminal-browser = {
+      url = "github:zenbu-labs/terminal-browser";
+      flake = false;
     };
     trailofbits-skills = {
       url = "github:trailofbits/skills";

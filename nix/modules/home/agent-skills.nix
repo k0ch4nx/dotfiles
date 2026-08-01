@@ -26,6 +26,42 @@
         subdir = "skills";
       };
 
+      ecc = {
+        input = "ecc";
+        subdir = "skills";
+        idPrefix = "ecc";
+      };
+
+      openclaw-github = {
+        input = "openclaw";
+        subdir = "skills";
+        filter.nameRegex = "^github$";
+      };
+
+      svelte5-best-practices = {
+        input = "autoskills";
+        subdir = "packages/autoskills/skills-registry";
+        filter.nameRegex = "^svelte5-best-practices$";
+      };
+
+      terraform-module-library = {
+        input = "wshobson-agents";
+        subdir = "plugins/cloud-infrastructure/skills";
+        filter.nameRegex = "^terraform-module-library$";
+      };
+
+      terraform-specialist = {
+        input = "cc-templates";
+        subdir = "cli-tool/components/skills/development";
+        filter.nameRegex = "^terraform-specialist$";
+      };
+
+      google-cloud = {
+        input = "google-skills";
+        subdir = "skills/cloud";
+        filter.nameRegex = "^(gcloud|cloud-run-basics|google-cloud-networking-observability|google-cloud-global-frontend-configuration|gke-networking)$";
+      };
+
       dot-skills = {
         input = "dot-skills";
         subdir = "skills/.experimental";
@@ -68,6 +104,11 @@
       spring-boot-skills = {
         input = "spring-boot-skills";
         subdir = "skills/spring-boot-4";
+      };
+
+      terminal-browser = {
+        input = "terminal-browser";
+        subdir = "skill";
       };
 
       superpowers = {

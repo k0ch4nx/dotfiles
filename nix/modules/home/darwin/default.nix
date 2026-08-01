@@ -4,5 +4,6 @@
     ./packages.nix
     ./secrets.nix
     ./shell.nix
+    ./vscode.nix
   ];
 }

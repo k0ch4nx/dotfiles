@@ -1,18 +1,15 @@
 {
   flake,
-  inputs,
   ...
 }:
 
 {
-  imports = [
-    flake.darwinModules.nix-cache
-    inputs.agenix.darwinModules.default
-    inputs.agenix-rekey.darwinModules.default
-    flake.modules.agenix.rekey
-  ];
+  imports = [ flake.darwinModules.nix-cache ];
 
-  dotfiles.agenixRekey.localStorageDir = ../.. + "/secrets/rekeyed/cache-bootstrap/darwin";
+  age.rekey.localStorageDir = import ../modules/agenix/rekey-dirs.nix {
+    hostName = "macbook-pro";
+    scope = "system";
+  };
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking.hostName = "MacBook-Pro";

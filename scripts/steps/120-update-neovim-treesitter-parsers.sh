@@ -9,10 +9,7 @@ function main() {
         --headless \
         -c 'luafile -' <<'LUA'
 local treesitter = require("nvim-treesitter")
-local unavailable = { problog = true, prolog = true }
-local parsers = vim.tbl_filter(function(parser)
-    return not unavailable[parser]
-end, treesitter.get_installed())
+local parsers = treesitter.get_installed()
 local ok = treesitter.update(parsers):wait()
 if not ok then
     vim.cmd("cquit")

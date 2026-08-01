@@ -6,7 +6,10 @@
     flake.homeModules.darwin
   ];
 
-  dotfiles.agenixRekey.localStorageDir = ../../../../.. + "/secrets/rekeyed/macbook-pro/home";
+  age.rekey.localStorageDir = import ../../../../modules/agenix/rekey-dirs.nix {
+    hostName = "macbook-pro";
+    scope = "home";
+  };
 
   home = {
     username = "k0ch4nx";

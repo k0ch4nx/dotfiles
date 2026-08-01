@@ -1,13 +1,3 @@
-# r2-cache.nix — single source of truth for the R2 binary cache configuration.
-#
-# Consumed by:
-#   - nix/modules/flake-file.nix  (flake nixConfig: substituters / trusted-public-keys / fallback)
-#   - nix/modules/darwin/nix-cache.nix, nix/modules/system-manager/nix-cache.nix
-#     (nix.settings, secret assertions, credentials secrets)
-#   - outputs.nix (exposed as `cacheSettings` for scripts/steps/*.sh)
-#
-# After changing substituters/trustedPublicKeys, run `nix run .#write-flake` to
-# regenerate flake.nix.
 let
   accountId = "6118f982b348f7b37129655ee4160301";
   bucket = "nix-cache";

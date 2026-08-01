@@ -18,6 +18,23 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+x-main-only: &main-only >-
+  github.ref == 'refs/heads/main' &&
+  (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+
+x-r2-env-darwin: &r2-env-darwin
+  R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+  R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+  R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
+  DOTFILES_DIR: ${{ github.workspace }}
+
+x-r2-env-wsl: &r2-env-wsl
+  R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+  R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+  R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
+
 jobs:
   darwin:
     name: macOS
@@ -51,9 +68,7 @@ jobs:
         run: ./scripts/steps/060-build-nix-configuration.sh
 
       - name: Prepare the CI signing key
-        if: >-
-          github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: *main-only
         env:
           NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
         run: |
@@ -64,16 +79,14 @@ jobs:
           printf 'NIX_CACHE_PRIVATE_KEY_FILE=%s\n' "${private_key}" >>"${GITHUB_ENV}"
 
       - name: Sign and upload the closure
-        if: >-
-          github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-        env:
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
-          DOTFILES_DIR: ${{ github.workspace }}
+        if: *main-only
+        env: *r2-env-darwin
         run: ./scripts/steps/080-push-nix-cache.sh
+
+      - name: Touch the cache
+        if: *main-only
+        env: *r2-env-darwin
+        run: ./scripts/steps/081-touch-nix-cache.sh
 
   ubuntu-wsl:
     name: Ubuntu WSL
@@ -142,9 +155,7 @@ jobs:
           exec: ./scripts/steps/060-build-nix-configuration.sh
 
       - name: Prepare the CI signing key
-        if: >-
-          github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: *main-only
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         env:
           NIX_CACHE_PRIVATE_KEY: ${{ secrets.NIX_CACHE_CI_PRIVATE_KEY }}
@@ -158,16 +169,19 @@ jobs:
             printf '%s\n' "${NIX_CACHE_PRIVATE_KEY}" >"${NIX_CACHE_PRIVATE_KEY_FILE}"
 
       - name: Sign and upload the closure
-        if: >-
-          github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: *main-only
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
-        env:
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
+        env: *r2-env-wsl
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
           exec: ./scripts/steps/080-push-nix-cache.sh
+
+      - name: Touch the cache
+        if: *main-only
+        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
+        env: *r2-env-wsl
+        with:
+          distro: Ubuntu
+          working-dir: /tmp/dotfiles
+          exec: ./scripts/steps/081-touch-nix-cache.sh

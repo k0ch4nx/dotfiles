@@ -17,17 +17,14 @@
     jankyborders
     lmstudio
     mas
+    mcat
     orbstack
-    qbittorrent
     ryubing
+    sheets
+    snitch
+    superseedr
+    terminal-browser
     udev-gothic-nf
-    (vscode.overrideAttrs (old: {
-      postPatch =
-        builtins.replaceStrings
-          [ "Contents/Resources/app/node_modules/@vscode/ripgrep-universal" ]
-          [ "Contents/Resources/app/node_modules.asar.unpacked/@vscode/ripgrep-universal" ]
-          old.postPatch;
-    }))
     wezterm
   ];
 }

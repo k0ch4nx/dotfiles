@@ -7,11 +7,13 @@
 
 let
   envFiles = builtins.readDir ../../../secrets/env;
-  envSecretNames = builtins.map
-    (fileName: builtins.substring 0 (builtins.stringLength fileName - 4) fileName)
-    (builtins.filter
-      (fileName: envFiles.${fileName} == "regular" && builtins.match ".*\\.age" fileName != null)
-      (builtins.attrNames envFiles));
+  envSecretNames =
+    builtins.map (fileName: builtins.substring 0 (builtins.stringLength fileName - 4) fileName)
+      (
+        builtins.filter (
+          fileName: envFiles.${fileName} == "regular" && builtins.match ".*\\.age" fileName != null
+        ) (builtins.attrNames envFiles)
+      );
   toEnvVarName = name: lib.toUpper (builtins.replaceStrings [ "-" ] [ "_" ] name);
   envExports = builtins.concatStringsSep "\n" (
     builtins.map (name: ''
@@ -62,7 +64,6 @@ in
         zstyle ":completion:*" menu select
         zstyle ":completion:*" cache-path "${config.xdg.cacheHome}/zsh/.zcompcache"
 
-        # gcloud completion
         if type brew &>/dev/null && [ -f "$(brew --prefix)/share/zsh/site-functions/_google_cloud_sdk" ]; then
           source "$(brew --prefix)/share/zsh/site-functions/_google_cloud_sdk"
         fi
@@ -145,7 +146,6 @@ in
         autoload -Uz compinit
         compinit -d "${config.xdg.cacheHome}/zsh/.zcompdump"
 
-        # rustup completions
         if command -v rustup &>/dev/null; then
           source <(rustup completions zsh rustup)
         fi
@@ -161,7 +161,6 @@ in
       '';
 
       profileExtra = ''
-        # Ensure Nix profiles take precedence over other binaries.
         export PATH="/etc/profiles/per-user/${config.home.username}/bin:$HOME/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:$PATH"
       '';
 

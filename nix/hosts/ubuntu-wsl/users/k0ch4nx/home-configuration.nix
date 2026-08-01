@@ -10,7 +10,10 @@
     flake.homeModules.wsl
   ];
 
-  dotfiles.agenixRekey.localStorageDir = ../../../../.. + "/secrets/rekeyed/ubuntu-wsl/home";
+  age.rekey.localStorageDir = import ../../../../modules/agenix/rekey-dirs.nix {
+    hostName = "ubuntu-wsl";
+    scope = "home";
+  };
 
   _module.args.hostName = "ubuntu-wsl";
 

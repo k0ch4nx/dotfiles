@@ -1,23 +1,11 @@
-# flake-file module: declares flake inputs and nixConfig from a single source.
-#
-# nixConfig values are derived from nix/r2-cache.nix (the single source of truth)
-# so the hand-maintained duplication with the old flake.nix literal is eliminated.
-# After modifying inputs or nixConfig here, run `nix run .#write-flake` to
-# regenerate flake.nix.
-{ inputs, ... }:
+{ ... }:
 let
   cache = import ../r2-cache.nix;
 in
 {
-  imports = [
-    inputs.flake-file.flakeModules.flake
-  ];
-
   flake-file = {
     description = "k0ch4nx dotfiles — nix-darwin + system-manager + Home Manager";
 
-    # outputs delegates to outputs.nix which contains the blueprint launcher
-    # and the custom output attributes (cacheSettings, configurationBuilds, …).
     outputs = "inputs: import ./outputs.nix inputs";
 
     nixConfig = {
@@ -60,11 +48,6 @@ in
         url = "github:Kyure-A/agent-skills-nix";
         inputs.nixpkgs.follows = "nixpkgs";
         inputs.home-manager.follows = "home-manager";
-      };
-
-      llm-agents = {
-        url = "github:numtide/llm-agents.nix";
-        inputs.nixpkgs.follows = "nixpkgs";
       };
 
       genshijin = {
@@ -122,6 +105,11 @@ in
         flake = false;
       };
 
+      terminal-browser = {
+        url = "github:zenbu-labs/terminal-browser";
+        flake = false;
+      };
+
       superpowers = {
         url = "github:obra/superpowers";
         flake = false;
@@ -134,6 +122,31 @@ in
 
       mattpocock-skills = {
         url = "github:mattpocock/skills";
+        flake = false;
+      };
+
+      ecc = {
+        url = "github:affaan-m/ecc";
+        flake = false;
+      };
+
+      openclaw = {
+        url = "github:openclaw/openclaw";
+        flake = false;
+      };
+
+      autoskills = {
+        url = "github:midudev/autoskills";
+        flake = false;
+      };
+
+      cc-templates = {
+        url = "github:davila7/claude-code-templates";
+        flake = false;
+      };
+
+      google-skills = {
+        url = "github:google/skills";
         flake = false;
       };
 

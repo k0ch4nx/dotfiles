@@ -18,7 +18,6 @@
       "flakes"
     ];
     keep-derivations = false;
-    keep-outputs = false;
     trusted-users = [
       "root"
       "runner"

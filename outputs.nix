@@ -114,7 +114,7 @@ blueprint
       agePackage = rageWithArmor;
 
       darwinConfigurations = {
-        inherit (inputs.self.darwinConfigurations) cache-bootstrap macbook-pro;
+        inherit (inputs.self.darwinConfigurations) macbook-pro;
       };
 
       systems = [
@@ -126,7 +126,7 @@ blueprint
       agePackage = rageWithArmor;
 
       nixosConfigurations = {
-        inherit (inputs.self.systemConfigs) cache-bootstrap ubuntu-wsl;
+        inherit (inputs.self.systemConfigs) ubuntu-wsl;
       };
 
       homeConfigurations = {
