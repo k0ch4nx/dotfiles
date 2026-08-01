@@ -1,5 +1,8 @@
 { inputs, pkgs, ... }:
 
+let
+  opencode2 = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2;
+in
 {
   imports = [
     ../../modules/home/agent-skills.nix
@@ -49,7 +52,7 @@
       nodejs_latest
       oh-my-posh
       onefetch
-      opencode
+      opencode2
       openssh
       progress
       python314

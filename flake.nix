@@ -99,6 +99,7 @@
       url = "github:kaynetik/skills";
       flake = false;
     };
+    llm-agents.url = "github:numtide/llm-agents.nix";
     mattpocock-skills = {
       url = "github:mattpocock/skills";
       flake = false;

@@ -11,7 +11,7 @@ in
       owner = "Jagalite";
       repo = "superseedr";
       rev = "v${version}";
-      hash = "sha256-z/8c5oLMR/6GVpJ/ltXtUSOHVeG5d5MMeoStqrP8rxE=";
+      hash = "sha256-4aH2El6xMqH3k+5GsqGknMk/X+Fl2g2UNDS26a2e3e0=";
     };
 
     cargoHash = "sha256-FxKjZDOJS5sshRRVdCTnfYZfIK2SvkP6Hz3YhSE5kFQ=";
