@@ -2,7 +2,151 @@
 
 set -euo pipefail
 
-[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
+[[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' &&
+    "${NIX_CACHE_TOUCH_WORKER:-}" != '1' ]] && exit 1
+
+function touch_cache() {
+    local errors
+    local touchlist
+    errors="$(mktemp)"
+    touchlist="$(mktemp)"
+    export TOUCH_ERRORS="${errors}"
+    export TOUCH_LIST="${touchlist}"
+    trap 'rm -f -- "${TOUCH_ERRORS}" "${TOUCH_LIST}"' EXIT
+
+    local target="${NIX_CACHE_TARGET:-}"
+    if [[ -z "${target}" ]]; then
+        if [[ "$(uname -s)" == 'Darwin' ]]; then
+            target='path:.#configurationBuilds.macbook-pro.system'
+        elif [[ -r /proc/sys/kernel/osrelease ]] &&
+            grep -qi microsoft /proc/sys/kernel/osrelease; then
+            target='path:.#configurationBuilds.ubuntu-wsl.home'
+        else
+            printf 'Unsupported local platform for cache-touch.\n' >&2
+            return 1
+        fi
+    fi
+
+    local toplevel
+    toplevel="$(
+        nix build \
+            --accept-flake-config \
+            --impure \
+            --no-link \
+            --no-update-lock-file \
+            --print-out-paths \
+            "${target}"
+    )"
+
+    [[ "${toplevel}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || return 1
+
+    local discovery_status=0
+    # shellcheck disable=SC2016
+    nix path-info --recursive "${toplevel}" \
+        | xargs -n1 basename \
+        | xargs -P 64 -I{} bash -c '
+            name="$1"
+            hash="${name%%-*}"
+            narinfo=""
+
+            for attempt in 1 2 3; do
+                if narinfo="$(
+                    aws s3 cp \
+                        "s3://${R2_TOUCH_BUCKET}/${hash}.narinfo" \
+                        - \
+                        2>/dev/null
+                )"; then
+                    break
+                fi
+                narinfo=""
+                sleep 1
+            done
+
+            url="$(
+                awk -F ": " '\''$1 == "URL" { print $2; exit }'\'' <<<"${narinfo}"
+            )"
+            if [[ -z "${url}" ]]; then
+                printf "read %s.narinfo\n" "${hash}" >>"${TOUCH_ERRORS}"
+                exit 1
+            fi
+
+            printf "%s.narinfo\n%s\n" "${hash}" "${url}"
+        ' _ {} \
+        >"${touchlist}" || discovery_status=$?
+
+    if ((discovery_status != 0)); then
+        printf 'Failed to resolve cache objects:\n' >&2
+        if [[ -s "${errors}" ]]; then
+            cat "${errors}" >&2
+        fi
+        return 1
+    fi
+
+    local total
+    total="$(wc -l <"${touchlist}" | tr -d ' ')"
+    printf 'Refreshing %s objects...\n' "${total}"
+
+    local refresh_status=0
+    # shellcheck disable=SC2016
+    xargs -P 64 -I{} bash -c '
+        key="$1"
+
+        for attempt in 1 2 3; do
+            if head="$(
+                aws s3api head-object \
+                    --endpoint-url "${AWS_ENDPOINT_URL}" \
+                    --bucket "${R2_TOUCH_BUCKET}" \
+                    --key "${key}" \
+                    2>/dev/null
+            )" && request="$(
+                jq -c \
+                    --arg bucket "${R2_TOUCH_BUCKET}" \
+                    --arg key "${key}" \
+                    '\''
+                        . as $head
+                        | {
+                            Bucket: $bucket,
+                            Key: $key,
+                            CopySource: ($bucket + "/" + $key),
+                            MetadataDirective: "REPLACE",
+                            Metadata: ($head.Metadata // { })
+                        } + (
+                            $head
+                            | {
+                                ContentType,
+                                CacheControl,
+                                ContentDisposition,
+                                ContentEncoding,
+                                ContentLanguage,
+                                Expires,
+                                StorageClass
+                            }
+                            | with_entries(select(.value != null))
+                        )
+                    '\'' <<<"${head}"
+            )" && aws s3api copy-object \
+                --endpoint-url "${AWS_ENDPOINT_URL}" \
+                --cli-input-json "${request}" \
+                >/dev/null 2>&1; then
+                exit 0
+            fi
+            sleep 1
+        done
+
+        printf "refresh %s\n" "${key}" >>"${TOUCH_ERRORS}"
+        exit 1
+    ' _ {} <"${touchlist}" || refresh_status=$?
+
+    if ((refresh_status != 0)); then
+        printf 'Failed to refresh cache objects:\n' >&2
+        if [[ -s "${errors}" ]]; then
+            cat "${errors}" >&2
+        fi
+        return 1
+    fi
+
+    printf 'Refreshed %s objects.\n' "${total}"
+}
 
 function main() (
     set +x
@@ -71,82 +215,16 @@ function main() (
     export AWS_ENDPOINT_URL="https://${account_id}.r2.cloudflarestorage.com"
     export R2_TOUCH_BUCKET="${bucket}"
 
-    nix shell 'nixpkgs#awscli2' --accept-flake-config -c bash -s <<'SCRIPT'
-set -euo pipefail
-
-errors="$(mktemp)"
-touchlist="$(mktemp)"
-trap 'rm -f "${errors}" "${touchlist}"' EXIT
-export TOUCH_ERRORS="${errors}"
-
-target="${NIX_CACHE_TARGET:-}"
-if [[ -z "${target}" ]]; then
-    if [[ "$(uname -s)" == 'Darwin' ]]; then
-        target='path:.#configurationBuilds.macbook-pro.system'
-    elif [[ -r /proc/sys/kernel/osrelease ]] &&
-        grep -qi microsoft /proc/sys/kernel/osrelease; then
-        target='path:.#configurationBuilds.ubuntu-wsl.home'
-    else
-        printf 'Unsupported local platform for cache-touch.\n' >&2
-        exit 1
-    fi
-fi
-
-toplevel="$(
-    nix build \
+    NIX_CACHE_TOUCH_WORKER=1 \
+        nix shell \
+        'nixpkgs#awscli2' \
+        'nixpkgs#jq' \
         --accept-flake-config \
-        --impure \
-        --no-link \
-        --no-update-lock-file \
-        --print-out-paths \
-        "${target}"
-)"
-
-[[ "${toplevel}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || exit 1
-
-nix path-info --recursive "${toplevel}" \
-    | xargs -n1 basename \
-    | xargs -P 64 -I{} sh -c '
-        name="$1"
-        hash="${name%%-*}"
-        url="$(
-            aws s3 cp "s3://${R2_TOUCH_BUCKET}/${hash}.narinfo" - 2>/dev/null \
-                | grep "^URL:" | cut -d" " -f2
-        )"
-        if [[ -n "${url}" ]]; then
-            printf "%s.narinfo\n%s\n" "${hash}" "${url}"
-        fi
-    ' _ {} \
-    >"${touchlist}" || true
-
-total="$(wc -l <"${touchlist}" | tr -d ' ')"
-printf 'Refreshing %s objects...\n' "${total}"
-
-xargs -P 64 -I{} sh -c '
-    for attempt in 1 2 3; do
-        if aws s3api copy-object \
-            --endpoint-url "${AWS_ENDPOINT_URL}" \
-            --bucket "${R2_TOUCH_BUCKET}" \
-            --key "$1" \
-            --copy-source "${R2_TOUCH_BUCKET}/$1" \
-            --metadata-directive REPLACE \
-            >/dev/null 2>&1; then
-            exit 0
-        fi
-        sleep 1
-    done
-    printf '%s\n' "$1" >>"${TOUCH_ERRORS}"
-    exit 1
-' _ {} <"${touchlist}" || true
-
-if [[ -s "${errors}" ]]; then
-    printf 'Failed to refresh %s objects:\n' "$(wc -l <"${errors}" | tr -d ' ')" >&2
-    cat "${errors}" >&2
-    exit 1
-fi
-
-printf 'Refreshed %s objects.\n' "${total}"
-SCRIPT
+        -c bash -- "${BASH_SOURCE[0]}"
 )
 
-main
+if [[ "${NIX_CACHE_TOUCH_WORKER:-}" == '1' ]]; then
+    touch_cache
+else
+    main
+fi

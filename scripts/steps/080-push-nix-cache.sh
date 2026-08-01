@@ -129,12 +129,14 @@ function main() (
             AWS_SECRET_ACCESS_KEY="${secret_access_key}" \
             sudo --preserve-env=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY \
             "${root_nix}" copy \
+            --option narinfo-cache-positive-ttl 0 \
             --to "${cache}" \
             --stdin <"${closure_file}"
     else
         AWS_ACCESS_KEY_ID="${access_key_id}" \
             AWS_SECRET_ACCESS_KEY="${secret_access_key}" \
             nix copy \
+            --option narinfo-cache-positive-ttl 0 \
             --to "${cache}" \
             --stdin <"${closure_file}"
     fi

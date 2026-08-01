@@ -1,5 +1,8 @@
 {
     "lsp": true,
+    "plugins": [
+        "github:Automattic/radical-pipelines"
+    ],
     "mcp": {
         "servers": {
             "skillsmp": {
