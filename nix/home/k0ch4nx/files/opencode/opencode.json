@@ -1,59 +1,92 @@
 {
-    "lsp": true,
-    "plugins": [
-        "github:Automattic/radical-pipelines"
-    ],
+    "$schema": "https://opencode.ai/config.json",
     "mcp": {
-        "servers": {
-            "skillsmp": {
-                "type": "local",
-                "command": [
-                    "npx",
-                    "-y",
-                    "skillsmp-mcp-lite"
-                ],
-                "environment": {
-                    "SKILLSMP_API_KEY": "{env:SKILLSMP_API_KEY}"
-                }
+        "skillsmp": {
+            "type": "local",
+            "command": [
+                "npx",
+                "-y",
+                "skillsmp-mcp-lite"
+            ],
+            "env": {
+                "SKILLSMP_API_KEY": "{env:SKILLSMP_API_KEY}"
             }
         }
     },
-    "permissions": [
-        { "action": "*", "resource": "*", "effect": "ask" },
-        { "action": "shell", "resource": "cat *", "effect": "allow" },
-        { "action": "shell", "resource": "curl *", "effect": "allow" },
-        { "action": "shell", "resource": "echo *", "effect": "allow" },
-        { "action": "shell", "resource": "find *", "effect": "allow" },
-        { "action": "shell", "resource": "grep *", "effect": "allow" },
-        { "action": "shell", "resource": "head *", "effect": "allow" },
-        { "action": "shell", "resource": "ls *", "effect": "allow" },
-        { "action": "shell", "resource": "sleep *", "effect": "allow" },
-        { "action": "shell", "resource": "wc *", "effect": "allow" },
-        { "action": "glob", "resource": "*", "effect": "allow" },
-        { "action": "grep", "resource": "*", "effect": "allow" },
-        { "action": "list", "resource": "*", "effect": "allow" },
-        { "action": "read", "resource": "*", "effect": "allow" },
-        { "action": "webfetch", "resource": "*", "effect": "allow" },
-        { "action": "websearch", "resource": "*", "effect": "allow" },
-        { "action": "todoread", "resource": "*", "effect": "allow" },
-        { "action": "todowrite", "resource": "*", "effect": "allow" },
-        { "action": "context7_*", "resource": "*", "effect": "allow" },
-        { "action": "playwright_*", "resource": "*", "effect": "allow" },
-        { "action": "grep_app_searchGitHub", "resource": "*", "effect": "allow" },
-        { "action": "skill", "resource": "*", "effect": "allow" }
+    "lsp": true,
+    "permission": {
+        "*": "ask",
+        "bash": {
+            "*": "ask",
+            "cat *": "allow",
+            "curl *": "allow",
+            "echo *": "allow",
+            "find *": "allow",
+            "grep *": "allow",
+            "head *": "allow",
+            "ls *": "allow",
+            "sleep *": "allow",
+            "wc *": "allow"
+        },
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "context7_query-docs": "allow",
+        "context7_resolve-library-id": "allow",
+        "playwright_*": "allow",
+        "read": "allow",
+        "todoread": "allow",
+        "todowrite": "allow",
+        "webfetch": "allow",
+        "websearch_web_search_exa": "allow",
+        "grep_app_searchGitHub": "allow",
+        "skill": "allow"
+    },
+    "enabled_providers": [
+        "lm-studio",
+        "openai",
+        "opencode-go",
     ],
-    "providers": {
+    "provider": {
         "lm-studio": {
             "name": "LMStudio",
-            "package": "aisdk:@ai-sdk/openai-compatible",
-            "settings": {
-                "baseURL": "http://127.0.0.1:1234/v1"
+            "npm": "@ai-sdk/openai-compatible",
+            "options": {
+                "baseURL": "http://127.0.0.1:1234/v1",
             },
-            "models": {
-                "openai/gpt-oss-20b": { "disabled": true },
-                "qwen/qwen3-30b-a3b-2507": { "disabled": true },
-                "qwen/qwen3-coder-30b": { "disabled": true }
+            "blacklist": [
+                "openai/gpt-oss-20b",
+                "qwen/qwen3-30b-a3b-2507",
+                "qwen/qwen3-coder-30b",
+            ]
+        },
+        "openai": {
+            "whitelist": [
+                "gpt-5.6-luna",
+                "gpt-5.6-terra",
+                "gpt-5.6-sol",
+            ]
+        },
+        "opencode-go": {
+            "whitelist": [
+                "deepseek-v4-flash",
+                "qwen3.7-plus",
+                "deepseek-v4-pro",
+                "kimi-k2.7-code",
+                "kimi-k3",
+            ],
+        },
+    },
+    "plugin": [
+        "@mem0/opencode-plugin",
+        [
+            "github:guochen-thlg/opencode-auto-provider-models",
+            {
+                "provider": [
+                    "lm-studio"
+                ]
             }
-        }
-    }
+        ],
+        "oh-my-opencode-slim@latest",
+    ]
 }
