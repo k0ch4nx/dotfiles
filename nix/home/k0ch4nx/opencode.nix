@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
 let
   opencodeDir = "${config.dotfiles.path}/nix/home/k0ch4nx/files/opencode";
@@ -14,8 +9,12 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/opencode.json";
       force = true;
     };
-    ".config/opencode/cli.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/cli.json";
+    ".config/opencode/oh-my-opencode-slim.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/oh-my-opencode-slim.json";
+      force = true;
+    };
+    ".config/opencode/tui.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/tui.json";
       force = true;
     };
   };
