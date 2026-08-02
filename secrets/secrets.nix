@@ -12,6 +12,7 @@ let
         ) (builtins.attrNames envFiles)
       );
   requiredSecretNames = (builtins.map (name: "env/${name}.age") envSecretNames) ++ [
+    "hcp-terraform-token.age"
     "ssh/id_ed25519.age"
     "ssh/id_ed25519_gh_work.age"
     "ssh/id_ed25519_sk.age"

@@ -38,19 +38,6 @@ function main() (
     [[ "${credentials}" == /* ]]
     [[ "${cache_url}" == s3://* ]]
 
-    function terraform_cli() {
-        if command -v terraform >/dev/null 2>&1; then
-            terraform "$@"
-        else
-            nix run \
-                --accept-flake-config \
-                --no-update-lock-file \
-                'nixpkgs#terraform' \
-                -- \
-                "$@"
-        fi
-    }
-
     function read_terraform_output() {
         local output_name="$1"
         local expected_length="$2"
@@ -83,12 +70,7 @@ function main() (
         access_key_id="${R2_RO_ACCESS_KEY_ID:-}"
         secret_access_key="${R2_RO_SECRET_ACCESS_KEY:-}"
     else
-        export TF_CLI_CONFIG_FILE="${HOME}/.config/terraform/terraform.tfrc"
-
-        if [[ ! -s "${TF_CLI_CONFIG_FILE}" ]]; then
-            printf 'Skipping the local R2 cache: run terraform login first.\n' >&2
-            return 0
-        fi
+        declare -F terraform_cli >/dev/null
 
         terraform_cli \
             -chdir="${DOTFILES_DIR}/infra/dotfiles" \

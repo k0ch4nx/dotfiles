@@ -12,7 +12,7 @@ main() (
 
     case "$(uname -s)" in
     Darwin)
-        sudo /nix/var/nix/profiles/default/bin/nix-env \
+        sudo -H /nix/var/nix/profiles/default/bin/nix-env \
             --profile /nix/var/nix/profiles/system \
             --set "${system_result}"
 
