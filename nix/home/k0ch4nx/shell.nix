@@ -223,7 +223,5 @@ in
 
     PYTHONPYCACHEPREFIX = "${config.xdg.cacheHome}/python/__pycache__";
     PYTHON_HISTORY = "${config.xdg.dataHome}/python/.python_history";
-
-    TF_CLI_CONFIG_FILE = "${config.xdg.configHome}/terraform/terraform.tfrc";
   };
 }

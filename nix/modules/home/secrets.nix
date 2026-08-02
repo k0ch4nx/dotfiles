@@ -23,6 +23,9 @@ in
     ];
 
     secrets = {
+      hcp-terraform-token = {
+        rekeyFile = ../../../secrets/hcp-terraform-token.age;
+      };
       nix-cache-local-private-key = {
         rekeyFile = ../../../secrets/nix-cache-local-private-key.age;
         path = "${cacheDirectory}/private-key";
