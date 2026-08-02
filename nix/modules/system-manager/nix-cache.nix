@@ -1,5 +1,4 @@
 {
-  config,
   flake,
   inputs,
   lib,
@@ -9,9 +8,6 @@
 let
   cache = import ../../r2-cache.nix;
   system = cache.systems.x86_64-linux;
-  resolvedDotfilesDir = import ../dotfiles-dir.nix {
-    fallback = "/home/k0ch4nx/src/github.com/k0ch4nx/dotfiles";
-  };
 in
 {
   imports = [
@@ -33,19 +29,5 @@ in
         Environment="AWS_SHARED_CREDENTIALS_FILE=${system.credentialsFile}"
       '';
     };
-
-    age = lib.optionalAttrs (!cache.isGitHubActions) {
-      identityPaths = [
-        "${resolvedDotfilesDir}/secrets/hosts/ubuntu-wsl-k0ch4nx-key.txt"
-      ];
-
-      secrets = cache.mkCredentialsSecrets {
-        inherit config;
-        inherit (system) credentialsFile;
-        group = system.credentialsGroup;
-      };
-    };
-
-    assertions = lib.optionals (!cache.isGitHubActions) cache.secretAssertions;
   };
 }

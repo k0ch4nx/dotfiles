@@ -1,8 +1,6 @@
 let
   accountId = "6118f982b348f7b37129655ee4160301";
   bucket = "nix-cache";
-  roAccessKeyFile = ../secrets/r2-ro-access-key-id.age;
-  roSecretKeyFile = ../secrets/r2-ro-secret-access-key.age;
   url = "s3://${bucket}?endpoint=${accountId}.r2.cloudflarestorage.com&scheme=https&region=auto&priority=30";
   localPublicKey = "nix-cache-local:GpHBxUjXDkgtfjKeAD/cuGY8pnCjSsZhc8plkslpfFk=";
   ciPublicKey = "nix-cache-ci:8fZtfHt16O6CvXJlPH0H4uqHTs61K5iruLvTAIFIPmU=";
@@ -19,39 +17,6 @@ let
     localPublicKey
     ciPublicKey
   ];
-  credentialsGenerator =
-    {
-      accessKeySecret,
-      secretKeySecret,
-    }:
-    {
-      dependencies = {
-        accessKeyId = accessKeySecret;
-        secretAccessKey = secretKeySecret;
-      };
-
-      script =
-        {
-          decrypt,
-          deps,
-          lib,
-          ...
-        }:
-        ''
-          accessKeyId="$(${decrypt} ${lib.escapeShellArg deps.accessKeyId.file})"
-          secretAccessKey="$(${decrypt} ${lib.escapeShellArg deps.secretAccessKey.file})"
-
-          [ -n "$accessKeyId" ]
-          [ -n "$secretAccessKey" ]
-          [ "''${#accessKeyId}" -eq 32 ]
-          [ "''${#secretAccessKey}" -eq 64 ]
-
-          printf \
-            '[default]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
-            "$accessKeyId" \
-            "$secretAccessKey"
-        '';
-    };
 in
 {
   inherit
@@ -64,62 +29,19 @@ in
     url
     ;
 
-  isGitHubActions = builtins.getEnv "GITHUB_ACTIONS" == "true";
-
   systems = {
     aarch64-darwin = {
       credentialsFile = "/var/root/.aws/credentials";
-      credentialsGroup = "wheel";
     };
 
     x86_64-linux = {
       credentialsFile = "/root/.aws/credentials";
-      credentialsGroup = "root";
     };
   };
-
-  secretAssertions = [
-    {
-      assertion = builtins.pathExists roAccessKeyFile;
-    }
-    {
-      assertion = builtins.pathExists roSecretKeyFile;
-    }
-  ];
 
   mkNixSettings = lib: {
     substituters = lib.mkForce substituters;
     trusted-public-keys = lib.mkForce trustedPublicKeys;
     fallback = true;
   };
-
-  mkCredentialsSecrets =
-    {
-      config,
-      credentialsFile,
-      group,
-    }:
-    {
-      r2-root-ro-access-key-id = {
-        rekeyFile = roAccessKeyFile;
-        intermediary = true;
-      };
-
-      r2-root-ro-secret-access-key = {
-        rekeyFile = roSecretKeyFile;
-        intermediary = true;
-      };
-
-      r2-root-credentials = {
-        rekeyFile = ../secrets/r2-credentials.age;
-        generator = credentialsGenerator {
-          accessKeySecret = config.age.secrets.r2-root-ro-access-key-id;
-          secretKeySecret = config.age.secrets.r2-root-ro-secret-access-key;
-        };
-        path = credentialsFile;
-        owner = "root";
-        inherit group;
-        mode = "600";
-      };
-    };
 }

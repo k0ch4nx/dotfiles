@@ -104,14 +104,6 @@ function main() (
             [[ -S /run/pcscd/pcscd.comm ]]
         fi
 
-        if [[ ! -f "${DOTFILES_DIR}/secrets/r2-credentials.age" ]]; then
-            nix run \
-                --accept-flake-config \
-                --impure \
-                --no-update-lock-file \
-                "path:.#agenix-rekey.${system}.generate"
-        fi
-
         nix run \
             --accept-flake-config \
             --impure \

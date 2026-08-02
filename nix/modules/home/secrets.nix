@@ -23,24 +23,11 @@ in
     ];
 
     secrets = {
-      r2-rw-access-key-id = {
-        rekeyFile = ../../../secrets/r2-rw-access-key-id.age;
-        path = "${cacheDirectory}/access-key-id";
-        mode = "600";
-      };
-
-      r2-rw-secret-access-key = {
-        rekeyFile = ../../../secrets/r2-rw-secret-access-key.age;
-        path = "${cacheDirectory}/secret-access-key";
-        mode = "600";
-      };
-
       nix-cache-local-private-key = {
         rekeyFile = ../../../secrets/nix-cache-local-private-key.age;
         path = "${cacheDirectory}/private-key";
         mode = "600";
       };
-
     };
   };
 

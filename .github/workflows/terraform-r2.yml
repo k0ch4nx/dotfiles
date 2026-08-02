@@ -1,19 +1,19 @@
 # yaml-language-server: $schema=https://schemastore.org/github-workflow.json
 
-name: Terraform R2
+name: Terraform
 
 on:
   pull_request:
     paths:
-      - "infra/r2/**"
-      - ".github/workflows/terraform.yml"
+      - "infra/**"
+      - ".github/workflows/terraform-r2.yml"
 
   push:
     branches:
       - main
     paths:
-      - "infra/r2/**"
-      - ".github/workflows/terraform.yml"
+      - "infra/**"
+      - ".github/workflows/terraform-r2.yml"
 
   workflow_dispatch:
 
@@ -21,9 +21,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: terraform-r2
+  group: terraform
   cancel-in-progress: false
-  queue: max
 
 jobs:
   check:
@@ -32,7 +31,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: infra/r2
+        working-directory: infra/dotfiles
 
     steps:
       - name: Checkout
@@ -44,7 +43,7 @@ jobs:
           terraform_wrapper: false
 
       - name: Check formatting
-        run: terraform fmt -check -recursive
+        run: terraform fmt -check -recursive ..
 
       - name: Initialize providers
         run: terraform init -backend=false -input=false -lockfile=readonly
@@ -52,22 +51,23 @@ jobs:
       - name: Validate configuration
         run: terraform validate -no-color
 
-  plan:
-    name: Plan
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+  apply:
+    name: Plan and apply
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     needs: check
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: infra/r2
+        working-directory: infra/dotfiles
 
     env:
-      TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORGANIZATION }}
-      TF_WORKSPACE: ${{ vars.TF_WORKSPACE }}
       TF_VAR_cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
       TF_VAR_bucket_name: ${{ vars.R2_CACHE_BUCKET }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.FLAKE_UPDATE_TOKEN }}
 
     steps:
       - name: Checkout
@@ -84,52 +84,6 @@ jobs:
 
       - name: Create saved plan
         run: terraform plan -input=false -no-color -out=tfplan
-
-      - name: Upload saved plan
-        uses: actions/upload-artifact@v7
-        with:
-          name: terraform-r2-plan
-          path: infra/r2/tfplan
-          if-no-files-found: error
-          retention-days: 1
-
-  apply:
-    name: Apply
-    if: >-
-      github.ref == 'refs/heads/main' &&
-      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-    needs: plan
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: infra/r2
-
-    env:
-      TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORGANIZATION }}
-      TF_WORKSPACE: ${{ vars.TF_WORKSPACE }}
-      TF_VAR_cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-      TF_VAR_bucket_name: ${{ vars.R2_CACHE_BUCKET }}
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v7
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v4
-        with:
-          terraform_wrapper: false
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
-      - name: Initialize Terraform
-        run: terraform init -input=false -lockfile=readonly
-
-      - name: Download saved plan
-        uses: actions/download-artifact@v8
-        with:
-          name: terraform-r2-plan
-          path: infra/r2
 
       - name: Apply saved plan
         run: terraform apply -input=false -no-color tfplan

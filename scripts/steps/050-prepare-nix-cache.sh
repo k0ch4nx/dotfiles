@@ -5,16 +5,7 @@ set -euo pipefail
 [[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
 function main() (
-    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
-        set +x
-
-        if [[ -z "${R2_RO_ACCESS_KEY_ID:-}" && -z "${R2_RO_SECRET_ACCESS_KEY:-}" ]]; then
-            return
-        fi
-
-        [[ -n "${R2_RO_ACCESS_KEY_ID:-}" ]]
-        [[ -n "${R2_RO_SECRET_ACCESS_KEY:-}" ]]
-    fi
+    set +x
 
     [[ -n "${DOTFILES_DIR:-}" ]]
 
@@ -47,74 +38,87 @@ function main() (
     [[ "${credentials}" == /* ]]
     [[ "${cache_url}" == s3://* ]]
 
-    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
-        sudo install -d -m 700 "${credentials%/*}"
+    function terraform_cli() {
+        if command -v terraform >/dev/null 2>&1; then
+            terraform "$@"
+        else
+            nix run \
+                --accept-flake-config \
+                --no-update-lock-file \
+                'nixpkgs#terraform' \
+                -- \
+                "$@"
+        fi
+    }
 
-        sudo sh -c '
-            umask 077
-            cat >"$1"
-            chmod 600 "$1"
-        ' sh "${credentials}" <<EOF
-[default]
-aws_access_key_id = ${R2_RO_ACCESS_KEY_ID}
-aws_secret_access_key = ${R2_RO_SECRET_ACCESS_KEY}
-EOF
+    function read_terraform_output() {
+        local output_name="$1"
+        local expected_length="$2"
+        local value
 
-        unset R2_RO_ACCESS_KEY_ID R2_RO_SECRET_ACCESS_KEY
-    elif ! sudo test -s "${credentials}"; then
-        local result
+        value="$(
+            terraform_cli \
+                -chdir="${DOTFILES_DIR}/infra/dotfiles" \
+                output \
+                -raw \
+                "${output_name}"
+        )"
 
-        case "${system}" in
-        aarch64-darwin)
-            result="$(
-                nix build \
-                    --accept-flake-config \
-                    --impure \
-                    --no-link \
-                    --no-update-lock-file \
-                    --print-out-paths \
-                    'path:.#darwinConfigurations.cache-bootstrap.config.system.build.toplevel'
-            )"
-
-            [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] ||
-                return 1
-
-            sudo "${result}/sw/bin/darwin-rebuild" activate
-            sudo launchctl \
-                kickstart -k system/org.nixos.activate-agenix
-            ;;
-        x86_64-linux)
-            result="$(
-                nix build \
-                    --accept-flake-config \
-                    --impure \
-                    --no-link \
-                    --no-update-lock-file \
-                    --print-out-paths \
-                    'path:.#systemConfigs.cache-bootstrap'
-            )"
-
-            [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] ||
-                return 1
-
-            sudo "${result}/bin/register-profile"
-            sudo "${result}/bin/activate"
-            sudo systemctl daemon-reload
-            sudo systemctl \
-                start agenix-install-secrets.service
-            ;;
-        *)
+        if [[ "${#value}" -ne "${expected_length}" || "${value}" == *$'\n'* ]]; then
+            printf 'Terraform output %s has an invalid value.\n' "${output_name}" >&2
             return 1
-            ;;
-        esac
+        fi
 
-        for _ in {1..30}; do
-            sudo test -s "${credentials}" && break
-            sleep 1
-        done
+        printf '%s' "${value}"
+    }
 
-        sudo test -s "${credentials}" || return 1
+    local access_key_id
+    local secret_access_key
+
+    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+        if [[ -z "${R2_RO_ACCESS_KEY_ID:-}" && -z "${R2_RO_SECRET_ACCESS_KEY:-}" ]]; then
+            return 0
+        fi
+
+        access_key_id="${R2_RO_ACCESS_KEY_ID:-}"
+        secret_access_key="${R2_RO_SECRET_ACCESS_KEY:-}"
+    else
+        export TF_CLI_CONFIG_FILE="${HOME}/.config/terraform/terraform.tfrc"
+
+        if [[ ! -s "${TF_CLI_CONFIG_FILE}" ]]; then
+            printf 'Skipping the local R2 cache: run terraform login first.\n' >&2
+            return 0
+        fi
+
+        terraform_cli \
+            -chdir="${DOTFILES_DIR}/infra/dotfiles" \
+            init \
+            -input=false \
+            -lockfile=readonly
+
+        access_key_id="$(read_terraform_output 'r2_ro_access_key_id' 32)"
+        secret_access_key="$(read_terraform_output 'r2_ro_secret_access_key' 64)"
     fi
+
+    [[ "${#access_key_id}" -eq 32 ]]
+    [[ "${#secret_access_key}" -eq 64 ]]
+
+    local temporary_credentials
+    temporary_credentials="$(mktemp)"
+    trap 'rm -f -- "${temporary_credentials}"' EXIT
+    umask 077
+
+    printf \
+        '[default]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
+        "${access_key_id}" \
+        "${secret_access_key}" \
+        >"${temporary_credentials}"
+
+    sudo install -d -m 700 "${credentials%/*}"
+    sudo install -m 600 "${temporary_credentials}" "${credentials}"
+
+    unset access_key_id secret_access_key
+    unset R2_RO_ACCESS_KEY_ID R2_RO_SECRET_ACCESS_KEY
 
     case "${system}" in
     aarch64-darwin)

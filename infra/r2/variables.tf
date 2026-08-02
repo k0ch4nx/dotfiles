@@ -26,3 +26,7 @@ variable "location" {
     error_message = "location must be one of: apac, eeur, enam, weur, wnam, oc."
   }
 }
+
+variable "credential_generations" {
+  type = set(string)
+}
