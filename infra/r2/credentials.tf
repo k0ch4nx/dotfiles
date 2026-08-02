@@ -1,13 +1,11 @@
-data "cloudflare_account_api_token_permission_groups" "r2_read" {
+data "cloudflare_account_api_token_permission_groups_list" "r2_read" {
   account_id = var.cloudflare_account_id
-  name       = "Workers%20R2%20Storage%20Bucket%20Item%20Read"
-  scope      = "com.cloudflare.edge.r2.bucket"
+  name       = "Workers R2 Storage Bucket Item Read"
 }
 
-data "cloudflare_account_api_token_permission_groups" "r2_write" {
+data "cloudflare_account_api_token_permission_groups_list" "r2_write" {
   account_id = var.cloudflare_account_id
-  name       = "Workers%20R2%20Storage%20Bucket%20Item%20Write"
-  scope      = "com.cloudflare.edge.r2.bucket"
+  name       = "Workers R2 Storage Bucket Item Write"
 }
 
 locals {
@@ -21,11 +19,11 @@ locals {
 
   permission_group_ids = {
     read = [
-      one(data.cloudflare_account_api_token_permission_groups.r2_read.permission_groups).id,
+      one(data.cloudflare_account_api_token_permission_groups_list.r2_read.result).id,
     ]
     write = [
-      one(data.cloudflare_account_api_token_permission_groups.r2_read.permission_groups).id,
-      one(data.cloudflare_account_api_token_permission_groups.r2_write.permission_groups).id,
+      one(data.cloudflare_account_api_token_permission_groups_list.r2_read.result).id,
+      one(data.cloudflare_account_api_token_permission_groups_list.r2_write.result).id,
     ]
   }
 
