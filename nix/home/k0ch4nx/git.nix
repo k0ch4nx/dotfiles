@@ -21,7 +21,7 @@ let
         [user]
             email = 95961982+k0ch4nx@users.noreply.github.com
             name = k0ch4nx
-            signingKey = ~/.ssh/id_ed25519_sk_gh_sign_pers.pub
+            signingKey = ~/.ssh/id_ed25519_gh_sign_pers.pub
         [core]
             sshCommand = ssh -i ~/.ssh/id_ed25519_sk_gh_auth_pers -o IdentitiesOnly=yes
       '';

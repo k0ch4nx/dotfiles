@@ -13,8 +13,6 @@ in
 {
   imports = [
     inputs.agenix.homeManagerModules.default
-    inputs.agenix-rekey.homeManagerModules.default
-    flake.modules.agenix.rekey
   ];
 
   age = {
@@ -24,10 +22,10 @@ in
 
     secrets = {
       hcp-terraform-token = {
-        rekeyFile = ../../../secrets/hcp-terraform-token.age;
+        file = ../../../secrets/hcp-terraform-token.age;
       };
       nix-cache-local-private-key = {
-        rekeyFile = ../../../secrets/nix-cache-local-private-key.age;
+        file = ../../../secrets/nix-cache-local-private-key.age;
         path = "${cacheDirectory}/private-key";
         mode = "600";
       };

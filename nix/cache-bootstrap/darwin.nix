@@ -6,11 +6,6 @@
 {
   imports = [ flake.darwinModules.nix-cache ];
 
-  age.rekey.localStorageDir = import ../modules/agenix/rekey-dirs.nix {
-    hostName = "macbook-pro";
-    scope = "system";
-  };
-
   nixpkgs.hostPlatform = "aarch64-darwin";
   networking.hostName = "MacBook-Pro";
 

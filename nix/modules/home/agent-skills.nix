@@ -143,7 +143,6 @@
 
     skills.enableAll = true;
 
-    targets.codex.enable = true;
     targets.opencode.enable = true;
   };
 }

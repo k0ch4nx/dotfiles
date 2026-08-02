@@ -8,26 +8,6 @@ inputs:
 let
   cache = import ./nix/r2-cache.nix;
 
-  # HACK: agenix-rekey doesn't expose an `armor` option for generated secrets.
-  # Wrap rage so that encryption produces ASCII-armored .age files.
-  # -a only applies when encrypting; detect -e/--encrypt and add it there.
-  rageWithArmor =
-    p:
-    p.writeShellScriptBin "rage" ''
-      set -euo pipefail
-      is_encrypt=0
-      for arg in "$@"; do
-        case "$arg" in
-          -e|--encrypt) is_encrypt=1 ;;
-        esac
-      done
-      if [[ "$is_encrypt" == 1 ]]; then
-        exec ${p.rage}/bin/rage -a "$@"
-      else
-        exec ${p.rage}/bin/rage "$@"
-      fi
-    '';
-
   systems = [
     "aarch64-darwin"
     "x86_64-linux"
@@ -56,12 +36,10 @@ let
     let
       pkgs = inputs.nixpkgs.legacyPackages.${system};
     in
-    builtins.mapAttrs
-      (name: app: {
-        type = "app";
-        program = "${app pkgs}/bin/${name}";
-      })
-      flake-file-eval.config.flake-file.apps
+    builtins.mapAttrs (name: app: {
+      type = "app";
+      program = "${app pkgs}/bin/${name}";
+    }) flake-file-eval.config.flake-file.apps
   );
 in
 blueprint
@@ -71,15 +49,12 @@ blueprint
   cacheSettings = cache;
 
   configurationBuilds = {
-    macbook-pro.system =
-      blueprint.darwinConfigurations.macbook-pro.config.system.build.toplevel;
+    macbook-pro.system = blueprint.darwinConfigurations.macbook-pro.config.system.build.toplevel;
 
     ubuntu-wsl = {
       system = blueprint.systemConfigs.ubuntu-wsl;
       home =
-        blueprint.legacyPackages.x86_64-linux.homeConfigurations
-          ."k0ch4nx@ubuntu-wsl"
-          .activationPackage;
+        blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl".activationPackage;
     };
   };
 
@@ -107,34 +82,4 @@ blueprint
 
   homeConfigurations."k0ch4nx@ubuntu-wsl" =
     blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl";
-
-  agenix-rekey =
-    (inputs.agenix-rekey.configure {
-      userFlake = inputs.self;
-      agePackage = rageWithArmor;
-
-      darwinConfigurations = {
-        inherit (inputs.self.darwinConfigurations) macbook-pro;
-      };
-
-      systems = [
-        "aarch64-darwin"
-      ];
-    })
-    // (inputs.agenix-rekey.configure {
-      userFlake = inputs.self;
-      agePackage = rageWithArmor;
-
-      nixosConfigurations = {
-        inherit (inputs.self.systemConfigs) ubuntu-wsl;
-      };
-
-      homeConfigurations = {
-        inherit (inputs.self.homeConfigurations) "k0ch4nx@ubuntu-wsl";
-      };
-
-      systems = [
-        "x86_64-linux"
-      ];
-    });
 }

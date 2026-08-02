@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://schemastore.org/github-workflow.json
 
-name: Update flake.lock
+name: Update neovim lock files
 
 on:
   schedule:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: flake-update
+  group: neovim-lock-update
   cancel-in-progress: false
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
       proceed: ${{ steps.pull-request.outputs.proceed }}
 
     steps:
-      - name: Check for an open flake update pull request
+      - name: Check for an open neovim lock update pull request
         id: pull-request
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -33,7 +33,7 @@ jobs:
               --state open \
               --base main \
               --json number,headRefName \
-              --jq '.[] | select(.headRefName | startswith("automation/update-flake-lock-")) | .number' \
+              --jq '.[] | select(.headRefName | startswith("automation/update-neovim-lock-")) | .number' \
               | head -n 1
           )"
 
@@ -64,21 +64,36 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update flake.lock
+      - name: Install Neovim
+        run: nix profile install nixpkgs#neovim
+
+      - name: Link the neovim configuration
+        run: |
+          mkdir -p ~/.config
+          ln -sfn "${{ github.workspace }}/nix/home/k0ch4nx/files/nvim" ~/.config/nvim
+
+      - name: Update neovim lock files
         id: update
         env:
-          DOTFILES_DIR: ${{ github.workspace }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./scripts/steps/030-update-flake-lock.sh
+          ./scripts/steps/100-update-neovim-plugins.sh
+          ./scripts/steps/130-update-neovim-mason-packages.sh
 
-          unexpected_paths="$(git diff --name-only -- . ':(exclude)flake.lock')"
+          unexpected_paths="$(
+            git diff --name-only \
+              -- ':(exclude)nix/home/k0ch4nx/files/nvim/lazy-lock.json' \
+              ':(exclude)nix/home/k0ch4nx/files/nvim/mason-lock.json'
+          )"
           if [[ -n "${unexpected_paths}" ]]; then
             printf 'Unexpected paths changed:\n%s\n' "${unexpected_paths}" >&2
             exit 1
           fi
 
-          if git diff --quiet -- flake.lock; then
+          if \
+            git diff --quiet \
+              -- nix/home/k0ch4nx/files/nvim/lazy-lock.json \
+              nix/home/k0ch4nx/files/nvim/mason-lock.json; then
             printf 'changed=false\n' >>"${GITHUB_OUTPUT}"
           else
             printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
@@ -92,15 +107,17 @@ jobs:
           token: ${{ secrets.FLAKE_UPDATE_TOKEN }}
           branch-token: ${{ secrets.GITHUB_TOKEN }}
           sign-commits: true
-          branch: automation/update-flake-lock
+          branch: automation/update-neovim-lock
           branch-suffix: timestamp
           base: main
           delete-branch: true
-          add-paths: flake.lock
-          commit-message: "chore: update flake.lock"
-          title: "chore: update flake.lock"
+          add-paths: |
+            nix/home/k0ch4nx/files/nvim/lazy-lock.json
+            nix/home/k0ch4nx/files/nvim/mason-lock.json
+          commit-message: "chore: update neovim lock files"
+          title: "chore: update neovim lock files"
           body: |
-            Automated hourly flake input update.
+            Automated daily neovim lock file update.
 
             Build validation is handled by the pull request checks.
 
