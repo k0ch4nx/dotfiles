@@ -10,19 +10,14 @@ function find_hcp_terraform_token() (
     [[ -n "${DOTFILES_DIR:-}" ]]
     [[ -n "${DOTFILES_HOST:-}" ]]
 
-    local rekeyed_dir="${DOTFILES_DIR}/secrets/rekeyed/${DOTFILES_HOST}/home"
-    local -a rekeyed_files
+    local token_file="${DOTFILES_DIR}/secrets/hcp-terraform-token.age"
 
-    shopt -s nullglob
-    rekeyed_files=("${rekeyed_dir}"/*-hcp-terraform-token.age)
-    shopt -u nullglob
-
-    if [[ "${#rekeyed_files[@]}" -ne 1 ]]; then
-        printf 'Expected one rekeyed HCP Terraform token in %s.\n' "${rekeyed_dir}" >&2
+    if [[ ! -r "${token_file}" ]]; then
+        printf 'Expected the canonical HCP Terraform token at %s.\n' "${token_file}" >&2
         return 1
     fi
 
-    printf '%s' "${rekeyed_files[0]}"
+    printf '%s' "${token_file}"
 )
 
 function terraform_cli() (
@@ -35,8 +30,8 @@ function terraform_cli() (
     local identity="${DOTFILES_DIR}/secrets/hosts/${DOTFILES_HOST}-${DOTFILES_USER}-key.txt"
     [[ -r "${identity}" ]]
 
-    local rekeyed_file
-    rekeyed_file="$(find_hcp_terraform_token)"
+    local token_file
+    token_file="$(find_hcp_terraform_token)"
 
     local rage
     if command -v rage >/dev/null 2>&1; then
@@ -51,7 +46,7 @@ function terraform_cli() (
     fi
 
     local token
-    token="$("${rage}" --decrypt --identity "${identity}" "${rekeyed_file}")"
+    token="$("${rage}" --decrypt --identity "${identity}" "${token_file}")"
 
     if [[ -z "${token}" || "${token}" == *$'\n'* || "${token}" == *$'\r'* ]]; then
         printf 'The HCP Terraform token has an invalid value.\n' >&2

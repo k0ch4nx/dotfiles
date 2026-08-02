@@ -8,11 +8,6 @@
     flake.modules.system-manager.yubikey
   ];
 
-  age.rekey.localStorageDir = import ../../modules/agenix/rekey-dirs.nix {
-    hostName = "ubuntu-wsl";
-    scope = "system";
-  };
-
   nixpkgs.hostPlatform = "x86_64-linux";
 
   nix = {

@@ -27,10 +27,6 @@
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    agenix-rekey = {
-      url = "github:oddlama/agenix-rekey";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     agent-skills = {
       url = "github:Kyure-A/agent-skills-nix";
       inputs = {

@@ -32,11 +32,6 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Rekey secrets for evaluation
-        env:
-          DOTFILES_DIR: ${{ github.workspace }}
-        run: ./scripts/steps/040-rekey-secrets.sh
-
       - name: Prepare the Nix cache
         env:
           DOTFILES_DIR: ${{ github.workspace }}
@@ -119,13 +114,6 @@ jobs:
           exec: |
             ./scripts/steps/010-install-nix.sh
             sudo ln -s /nix/var/nix/profiles/default/bin/nix /usr/local/bin/nix
-
-      - name: Rekey secrets for evaluation
-        uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
-        with:
-          distro: Ubuntu
-          working-dir: /tmp/dotfiles
-          exec: ./scripts/steps/040-rekey-secrets.sh
 
       - name: Prepare the Nix cache
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51

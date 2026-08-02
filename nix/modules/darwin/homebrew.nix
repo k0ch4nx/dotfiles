@@ -52,6 +52,7 @@
       "steinberg-download-assistant"
       "steinberg-library-manager"
       "tor-browser"
+      "vibe-island"
     ];
 
     masApps = {

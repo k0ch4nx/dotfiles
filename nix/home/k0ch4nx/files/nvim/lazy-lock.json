@@ -53,7 +53,7 @@
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
   "treesitter-parser-registry": { "branch": "main", "commit": "6eb15358bb9fc88f0d3401d8538d56652e9bdf3c" },
   "vim-matchup": { "branch": "master", "commit": "5e3c4a3274a9766aee520caebb52572c007fc4f8" },
-  "vimdoc-ja": { "branch": "master", "commit": "839934dc4095b45a45870d5daa6764565cde99c2" },
+  "vimdoc-ja": { "branch": "master", "commit": "b3e5d3a845b8114fdb274634c20dce2fa1fe7fea" },
   "wezterm-types": { "branch": "main", "commit": "ad5d3319a9b3358a7953db34677a554a4268ae58" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "windsurf.nvim": { "branch": "main", "commit": "821b570b526dbb05b57aa4ded578b709a704a38a" }

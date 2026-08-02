@@ -44,7 +44,6 @@ function main() {
 
     source "${DOTFILES_DIR}/scripts/steps/020-ensure-host-identity.sh"
     source "${DOTFILES_DIR}/scripts/steps/030-update-flake-lock.sh"
-    source "${DOTFILES_DIR}/scripts/steps/040-rekey-secrets.sh"
     source "${DOTFILES_DIR}/scripts/steps/045-prepare-terraform-auth.sh"
     source "${DOTFILES_DIR}/scripts/steps/050-prepare-nix-cache.sh"
     source "${DOTFILES_DIR}/scripts/steps/060-build-nix-configuration.sh"

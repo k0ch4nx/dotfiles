@@ -12,8 +12,6 @@ in
 {
   imports = [
     inputs.agenix.darwinModules.default
-    inputs.agenix-rekey.darwinModules.default
-    flake.modules.agenix.rekey
   ];
 
   nix.settings = cache.mkNixSettings lib;

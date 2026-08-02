@@ -10,13 +10,6 @@ let
   system = cache.systems.x86_64-linux;
 in
 {
-  imports = [
-    flake.modules.system-manager.agenix-compat
-    flake.modules.system-manager.agenix-rekey
-    inputs.agenix.nixosModules.default
-    inputs.agenix-rekey.nixosModules.default
-  ];
-
   config = {
     users.groups.keys = { };
 

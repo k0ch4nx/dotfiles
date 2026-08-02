@@ -31,12 +31,13 @@
                 "mcps": []
             },
             "council": {
-                "model": "opencode-go/kimi-k2.7-code",
+                "model": "opencode-go/deepseek-v4-flash",
+                "variant": "max",
                 "skills": [],
                 "mcps": []
             },
             "librarian": {
-                "model": "opencode-go/deepseek-v4-flash",
+                "model": "opencode-go/mimo-v2.5",
                 "variant": "max",
                 "skills": [],
                 "mcps": [
@@ -46,7 +47,7 @@
                 ]
             },
             "designer": {
-                "model": "opencode-go/qwen3.7-plus",
+                "model": "opencode-go/kimi-k2.7-code",
                 "variant": "max",
                 "skills": [
                     "agent-browser"

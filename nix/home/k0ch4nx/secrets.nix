@@ -13,7 +13,7 @@ in
     builtins.map (name: {
       name = "env-${name}";
       value = {
-        rekeyFile = ../../../secrets/env/${name}.age;
+        file = ../../../secrets/env/${name}.age;
         path = "${config.programs.zsh.dotDir}/env/${name}";
         mode = "600";
       };
