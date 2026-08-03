@@ -70,7 +70,7 @@
         "opencode-go": {
             "whitelist": [
                 "deepseek-v4-flash",
-                "mimo-v2-5",
+                "mimo-v2.5",
                 "qwen3.7-plus",
                 "deepseek-v4-pro",
                 "kimi-k2.7-code",
