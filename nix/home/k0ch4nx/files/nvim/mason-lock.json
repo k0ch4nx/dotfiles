@@ -30,7 +30,7 @@
   "rust-analyzer": "2026-07-27",
   "shellcheck": "v0.11.0",
   "shfmt": "v3.13.1",
-  "snyk": "v1.1306.2",
+  "snyk-ls": "v20250325.145416",
   "starpls": "v0.1.22",
   "statix": "v0.5.8",
   "svelte-language-server": "0.18.3",
