@@ -3,7 +3,6 @@
   "checkstyle": "checkstyle-13.5.0",
   "java-debug-adapter": "0.59.0",
   "java-test": "0.45.0",
-  "shellcheck": "v0.11.0",
   "shfmt": "v3.13.1",
   "yamlfmt": "v0.21.0",
   "yamllint": "nil"
