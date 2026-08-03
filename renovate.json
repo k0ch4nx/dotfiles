@@ -7,5 +7,15 @@
     "enabledManagers": [
         "github-actions"
     ],
-    "prHourlyLimit": 1
+    "prHourlyLimit": 1,
+    "dependencyDashboard": false,
+    "packageRules": [
+        {
+            "matchManagers": [
+                "github-actions"
+            ],
+            "automerge": true,
+            "platformAutomerge": true
+        }
+    ]
 }
