@@ -60,7 +60,7 @@ return {
         end, {})
 
         return {
-            max_concurrent_installers = math.huge,
+            max_concurrent_installers = 8,
             ui = {
                 border = "rounded",
                 backdrop = 100,
