@@ -8,6 +8,8 @@ function main() {
     nvim \
         --headless \
         -c 'luafile -' <<'LUA'
+vim.cmd("MasonLockRestore")
+
 local ok, err = pcall(vim.cmd, "MasonInstallAll")
 if not ok then
     print(err)

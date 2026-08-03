@@ -7,6 +7,5 @@
     "enabledManagers": [
         "github-actions"
     ],
-    "commitMessagePrefix": "ci",
     "prHourlyLimit": 1
 }
