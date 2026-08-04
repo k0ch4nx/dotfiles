@@ -12,12 +12,24 @@ return {
             local lsp_map = require("mason-lspconfig.mappings").get_mason_map()
             local registry = require("mason-registry")
 
+            local package_overrides = {
+                snyk_ls = "snyk",
+            }
+
             local function to_package_name(alias)
-                return lsp_map.lspconfig_to_package[alias]
+                local package_name = package_overrides[alias]
+                    or lsp_map.lspconfig_to_package[alias]
+
+                assert(package_name, ("Mason package not found for %q"):format(alias))
+
+                return package_name
             end
 
             local targets = util.table.unique(
-                vim.tbl_map(to_package_name, require("mason-lspconfig.settings").current.ensure_installed),
+                vim.tbl_map(
+                    to_package_name,
+                    require("mason-lspconfig.settings").current.ensure_installed
+                ),
                 require("mason-null-ls.settings").current.ensure_installed,
                 require("mason-nvim-dap.settings").current.ensure_installed
             )
@@ -25,27 +37,38 @@ return {
             local done = 0
             local total = 0
 
-            local function make_installer(pkg_name)
-                local pkg = registry.get_package(pkg_name)
-                return function()
-                    local installed_version = pkg:get_installed_version()
-                    local latest_version = pkg:get_latest_version()
+            local function make_installer(package_name)
+                local package = registry.get_package(package_name)
 
-                    if (installed_version and installed_version == latest_version) or pkg:is_installing() or pkg:is_uninstalling() then
+                return function()
+                    local installed_version = package:get_installed_version()
+                    local latest_version = package:get_latest_version()
+
+                    if
+                        (installed_version and installed_version == latest_version)
+                        or package:is_installing()
+                        or package:is_uninstalling()
+                    then
                         return
                     end
+
                     total = total + 1
+
                     async.wait(function(resolve)
-                        pkg:install({}, function(success, err)
+                        package:install({}, function(success, err)
                             done = done + 1
-                            print(("[%" .. #tostring(total) .. "d/%d] %s %s -> %s"):format(
-                                done,
-                                total,
-                                pkg.name,
-                                installed_version or "-",
-                                latest_version
-                            ))
-                            resolve({ success, pkg, err })
+
+                            print(
+                                ("[%" .. #tostring(total) .. "d/%d] %s %s -> %s"):format(
+                                    done,
+                                    total,
+                                    package.name,
+                                    installed_version or "-",
+                                    latest_version
+                                )
+                            )
+
+                            resolve({ success, package, err })
                         end)
                     end)
                 end
