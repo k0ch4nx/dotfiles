@@ -2,14 +2,6 @@ data "github_repository" "this" {
   full_name = "${var.owner}/${var.repository}"
 }
 
-resource "github_actions_secret" "r2" {
-  for_each = nonsensitive(toset(keys(var.actions_secrets)))
-
-  repository  = data.github_repository.this.name
-  secret_name = each.key
-  value       = var.actions_secrets[each.key]
-}
-
 resource "github_repository_ruleset" "main" {
   name        = "main"
   repository  = data.github_repository.this.name
