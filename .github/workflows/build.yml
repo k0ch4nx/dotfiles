@@ -60,11 +60,8 @@ jobs:
       - name: Sign and upload the closure
         if: *main-only
         env: &r2-env-darwin
-          R2_RW_ACCESS_KEY_ID: ${{ secrets.R2_RW_ACCESS_KEY_ID }}
-          R2_RW_SECRET_ACCESS_KEY: ${{ secrets.R2_RW_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
           DOTFILES_DIR: ${{ github.workspace }}
+          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
         run: ./scripts/steps/080-push-nix-cache.sh
 
       - name: Touch the cache
@@ -81,7 +78,7 @@ jobs:
       DOTFILES_HOST: ubuntu-wsl
       DOTFILES_USER: k0ch4nx
       NIX_CACHE_PRIVATE_KEY_FILE: /tmp/nix-cache-ci-private-key
-      WSLENV: BASH_ENV/u:DOTFILES_DIR/u:DOTFILES_HOST/u:DOTFILES_USER/u:GITHUB_ACTIONS/u:NIX_EXTRA_CONF/u:TF_TOKEN_app_terraform_io/u:R2_RW_ACCESS_KEY_ID/u:R2_RW_SECRET_ACCESS_KEY/u:CLOUDFLARE_ACCOUNT_ID/u:R2_CACHE_BUCKET/u:NIX_CACHE_PRIVATE_KEY/u:NIX_CACHE_PRIVATE_KEY_FILE/u
+      WSLENV: BASH_ENV/u:DOTFILES_DIR/u:DOTFILES_HOST/u:DOTFILES_USER/u:GITHUB_ACTIONS/u:NIX_EXTRA_CONF/u:TF_TOKEN_app_terraform_io/u:NIX_CACHE_PRIVATE_KEY/u:NIX_CACHE_PRIVATE_KEY_FILE/u
 
     steps:
       - name: Install Ubuntu on WSL
@@ -148,10 +145,7 @@ jobs:
         if: *main-only
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         env: &r2-env-wsl
-          R2_RW_ACCESS_KEY_ID: ${{ secrets.R2_RW_ACCESS_KEY_ID }}
-          R2_RW_SECRET_ACCESS_KEY: ${{ secrets.R2_RW_SECRET_ACCESS_KEY }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          R2_CACHE_BUCKET: ${{ vars.R2_CACHE_BUCKET }}
+          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
