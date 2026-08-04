@@ -139,6 +139,10 @@ function main() (
     find_hcp_terraform_token >/dev/null
     find_yubikey_identity >/dev/null
     find_age_plugin_yubikey >/dev/null
+
+    # Read token once and export for subsequent steps
+    export TF_TOKEN_app_terraform_io
+    TF_TOKEN_app_terraform_io="$(read_hcp_terraform_token)"
 )
 
 main

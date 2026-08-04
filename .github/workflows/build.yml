@@ -36,7 +36,7 @@ jobs:
         env:
           DOTFILES_DIR: ${{ github.workspace }}
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
-        run: ./scripts/steps/050-prepare-nix-cache.sh
+        run: ./scripts/steps/040-prepare-nix-cache.sh
 
       - name: Build the configuration
         env:
@@ -118,7 +118,7 @@ jobs:
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
-          exec: ./scripts/steps/050-prepare-nix-cache.sh
+          exec: ./scripts/steps/040-prepare-nix-cache.sh
 
       - name: Build the configuration
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
