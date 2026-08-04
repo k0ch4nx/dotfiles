@@ -37,10 +37,9 @@ variable "github_repository" {
   default = "dotfiles"
 }
 
-# Keep the previous generation during rotation so consumers can transition after apply.
 variable "r2_credential_generations" {
   type    = set(string)
-  default = ["v1", "v2"]
+  default = ["v1"]
 
   validation {
     condition = alltrue([
@@ -52,7 +51,7 @@ variable "r2_credential_generations" {
 
 variable "active_r2_credential_generation" {
   type    = string
-  default = "v2"
+  default = "v1"
 
   validation {
     condition     = length(trimspace(var.active_r2_credential_generation)) > 0
