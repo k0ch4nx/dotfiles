@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: Rebase Pull Requests
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  rebase:
+    name: Rebase open pull requests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Rebase pull requests onto main
+        uses: peter-evans/rebase@v4
+        with:
+          base: main
+          exclude-drafts: true
