@@ -11,10 +11,8 @@ function main() (
 
     cd -- "${DOTFILES_DIR}"
 
-    if ! declare -F read_hcp_terraform_token >/dev/null; then
-        # shellcheck disable=SC1091
-        source "${DOTFILES_DIR}/scripts/steps/045-prepare-terraform-auth.sh"
-    fi
+    # shellcheck disable=SC1091
+    source "${DOTFILES_DIR}/scripts/lib/r2-terraform-outputs.sh"
 
     local system
     system="$(
@@ -37,184 +35,27 @@ function main() (
     local cache_disable_file="${NIX_CACHE_DISABLE_FILE:-/tmp/dotfiles-disable-r2-cache}"
     rm -f -- "${cache_disable_file}"
 
-    local temporary_directory
-    temporary_directory="$(mktemp -d)"
-    trap 'rm -rf -- "${temporary_directory}"' EXIT
-    umask 077
-
-    local hcp_token
-    hcp_token="$(read_hcp_terraform_token)"
-
-    if [[ -z "${hcp_token}" || "${hcp_token}" == *$'\n'* || "${hcp_token}" == *$'\r'* ]]; then
-        printf 'The HCP Terraform token has an invalid value.\n' >&2
-        return 1
-    fi
-
-    function fetch_hcp_terraform_outputs() {
-        local token="$1"
-        local workspace_response="${temporary_directory}/workspace.json"
-        local outputs_response="${temporary_directory}/outputs.json"
-
-        curl \
-            --fail \
-            --silent \
-            --show-error \
-            --location \
-            --header "Authorization: Bearer ${token}" \
-            --header 'Content-Type: application/vnd.api+json' \
-            --output "${workspace_response}" \
-            'https://app.terraform.io/api/v2/organizations/k0ch4nx/workspaces/nix-cache'
-
-        local workspace_id
-        workspace_id="$(
-            HCP_RESPONSE_FILE="${workspace_response}" \
-                nix eval \
-                --impure \
-                --raw \
-                --expr '
-                    let
-                      response = builtins.fromJSON (
-                        builtins.readFile (builtins.getEnv "HCP_RESPONSE_FILE")
-                      );
-                    in
-                    response.data.id
-                '
-        )"
-
-        if [[ "${workspace_id}" != ws-* ]]; then
-            printf 'HCP Terraform returned an invalid workspace ID.\n' >&2
-            return 1
-        fi
-
-        curl \
-            --fail \
-            --silent \
-            --show-error \
-            --location \
-            --header "Authorization: Bearer ${token}" \
-            --header 'Content-Type: application/vnd.api+json' \
-            --output "${outputs_response}" \
-            "https://app.terraform.io/api/v2/workspaces/${workspace_id}/current-state-version-outputs?page%5Bsize%5D=100"
-
-        printf '%s' "${outputs_response}"
-    }
-
-    function read_hcp_terraform_output() {
-        local outputs_file="$1"
-        local output_name="$2"
-        local token="$3"
-
-        local output_id
-        output_id="$(
-            HCP_RESPONSE_FILE="${outputs_file}" \
-                HCP_OUTPUT_NAME="${output_name}" \
-                nix eval \
-                --impure \
-                --raw \
-                --expr '
-                    let
-                      response = builtins.fromJSON (
-                        builtins.readFile (builtins.getEnv "HCP_RESPONSE_FILE")
-                      );
-                      outputName = builtins.getEnv "HCP_OUTPUT_NAME";
-                      matches = builtins.filter (
-                        output: output.attributes.name == outputName
-                      ) response.data;
-                    in
-                    if builtins.length matches != 1 then
-                      throw "Expected exactly one matching Terraform output"
-                    else
-                      (builtins.head matches).id
-                '
-        )"
-
-        if [[ "${output_id}" != wsout-* ]]; then
-            printf 'Terraform output %s has an invalid ID.\n' "${output_name}" >&2
-            return 1
-        fi
-
-        local output_response="${temporary_directory}/${output_name}.json"
-
-        curl \
-            --fail \
-            --silent \
-            --show-error \
-            --location \
-            --header "Authorization: Bearer ${token}" \
-            --header 'Content-Type: application/vnd.api+json' \
-            --output "${output_response}" \
-            "https://app.terraform.io/api/v2/state-version-outputs/${output_id}"
-
-        local value
-        value="$(
-            HCP_RESPONSE_FILE="${output_response}" \
-                nix eval \
-                --impure \
-                --raw \
-                --expr '
-                    let
-                      response = builtins.fromJSON (
-                        builtins.readFile (builtins.getEnv "HCP_RESPONSE_FILE")
-                      );
-                      value = response.data.attributes.value;
-                    in
-                    if !builtins.isString value then
-                      throw "Expected the Terraform output to be a string"
-                    else
-                      value
-                '
-        )"
-
-        if [[ -z "${value}" || "${value}" == *$'\n'* || "${value}" == *$'\r'* ]]; then
-            printf 'Terraform output %s has an invalid value.\n' "${output_name}" >&2
-            return 1
-        fi
-
-        printf '%s' "${value}"
-    }
-
-    local outputs_file
-    outputs_file="$(fetch_hcp_terraform_outputs "${hcp_token}")"
+    local r2_values
+    r2_values="$(read_r2_terraform_outputs ro)"
 
     local bucket_name
-    bucket_name="$(read_hcp_terraform_output "${outputs_file}" 'bucket_name' "${hcp_token}")"
-
-    if [[ "${bucket_name}" == *['/?&#']* ]]; then
-        printf 'Terraform output bucket_name is not a valid S3 bucket name.\n' >&2
-        return 1
-    fi
-
     local s3_endpoint
-    s3_endpoint="$(read_hcp_terraform_output "${outputs_file}" 's3_endpoint' "${hcp_token}")"
-
-    if [[ "${s3_endpoint}" != https://* || "${s3_endpoint#https://}" == */* ]]; then
-        printf 'Terraform output s3_endpoint is not a valid HTTPS endpoint.\n' >&2
-        return 1
-    fi
-
     local access_key_id
-    access_key_id="$(read_hcp_terraform_output "${outputs_file}" 'r2_ro_access_key_id' "${hcp_token}")"
-
     local secret_access_key
-    secret_access_key="$(read_hcp_terraform_output "${outputs_file}" 'r2_ro_secret_access_key' "${hcp_token}")"
-
-    unset hcp_token
-    unset TF_TOKEN_app_terraform_io
-
-    if [[ "${#access_key_id}" -ne 32 ]]; then
-        printf 'The R2 read-only access key ID has an invalid value.\n' >&2
-        return 1
-    fi
-
-    if [[ "${#secret_access_key}" -ne 64 ]]; then
-        printf 'The R2 read-only secret access key has an invalid value.\n' >&2
-        return 1
-    fi
+    IFS=$'\t' read -r \
+        bucket_name \
+        s3_endpoint \
+        access_key_id \
+        secret_access_key \
+        <<<"${r2_values}"
 
     local cache_url
     cache_url="s3://${bucket_name}?endpoint=${s3_endpoint#https://}&scheme=https&region=auto&priority=30"
 
-    local temporary_credentials="${temporary_directory}/credentials"
+    local temporary_credentials
+    temporary_credentials="$(mktemp)"
+    trap 'rm -f -- "${temporary_credentials}"' EXIT
+    umask 077
 
     printf \
         '[default]\naws_access_key_id = %s\naws_secret_access_key = %s\n' \
@@ -225,13 +66,11 @@ function main() (
     sudo install -d -m 700 "${credentials%/*}"
     sudo install -m 600 "${temporary_credentials}" "${credentials}"
 
-    unset access_key_id secret_access_key
-    unset R2_RO_ACCESS_KEY_ID R2_RO_SECRET_ACCESS_KEY
+    unset access_key_id secret_access_key r2_values
 
     case "${system}" in
     aarch64-darwin)
-        sudo launchctl \
-            kickstart -k system/org.nixos.nix-daemon
+        sudo launchctl kickstart -k system/org.nixos.nix-daemon
         ;;
     x86_64-linux)
         sudo systemctl restart nix-daemon.service
