@@ -34,6 +34,9 @@ function main() (
 
     [[ "${credentials}" == /* ]]
 
+    local cache_disable_file="${NIX_CACHE_DISABLE_FILE:-/tmp/dotfiles-disable-r2-cache}"
+    rm -f -- "${cache_disable_file}"
+
     local temporary_directory
     temporary_directory="$(mktemp -d)"
     trap 'rm -rf -- "${temporary_directory}"' EXIT
@@ -244,7 +247,8 @@ function main() (
         "${root_nix}" store info \
         --store "${cache_url}"; then
         if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
-            printf 'R2 Nix cache is unavailable; continuing the CI build without a cache hit.\n' >&2
+            touch "${cache_disable_file}"
+            printf 'R2 Nix cache is unavailable; continuing the CI build without it.\n' >&2
             return 0
         fi
 
