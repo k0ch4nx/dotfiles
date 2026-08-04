@@ -239,10 +239,17 @@ function main() (
     local root_nix='/nix/var/nix/profiles/default/bin/nix'
     [[ -x "${root_nix}" ]] || return 1
 
-    sudo -H env \
+    if ! sudo -H env \
         "AWS_SHARED_CREDENTIALS_FILE=${credentials}" \
         "${root_nix}" store info \
-        --store "${cache_url}"
+        --store "${cache_url}"; then
+        if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+            printf 'R2 Nix cache is unavailable; continuing the CI build without a cache hit.\n' >&2
+            return 0
+        fi
+
+        return 1
+    fi
 )
 
 main
