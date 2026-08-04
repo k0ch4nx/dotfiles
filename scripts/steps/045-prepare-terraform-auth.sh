@@ -19,6 +19,46 @@ function find_hcp_terraform_token() (
     printf '%s' "${token_file}"
 )
 
+function find_yubikey_identity() (
+    set +x
+
+    [[ -n "${HOME:-}" ]]
+
+    local config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
+    local identity_file="${AGE_YUBIKEY_IDENTITY_FILE:-${config_home}/age/yubikey-identity.txt}"
+
+    if [[ ! -r "${identity_file}" ]]; then
+        printf 'Expected the YubiKey age identity at %s. Run bootstrap with the YubiKey attached.\n' \
+            "${identity_file}" >&2
+        return 1
+    fi
+
+    printf '%s' "${identity_file}"
+)
+
+function find_age_plugin_yubikey() (
+    set +x
+
+    local candidate
+    for candidate in age-plugin-yubikey age-plugin-yubikey.exe; do
+        if command -v "${candidate}" >/dev/null 2>&1; then
+            command -v "${candidate}"
+            return 0
+        fi
+    done
+
+    local plugin
+    plugin="$(
+        nix build \
+            --no-link \
+            --print-out-paths \
+            'nixpkgs#age-plugin-yubikey^out'
+    )/bin/age-plugin-yubikey"
+
+    [[ -x "${plugin}" ]]
+    printf '%s' "${plugin}"
+)
+
 function terraform_cli() (
     set +x
 
@@ -26,6 +66,9 @@ function terraform_cli() (
 
     local token_file
     token_file="$(find_hcp_terraform_token)"
+
+    local identity_file
+    identity_file="$(find_yubikey_identity)"
 
     local rage
     if command -v rage >/dev/null 2>&1; then
@@ -40,31 +83,16 @@ function terraform_cli() (
     fi
 
     local age_plugin_yubikey
-    if command -v age-plugin-yubikey >/dev/null 2>&1; then
-        age_plugin_yubikey="$(command -v age-plugin-yubikey)"
-    else
-        age_plugin_yubikey="$(
-            nix build \
-                --no-link \
-                --print-out-paths \
-                'nixpkgs#age-plugin-yubikey^out'
-        )/bin/age-plugin-yubikey"
-    fi
-
-    local identity_file
-    identity_file="$(mktemp)"
-    trap 'rm -f -- "${identity_file}"' EXIT
-    umask 077
-
-    "${age_plugin_yubikey}" --identity >"${identity_file}"
-
-    if [[ ! -s "${identity_file}" ]]; then
-        printf 'No age identity was found on an attached YubiKey.\n' >&2
-        return 1
-    fi
+    age_plugin_yubikey="$(find_age_plugin_yubikey)"
 
     local token
-    token="$("${rage}" --decrypt --identity "${identity_file}" "${token_file}")"
+    token="$(
+        PATH="${age_plugin_yubikey%/*}:${PATH}" \
+            "${rage}" \
+            --decrypt \
+            --identity "${identity_file}" \
+            "${token_file}"
+    )"
 
     if [[ -z "${token}" || "${token}" == *$'\n'* || "${token}" == *$'\r'* ]]; then
         printf 'The HCP Terraform token has an invalid value.\n' >&2
@@ -98,6 +126,8 @@ function main() (
     [[ -n "${DOTFILES_DIR:-}" ]]
 
     find_hcp_terraform_token >/dev/null
+    find_yubikey_identity >/dev/null
+    find_age_plugin_yubikey >/dev/null
 )
 
 main
