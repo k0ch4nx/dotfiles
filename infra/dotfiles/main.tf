@@ -14,12 +14,6 @@ locals {
 module "github" {
   source = "../github"
 
-  actions_secrets = {
-    R2_RO_ACCESS_KEY_ID     = local.active_r2_credentials.ro_access_key_id
-    R2_RO_SECRET_ACCESS_KEY = local.active_r2_credentials.ro_secret_access_key
-    R2_RW_ACCESS_KEY_ID     = local.active_r2_credentials.rw_access_key_id
-    R2_RW_SECRET_ACCESS_KEY = local.active_r2_credentials.rw_secret_access_key
-  }
   owner      = var.github_owner
   repository = var.github_repository
 }
