@@ -157,72 +157,26 @@ function main() (
 
     cd -- "${DOTFILES_DIR}"
 
-    function read_terraform_output() {
-        local output_name="$1"
-        local expected_length="$2"
-        local value
+    # shellcheck disable=SC1091
+    source "${DOTFILES_DIR}/scripts/lib/r2-terraform-outputs.sh"
 
-        value="$(
-            terraform_cli \
-                -chdir="${DOTFILES_DIR}/infra/dotfiles" \
-                output \
-                -raw \
-                "${output_name}"
-        )"
-
-        if [[ "${#value}" -ne "${expected_length}" || "${value}" == *$'\n'* ]]; then
-            printf 'Terraform output %s has an invalid value.\n' "${output_name}" >&2
-            return 1
-        fi
-
-        printf '%s' "${value}"
-    }
+    local r2_values
+    r2_values="$(read_r2_terraform_outputs rw)"
 
     local bucket
-    bucket="${R2_CACHE_BUCKET:-$(
-        nix eval \
-            --accept-flake-config \
-            --impure \
-            --no-update-lock-file \
-            --raw \
-            'path:.#cacheSettings.bucket'
-    )}"
-
-    local account_id
-    account_id="${CLOUDFLARE_ACCOUNT_ID:-$(
-        nix eval \
-            --accept-flake-config \
-            --impure \
-            --no-update-lock-file \
-            --raw \
-            'path:.#cacheSettings.accountId'
-    )}"
-
+    local s3_endpoint
     local access_key_id
     local secret_access_key
-
-    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
-        access_key_id="${R2_RW_ACCESS_KEY_ID:-}"
-        secret_access_key="${R2_RW_SECRET_ACCESS_KEY:-}"
-    else
-        declare -F terraform_cli >/dev/null
-
-        terraform_cli \
-            -chdir="${DOTFILES_DIR}/infra/dotfiles" \
-            init \
-            -input=false \
-            -lockfile=readonly
-
-        access_key_id="$(read_terraform_output 'r2_rw_access_key_id' 32)"
-        secret_access_key="$(read_terraform_output 'r2_rw_secret_access_key' 64)"
-    fi
-
-    [[ "${#access_key_id}" -eq 32 ]]
-    [[ "${#secret_access_key}" -eq 64 ]]
+    IFS=$'\t' read -r \
+        bucket \
+        s3_endpoint \
+        access_key_id \
+        secret_access_key \
+        <<<"${r2_values}"
 
     export AWS_ACCESS_KEY_ID="${access_key_id}"
     export AWS_SECRET_ACCESS_KEY="${secret_access_key}"
-    export AWS_ENDPOINT_URL="https://${account_id}.r2.cloudflarestorage.com"
+    export AWS_ENDPOINT_URL="${s3_endpoint}"
     export R2_TOUCH_BUCKET="${bucket}"
 
     NIX_CACHE_TOUCH_WORKER=1 \
