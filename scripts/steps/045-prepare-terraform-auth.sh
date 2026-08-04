@@ -112,8 +112,10 @@ function terraform_cli() (
     if command -v terraform >/dev/null 2>&1; then
         TF_TOKEN_app_terraform_io="${token}" terraform "$@" || status=$?
     else
-        TF_TOKEN_app_terraform_io="${token}" \
+        NIXPKGS_ALLOW_UNFREE=1 \
+            TF_TOKEN_app_terraform_io="${token}" \
             nix run \
+            --impure \
             --accept-flake-config \
             --no-update-lock-file \
             'nixpkgs#terraform' \
