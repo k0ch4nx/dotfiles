@@ -8,11 +8,10 @@ main() {
     [[ -n "${DOTFILES_DIR:-}" ]]
     [[ -n "${DOTFILES_HOST:-}" ]]
 
-    local -a nix_cache_options=()
     local cache_disable_file="${NIX_CACHE_DISABLE_FILE:-/tmp/dotfiles-disable-r2-cache}"
+    local fallback_substituters=''
 
     if [[ -e "${cache_disable_file}" ]]; then
-        local fallback_substituters
         fallback_substituters="$(
             DOTFILES_R2_CACHE_FILE="${DOTFILES_DIR}/nix/r2-cache.nix" \
                 nix eval \
@@ -31,7 +30,6 @@ main() {
         )"
 
         [[ -n "${fallback_substituters}" ]]
-        nix_cache_options+=(--option substituters "${fallback_substituters}")
     fi
 
     local -a outputs=(system)
@@ -42,16 +40,29 @@ main() {
     local output
     for output in "${outputs[@]}"; do
         local result
-        result="$(
-            nix build \
-                "${nix_cache_options[@]}" \
-                --accept-flake-config \
-                --impure \
-                --no-link \
-                --no-update-lock-file \
-                --print-out-paths \
-                "path:${DOTFILES_DIR}#configurationBuilds.${DOTFILES_HOST}.${output}"
-        )"
+
+        if [[ -n "${fallback_substituters}" ]]; then
+            result="$(
+                nix build \
+                    --option substituters "${fallback_substituters}" \
+                    --accept-flake-config \
+                    --impure \
+                    --no-link \
+                    --no-update-lock-file \
+                    --print-out-paths \
+                    "path:${DOTFILES_DIR}#configurationBuilds.${DOTFILES_HOST}.${output}"
+            )"
+        else
+            result="$(
+                nix build \
+                    --accept-flake-config \
+                    --impure \
+                    --no-link \
+                    --no-update-lock-file \
+                    --print-out-paths \
+                    "path:${DOTFILES_DIR}#configurationBuilds.${DOTFILES_HOST}.${output}"
+            )"
+        fi
 
         [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || return 1
 
