@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Rebase pull requests onto main
-        uses: peter-evans/rebase@v4
+        uses: peter-evans/rebase@e4945786f7ca41fe6e101cead4395f5489593943 # v4
         with:
           base: main
           exclude-drafts: true
