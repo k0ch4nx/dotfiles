@@ -8,7 +8,6 @@ function find_hcp_terraform_token() (
     set +x
 
     [[ -n "${DOTFILES_DIR:-}" ]]
-    [[ -n "${DOTFILES_HOST:-}" ]]
 
     local token_file="${DOTFILES_DIR}/secrets/hcp-terraform-token.age"
 
@@ -24,11 +23,6 @@ function terraform_cli() (
     set +x
 
     [[ -n "${DOTFILES_DIR:-}" ]]
-    [[ -n "${DOTFILES_HOST:-}" ]]
-    [[ -n "${DOTFILES_USER:-}" ]]
-
-    local identity="${DOTFILES_DIR}/secrets/hosts/${DOTFILES_HOST}-${DOTFILES_USER}-key.txt"
-    [[ -r "${identity}" ]]
 
     local token_file
     token_file="$(find_hcp_terraform_token)"
@@ -45,8 +39,32 @@ function terraform_cli() (
         )/bin/rage"
     fi
 
+    local age_plugin_yubikey
+    if command -v age-plugin-yubikey >/dev/null 2>&1; then
+        age_plugin_yubikey="$(command -v age-plugin-yubikey)"
+    else
+        age_plugin_yubikey="$(
+            nix build \
+                --no-link \
+                --print-out-paths \
+                'nixpkgs#age-plugin-yubikey^out'
+        )/bin/age-plugin-yubikey"
+    fi
+
+    local identity_file
+    identity_file="$(mktemp)"
+    trap 'rm -f -- "${identity_file}"' EXIT
+    umask 077
+
+    "${age_plugin_yubikey}" --identity >"${identity_file}"
+
+    if [[ ! -s "${identity_file}" ]]; then
+        printf 'No age identity was found on an attached YubiKey.\n' >&2
+        return 1
+    fi
+
     local token
-    token="$("${rage}" --decrypt --identity "${identity}" "${token_file}")"
+    token="$("${rage}" --decrypt --identity "${identity_file}" "${token_file}")"
 
     if [[ -z "${token}" || "${token}" == *$'\n'* || "${token}" == *$'\r'* ]]; then
         printf 'The HCP Terraform token has an invalid value.\n' >&2
@@ -78,9 +96,6 @@ function main() (
     fi
 
     [[ -n "${DOTFILES_DIR:-}" ]]
-    [[ -n "${DOTFILES_HOST:-}" ]]
-    [[ -n "${DOTFILES_USER:-}" ]]
-    [[ -r "${DOTFILES_DIR}/secrets/hosts/${DOTFILES_HOST}-${DOTFILES_USER}-key.txt" ]]
 
     find_hcp_terraform_token >/dev/null
 )
