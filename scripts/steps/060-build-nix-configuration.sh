@@ -8,6 +8,32 @@ main() {
     [[ -n "${DOTFILES_DIR:-}" ]]
     [[ -n "${DOTFILES_HOST:-}" ]]
 
+    local -a nix_cache_options=()
+    local cache_disable_file="${NIX_CACHE_DISABLE_FILE:-/tmp/dotfiles-disable-r2-cache}"
+
+    if [[ -e "${cache_disable_file}" ]]; then
+        local fallback_substituters
+        fallback_substituters="$(
+            DOTFILES_R2_CACHE_FILE="${DOTFILES_DIR}/nix/r2-cache.nix" \
+                nix eval \
+                --impure \
+                --raw \
+                --expr '
+                    let
+                      cache = import (
+                        builtins.toPath (builtins.getEnv "DOTFILES_R2_CACHE_FILE")
+                      );
+                    in
+                    builtins.concatStringsSep " " (
+                      builtins.filter (url: builtins.substring 0 5 url != "s3://") cache.substituters
+                    )
+                '
+        )"
+
+        [[ -n "${fallback_substituters}" ]]
+        nix_cache_options+=(--option substituters "${fallback_substituters}")
+    fi
+
     local -a outputs=(system)
     if [[ "$(uname -s)" == 'Linux' ]]; then
         outputs+=(home)
@@ -18,6 +44,7 @@ main() {
         local result
         result="$(
             nix build \
+                "${nix_cache_options[@]}" \
                 --accept-flake-config \
                 --impure \
                 --no-link \

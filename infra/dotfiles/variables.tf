@@ -39,7 +39,7 @@ variable "github_repository" {
 
 variable "r2_credential_generations" {
   type    = set(string)
-  default = ["v1"]
+  default = ["v1", "v2"]
 
   validation {
     condition = alltrue([
@@ -51,7 +51,7 @@ variable "r2_credential_generations" {
 
 variable "active_r2_credential_generation" {
   type    = string
-  default = "v1"
+  default = "v2"
 
   validation {
     condition     = length(trimspace(var.active_r2_credential_generation)) > 0
