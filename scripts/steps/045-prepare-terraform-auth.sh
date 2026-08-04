@@ -59,10 +59,13 @@ function find_age_plugin_yubikey() (
     printf '%s' "${plugin}"
 )
 
-function terraform_cli() (
+function read_hcp_terraform_token() (
     set +x
 
-    [[ -n "${DOTFILES_DIR:-}" ]]
+    if [[ -n "${TF_TOKEN_app_terraform_io:-}" ]]; then
+        printf '%s' "${TF_TOKEN_app_terraform_io}"
+        return 0
+    fi
 
     local token_file
     token_file="$(find_hcp_terraform_token)"
@@ -85,14 +88,20 @@ function terraform_cli() (
     local age_plugin_yubikey
     age_plugin_yubikey="$(find_age_plugin_yubikey)"
 
+    PATH="${age_plugin_yubikey%/*}:${PATH}" \
+        "${rage}" \
+        --decrypt \
+        --identity "${identity_file}" \
+        "${token_file}"
+)
+
+function terraform_cli() (
+    set +x
+
+    [[ -n "${DOTFILES_DIR:-}" ]]
+
     local token
-    token="$(
-        PATH="${age_plugin_yubikey%/*}:${PATH}" \
-            "${rage}" \
-            --decrypt \
-            --identity "${identity_file}" \
-            "${token_file}"
-    )"
+    token="$(read_hcp_terraform_token)"
 
     if [[ -z "${token}" || "${token}" == *$'\n'* || "${token}" == *$'\r'* ]]; then
         printf 'The HCP Terraform token has an invalid value.\n' >&2
@@ -119,11 +128,11 @@ function terraform_cli() (
 function main() (
     set +x
 
-    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+    [[ -n "${DOTFILES_DIR:-}" ]]
+
+    if [[ -n "${TF_TOKEN_app_terraform_io:-}" ]]; then
         return 0
     fi
-
-    [[ -n "${DOTFILES_DIR:-}" ]]
 
     find_hcp_terraform_token >/dev/null
     find_yubikey_identity >/dev/null
