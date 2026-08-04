@@ -37,6 +37,7 @@ variable "github_repository" {
   default = "dotfiles"
 }
 
+# Keep the previous generation during rotation so consumers can transition after apply.
 variable "r2_credential_generations" {
   type    = set(string)
   default = ["v1", "v2"]
