@@ -70,7 +70,7 @@ jobs:
           DOTFILES_DIR: ${{ github.workspace }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./scripts/steps/030-update-flake-lock.sh
+          ./scripts/steps/050-update-flake-lock.sh
 
           unexpected_paths="$(git diff --name-only -- . ':(exclude)flake.lock')"
           if [[ -n "${unexpected_paths}" ]]; then

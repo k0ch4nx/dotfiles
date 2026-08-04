@@ -18,7 +18,7 @@ function read_r2_terraform_outputs() (
 
     if ! declare -F read_hcp_terraform_token >/dev/null; then
         # shellcheck disable=SC1091
-        source "${DOTFILES_DIR}/scripts/steps/045-prepare-terraform-auth.sh"
+        source "${DOTFILES_DIR}/scripts/steps/030-prepare-terraform-auth.sh"
     fi
 
     local temporary_directory
