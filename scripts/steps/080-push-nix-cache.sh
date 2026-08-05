@@ -4,6 +4,28 @@ set -euo pipefail
 
 [[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
+function sign_closure() (
+    set +x
+
+    local closure_file="$1"
+
+    if [[ -n "${NIX_CACHE_PRIVATE_KEY:-}" ]]; then
+        nix store sign \
+            --key-file <(printf '%s' "${NIX_CACHE_PRIVATE_KEY}") \
+            --stdin <"${closure_file}"
+        return
+    fi
+
+    if [[ -z "${NIX_CACHE_PRIVATE_KEY_FILE:-}" || ! -r "${NIX_CACHE_PRIVATE_KEY_FILE}" ]]; then
+        printf 'Nix cache private key is not available.\n' >&2
+        return 1
+    fi
+
+    nix store sign \
+        --key-file "${NIX_CACHE_PRIVATE_KEY_FILE}" \
+        --stdin <"${closure_file}"
+)
+
 function main() (
     set +x
 
@@ -13,14 +35,6 @@ function main() (
 
     # shellcheck disable=SC1091
     source "${DOTFILES_DIR}/scripts/lib/r2-terraform-outputs.sh"
-
-    local config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
-    local private_key_file="${NIX_CACHE_PRIVATE_KEY_FILE:-${config_home}/nix-cache/private-key}"
-
-    if [[ ! -r "${private_key_file}" ]]; then
-        printf 'Nix cache private key is not readable: %s\n' "${private_key_file}" >&2
-        return 1
-    fi
 
     local bucket
     local s3_endpoint
@@ -110,9 +124,7 @@ function main() (
 
     nix path-info --recursive "${toplevel}" >"${closure_file}"
 
-    nix store sign \
-        --key-file "${private_key_file}" \
-        --stdin <"${closure_file}"
+    sign_closure "${closure_file}"
 
     if [[ "$(uname -s)" == 'Darwin' ]]; then
         local root_nix='/nix/var/nix/profiles/default/bin/nix'
@@ -138,3 +150,4 @@ function main() (
 )
 
 main
+unset NIX_CACHE_PRIVATE_KEY

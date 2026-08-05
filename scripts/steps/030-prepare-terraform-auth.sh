@@ -4,36 +4,55 @@ set -euo pipefail
 
 [[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
-function find_hcp_terraform_token() (
+function find_secret() (
     set +x
 
     [[ -n "${DOTFILES_DIR:-}" ]]
 
-    local token_file="${DOTFILES_DIR}/secrets/hcp-terraform-token.age"
+    local name="$1"
+    local secret_file="${DOTFILES_DIR}/secrets/${name}.age"
 
-    if [[ ! -r "${token_file}" ]]; then
-        printf 'Expected the canonical HCP Terraform token at %s.\n' "${token_file}" >&2
+    if [[ ! -r "${secret_file}" ]]; then
+        printf 'Expected the canonical secret at %s.\n' "${secret_file}" >&2
         return 1
     fi
 
-    printf '%s' "${token_file}"
+    printf '%s' "${secret_file}"
 )
 
 function find_yubikey_identity() (
     set +x
 
-    [[ -n "${HOME:-}" ]]
+    [[ -n "${DOTFILES_DIR:-}" ]]
 
-    local config_home="${XDG_CONFIG_HOME:-${HOME}/.config}"
-    local identity_file="${AGE_YUBIKEY_IDENTITY_FILE:-${config_home}/age/yubikey-identity.txt}"
+    local identity_file="${DOTFILES_DIR}/secrets/yubikey-identity.txt"
 
     if [[ ! -r "${identity_file}" ]]; then
-        printf 'Expected the YubiKey age identity at %s. Run bootstrap with the YubiKey attached.\n' \
-            "${identity_file}" >&2
+        printf 'Expected the tracked YubiKey age identity at %s.\n' "${identity_file}" >&2
         return 1
     fi
 
     printf '%s' "${identity_file}"
+)
+
+function find_rage() (
+    set +x
+
+    if command -v rage >/dev/null 2>&1; then
+        command -v rage
+        return 0
+    fi
+
+    local rage
+    rage="$(
+        nix build \
+            --no-link \
+            --print-out-paths \
+            'nixpkgs#rage^out'
+    )/bin/rage"
+
+    [[ -x "${rage}" ]]
+    printf '%s' "${rage}"
 )
 
 function find_age_plugin_yubikey() (
@@ -59,6 +78,21 @@ function find_age_plugin_yubikey() (
     printf '%s' "${plugin}"
 )
 
+function decrypt_secret() (
+    set +x
+
+    local secret_file="$1"
+    local identity_file="$2"
+    local rage="$3"
+    local age_plugin_yubikey="$4"
+
+    PATH="${age_plugin_yubikey%/*}:${PATH}" \
+        "${rage}" \
+        --decrypt \
+        --identity "${identity_file}" \
+        "${secret_file}"
+)
+
 function read_hcp_terraform_token() (
     set +x
 
@@ -67,32 +101,26 @@ function read_hcp_terraform_token() (
         return 0
     fi
 
-    local token_file
-    token_file="$(find_hcp_terraform_token)"
+    decrypt_secret \
+        "$(find_secret hcp-terraform-token)" \
+        "$(find_yubikey_identity)" \
+        "$(find_rage)" \
+        "$(find_age_plugin_yubikey)"
+)
 
-    local identity_file
-    identity_file="$(find_yubikey_identity)"
+function read_nix_cache_private_key() (
+    set +x
 
-    local rage
-    if command -v rage >/dev/null 2>&1; then
-        rage="$(command -v rage)"
-    else
-        rage="$(
-            nix build \
-                --no-link \
-                --print-out-paths \
-                'nixpkgs#rage^out'
-        )/bin/rage"
+    if [[ -n "${NIX_CACHE_PRIVATE_KEY:-}" ]]; then
+        printf '%s' "${NIX_CACHE_PRIVATE_KEY}"
+        return 0
     fi
 
-    local age_plugin_yubikey
-    age_plugin_yubikey="$(find_age_plugin_yubikey)"
-
-    PATH="${age_plugin_yubikey%/*}:${PATH}" \
-        "${rage}" \
-        --decrypt \
-        --identity "${identity_file}" \
-        "${token_file}"
+    decrypt_secret \
+        "$(find_secret nix-cache-local-private-key)" \
+        "$(find_yubikey_identity)" \
+        "$(find_rage)" \
+        "$(find_age_plugin_yubikey)"
 )
 
 function terraform_cli() (
@@ -127,22 +155,90 @@ function terraform_cli() (
     return "${status}"
 )
 
-function main() (
-    set +x
+function main() {
+    local restore_xtrace='false'
+    if [[ "$-" == *x* ]]; then
+        restore_xtrace='true'
+        set +x
+    fi
 
     [[ -n "${DOTFILES_DIR:-}" ]]
 
-    if [[ -n "${TF_TOKEN_app_terraform_io:-}" ]]; then
-        return 0
+    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+        if [[ -z "${TF_TOKEN_app_terraform_io:-}" ]]; then
+            printf 'TF_TOKEN_app_terraform_io is required in CI.\n' >&2
+            return 1
+        fi
+    elif [[ -z "${TF_TOKEN_app_terraform_io:-}" || -z "${NIX_CACHE_PRIVATE_KEY:-}" ]]; then
+        local token_file
+        local private_key_file
+        local identity_file
+        local rage
+        local age_plugin_yubikey
+
+        token_file="$(find_secret hcp-terraform-token)"
+        private_key_file="$(find_secret nix-cache-local-private-key)"
+        identity_file="$(find_yubikey_identity)"
+        rage="$(find_rage)"
+        age_plugin_yubikey="$(find_age_plugin_yubikey)"
+
+        local token="${TF_TOKEN_app_terraform_io:-}"
+        local private_key="${NIX_CACHE_PRIVATE_KEY:-}"
+
+        if [[ -z "${token}" && -z "${private_key}" ]]; then
+            token="$(
+                decrypt_secret \
+                    "${token_file}" \
+                    "${identity_file}" \
+                    "${rage}" \
+                    "${age_plugin_yubikey}"
+            )"
+            private_key="$(
+                decrypt_secret \
+                    "${private_key_file}" \
+                    "${identity_file}" \
+                    "${rage}" \
+                    "${age_plugin_yubikey}"
+            )"
+        elif [[ -z "${token}" ]]; then
+            token="$(
+                decrypt_secret \
+                    "${token_file}" \
+                    "${identity_file}" \
+                    "${rage}" \
+                    "${age_plugin_yubikey}"
+            )"
+        elif [[ -z "${private_key}" ]]; then
+            private_key="$(
+                decrypt_secret \
+                    "${private_key_file}" \
+                    "${identity_file}" \
+                    "${rage}" \
+                    "${age_plugin_yubikey}"
+            )"
+        fi
+
+        if [[ -z "${token}" || "${token}" == *$'\n'* || "${token}" == *$'\r'* ]]; then
+            printf 'The HCP Terraform token has an invalid value.\n' >&2
+            return 1
+        fi
+
+        if [[ -z "${private_key}" || "${private_key}" == *$'\n'* || "${private_key}" == *$'\r'* ]]; then
+            printf 'The Nix cache private key has an invalid value.\n' >&2
+            return 1
+        fi
+
+        TF_TOKEN_app_terraform_io="${token}"
+        export TF_TOKEN_app_terraform_io
+
+        NIX_CACHE_PRIVATE_KEY="${private_key}"
+
+        unset token private_key
     fi
 
-    find_hcp_terraform_token >/dev/null
-    find_yubikey_identity >/dev/null
-    find_age_plugin_yubikey >/dev/null
-
-    # Read token once and export for subsequent steps
-    export TF_TOKEN_app_terraform_io
-    TF_TOKEN_app_terraform_io="$(read_hcp_terraform_token)"
-)
+    if [[ "${restore_xtrace}" == 'true' ]]; then
+        set -x
+    fi
+}
 
 main
