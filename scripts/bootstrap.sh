@@ -42,7 +42,6 @@ function main() {
         get \
         https://github.com/${DOTFILES_USER}/dotfiles.git
 
-    source "${DOTFILES_DIR}/scripts/steps/020-ensure-yubikey-identity.sh"
     source "${DOTFILES_DIR}/scripts/steps/030-prepare-terraform-auth.sh"
     source "${DOTFILES_DIR}/scripts/steps/040-prepare-nix-cache.sh"
     source "${DOTFILES_DIR}/scripts/steps/050-update-flake-lock.sh"
