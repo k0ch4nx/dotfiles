@@ -1,10 +1,4 @@
-{
-  config,
-  inputs,
-  lib,
-  pkgs,
-  ...
-}:
+{ inputs, ... }:
 
 {
   imports = [
@@ -126,12 +120,6 @@
       superpowers = {
         input = "superpowers";
         subdir = "skills";
-      };
-
-      trailofbits-skills = {
-        input = "trailofbits-skills";
-        subdir = "plugins/insecure-defaults/skills";
-        filter.nameRegex = "insecure-defaults";
       };
 
       wshobson-agents = {
