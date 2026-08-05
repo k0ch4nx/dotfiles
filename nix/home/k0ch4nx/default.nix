@@ -32,7 +32,9 @@
       eza
       fd
       fastfetch
-      ffmpeg-full
+      (ffmpeg-full.override {
+        withFrei0r = !stdenv.hostPlatform.isDarwin;
+      })
       gh
       git-cliff
       gitlogue
