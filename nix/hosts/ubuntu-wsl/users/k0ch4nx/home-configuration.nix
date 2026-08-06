@@ -1,6 +1,7 @@
 {
   config,
   flake,
+  pkgs,
   ...
 }:
 
@@ -13,6 +14,9 @@
   _module.args.hostName = "ubuntu-wsl";
 
   dotfiles.ghqRoot = "${config.home.homeDirectory}/src";
+
+  systemd.user.services.agenix.Service.Environment =
+    "PATH=${pkgs.age-plugin-yubikey}/bin";
 
   home = {
     username = "k0ch4nx";
