@@ -136,11 +136,18 @@ in
       '';
 
       completionInit = ''
+        typeset -U fpath
+
         if type brew &>/dev/null; then
-          FPATH="$(brew --prefix)/share/zsh/site-functions:''${FPATH}"
+          fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
         fi
+
         if command -v rustc &>/dev/null; then
-          FPATH="$(rustc --print sysroot)/share/zsh/site-functions:''${FPATH}"
+          fpath=("$(rustc --print sysroot)/share/zsh/site-functions" $fpath)
+        fi
+
+        if [[ -d /run/current-system/sw/share/zsh/site-functions ]]; then
+          fpath=(/run/current-system/sw/share/zsh/site-functions $fpath)
         fi
 
         autoload -Uz compinit
