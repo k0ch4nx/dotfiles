@@ -25,8 +25,8 @@ main() (
         [[ "${home_result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || return 1
 
         sudo "${system_result}/bin/register-profile"
-        sudo "${system_result}/bin/activate"
         "${home_result}/activate"
+        sudo "${system_result}/bin/activate"
         ;;
     *)
         return 1
