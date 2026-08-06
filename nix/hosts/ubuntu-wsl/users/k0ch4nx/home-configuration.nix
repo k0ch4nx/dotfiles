@@ -20,4 +20,14 @@
     username = "k0ch4nx";
     homeDirectory = "/home/k0ch4nx";
   };
+
+  systemd.user.services.agenix.Install.WantedBy = lib.mkForce [ ];
+
+  home.activation.activateAgenixInteractively =
+    lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
+      ${builtins.head config.systemd.user.services.agenix.Service.ExecStart}
+
+      ${pkgs.systemd}/bin/systemctl \
+        --user reset-failed agenix.service || true
+    '';
 }
