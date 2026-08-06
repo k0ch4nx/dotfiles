@@ -14,6 +14,9 @@
 
   dotfiles.ghqRoot = "${config.home.homeDirectory}/src";
 
+  systemd.user.services.agenix.Service.Environment =
+    "PATH=${lib.makeBinPath [ pkgs.age-plugin-yubikey ]}";
+
   home = {
     username = "k0ch4nx";
     homeDirectory = "/home/k0ch4nx";
