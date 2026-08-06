@@ -1,6 +1,7 @@
 {
   config,
   flake,
+  pkgs,
   ...
 }:
 
@@ -15,7 +16,7 @@
   dotfiles.ghqRoot = "${config.home.homeDirectory}/src";
 
   systemd.user.services.agenix.Service.Environment =
-    "PATH=${lib.makeBinPath [ pkgs.age-plugin-yubikey ]}";
+    "PATH=${pkgs.age-plugin-yubikey}/bin";
 
   home = {
     username = "k0ch4nx";
