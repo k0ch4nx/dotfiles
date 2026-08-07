@@ -4,6 +4,7 @@
   imports = [
     flake.modules.system-manager.docker
     flake.modules.system-manager.nix-cache
+    flake.modules.system-manager.nixpkgs-compat
     flake.modules.system-manager.pcscd
     flake.modules.system-manager.yubikey
   ];
