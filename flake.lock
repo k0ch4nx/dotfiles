@@ -621,11 +621,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1786103860,
-        "narHash": "sha256-9A+pRZyhGzY3MSRWe8EyTKJiin2+IaQwFbCX0mRMG2U=",
+        "lastModified": 1786108377,
+        "narHash": "sha256-OUZuXxWyFUvzhZj98dYyFRyDewcr2WOc8NFfjdpAwCA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9cf03030254a1cc8207e87b01905124ed6431901",
+        "rev": "24ae63ad91e3563ed646a5ed851691c450808cf9",
         "type": "github"
       },
       "original": {
@@ -734,11 +734,11 @@
     "spring-boot-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1785399024,
-        "narHash": "sha256-934q0iA8ibpfqdHFbj+IQPtdE9ePNFL/hN8IOlwAd+Q=",
+        "lastModified": 1786109207,
+        "narHash": "sha256-k5U7jzhmtEhnOZcKNpXkexemNGNp6DqXWdWX/jPivqI=",
         "owner": "rrezartprebreza",
         "repo": "spring-boot-skills",
-        "rev": "8cabf531ead42483fba97b47228ea3b8414cf9b7",
+        "rev": "1c2ddbb6fdabf9ecbb7ce8e36d8c4f499942cb31",
         "type": "github"
       },
       "original": {
