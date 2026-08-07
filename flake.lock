@@ -336,11 +336,11 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1786129887,
-        "narHash": "sha256-PfUXx3aHeHSy+eHu6P88QRMTuuqmdyvGqPEgjrXFNsM=",
+        "lastModified": 1786131990,
+        "narHash": "sha256-IWRoL6yYq+cdNX4MvXFDnGlNcmHOie/Xaf84AGZ++Pw=",
         "owner": "google-gemini",
         "repo": "gemini-cli",
-        "rev": "6cb9f2e061263055863a26d10b53f3a64266d002",
+        "rev": "cd5ac173cff11ef233aaf72d2d96dbb77accef69",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1786130226,
-        "narHash": "sha256-p84jhJwpNFVSafV0gXsl2QLOhIsCjSfZ9JgBA2tGD60=",
+        "lastModified": 1786131905,
+        "narHash": "sha256-nmajzrXot4d7Cvoou1OdKMwgmO7w7DFgYySEtaknW5U=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "76e8955b8ab6c200bcc576ecda60d275b6413440",
+        "rev": "699dff80593b575eaf6a6c40e81a2475f4d89c22",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1786130678,
-        "narHash": "sha256-AjluH97SRPATZSC/ZuF5RWqxvkcUmoMmT0iTrlc53n4=",
+        "lastModified": 1786132767,
+        "narHash": "sha256-gEBUXXCUMl5zNvM2+E8HhbAfr8aqxE6+5e5AjviJ0nA=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "a3cf376258bef69ae9dbf7b86303dcdb37f39592",
+        "rev": "8c68f74ef914763e846f4b3c2fef8b80ace56f5e",
         "type": "github"
       },
       "original": {
