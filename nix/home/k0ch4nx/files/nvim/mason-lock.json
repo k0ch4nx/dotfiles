@@ -26,7 +26,7 @@
   "powershell-editor-services": "v4.7.0",
   "pyrefly": "1.2.0",
   "roslyn-language-server": "5.8.0-1.26266.2",
-  "ruff": "0.16.1",
+  "ruff": "0.16.2",
   "rust-analyzer": "2026-08-03",
   "shellcheck": "v0.11.0",
   "shfmt": "v3.13.1",
