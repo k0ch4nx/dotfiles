@@ -590,11 +590,11 @@
         "brew-src": "brew-src"
       },
       "locked": {
-        "lastModified": 1786214333,
-        "narHash": "sha256-Pc6J04IGpHWD56vP9UaTXEfZJ08i6UxL2Gz84iTocHo=",
+        "lastModified": 1786217209,
+        "narHash": "sha256-rusAj5QBnbSwXG6csns6dwxTeCOGRcj08VmlnhUQ6ZY=",
         "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "3791d1ecb0dbf8f0f89aa9801e6171ad5deb9da1",
+        "rev": "486357ea434dc0061ea52121ff99b1d33096c811",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1786216064,
-        "narHash": "sha256-5Fs7XcZlBHQek+kh23Qgs3/OTDMHB1zuvmt99Zg5L9E=",
+        "lastModified": 1786219590,
+        "narHash": "sha256-pLtbbRzHx4FcCu/J+EzL7oqa2zY0ObsBERselDDAwXI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "93dce225e320c3a402309d28f45291a3b4bae690",
+        "rev": "c2d6853e2f565d629c578788d0d73d6b6853136e",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1786215690,
-        "narHash": "sha256-9fSqloIsd0y/eV9U59S0H8QA1b7iO+3yWct1UJmbXmU=",
+        "lastModified": 1786219678,
+        "narHash": "sha256-8jteT4ia1bIMVw1lYmCMIrIhVIj9h7KqlKL65jcGa3o=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "0487b6812c005764dcd8e6314942b0af3f800ddd",
+        "rev": "83e24f8421d96912d1557543a00d1858d00b563b",
         "type": "github"
       },
       "original": {
