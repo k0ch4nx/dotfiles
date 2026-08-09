@@ -4,6 +4,9 @@ set -euo pipefail
 
 [[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
+# shellcheck source=scripts/lib/agenix-env.sh
+source "${DOTFILES_DIR}/scripts/lib/agenix-env.sh"
+
 main() (
     local system_result="${DOTFILES_SYSTEM_RESULT:-}"
 
@@ -17,6 +20,7 @@ main() (
             --set "${system_result}"
 
         sudo "${system_result}/sw/bin/darwin-rebuild" activate
+        assert_agenix_env_files_live
         ;;
     Linux)
         local home_result="${DOTFILES_HOME_RESULT:-}"
