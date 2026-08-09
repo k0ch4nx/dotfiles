@@ -89,7 +89,7 @@ jobs:
         if: steps.update.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
-          token: ${{ secrets.FLAKE_UPDATE_TOKEN }}
+          token: ${{ secrets.AUTOMATION_TOKEN }}
           branch-token: ${{ secrets.GITHUB_TOKEN }}
           sign-commits: true
           branch: automation/update-flake-lock
@@ -107,6 +107,6 @@ jobs:
       - name: Enable auto-merge
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         env:
-          GH_TOKEN: ${{ secrets.FLAKE_UPDATE_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
           PR_NUMBER: ${{ steps.create-pull-request.outputs.pull-request-number }}
         run: gh pr merge --repo "${GITHUB_REPOSITORY}" --merge --auto "${PR_NUMBER}"
