@@ -169,21 +169,26 @@ function main() {
             printf 'TF_TOKEN_app_terraform_io is required in CI.\n' >&2
             return 1
         fi
-    elif [[ -z "${TF_TOKEN_app_terraform_io:-}" || -z "${NIX_CACHE_PRIVATE_KEY:-}" ]]; then
+    elif [[ -z "${TF_TOKEN_app_terraform_io:-}" || -z "${NIX_CACHE_PRIVATE_KEY:-}" || -z "${GH_TOKEN:-}" ]]; then
         local token_file
         local private_key_file
+        local gh_token_file
         local identity_file
         local rage
         local age_plugin_yubikey
 
+        local token="${TF_TOKEN_app_terraform_io:-}"
+        local private_key="${NIX_CACHE_PRIVATE_KEY:-}"
+        local gh_token="${GH_TOKEN:-}"
+
         token_file="$(find_secret hcp-terraform-token)"
         private_key_file="$(find_secret nix-cache-local-private-key)"
+        if [[ -z "${gh_token}" ]]; then
+            gh_token_file="$(find_secret env/gh-token)"
+        fi
         identity_file="$(find_yubikey_identity)"
         rage="$(find_rage)"
         age_plugin_yubikey="$(find_age_plugin_yubikey)"
-
-        local token="${TF_TOKEN_app_terraform_io:-}"
-        local private_key="${NIX_CACHE_PRIVATE_KEY:-}"
 
         if [[ -z "${token}" && -z "${private_key}" ]]; then
             token="$(
@@ -218,6 +223,16 @@ function main() {
             )"
         fi
 
+        if [[ -z "${gh_token}" ]]; then
+            gh_token="$(
+                decrypt_secret \
+                    "${gh_token_file}" \
+                    "${identity_file}" \
+                    "${rage}" \
+                    "${age_plugin_yubikey}"
+            )"
+        fi
+
         if [[ -z "${token}" || "${token}" == *$'\n'* || "${token}" == *$'\r'* ]]; then
             printf 'The HCP Terraform token has an invalid value.\n' >&2
             return 1
@@ -228,12 +243,20 @@ function main() {
             return 1
         fi
 
+        if [[ -z "${gh_token}" || "${gh_token}" == *$'\n'* || "${gh_token}" == *$'\r'* ]]; then
+            printf 'The GitHub token has an invalid value.\n' >&2
+            return 1
+        fi
+
         TF_TOKEN_app_terraform_io="${token}"
         export TF_TOKEN_app_terraform_io
 
         NIX_CACHE_PRIVATE_KEY="${private_key}"
 
-        unset token private_key
+        GH_TOKEN="${gh_token}"
+        export GH_TOKEN
+
+        unset token private_key gh_token
     fi
 
     if [[ "${restore_xtrace}" == 'true' ]]; then
