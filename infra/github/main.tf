@@ -21,7 +21,7 @@ resource "github_repository_ruleset" "main" {
     required_signatures = true
 
     pull_request {
-      allowed_merge_methods             = ["merge", "rebase", "squash"]
+      allowed_merge_methods             = ["merge"]
       required_approving_review_count   = 0
       required_review_thread_resolution = true
     }

@@ -34,7 +34,7 @@ resource "cloudflare_account_token" "r2" {
   for_each = local.credentials
 
   account_id = var.cloudflare_account_id
-  name       = "${var.bucket_name}-${each.value.mode}-${each.value.generation}"
+  name       = "tf-${var.bucket_name}-${each.value.mode}-${each.value.generation}"
   policies = [{
     effect = "allow"
     permission_groups = [

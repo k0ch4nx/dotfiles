@@ -1,5 +1,6 @@
 variable "cloudflare_account_id" {
-  type = string
+  type    = string
+  default = "6118f982b348f7b37129655ee4160301"
 
   validation {
     condition     = length(trimspace(var.cloudflare_account_id)) > 0
@@ -9,7 +10,7 @@ variable "cloudflare_account_id" {
 
 variable "bucket_name" {
   type    = string
-  default = "dotfiles-nix-cache"
+  default = "nix-cache"
 
   validation {
     condition     = length(trimspace(var.bucket_name)) > 0

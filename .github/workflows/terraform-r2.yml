@@ -64,10 +64,8 @@ jobs:
         working-directory: infra/dotfiles
 
     env:
-      TF_VAR_cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-      TF_VAR_bucket_name: ${{ vars.R2_CACHE_BUCKET }}
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.FLAKE_UPDATE_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
 
     steps:
       - name: Checkout
