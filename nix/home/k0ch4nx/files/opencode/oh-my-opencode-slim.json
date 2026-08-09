@@ -59,10 +59,61 @@
                 "variant": "high",
                 "skills": [],
                 "mcps": []
+            }
+        },
+        "free": {
+            "orchestrator": {
+                "model": "opencode/nemotron-3-ultra-free",
+                "skills": [
+                    "*"
+                ],
+                "mcps": [
+                    "*",
+                    "!context7"
+                ]
+            },
+            "explorer": {
+                "model": "opencode/north-mini-code-free",
+                "variant": "high",
+                "skills": [],
+                "mcps": []
+            },
+            "oracle": {
+                "model": "opencode/mimo-v2.5-free",
+                "skills": [
+                    "simplify"
+                ],
+                "mcps": []
+            },
+            "council": {
+                "model": "opencode/nemotron-3-ultra-free",
+                "skills": [],
+                "mcps": []
+            },
+            "librarian": {
+                "model": "opencode/mimo-v2.5-free",
+                "skills": [],
+                "mcps": [
+                    "websearch",
+                    "context7",
+                    "grep_app"
+                ]
+            },
+            "designer": {
+                "model": "opencode/mimo-v2.5-free",
+                "skills": [
+                    "agent-browser"
+                ],
+                "mcps": []
+            },
+            "fixer": {
+                "model": "opencode/laguna-s-2.1-free",
+                "variant": "high",
+                "skills": [],
+                "mcps": []
             },
             "observer": {
-                "model": "opencode-go/qwen3.7-plus",
-                "variant": "max",
+                "model": "opencode/mimo-v2.5-free",
                 "skills": [],
                 "mcps": []
             }
