@@ -2,11 +2,55 @@ local mason_root = vim.fn.stdpath("data") .. "/mason"
 local mason_packages = mason_root .. "/packages"
 local lombok_jar = mason_root .. "/share/jdtls/lombok.jar"
 
+local function nix_build(package)
+    local result = vim.system({
+        "nix",
+        "build",
+        "nixpkgs#" .. package,
+        "--no-link",
+        "--print-out-paths",
+    }, { text = true }):wait()
+
+    if result.code ~= 0 then
+        error("Failed to get " .. package .. ": " .. result.stderr)
+    end
+
+    return vim.trim(result.stdout)
+end
+
+local jdtls_java_home = nix_build("temurin-bin-25")
+local project_java_home = nix_build("temurin-bin-17")
+
 ---@type vim.lsp.Config
 return {
     cmd = {
         vim.fn.exepath("jdtls"),
+        "--java-executable",
+        jdtls_java_home .. "/bin/java",
         "--jvm-arg=-javaagent:" .. lombok_jar,
+    },
+    cmd_env = vim.tbl_extend("force", vim.fn.environ(), {
+        JAVA_HOME = project_java_home,
+    }),
+    settings = {
+        java = {
+            configuration = {
+                runtimes = {
+                    {
+                        name = "JavaSE-17",
+                        path = project_java_home,
+                        default = true,
+                    },
+                },
+            },
+            import = {
+                gradle = {
+                    java = {
+                        home = project_java_home,
+                    },
+                },
+            },
+        },
     },
     init_options = {
         bundles = (function()
@@ -22,24 +66,24 @@ return {
                 )
             )
 
-            local excluded = {
-                ["com.microsoft.java.test.runner-jar-with-dependencies.jar"] = true,
-                ["jacocoagent.jar"] = true,
-            }
-
-            local java_test_jars = vim.fn.glob(
-                mason_packages .. "/java-test/extension/server/*.jar",
-                true,
-                true
-            )
-
-            for _, jar in ipairs(java_test_jars) do
-                local name = vim.fn.fnamemodify(jar, ":t")
-
-                if not excluded[name] then
-                    table.insert(bundles, jar)
-                end
-            end
+            -- local excluded = {
+            --     ["com.microsoft.java.test.runner-jar-with-dependencies.jar"] = true,
+            --     ["jacocoagent.jar"] = true,
+            -- }
+            --
+            -- local java_test_jars = vim.fn.glob(
+            --     mason_packages .. "/java-test/extension/server/*.jar",
+            --     true,
+            --     true
+            -- )
+            --
+            -- for _, jar in ipairs(java_test_jars) do
+            --     local name = vim.fn.fnamemodify(jar, ":t")
+            --
+            --     if not excluded[name] then
+            --         table.insert(bundles, jar)
+            --     end
+            -- end
 
             return bundles
         end)(),
@@ -61,8 +105,7 @@ return {
                     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
                 end
             end
-        end
-        ,
+        end,
     },
     on_attach = function()
         local ok, dap = pcall(require, "dap")
