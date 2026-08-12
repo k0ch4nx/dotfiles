@@ -176,11 +176,11 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1786457707,
-        "narHash": "sha256-+csRSkUuYBbEGScimlBC/PQj06bmhb864UaoFtCzQ1g=",
+        "lastModified": 1786506482,
+        "narHash": "sha256-Vlqxg+j5WvXEHctLIRPGlf/Ldii7EpiCgc+PrFJD4gY=",
         "owner": "davila7",
         "repo": "claude-code-templates",
-        "rev": "9b0bada5a6de1131e4dea82191752c42ee43ce53",
+        "rev": "021cea3d97a81796c1d2bc8520b322adfc43c2ab",
         "type": "github"
       },
       "original": {
@@ -246,11 +246,11 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1786491408,
-        "narHash": "sha256-4hNw7OxH8o50z+8lFruxa9a/yo6Vn1KjkCW4mH8gv7w=",
+        "lastModified": 1786509255,
+        "narHash": "sha256-ODCLJ+UIf+1z91OMvWT1CcnDT+5FtygGnGeuD4o4CW8=",
         "owner": "affaan-m",
         "repo": "ecc",
-        "rev": "fd1b11cfc765fc6f17af7085eb8915ef7d33cf17",
+        "rev": "ff2280a3186dfdad6407391da3f92b021d526908",
         "type": "github"
       },
       "original": {
@@ -519,11 +519,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1786495143,
-        "narHash": "sha256-/0OFZcRY41YHk794w6pJavOy+8sXXWhp6LPVJUoX3kY=",
+        "lastModified": 1786509555,
+        "narHash": "sha256-S4HL/H/AEife5mczZtYElN5D3QSzhhkJwMPvxmdDFrA=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "f1d6b2bd89815e9e1f5511989a750053ea3ec778",
+        "rev": "c351b7a048ba4d4c2e50f96e4cdbcb1f7b26c746",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1786502743,
-        "narHash": "sha256-RGO01h1h2YYtrtuy0068L7cIsLiU6T9p+SvHeP2GZfc=",
+        "lastModified": 1786507103,
+        "narHash": "sha256-v+3eMnGekdGznnZQB8WzXknfWDS3Lu6GoPXxnUULHzA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fa12a514bd3e6b6060d78621ced89b7224cb9ff5",
+        "rev": "56c9bcece4abe64163567e7ee2815c412b6dc934",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1786503614,
-        "narHash": "sha256-EmE+s5U0N2w6HUHu0lsIdlv2moJIkGfjU7nHpjvy93g=",
+        "lastModified": 1786508562,
+        "narHash": "sha256-cn4m6jYTkChuSGpxsC+JRxPBRCvPHoI0KU4n/7tGNmg=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "4bd56a316b304e3ea9f52e83991840aef3bb9447",
+        "rev": "722e20b67581092868f022f17b295ea1377a2400",
         "type": "github"
       },
       "original": {
