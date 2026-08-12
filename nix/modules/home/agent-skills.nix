@@ -81,7 +81,7 @@
 
       hashicorp-agent-skills = {
         input = "hashicorp-agent-skills";
-        subdir = "terraform/code-generation/skills";
+        subdir = "plugins/terraform/skills";
         filter.nameRegex = "terraform-style-guide";
       };
 
