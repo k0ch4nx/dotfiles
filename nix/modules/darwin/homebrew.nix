@@ -15,7 +15,7 @@
     enable = true;
 
     onActivation = {
-      autoUpdate = false;
+      autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
     };
@@ -54,7 +54,11 @@
       "tor-browser"
     ];
 
-    masApps = {
+  };
+
+  programs.mas = {
+    enable = true;
+    packages = {
       "Blackmagic Disk Speed Test" = 425264550;
       "DaVinci Resolve" = 571213070;
       "GarageBand" = 682658836;

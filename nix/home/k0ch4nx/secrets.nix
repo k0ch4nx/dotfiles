@@ -2,11 +2,13 @@
 
 let
   envFiles = builtins.readDir ../../../secrets/env;
-  envSecretNames = builtins.map
-    (fileName: builtins.substring 0 (builtins.stringLength fileName - 4) fileName)
-    (builtins.filter
-      (fileName: envFiles.${fileName} == "regular" && builtins.match ".*\\.age" fileName != null)
-      (builtins.attrNames envFiles));
+  envSecretNames =
+    builtins.map (fileName: builtins.substring 0 (builtins.stringLength fileName - 4) fileName)
+      (
+        builtins.filter (
+          fileName: envFiles.${fileName} == "regular" && builtins.match ".*\\.age" fileName != null
+        ) (builtins.attrNames envFiles)
+      );
 in
 {
   age.secrets = builtins.listToAttrs (

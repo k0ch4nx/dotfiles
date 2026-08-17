@@ -23,8 +23,7 @@
 
   systemd.user.services.agenix.Install.WantedBy = lib.mkForce [ ];
 
-  home.activation.activateAgenixInteractively =
-    lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
-      ${builtins.head config.systemd.user.services.agenix.Service.ExecStart}
-    '';
+  home.activation.activateAgenixInteractively = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
+    ${builtins.head config.systemd.user.services.agenix.Service.ExecStart}
+  '';
 }
