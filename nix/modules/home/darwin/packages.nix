@@ -16,7 +16,6 @@
     iina
     jankyborders
     lmstudio
-    mas
     mcat
     orbstack
     ryubing

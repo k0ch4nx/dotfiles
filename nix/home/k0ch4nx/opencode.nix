@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   opencodeDir = "${config.dotfiles.path}/nix/home/k0ch4nx/files/opencode";

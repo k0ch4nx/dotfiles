@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   age.secrets = {
@@ -44,7 +49,7 @@
     ".ssh/id_ed25519_gh_sign_pers.pub".source = ./files/ssh/id_ed25519_gh_sign_pers.pub;
   };
 
-  home.activation.createSshControlDir = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.createSshControlDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ${pkgs.coreutils}/bin/install \
       -d \
       -m 0700 \
