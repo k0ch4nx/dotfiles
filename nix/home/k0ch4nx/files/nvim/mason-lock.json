@@ -25,7 +25,7 @@
   "palantir-java-format": "2.97.0",
   "powershell-editor-services": "v4.7.0",
   "pyrefly": "1.2.0",
-  "roslyn-language-server": "5.8.0-1.26266.2",
+  "roslyn-language-server": "5.11.0-1.26380.4",
   "ruff": "0.16.3",
   "rust-analyzer": "2026-08-10.1",
   "shellcheck": "v0.11.0",
