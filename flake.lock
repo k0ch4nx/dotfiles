@@ -391,11 +391,11 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1786986247,
-        "narHash": "sha256-oIR1kgEYakvowjHyObvQCfHaKEETXTFG1pUhpIVG5MU=",
+        "lastModified": 1787030235,
+        "narHash": "sha256-Kto3fwI45gpk6sCA9YFi9VZtCgQkLdNNm27LX8gUuXo=",
         "owner": "google",
         "repo": "skills",
-        "rev": "cdca572d24dbc6fa5b7bfd1af57585209556c849",
+        "rev": "e1b6f35d3459e7c4848ddecddf732102f2dfaadc",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1787028759,
-        "narHash": "sha256-9EX8ReBm83KsWCW2y5PWqZvWHgc9yC97eZLhDAVYRig=",
+        "lastModified": 1787033303,
+        "narHash": "sha256-0oyeUoq/b2mipvKp0sqrqNnSDFMnv1AQLcUHYGaxz2I=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4aff133f354df9ab9afe6b4e291c1ee2361728d7",
+        "rev": "1dc32a8a979f01fde18388063b730ecfe18837a6",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787030013,
-        "narHash": "sha256-DHjqhB6+x+w5E6dqddYD8Kad0ylMZWlp9Dhw/YGRCro=",
+        "lastModified": 1787032841,
+        "narHash": "sha256-ChEcN7q42Qbn1lYaP8muV01Hv9PfIjXPL8HDvU4A5Ig=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "bbf7454b17b65e6840c3ee82724fa139c2cc32ee",
+        "rev": "1c3e512096bc57b34f9379b1992912c3d18729c7",
         "type": "github"
       },
       "original": {
