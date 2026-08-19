@@ -535,11 +535,11 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787133889,
-        "narHash": "sha256-ad0g/bXpK5RaNYfWZIcncYVRAtX/Z7A8QB/3i5prCMc=",
+        "lastModified": 1787144958,
+        "narHash": "sha256-BAhmwFuEZPKsnSCwZ9NzPG5b7alCXa2/f/LXSMuJX7o=",
         "owner": "mattpocock",
         "repo": "skills",
-        "rev": "1bb95954ef0d06ba4d64a9c267fb75f57c614a1f",
+        "rev": "885e2ca4d842d139e9aef4e48d366c63cb1b8013",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1787140485,
-        "narHash": "sha256-aaB3B1xW1NJdZUv1oXHRn6vV5yeTHBZ7eMZpqsVy0+8=",
+        "lastModified": 1787144181,
+        "narHash": "sha256-cUQSXcwvyo/Mdhd0DAuTC4/MaifLnZSQ9MBWXvnzPuI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "98aedd6c34efb3329225a1f42c86dd38cca00ef5",
+        "rev": "157b339ff074e6d869b98de0d19c86e311697be6",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787140602,
-        "narHash": "sha256-M7WU55mpXGsOhfNC7huqm31Ybepesp0INt+L3vmaZcQ=",
+        "lastModified": 1787144664,
+        "narHash": "sha256-WEnOWfjSVEan18wg4/sPKbLb7scvQKLDwzwxnagVOh0=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "e7d70758656a5552911a8daca78acdfcb06a48f9",
+        "rev": "3e0c980aaf4f7de73f6b5c82a409e420ba85527f",
         "type": "github"
       },
       "original": {
