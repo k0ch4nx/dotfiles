@@ -481,11 +481,11 @@
     "i-have-adhd": {
       "flake": false,
       "locked": {
-        "lastModified": 1787024124,
-        "narHash": "sha256-qkMHSn5/dka10iMzk5A0AGgwkknQROH3Wp5qwwfvuyg=",
+        "lastModified": 1787106778,
+        "narHash": "sha256-H/Lr0nE+TROrobubW/Qy4/sVC/3juHp1CpfKj0siOp0=",
         "owner": "ayghri",
         "repo": "i-have-adhd",
-        "rev": "1fa9c7cc4b8a4e1e247388d213214bdc83ce8e67",
+        "rev": "e7555fcaf612dfa1739dc86610ea926a906db614",
         "type": "github"
       },
       "original": {
@@ -621,11 +621,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1787102618,
-        "narHash": "sha256-KZVKuR59qPGU+TCpOoDmQBdb/vKLnKoMRM1dBpwKxHo=",
+        "lastModified": 1787108743,
+        "narHash": "sha256-4MDvpk53qZntlQjwM2Zp2S5R9W/d9I2scPbxrC1Av/4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2a5f5131b7d1be71ec7c8adf9deb07dbe7b0166d",
+        "rev": "038d6f474d9affbbfd72fcf25650d5e121b48b38",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787105894,
-        "narHash": "sha256-XGAut2kvxHXcwiW23r49edPdhDvNIfhG0rql9opxdcs=",
+        "lastModified": 1787109352,
+        "narHash": "sha256-mhyjZ4tM40XUGXd/FNSZNqa31B1kb1vSEmr05JJpHTk=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "23da04ba8af4a94df1ab41c70e45b10d2df1a647",
+        "rev": "57e5ab7a8799c7425eecdd90d655b3afb74fa89f",
         "type": "github"
       },
       "original": {
