@@ -14,6 +14,10 @@ return {
             function(fname) return fname:gsub("%.lua$", "") end,
             vim.fn.readdir(lsp_config_dir)
         )
+        ensure_installed = vim.tbl_filter(
+            function(alias) return alias ~= "snyk_ls" end,
+            ensure_installed
+        )
 
         ---@type MasonLspconfigSettings
         ---@diagnostic disable-next-line: missing-fields

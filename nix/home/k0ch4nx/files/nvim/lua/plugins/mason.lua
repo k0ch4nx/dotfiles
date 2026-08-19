@@ -12,13 +12,8 @@ return {
             local lsp_map = require("mason-lspconfig.mappings").get_mason_map()
             local registry = require("mason-registry")
 
-            local package_overrides = {
-                snyk_ls = "snyk",
-            }
-
             local function to_package_name(alias)
-                local package_name = package_overrides[alias]
-                    or lsp_map.lspconfig_to_package[alias]
+                local package_name = lsp_map.lspconfig_to_package[alias]
 
                 assert(package_name, ("Mason package not found for %q"):format(alias))
 
@@ -30,6 +25,7 @@ return {
                     to_package_name,
                     require("mason-lspconfig.settings").current.ensure_installed
                 ),
+                { "snyk" },
                 require("mason-null-ls.settings").current.ensure_installed,
                 require("mason-nvim-dap.settings").current.ensure_installed
             )
