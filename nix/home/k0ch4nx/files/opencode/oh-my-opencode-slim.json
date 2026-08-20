@@ -2,12 +2,12 @@
     "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
     "disabled_agents": [],
     "image_routing": "auto",
-    "preset": "best",
+    "preset": "chatgpt",
     "presets": {
-        "best": {
+        "chatgpt": {
             "orchestrator": {
                 "model": "openai/gpt-5.6-terra",
-                "variant": "medium",
+                "variant": "high",
                 "skills": [
                     "*"
                 ],
@@ -17,8 +17,8 @@
                 ]
             },
             "explorer": {
-                "model": "opencode-go/deepseek-v4-flash",
-                "variant": "max",
+                "model": "openai/gpt-5.6-luna",
+                "variant": "medium",
                 "skills": [],
                 "mcps": []
             },
@@ -30,15 +30,9 @@
                 ],
                 "mcps": []
             },
-            "council": {
-                "model": "opencode-go/deepseek-v4-flash",
-                "variant": "max",
-                "skills": [],
-                "mcps": []
-            },
             "librarian": {
-                "model": "opencode-go/mimo-v2.5",
-                "variant": "max",
+                "model": "openai/gpt-5.6-luna",
+                "variant": "medium",
                 "skills": [],
                 "mcps": [
                     "websearch",
@@ -47,15 +41,15 @@
                 ]
             },
             "designer": {
-                "model": "opencode-go/kimi-k2.7-code",
-                "variant": "max",
+                "model": "openai/gpt-5.6-terra",
+                "variant": "high",
                 "skills": [
                     "agent-browser"
                 ],
                 "mcps": []
             },
             "fixer": {
-                "model": "openai/gpt-5.6-luna",
+                "model": "openai/gpt-5.6-terra",
                 "variant": "high",
                 "skills": [],
                 "mcps": []
@@ -85,11 +79,6 @@
                 ],
                 "mcps": []
             },
-            "council": {
-                "model": "opencode/nemotron-3-ultra-free",
-                "skills": [],
-                "mcps": []
-            },
             "librarian": {
                 "model": "opencode/mimo-v2.5-free",
                 "skills": [],
@@ -116,28 +105,6 @@
                 "model": "opencode/mimo-v2.5-free",
                 "skills": [],
                 "mcps": []
-            }
-        }
-    },
-    "council": {
-        "default_preset": "balanced",
-        "presets": {
-            "balanced": {
-                "openai": {
-                    "model": "openai/gpt-5.6-sol",
-                    "variant": "max",
-                    "prompt": "Focus on architecture, maintainability, correctness, security, and hidden long-term risks."
-                },
-                "kimi": {
-                    "model": "opencode-go/kimi-k3",
-                    "variant": "max",
-                    "prompt": "Focus on alternative approaches, implementation strategy, developer experience, and practical trade-offs."
-                },
-                "deepseek": {
-                    "model": "opencode-go/deepseek-v4-pro",
-                    "variant": "max",
-                    "prompt": "Focus on implementation feasibility, debugging, edge cases, performance, and failure scenarios."
-                }
             }
         }
     }
