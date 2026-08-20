@@ -56,6 +56,8 @@ function main() (
         cache="s3://${bucket}?endpoint=${s3_endpoint#https://}&scheme=https&region=auto"
     }
 
+    load_cache_connection
+
     local max_attempts=1
     if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
         max_attempts=20
@@ -64,8 +66,6 @@ function main() (
     local attempt
     local cache_available='false'
     for ((attempt = 1; attempt <= max_attempts; attempt++)); do
-        load_cache_connection
-
         if AWS_ACCESS_KEY_ID="${access_key_id}" \
             AWS_SECRET_ACCESS_KEY="${secret_access_key}" \
             nix store info --store "${cache}" >/dev/null 2>&1; then
@@ -85,44 +85,54 @@ function main() (
         return 1
     fi
 
-    local target="${NIX_CACHE_TARGET:-}"
-    if [[ -z "${target}" ]]; then
-        if [[ "$(uname -s)" == 'Darwin' ]]; then
-            target='path:.#configurationBuilds.macbook-pro.system'
-        elif [[ -r /proc/sys/kernel/osrelease ]] &&
-            grep -qi microsoft /proc/sys/kernel/osrelease; then
-            target='path:.#configurationBuilds.ubuntu-wsl.home'
-        else
-            printf 'Unsupported local platform for cache-push.\n' >&2
-            return 1
-        fi
-    fi
-
-    local toplevel
-    toplevel="$(
-        nix build \
-            --accept-flake-config \
-            --impure \
-            --no-link \
-            --no-update-lock-file \
-            --print-out-paths \
-            "${target}"
-    )"
-
-    [[ "${toplevel}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || return 1
-
     local closure_file=''
+    local remove_closure_file='false'
 
     # shellcheck disable=SC2329
     function cleanup() {
-        [[ -z "${closure_file}" ]] || rm -f "${closure_file}"
+        [[ "${remove_closure_file}" != 'true' || -z "${closure_file}" ]] || rm -f "${closure_file}"
     }
 
     trap cleanup EXIT
 
-    closure_file="$(mktemp)"
+    if [[ -n "${NIX_CACHE_CLOSURE_FILE:-}" ]]; then
+        closure_file="${NIX_CACHE_CLOSURE_FILE}"
+        if [[ ! -r "${closure_file}" ]]; then
+            printf 'Nix cache closure manifest is not readable: %s\n' "${closure_file}" >&2
+            return 1
+        fi
+    else
+        local target="${NIX_CACHE_TARGET:-}"
+        if [[ -z "${target}" ]]; then
+            if [[ "$(uname -s)" == 'Darwin' ]]; then
+                target='path:.#configurationBuilds.macbook-pro.system'
+            elif [[ -r /proc/sys/kernel/osrelease ]] &&
+                grep -qi microsoft /proc/sys/kernel/osrelease; then
+                target='path:.#configurationBuilds.ubuntu-wsl.home'
+            else
+                printf 'Unsupported local platform for cache-push.\n' >&2
+                return 1
+            fi
+        fi
 
-    nix path-info --recursive "${toplevel}" >"${closure_file}"
+        local toplevel
+        toplevel="$(
+            nix build \
+                --accept-flake-config \
+                --impure \
+                --no-link \
+                --no-update-lock-file \
+                --print-out-paths \
+                "${target}"
+        )"
+
+        [[ "${toplevel}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || return 1
+
+        closure_file="$(mktemp)"
+        remove_closure_file='true'
+
+        nix path-info --recursive "${toplevel}" >"${closure_file}"
+    fi
 
     sign_closure "${closure_file}"
 

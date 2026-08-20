@@ -42,6 +42,7 @@ jobs:
         env:
           DOTFILES_DIR: ${{ github.workspace }}
           DOTFILES_HOST: macbook-pro
+          NIX_CACHE_CLOSURE_FILE: ${{ runner.temp }}/nix-cache-closure
         run: ./scripts/steps/060-build-nix-configuration.sh
 
       - name: Prepare the CI signing key
@@ -61,6 +62,7 @@ jobs:
         if: *main-only
         env: &r2-env-darwin
           DOTFILES_DIR: ${{ github.workspace }}
+          NIX_CACHE_CLOSURE_FILE: ${{ runner.temp }}/nix-cache-closure
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
         run: ./scripts/steps/080-push-nix-cache.sh
 
@@ -78,7 +80,8 @@ jobs:
       DOTFILES_HOST: ubuntu-wsl
       DOTFILES_USER: k0ch4nx
       NIX_CACHE_PRIVATE_KEY_FILE: /tmp/nix-cache-ci-private-key
-      WSLENV: BASH_ENV/u:DOTFILES_DIR/u:DOTFILES_HOST/u:DOTFILES_USER/u:GITHUB_ACTIONS/u:NIX_EXTRA_CONF/u:TF_TOKEN_app_terraform_io/u:NIX_CACHE_PRIVATE_KEY/u:NIX_CACHE_PRIVATE_KEY_FILE/u
+      NIX_CACHE_CLOSURE_FILE: /tmp/nix-cache-closure
+      WSLENV: BASH_ENV/u:DOTFILES_DIR/u:DOTFILES_HOST/u:DOTFILES_USER/u:GITHUB_ACTIONS/u:NIX_EXTRA_CONF/u:TF_TOKEN_app_terraform_io/u:NIX_CACHE_PRIVATE_KEY/u:NIX_CACHE_PRIVATE_KEY_FILE/u:NIX_CACHE_CLOSURE_FILE/u
 
     steps:
       - name: Install Ubuntu on WSL
@@ -149,13 +152,7 @@ jobs:
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
-          exec: |
-            for target in \
-              'path:.#configurationBuilds.ubuntu-wsl.system' \
-              'path:.#configurationBuilds.ubuntu-wsl.home'
-            do
-              NIX_CACHE_TARGET="${target}" ./scripts/steps/080-push-nix-cache.sh
-            done
+          exec: ./scripts/steps/080-push-nix-cache.sh
 
       - name: Touch the cache
         if: *main-only
@@ -164,10 +161,4 @@ jobs:
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
-          exec: |
-            for target in \
-              'path:.#configurationBuilds.ubuntu-wsl.system' \
-              'path:.#configurationBuilds.ubuntu-wsl.home'
-            do
-              NIX_CACHE_TARGET="${target}" ./scripts/steps/081-touch-nix-cache.sh
-            done
+          exec: ./scripts/steps/081-touch-nix-cache.sh

@@ -24,6 +24,7 @@
   };
 
   environment.etc."wsl.conf" = {
+    replaceExisting = true;
     mode = "0644";
     text = ''
       [interop]

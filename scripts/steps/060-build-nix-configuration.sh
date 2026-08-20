@@ -33,6 +33,7 @@ main() {
     fi
 
     local -a outputs=(system)
+    local -a results=()
     if [[ "$(uname -s)" == 'Linux' ]]; then
         outputs+=(home)
     fi
@@ -66,8 +67,36 @@ main() {
 
         [[ "${result}" =~ ^/nix/store/[0-9a-z]{32}-[^/]+$ ]] || return 1
 
+        results+=("${result}")
         export "DOTFILES_$(printf '%s' "${output}" | LC_ALL=C tr '[:lower:]' '[:upper:]')_RESULT=${result}"
     done
+
+    if [[ -n "${NIX_CACHE_CLOSURE_FILE:-}" ]]; then
+        local closure_directory
+        local closure_file
+        local closure_tmp
+
+        closure_file="${NIX_CACHE_CLOSURE_FILE}"
+        closure_directory="$(dirname "${closure_file}")"
+        [[ -d "${closure_directory}" && -w "${closure_directory}" ]] || return 1
+
+        closure_tmp="$(mktemp "${closure_directory}/.$(basename "${closure_file}").XXXXXX")"
+
+        if ! nix path-info --recursive "${results[@]}" \
+            | LC_ALL=C sort -u >"${closure_tmp}"; then
+            rm -f -- "${closure_tmp}"
+            return 1
+        fi
+        if [[ ! -s "${closure_tmp}" ]]; then
+            rm -f -- "${closure_tmp}"
+            return 1
+        fi
+
+        if ! mv -f "${closure_tmp}" "${closure_file}"; then
+            rm -f -- "${closure_tmp}"
+            return 1
+        fi
+    fi
 }
 
 main
