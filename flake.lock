@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787242019,
-        "narHash": "sha256-cyaHUGrQ1AnIc31UJXV+tJk7UFuni0kELFQic/NPOQk=",
+        "lastModified": 1787245521,
+        "narHash": "sha256-2SO5KwkzjSO+3ihXJM6MhYVkv8JphEj/Al3JU54NUDk=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "d40cbfef4754a9ccb58415b489642b42de1419ae",
+        "rev": "62ed43dfd08851473ce363587e9e6506cb21bdd4",
         "type": "github"
       },
       "original": {
@@ -879,11 +879,11 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787240392,
-        "narHash": "sha256-4TGBitiLoEHS+v1d8TI/Ap8wyg3TVuyiTy50d4/8K08=",
+        "lastModified": 1787243216,
+        "narHash": "sha256-z3VonO8uNSGiPOo9VnxvV+IJtWhN6A9r8rilCUp0kVg=",
         "owner": "trailofbits",
         "repo": "skills",
-        "rev": "1e0cc133f425b8ca049943e91000f3a38dcf6980",
+        "rev": "7be90d6e55e6b5e1607b519e97d0019b32b2656a",
         "type": "github"
       },
       "original": {
