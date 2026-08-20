@@ -27,6 +27,9 @@
     replaceExisting = true;
     mode = "0644";
     text = ''
+      [boot]
+      systemd=true
+
       [interop]
       appendWindowsPath=false
     '';
