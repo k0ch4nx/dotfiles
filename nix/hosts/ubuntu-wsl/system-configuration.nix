@@ -23,6 +23,14 @@
     };
   };
 
+  environment.etc."wsl.conf" = {
+    mode = "0644";
+    text = ''
+      [interop]
+      appendWindowsPath=false
+    '';
+  };
+
   users = {
     groups.k0ch4nx = { };
 
