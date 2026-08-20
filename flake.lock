@@ -176,11 +176,11 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1787251086,
-        "narHash": "sha256-AwwYvJeWhb7arQawq56gNWWg9jIfZnwranMLc+LTE3M=",
+        "lastModified": 1787259227,
+        "narHash": "sha256-fjBar2Q/h4TtfHXlGQGZgsyUuXPADi9HtE5ppNl+4hk=",
         "owner": "davila7",
         "repo": "claude-code-templates",
-        "rev": "121c835dbdc9a9aa385a57f37b5e0904a6798cbf",
+        "rev": "19383c6c1b86ac7c5931c04a3ca6129a4cf91e1f",
         "type": "github"
       },
       "original": {
@@ -391,11 +391,11 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787249314,
-        "narHash": "sha256-1qXt/VW1oGFzpwt+hX0MuKsYXgY8vPvcOxNU53pDBXE=",
+        "lastModified": 1787259672,
+        "narHash": "sha256-Ygrb2ihQInuuj42ChqkKBqjv2aDvX7zBj9qSWEKm3Bw=",
         "owner": "google",
         "repo": "skills",
-        "rev": "3e9cfe3744226e78f289f827f53d4943fb6bf16e",
+        "rev": "658616ce37ed9ffef5512b2294350b2ac07d2f72",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787256562,
-        "narHash": "sha256-yvjVn0Q/UVMJfYaPopJ7+xb2esaI9rC7OWNeoxgorUc=",
+        "lastModified": 1787259361,
+        "narHash": "sha256-M+Y1nWfNRDa+RSRgYWNYhLRPC4eyi5UNA2nUkkJzytM=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "b52d2f08f51840eb386b4829b20656b239d13bee",
+        "rev": "4c52d3fe9df3c5463876107e38c87b85ea64607c",
         "type": "github"
       },
       "original": {
