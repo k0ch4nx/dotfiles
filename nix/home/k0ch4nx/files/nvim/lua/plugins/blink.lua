@@ -5,7 +5,6 @@ return {
         ---@module "blink.cmp"
         "saghen/blink.cmp",
         dependencies = {
-            "Exafunction/windsurf.nvim",
             "folke/lazydev.nvim",
             "saghen/blink.lib",
         },
@@ -100,18 +99,9 @@ return {
                     "path",
                     "snippets",
                     "buffer",
-                    "codeium",
                     "lazydev",
                 },
                 providers = {
-                    codeium = {
-                        name = "Codeium",
-                        enabled = function()
-                            return vim.api.nvim_buf_get_name(0) ~= ""
-                        end,
-                        module = "codeium.blink",
-                        async = true,
-                    },
                     lazydev = {
                         name = "LazyDev",
                         module = "lazydev.integrations.blink",
