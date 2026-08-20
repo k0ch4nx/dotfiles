@@ -535,11 +535,11 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787144958,
-        "narHash": "sha256-BAhmwFuEZPKsnSCwZ9NzPG5b7alCXa2/f/LXSMuJX7o=",
+        "lastModified": 1787222114,
+        "narHash": "sha256-Zg64vWsmtVk7WCH/f+bifju+L8yHeAwYbDNh6Ah43V0=",
         "owner": "mattpocock",
         "repo": "skills",
-        "rev": "885e2ca4d842d139e9aef4e48d366c63cb1b8013",
+        "rev": "0ab1b63a410a03d3627979a109c8695de27af954",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787220752,
-        "narHash": "sha256-zGEYGZZatttbulkvrwKk9CRFq4fuMezTGfiYENcYyL8=",
+        "lastModified": 1787223779,
+        "narHash": "sha256-COUD7CBSCJgR+jaa9HCwdmEoBwttNMdV5SLckWeFvR4=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "05c31c296ca7b4620b5ea37afb7afa5fe3d32838",
+        "rev": "755dad74d1fcaf4e22ee61e029a385207b7d251a",
         "type": "github"
       },
       "original": {
