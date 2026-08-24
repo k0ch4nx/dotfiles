@@ -336,11 +336,11 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1787329016,
-        "narHash": "sha256-pPS7bNn5+HEE3vWnSN5/8lfFSVTMiclM8uBTeh+2mA4=",
+        "lastModified": 1787589274,
+        "narHash": "sha256-KY1Ay+k6wItGjhyX2IhrvKijvCjTU2rwu1AtohoDntE=",
         "owner": "google-gemini",
         "repo": "gemini-cli",
-        "rev": "5411f113cafae26161b4969b0237b8e1e024e2c2",
+        "rev": "5dd4919e6dbc47e490886e6c71fd4ac4f36c89fe",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787586792,
-        "narHash": "sha256-MLbeXuYHL53nxXVWz6RUFiVMWYTctkfbZKsUu/ZAGPA=",
+        "lastModified": 1787591539,
+        "narHash": "sha256-oO+Zcoy1PyZ028ElT2ESJfDCH44od0ZFIDDd3EwrBuo=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "4d8bfab33ec87924ffe65f07e382b6b7565c335f",
+        "rev": "56664c5cfb550057fb30fff2c8e6ea3b0676904c",
         "type": "github"
       },
       "original": {
@@ -879,11 +879,11 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787583273,
-        "narHash": "sha256-okOR0HUY1jeUG2VVoRxIZxSV/AwU/W6mOuls78yf6fk=",
+        "lastModified": 1787591218,
+        "narHash": "sha256-6iF4w6TyK+sm88n2CsAncY/i+pqP53YCMPME5g+TWJs=",
         "owner": "trailofbits",
         "repo": "skills",
-        "rev": "9e7054ee8a0feccb8b16cf3ba1518364dd9ce28c",
+        "rev": "311a784a100db18b6f78c9960d594a95dcc3eef5",
         "type": "github"
       },
       "original": {
