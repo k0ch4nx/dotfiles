@@ -176,11 +176,11 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1787547488,
-        "narHash": "sha256-LhOgBPfLc/jw2bZ09OnvCps4iUOddty7FLyXW54goKk=",
+        "lastModified": 1787576842,
+        "narHash": "sha256-GdKVDPD6d0Vk4YQlCZvSyVEwilqr8I71D90QjzxEup0=",
         "owner": "davila7",
         "repo": "claude-code-templates",
-        "rev": "8e2a52a8e6eb4866e12eec101a81a3accbadc032",
+        "rev": "b30e799d29736447ad08a7acf11f58d005c69d0a",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787573448,
-        "narHash": "sha256-U8CPHmOIh6l2o3wZYRgv1zlvOF0XEdfWMGur9/kQ4wc=",
+        "lastModified": 1787577876,
+        "narHash": "sha256-gl6V4VOYZvjjH9mPkFrSRuGf+1ILbCZPzzThExXjqy4=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "03658a99a9508b4fca053d5ad92eb5ae0c99fa11",
+        "rev": "15e9bea3cbb28204b560236fa8852cc7320a2186",
         "type": "github"
       },
       "original": {
@@ -879,11 +879,11 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787321383,
-        "narHash": "sha256-hQeyXgl4CJecknXjihhY5vNm8M9h8TzPeGNz8HT4zfc=",
+        "lastModified": 1787578022,
+        "narHash": "sha256-eUCPlEVtAyyhZLEY+17xeb5VxwSaYA2SxJWtroTV+ro=",
         "owner": "trailofbits",
         "repo": "skills",
-        "rev": "293fb74c3151cceda32a85a545fe8acd67f8f5c6",
+        "rev": "43d16a56d832bdd467041a2540e46d3cf6433b3c",
         "type": "github"
       },
       "original": {
