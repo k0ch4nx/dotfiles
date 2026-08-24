@@ -519,11 +519,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1787606180,
-        "narHash": "sha256-OBDXhfBBq+gzx5kzVBvte0JvH8/kAGubP19vgPBNjQE=",
+        "lastModified": 1787610320,
+        "narHash": "sha256-hvxfC/OSjU6cl9emId1XobgtvKeYepf0HloN5COYlQ0=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "30e28f905e1f90130622baf764a7cbf4853cbcb3",
+        "rev": "e9d9a3e38e2069eee915f6bdbf8f4d9a696c11c9",
         "type": "github"
       },
       "original": {
@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787609012,
-        "narHash": "sha256-3xb7I/P3MA5INfqwZLBh682j6VDc2ZPBboGNFb51R0w=",
+        "lastModified": 1787612285,
+        "narHash": "sha256-fGhGe067gbbU9/P4+fttSSbu6bIm03ATjUcyFTWM7wI=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "d74555299d84608a6822a3b41e83788ed1b58c5e",
+        "rev": "9b36c8bc56ab990266ba3aca245cdb552b5ba09e",
         "type": "github"
       },
       "original": {
@@ -879,11 +879,11 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787591218,
-        "narHash": "sha256-6iF4w6TyK+sm88n2CsAncY/i+pqP53YCMPME5g+TWJs=",
+        "lastModified": 1787612999,
+        "narHash": "sha256-xUQQwakhd5GmuHhbPoBmCxdJIomW2kVLYaW0M+MZ+3o=",
         "owner": "trailofbits",
         "repo": "skills",
-        "rev": "311a784a100db18b6f78c9960d594a95dcc3eef5",
+        "rev": "1004934abf6b43f614af6f79720373e1d581e6e8",
         "type": "github"
       },
       "original": {
