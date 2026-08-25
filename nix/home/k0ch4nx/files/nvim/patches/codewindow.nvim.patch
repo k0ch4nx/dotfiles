@@ -9,6 +9,7 @@ index c64ec27..753eabf 100644
 +  if config.window_border ~= "none" then
 +    minimap_height = minimap_height - 2
 +  end
+ 
    local relative = config.relative
    local is_relative = config.relative == "win"
 @@ -91,7 +94,7 @@ local function get_window_config(current_window)
