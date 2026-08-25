@@ -85,16 +85,20 @@ jobs:
 
     steps:
       - name: Install Ubuntu on WSL
-        shell: powershell
-        run: |
-          winget install --id Microsoft.WSL --exact --source winget --accept-source-agreements --accept-package-agreements --silent --verbose
+        uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4
+        with:
+          timeout_minutes: 10
+          max_attempts: 2
+          shell: powershell
+          command: |
+            winget install --id Microsoft.WSL --exact --source winget --accept-source-agreements --accept-package-agreements --silent --verbose
 
-          $env:WSL_UTF8 = 1
-          wsl.exe --install Ubuntu --web-download --no-launch
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            $env:WSL_UTF8 = 1
+            wsl.exe --install Ubuntu --web-download --no-launch
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-          wsl.exe --distribution Ubuntu -- echo Created a new distro with user: '$(whoami)'
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            wsl.exe --distribution Ubuntu -- echo Created a new distro with user: '$(whoami)'
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Checkout
         uses: Ubuntu/WSL/.github/actions/wsl-checkout@f861f1083e518354e4c3637b08c0edfcf8bc3d51
