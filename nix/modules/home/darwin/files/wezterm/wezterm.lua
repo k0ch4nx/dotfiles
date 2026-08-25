@@ -4,6 +4,15 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 local color_scheme = "Kanagawa (Gogh)"
+local socket_path = wezterm.home_dir .. "/.local/share/wezterm/sock"
+
+config.unix_domains = {
+    {
+        name = "unix",
+        socket_path = socket_path,
+    },
+}
+config.default_gui_startup_args = { "connect", "unix" }
 
 wezterm.plugin.update_all()
 
