@@ -53,15 +53,16 @@
       "locked": {
         "lastModified": 1787332253,
         "narHash": "sha256-nVid8vENmLDh7ffDqh+bJbEWtXcVltA0qa2rItmniZM=",
-        "owner": "anthropics",
-        "repo": "skills",
+        "ref": "refs/heads/main",
         "rev": "3b3fad96af16a10759d930941b4520ba0c40edae",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/anthropics/skills.git"
       },
       "original": {
-        "owner": "anthropics",
-        "repo": "skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/anthropics/skills.git"
       }
     },
     "autoskills": {
@@ -69,15 +70,16 @@
       "locked": {
         "lastModified": 1784289814,
         "narHash": "sha256-N4k7YwZDYwRDQrMPe0wxzFtirOgCFAfAO4tisnQqV+8=",
-        "owner": "midudev",
-        "repo": "autoskills",
+        "ref": "refs/heads/main",
         "rev": "0ec725320d2137253ab2e68e7ba8a072148e741a",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/midudev/autoskills.git"
       },
       "original": {
-        "owner": "midudev",
-        "repo": "autoskills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/midudev/autoskills.git"
       }
     },
     "blueprint": {
@@ -178,15 +180,16 @@
       "locked": {
         "lastModified": 1787628363,
         "narHash": "sha256-oVCb0pUu9I4SugVMKeocHZJrhYWfpNc/ud0t62mWRXE=",
-        "owner": "davila7",
-        "repo": "claude-code-templates",
+        "ref": "refs/heads/main",
         "rev": "7affdd0f127b1e5d3eec653caf422d3d6fc64fab",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/davila7/claude-code-templates.git"
       },
       "original": {
-        "owner": "davila7",
-        "repo": "claude-code-templates",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/davila7/claude-code-templates.git"
       }
     },
     "cloudflare-skills": {
@@ -194,15 +197,16 @@
       "locked": {
         "lastModified": 1786124673,
         "narHash": "sha256-r8HeH9XWV9qhbMq3fPASNfT5Y1mrfsgBI5STiUi/LVA=",
-        "owner": "cloudflare",
-        "repo": "skills",
+        "ref": "refs/heads/main",
         "rev": "f96bff754e428838818017f75817f0f9428acd48",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/cloudflare/skills.git"
       },
       "original": {
-        "owner": "cloudflare",
-        "repo": "skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/cloudflare/skills.git"
       }
     },
     "darwin": {
@@ -232,15 +236,16 @@
       "locked": {
         "lastModified": 1786816321,
         "narHash": "sha256-nhOWMPJOM5xnzT2qx/pFP+SWw3/R2W8pmUGvnqVH/40=",
-        "owner": "pproenca",
-        "repo": "dot-skills",
+        "ref": "refs/heads/master",
         "rev": "cf93c57cac89d6fc3e4194686000411567f5caf3",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/pproenca/dot-skills.git"
       },
       "original": {
-        "owner": "pproenca",
-        "repo": "dot-skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/pproenca/dot-skills.git"
       }
     },
     "ecc": {
@@ -248,15 +253,16 @@
       "locked": {
         "lastModified": 1787182316,
         "narHash": "sha256-CxdpOlKSBWT22Kt0Z9XXGTi+uxGAQNXi8zwz9VWSJOw=",
-        "owner": "affaan-m",
-        "repo": "ecc",
+        "ref": "refs/heads/main",
         "rev": "d8409a4b0813771235555e32e3d8046a73988bfa",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/affaan-m/ecc.git"
       },
       "original": {
-        "owner": "affaan-m",
-        "repo": "ecc",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/affaan-m/ecc.git"
       }
     },
     "flake-compat": {
@@ -338,15 +344,16 @@
       "locked": {
         "lastModified": 1787596914,
         "narHash": "sha256-d88owtZmjg5F7BMG9wxsuOYHGlapdrNXxw3eOyxHRrQ=",
-        "owner": "google-gemini",
-        "repo": "gemini-cli",
+        "ref": "refs/heads/main",
         "rev": "812f7a2bcf20b6e80e2e50c3c8fa8e26567bc1e8",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/google-gemini/gemini-cli.git"
       },
       "original": {
-        "owner": "google-gemini",
-        "repo": "gemini-cli",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/google-gemini/gemini-cli.git"
       }
     },
     "genshijin": {
@@ -354,15 +361,16 @@
       "locked": {
         "lastModified": 1785827430,
         "narHash": "sha256-E1/7WSlh+B9bM7UzyGbIzmNsprCGLewPqUK50Fi+cnI=",
-        "owner": "InterfaceX-co-jp",
-        "repo": "genshijin",
+        "ref": "refs/heads/main",
         "rev": "968d3c449499fdefc00aff9f1fe9c52c4dfdc7ae",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/InterfaceX-co-jp/genshijin.git"
       },
       "original": {
-        "owner": "InterfaceX-co-jp",
-        "repo": "genshijin",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/InterfaceX-co-jp/genshijin.git"
       }
     },
     "gitignore": {
@@ -393,15 +401,16 @@
       "locked": {
         "lastModified": 1787615347,
         "narHash": "sha256-PinM6QLc3xgtc6WIr0iPTIjmWv5iZ7s0fv6aa4tqHtY=",
-        "owner": "google",
-        "repo": "skills",
+        "ref": "refs/heads/main",
         "rev": "cd0b5629c0715cba7a44eb226011b7d6231db9ef",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/google/skills.git"
       },
       "original": {
-        "owner": "google",
-        "repo": "skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/google/skills.git"
       }
     },
     "hashicorp-agent-skills": {
@@ -409,15 +418,16 @@
       "locked": {
         "lastModified": 1787242205,
         "narHash": "sha256-hzL1bVyptTYysSXXAB4zPKQjNmAuhamRLasrPVnBCgI=",
-        "owner": "hashicorp",
-        "repo": "agent-skills",
+        "ref": "refs/heads/main",
         "rev": "6333093c37a318cb800d57a6de7d0877a9e048a4",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/hashicorp/agent-skills.git"
       },
       "original": {
-        "owner": "hashicorp",
-        "repo": "agent-skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/hashicorp/agent-skills.git"
       }
     },
     "home-manager": {
@@ -467,15 +477,16 @@
       "locked": {
         "lastModified": 1784537903,
         "narHash": "sha256-vC1tDxOSzxx1u+tbo3gyoZTm7u+GsyymuNL5k0ERd2Y=",
-        "owner": "jackielii",
-        "repo": "homebrew-tap",
+        "ref": "refs/heads/main",
         "rev": "634cd3c1a495f59f832813410f07ddf2c4a1c50c",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/jackielii/homebrew-tap.git"
       },
       "original": {
-        "owner": "jackielii",
-        "repo": "homebrew-tap",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/jackielii/homebrew-tap.git"
       }
     },
     "i-have-adhd": {
@@ -483,15 +494,16 @@
       "locked": {
         "lastModified": 1787325926,
         "narHash": "sha256-isZtYWU+o32+JpslZlPH/T8HV+b4lHESJHCEWvm0kA8=",
-        "owner": "ayghri",
-        "repo": "i-have-adhd",
+        "ref": "refs/heads/main",
         "rev": "b42a45a068e080294924bfba19a7a2e8944c48ff",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/ayghri/i-have-adhd.git"
       },
       "original": {
-        "owner": "ayghri",
-        "repo": "i-have-adhd",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/ayghri/i-have-adhd.git"
       }
     },
     "kaynetik-skills": {
@@ -499,15 +511,16 @@
       "locked": {
         "lastModified": 1777797039,
         "narHash": "sha256-yTf6V3eAH363YWxV/3bXw/08B68PNmeoPSmd9Nj0Ob4=",
-        "owner": "kaynetik",
-        "repo": "skills",
+        "ref": "refs/heads/main",
         "rev": "7bc6c41c8014b183e0112768cbe937ca05cfb87b",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/kaynetik/skills.git"
       },
       "original": {
-        "owner": "kaynetik",
-        "repo": "skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/kaynetik/skills.git"
       }
     },
     "llm-agents": {
@@ -537,15 +550,16 @@
       "locked": {
         "lastModified": 1787581197,
         "narHash": "sha256-N5tpUIHO2VFeJntBTl6/VLDIVpqoshwFxNJlfXXUwsQ=",
-        "owner": "mattpocock",
-        "repo": "skills",
+        "ref": "refs/heads/main",
         "rev": "6654f6b60cd9d5be8b54c6fafe44346dabeb3b76",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/mattpocock/skills.git"
       },
       "original": {
-        "owner": "mattpocock",
-        "repo": "skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/mattpocock/skills.git"
       }
     },
     "natural-japanese": {
@@ -553,15 +567,16 @@
       "locked": {
         "lastModified": 1786928212,
         "narHash": "sha256-msIYE+qitkcoBZEA95iPyE4pvh6u+kuCK9K78uvlxq0=",
-        "owner": "coji",
-        "repo": "natural-japanese",
+        "ref": "refs/heads/main",
         "rev": "0f1cc1c5a4e2aa7590598c88a15c213a60d9545a",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/coji/natural-japanese.git"
       },
       "original": {
-        "owner": "coji",
-        "repo": "natural-japanese",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/coji/natural-japanese.git"
       }
     },
     "nix-darwin": {
@@ -640,31 +655,33 @@
       "locked": {
         "lastModified": 1782268572,
         "narHash": "sha256-t4oGnFg0YpxJaQiFpgTiwYhaFoZK6wPDiqvHoG0bXiU=",
-        "owner": "openai",
-        "repo": "skills",
+        "ref": "refs/heads/main",
         "rev": "49f948faa9258a0c61caceaf225e179651397431",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/openai/skills.git"
       },
       "original": {
-        "owner": "openai",
-        "repo": "skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/openai/skills.git"
       }
     },
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787652731,
-        "narHash": "sha256-kOGVEibuNt7rgV5JxYUVH7/19VHYqLQ52wpAozLu6Vo=",
-        "owner": "openclaw",
-        "repo": "openclaw",
-        "rev": "c29d4f9d6a3e8e6790837bfa8b4c7f26bc4ddb5b",
-        "type": "github"
+        "lastModified": 1787654874,
+        "narHash": "sha256-kNiCWlEUZI2HgTifCEhEVqcNDcx4zLnr7ZwJvzY9pO4=",
+        "ref": "refs/heads/main",
+        "rev": "f830b8c1590bc119ca163b6d790a5c3703f5d2f4",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/openclaw/openclaw.git"
       },
       "original": {
-        "owner": "openclaw",
-        "repo": "openclaw",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/openclaw/openclaw.git"
       }
     },
     "pre-commit-hooks-nix": {
@@ -736,15 +753,16 @@
       "locked": {
         "lastModified": 1786715565,
         "narHash": "sha256-jjWJUJCLRYlfDPWCpa9Ad1fumNCNn7mIkLsyI/P0/QE=",
-        "owner": "rrezartprebreza",
-        "repo": "spring-boot-skills",
+        "ref": "refs/heads/main",
         "rev": "01573932562b7489cb9b2d7ed85562a3152c0bec",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/rrezartprebreza/spring-boot-skills.git"
       },
       "original": {
-        "owner": "rrezartprebreza",
-        "repo": "spring-boot-skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/rrezartprebreza/spring-boot-skills.git"
       }
     },
     "superpowers": {
@@ -752,15 +770,16 @@
       "locked": {
         "lastModified": 1786553601,
         "narHash": "sha256-EsGNO0dULWf5Bx6bGrCv2kI2Z8aKH0kRvGiuN23wChQ=",
-        "owner": "obra",
-        "repo": "superpowers",
+        "ref": "refs/heads/main",
         "rev": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/obra/superpowers.git"
       },
       "original": {
-        "owner": "obra",
-        "repo": "superpowers",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/obra/superpowers.git"
       }
     },
     "system-manager": {
@@ -865,15 +884,16 @@
       "locked": {
         "lastModified": 1787615461,
         "narHash": "sha256-KhNs2aRKwFedZWn5//9wzgUJgzU8NAX4Bmv0Bt+2w64=",
-        "owner": "zenbu-labs",
-        "repo": "terminal-browser",
+        "ref": "refs/heads/main",
         "rev": "950ce246b3096d96f15bd34fdc41787a116906eb",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/zenbu-labs/terminal-browser.git"
       },
       "original": {
-        "owner": "zenbu-labs",
-        "repo": "terminal-browser",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/zenbu-labs/terminal-browser.git"
       }
     },
     "trailofbits-skills": {
@@ -881,15 +901,16 @@
       "locked": {
         "lastModified": 1787612999,
         "narHash": "sha256-xUQQwakhd5GmuHhbPoBmCxdJIomW2kVLYaW0M+MZ+3o=",
-        "owner": "trailofbits",
-        "repo": "skills",
+        "ref": "refs/heads/main",
         "rev": "1004934abf6b43f614af6f79720373e1d581e6e8",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/trailofbits/skills.git"
       },
       "original": {
-        "owner": "trailofbits",
-        "repo": "skills",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/trailofbits/skills.git"
       }
     },
     "treefmt-nix": {
@@ -947,15 +968,16 @@
       "locked": {
         "lastModified": 1787528467,
         "narHash": "sha256-7hQ7ckfIhoRHEOwfd08eqGXiqQ9eeffM16+o7dqGBF8=",
-        "owner": "wshobson",
-        "repo": "agents",
+        "ref": "refs/heads/main",
         "rev": "d82998e7df393c671ede2387a8435075f0b633f5",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/wshobson/agents.git"
       },
       "original": {
-        "owner": "wshobson",
-        "repo": "agents",
-        "type": "github"
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/wshobson/agents.git"
       }
     }
   },
