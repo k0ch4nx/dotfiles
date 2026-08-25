@@ -35,11 +35,11 @@
       };
     };
     anthropic-skills = {
-      url = "github:anthropics/skills";
+      url = "git+https://github.com/anthropics/skills.git?shallow=1";
       flake = false;
     };
     autoskills = {
-      url = "github:midudev/autoskills";
+      url = "git+https://github.com/midudev/autoskills.git?shallow=1";
       flake = false;
     };
     blueprint = {
@@ -47,36 +47,36 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     cc-templates = {
-      url = "github:davila7/claude-code-templates";
+      url = "git+https://github.com/davila7/claude-code-templates.git?shallow=1";
       flake = false;
     };
     cloudflare-skills = {
-      url = "github:cloudflare/skills";
+      url = "git+https://github.com/cloudflare/skills.git?shallow=1";
       flake = false;
     };
     dot-skills = {
-      url = "github:pproenca/dot-skills";
+      url = "git+https://github.com/pproenca/dot-skills.git?shallow=1";
       flake = false;
     };
     ecc = {
-      url = "github:affaan-m/ecc";
+      url = "git+https://github.com/affaan-m/ecc.git?shallow=1";
       flake = false;
     };
     flake-file.url = "github:denful/flake-file";
     gemini-cli = {
-      url = "github:google-gemini/gemini-cli";
+      url = "git+https://github.com/google-gemini/gemini-cli.git?shallow=1";
       flake = false;
     };
     genshijin = {
-      url = "github:InterfaceX-co-jp/genshijin";
+      url = "git+https://github.com/InterfaceX-co-jp/genshijin.git?shallow=1";
       flake = false;
     };
     google-skills = {
-      url = "github:google/skills";
+      url = "git+https://github.com/google/skills.git?shallow=1";
       flake = false;
     };
     hashicorp-agent-skills = {
-      url = "github:hashicorp/agent-skills";
+      url = "git+https://github.com/hashicorp/agent-skills.git?shallow=1";
       flake = false;
     };
     home-manager = {
@@ -84,24 +84,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     homebrew-jackielii-tap = {
-      url = "github:jackielii/homebrew-tap";
+      url = "git+https://github.com/jackielii/homebrew-tap.git?shallow=1";
       flake = false;
     };
     i-have-adhd = {
-      url = "github:ayghri/i-have-adhd";
+      url = "git+https://github.com/ayghri/i-have-adhd.git?shallow=1";
       flake = false;
     };
     kaynetik-skills = {
-      url = "github:kaynetik/skills";
+      url = "git+https://github.com/kaynetik/skills.git?shallow=1";
       flake = false;
     };
     llm-agents.url = "github:numtide/llm-agents.nix";
     mattpocock-skills = {
-      url = "github:mattpocock/skills";
+      url = "git+https://github.com/mattpocock/skills.git?shallow=1";
       flake = false;
     };
     natural-japanese = {
-      url = "github:coji/natural-japanese";
+      url = "git+https://github.com/coji/natural-japanese.git?shallow=1";
       flake = false;
     };
     nix-darwin = {
@@ -111,19 +111,19 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     openai-skills = {
-      url = "github:openai/skills";
+      url = "git+https://github.com/openai/skills.git?shallow=1";
       flake = false;
     };
     openclaw = {
-      url = "github:openclaw/openclaw";
+      url = "git+https://github.com/openclaw/openclaw.git?shallow=1";
       flake = false;
     };
     spring-boot-skills = {
-      url = "github:rrezartprebreza/spring-boot-skills";
+      url = "git+https://github.com/rrezartprebreza/spring-boot-skills.git?shallow=1";
       flake = false;
     };
     superpowers = {
-      url = "github:obra/superpowers";
+      url = "git+https://github.com/obra/superpowers.git?shallow=1";
       flake = false;
     };
     system-manager = {
@@ -131,15 +131,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     terminal-browser = {
-      url = "github:zenbu-labs/terminal-browser";
+      url = "git+https://github.com/zenbu-labs/terminal-browser.git?shallow=1";
       flake = false;
     };
     trailofbits-skills = {
-      url = "github:trailofbits/skills";
+      url = "git+https://github.com/trailofbits/skills.git?shallow=1";
       flake = false;
     };
     wshobson-agents = {
-      url = "github:wshobson/agents";
+      url = "git+https://github.com/wshobson/agents.git?shallow=1";
       flake = false;
     };
   };
