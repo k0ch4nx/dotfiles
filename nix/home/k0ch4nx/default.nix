@@ -52,7 +52,7 @@
       oh-my-posh
       onefetch
       opencode
-      openssh
+      (if stdenv.hostPlatform.isLinux then opensshWithKerberos else openssh)
       progress
       python314
       python3Packages.huggingface-hub
