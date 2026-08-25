@@ -654,11 +654,11 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787624335,
-        "narHash": "sha256-Mdbu9MqUQhhyouGuFnHfazvrdAZUskmOMW2HaHG2Mnk=",
+        "lastModified": 1787628035,
+        "narHash": "sha256-8XCsix7BXHo9JXOUNCHtrzPOkwCOjBmeUxX9oilRE0s=",
         "owner": "openclaw",
         "repo": "openclaw",
-        "rev": "110b7474b42bd6221389af6687adf5778366100b",
+        "rev": "70e6aa135a54280796f092b828dad4d159143560",
         "type": "github"
       },
       "original": {
