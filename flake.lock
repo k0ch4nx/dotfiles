@@ -399,10 +399,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787672977,
-        "narHash": "sha256-YZG70UJZaeDUEZ8aw0tn/28gPiMqEaktDDPrcF/7Yic=",
+        "lastModified": 1787678141,
+        "narHash": "sha256-pdI+kNRIma3JTKG/y3/3Co/cjG4B6uOT23IuyVcyURM=",
         "ref": "refs/heads/main",
-        "rev": "2fee759e86e24cf2cce1f7aebcee5cd4a1c00143",
+        "rev": "7b596c6e315d8661999c2b91e8139171c6c6330d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -532,11 +532,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1787660833,
-        "narHash": "sha256-4R2DeS9btVaawjYmkfA9c1QHYCwg0TM2PjlFOSlKk0Y=",
+        "lastModified": 1787677707,
+        "narHash": "sha256-/P7USpWwf+Jl81GUDE8Ab+j9S3NIfLefat2QTAuFYY8=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "60e7fc4eab599ae19f53818784955f2f5aab72ec",
+        "rev": "ed38c11e34e72199025ab70dc0042d78ef4c64cd",
         "type": "github"
       },
       "original": {
@@ -670,10 +670,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787673523,
-        "narHash": "sha256-KXHFXJ+RN2nt258YtL7mPw10+MuB0ar7HJrIYHyWvSM=",
+        "lastModified": 1787677881,
+        "narHash": "sha256-AbrHTuRluqAD6Ud4p6CIU3XQcvz2mUzR0TWyvBG+n7w=",
         "ref": "refs/heads/main",
-        "rev": "ecf06317796ce74dc49511f8aca02ebde48af510",
+        "rev": "e9a000452a23e1b5740a51bc49e162fc44a5a05b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
