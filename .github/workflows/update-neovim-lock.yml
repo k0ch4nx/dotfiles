@@ -76,28 +76,33 @@ jobs:
         id: update
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ./scripts/steps/100-update-neovim-plugins.sh
-          ./scripts/steps/130-update-neovim-mason-packages.sh
+        uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4.0.0
+        with:
+          timeout_minutes: 60
+          max_attempts: 2
+          retry_wait_seconds: 30
+          command: |
+            ./scripts/steps/100-update-neovim-plugins.sh
+            ./scripts/steps/130-update-neovim-mason-packages.sh
 
-          unexpected_paths="$(
-            git diff --name-only \
-              -- ':(exclude)nix/home/k0ch4nx/files/nvim/lazy-lock.json' \
-              ':(exclude)nix/home/k0ch4nx/files/nvim/mason-lock.json'
-          )"
-          if [[ -n "${unexpected_paths}" ]]; then
-            printf 'Unexpected paths changed:\n%s\n' "${unexpected_paths}" >&2
-            exit 1
-          fi
+            unexpected_paths="$(
+              git diff --name-only \
+                -- ':(exclude)nix/home/k0ch4nx/files/nvim/lazy-lock.json' \
+                ':(exclude)nix/home/k0ch4nx/files/nvim/mason-lock.json'
+            )"
+            if [[ -n "${unexpected_paths}" ]]; then
+              printf 'Unexpected paths changed:\n%s\n' "${unexpected_paths}" >&2
+              exit 1
+            fi
 
-          if \
-            git diff --quiet \
-              -- nix/home/k0ch4nx/files/nvim/lazy-lock.json \
-              nix/home/k0ch4nx/files/nvim/mason-lock.json; then
-            printf 'changed=false\n' >>"${GITHUB_OUTPUT}"
-          else
-            printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
-          fi
+            if \
+              git diff --quiet \
+                -- nix/home/k0ch4nx/files/nvim/lazy-lock.json \
+                nix/home/k0ch4nx/files/nvim/mason-lock.json; then
+              printf 'changed=false\n' >>"${GITHUB_OUTPUT}"
+            else
+              printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
+            fi
 
       - name: Create the pull request
         id: create-pull-request
