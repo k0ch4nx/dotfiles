@@ -18,7 +18,7 @@
   "markview-smart-tables.nvim": { "branch": "main", "commit": "01134a5bf48f1b7abe27b26a6b89262685bb309f" },
   "markview.nvim": { "branch": "main", "commit": "5d9fc2aa6dd1c2fbdc7a68bc79b300e9967b21ff" },
   "mason-lock.nvim": { "branch": "main", "commit": "b75e2de585637a61b2fb818dc33dad7863b7b0c4" },
-  "mason-lspconfig.nvim": { "branch": "main", "commit": "9d28935aa95fa6c1dc7c4d6747f101a72a8a4bec" },
+  "mason-lspconfig.nvim": { "branch": "main", "commit": "24d4ab0838b250753b307a8747ade06dc99aed9d" },
   "mason-null-ls.nvim": { "branch": "main", "commit": "8e7806acaa87fae64f0bfde25bb4b87c18bd19b4" },
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "9a10e096703966335bd5c46c8c875d5b0690dade" },
   "mason.nvim": { "branch": "main", "commit": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d" },
@@ -54,7 +54,7 @@
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
   "treesitter-parser-registry": { "branch": "main", "commit": "6eb15358bb9fc88f0d3401d8538d56652e9bdf3c" },
   "vim-matchup": { "branch": "master", "commit": "5e3c4a3274a9766aee520caebb52572c007fc4f8" },
-  "vimdoc-ja": { "branch": "master", "commit": "0849905097283da1ccc4c62198315c64962bd31b" },
+  "vimdoc-ja": { "branch": "master", "commit": "011ad280e3bf533b6a92a48841991428d459d478" },
   "wezterm-types": { "branch": "main", "commit": "2b7b940c4db654c518708dac02d4f0d4bec99057" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }
