@@ -68,6 +68,10 @@ in
         condition = "gitdir:${ghqRoot}/${config.dotfiles.remote}/sep-dev/";
         path = "~/.config/git/config.d/work";
       }
+      {
+        condition = "gitdir:${ghqRoot}/${config.dotfiles.remote}/suhtang/";
+        path = "~/.config/git/config.d/work";
+      }
     ];
 
     settings = {
