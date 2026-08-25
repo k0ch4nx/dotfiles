@@ -399,10 +399,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787665542,
-        "narHash": "sha256-4xqaSQtht2ue+PYYXHBdycivaRZEPmOpJFGKBvHqGok=",
+        "lastModified": 1787672977,
+        "narHash": "sha256-YZG70UJZaeDUEZ8aw0tn/28gPiMqEaktDDPrcF/7Yic=",
         "ref": "refs/heads/main",
-        "rev": "a9fbad0682a50c920e3b230412a2b1bc019d349c",
+        "rev": "2fee759e86e24cf2cce1f7aebcee5cd4a1c00143",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -670,10 +670,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787670951,
-        "narHash": "sha256-+ZjHk7JN6Yy8m8uAJqXul5Nrx4DpBYgzyvhC28hKWVE=",
+        "lastModified": 1787673523,
+        "narHash": "sha256-KXHFXJ+RN2nt258YtL7mPw10+MuB0ar7HJrIYHyWvSM=",
         "ref": "refs/heads/main",
-        "rev": "d53ea9cf4d453a390d0244ce1c0aa2c09e18f52a",
+        "rev": "ecf06317796ce74dc49511f8aca02ebde48af510",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -899,10 +899,10 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787670691,
-        "narHash": "sha256-Gx4Hr6RBVcVaDp2ILhdtH7RCFab0AnTVoUn348+6d5I=",
+        "lastModified": 1787673011,
+        "narHash": "sha256-/HhbX82Y98jSZ1ol5MD4XHWQ5Y7e0x5SHNnk+TbkWRY=",
         "ref": "refs/heads/main",
-        "rev": "32ad9e6b47a880005ebeede2d0b5923359e5e6fd",
+        "rev": "8c1b2670bf8cc26b9178ebb199b2613153b6f483",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/trailofbits/skills.git"
