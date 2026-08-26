@@ -58,6 +58,10 @@
       url = "git+https://github.com/pproenca/dot-skills.git?shallow=1";
       flake = false;
     };
+    dotnet-skills = {
+      url = "git+https://github.com/dotnet/skills.git?shallow=1";
+      flake = false;
+    };
     ecc = {
       url = "git+https://github.com/affaan-m/ecc.git?shallow=1";
       flake = false;

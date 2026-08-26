@@ -104,6 +104,11 @@ in
         flake = false;
       };
 
+      dotnet-skills = {
+        url = "git+https://github.com/dotnet/skills.git?shallow=1";
+        flake = false;
+      };
+
       spring-boot-skills = {
         url = "git+https://github.com/rrezartprebreza/spring-boot-skills.git?shallow=1";
         flake = false;

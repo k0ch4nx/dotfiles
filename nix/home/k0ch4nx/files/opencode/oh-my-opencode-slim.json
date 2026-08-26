@@ -44,7 +44,7 @@
                 ]
             },
             "designer": {
-                "model": "opencode-go/qwen3.8-max",
+                "model": "opencode-go/kimi-k2.7-code",
                 "skills": [
                     "agent-browser"
                 ],

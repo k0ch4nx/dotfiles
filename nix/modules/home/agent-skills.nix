@@ -26,6 +26,11 @@
         subdir = "skills";
       };
 
+      dotnet-skills = {
+        input = "dotnet-skills";
+        subdir = "plugins";
+      };
+
       critique = {
         input = "gemini-cli";
         subdir = "tools/gemini-cli-bot/.gemini/skills";
