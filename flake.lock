@@ -251,10 +251,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787734355,
-        "narHash": "sha256-7FSGmdfBptoqExJHmWaAVGYO0hbe1X1k2GvAh1qb2xA=",
+        "lastModified": 1787747607,
+        "narHash": "sha256-a/CMqhNInNjCYeZJhbfGk+OM/KILNdHNgwnm7DmtrnQ=",
         "ref": "refs/heads/main",
-        "rev": "fb3d055a49658fd16c7f5f88e973fd0da42c4f6a",
+        "rev": "3cd1337923f35817cccd6562abe53f81c63e594f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -416,10 +416,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787728324,
-        "narHash": "sha256-5MmfrcTVuiJPNMboxG07jp8RoCSOKlZM72oPzjja8Oo=",
+        "lastModified": 1787750583,
+        "narHash": "sha256-eBkP0dkZDWp2nNegoeEUlm/vuaxUUJzug0BM0VC3tWE=",
         "ref": "refs/heads/main",
-        "rev": "f1b00f7cef899330df945b66c94e9c977b355f3b",
+        "rev": "be1e3980fa29c58b27c35021f05bdde88613a219",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -475,11 +475,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787715947,
-        "narHash": "sha256-jT6g5aWwA6TrIUJhqQ9ssm8W5e8vAl2Bv8gddEKKVNU=",
+        "lastModified": 1787750582,
+        "narHash": "sha256-FfIAV44k33i+IjC1+new2KyjyVGUzGtV89VHVP4eK1U=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7690127e7e1c90ab1dcaff525d0dafbeb7e14182",
+        "rev": "0a364342a66bcecfc8a00d2fc38c6c29eee7bc5e",
         "type": "github"
       },
       "original": {
@@ -509,10 +509,10 @@
     "i-have-adhd": {
       "flake": false,
       "locked": {
-        "lastModified": 1787325926,
-        "narHash": "sha256-isZtYWU+o32+JpslZlPH/T8HV+b4lHESJHCEWvm0kA8=",
+        "lastModified": 1787750685,
+        "narHash": "sha256-56Ia9a8lvALeSmUDAumfu9nzmYBzONSlBpFv7o1w7ys=",
         "ref": "refs/heads/main",
-        "rev": "b42a45a068e080294924bfba19a7a2e8944c48ff",
+        "rev": "cbe69fb83c08a37cf54d5ec9ec6bb88c8bc9973c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/ayghri/i-have-adhd.git"
@@ -687,10 +687,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787746545,
-        "narHash": "sha256-CGdLSywe2y25MWcjlketxco4ad16coggejGWvVZR+HE=",
+        "lastModified": 1787750850,
+        "narHash": "sha256-H3JRHWjchhs7P/o1ddO2F620XbzFBPoU3LKUO+rkEZY=",
         "ref": "refs/heads/main",
-        "rev": "91888cf68bcac293a56b942074da0621546401f1",
+        "rev": "4ae1ce4c28ef9c262183e1dcdd535e0dc0ffe08b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -917,10 +917,10 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787681012,
-        "narHash": "sha256-8tdrvawLl6gbyqG/fBECumJeGAvBPH8V45R+K8U1fww=",
+        "lastModified": 1787748852,
+        "narHash": "sha256-iULizoPQZvtqjQ+oZrmWG6SRvKTzQ8810drF7vF0JGM=",
         "ref": "refs/heads/main",
-        "rev": "65720f8db2ca0c1d1a1805db0dacbabc190a1aa1",
+        "rev": "4b1b74b181e81cbcaa8d3b68a0e4ed867165b972",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/trailofbits/skills.git"
