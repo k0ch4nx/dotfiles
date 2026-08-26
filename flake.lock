@@ -248,6 +248,23 @@
         "url": "https://github.com/pproenca/dot-skills.git"
       }
     },
+    "dotnet-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787681671,
+        "narHash": "sha256-PjqqfxD0Qb7L7uUC3wvsGoM/GmYs6ovuujROQtH9Q10=",
+        "ref": "refs/heads/main",
+        "rev": "1b896e91feb0f613cb54a914f1efd2897810ae02",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/dotnet/skills.git"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/dotnet/skills.git"
+      }
+    },
     "ecc": {
       "flake": false,
       "locked": {
@@ -722,6 +739,7 @@
         "cc-templates": "cc-templates",
         "cloudflare-skills": "cloudflare-skills",
         "dot-skills": "dot-skills",
+        "dotnet-skills": "dotnet-skills",
         "ecc": "ecc",
         "flake-file": "flake-file",
         "gemini-cli": "gemini-cli",
