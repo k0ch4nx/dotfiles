@@ -687,10 +687,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787742772,
-        "narHash": "sha256-ecNR7gQ/sALM9KzoKKh7no/gC0n1b6G1BbachRnxje0=",
+        "lastModified": 1787746545,
+        "narHash": "sha256-CGdLSywe2y25MWcjlketxco4ad16coggejGWvVZR+HE=",
         "ref": "refs/heads/main",
-        "rev": "51e2dfe68ea8189995f759796c78ced42abd2626",
+        "rev": "91888cf68bcac293a56b942074da0621546401f1",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -984,10 +984,10 @@
     "wshobson-agents": {
       "flake": false,
       "locked": {
-        "lastModified": 1787528467,
-        "narHash": "sha256-7hQ7ckfIhoRHEOwfd08eqGXiqQ9eeffM16+o7dqGBF8=",
+        "lastModified": 1787746448,
+        "narHash": "sha256-QiRuhAJflKylpj5UW8ySyUz29K3Y34Vx4sCMfGl23Bg=",
         "ref": "refs/heads/main",
-        "rev": "d82998e7df393c671ede2387a8435075f0b633f5",
+        "rev": "38e19c20d2b154510b0e624a2e3e186b19b5c527",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/wshobson/agents.git"
