@@ -251,10 +251,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787841678,
-        "narHash": "sha256-FLppJeKr8LiN1pUeQIshcr5vCaE5Rm56A2+zXgH0oZg=",
+        "lastModified": 1787853506,
+        "narHash": "sha256-NrAYajiP68HzZ0XsQdJsA/4RYIpFIIKso1hOEioEfbA=",
         "ref": "refs/heads/main",
-        "rev": "f6f2751abd8c8b526594e2039e32d59b3b862d01",
+        "rev": "be7b56028cf14cc5b9482b29959d7d96433bad05",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -268,10 +268,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1787182316,
-        "narHash": "sha256-CxdpOlKSBWT22Kt0Z9XXGTi+uxGAQNXi8zwz9VWSJOw=",
+        "lastModified": 1787850006,
+        "narHash": "sha256-uj5sOinhBzR0ICTXF/G2uH+hW5TRLyMDRe8P9324g9g=",
         "ref": "refs/heads/main",
-        "rev": "d8409a4b0813771235555e32e3d8046a73988bfa",
+        "rev": "5eddf1a3ffd311423be2d4ba7d26f7209c91b033",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -653,11 +653,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1787498568,
-        "narHash": "sha256-9i/VTdusq/+NM/tz+J1Re+ojkMB8MBf0QshnYfzHz30=",
+        "lastModified": 1787736819,
+        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "56c02bc00adcf003215cc4bd996d6efaf4cff188",
+        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
         "type": "github"
       },
       "original": {
@@ -687,10 +687,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787843912,
-        "narHash": "sha256-wR7YKqYMKORqyrndiM3cTiX1R6YFrehTmkD/9pImdE8=",
+        "lastModified": 1787859462,
+        "narHash": "sha256-oPs4uj4A/AdwZPuL6Z0S5yDk/Bd0CNCFZErZjOOiYfo=",
         "ref": "refs/heads/main",
-        "rev": "8e4075371039609d166cccd22f143dbc0efb96ec",
+        "rev": "8e025e4767418bed8770eb67d50ca4b20821615b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -917,10 +917,10 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787844379,
-        "narHash": "sha256-VkxPjIiQ6haiQFyG1mpmXqG46tD7FEqMBkW6408ryso=",
+        "lastModified": 1787853718,
+        "narHash": "sha256-FJPS3lIQCkL/1I6BfGJOUx+gIx3vFUkYQaIJIBZ6ZdU=",
         "ref": "refs/heads/main",
-        "rev": "f9950784a739bef8f04e0e4f9cc2b0284da4055d",
+        "rev": "7dee682744c44a5a466c3280644b8439272eed2e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/trailofbits/skills.git"
