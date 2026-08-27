@@ -178,10 +178,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1787753389,
-        "narHash": "sha256-w9K2PtED3eBnvva93UKjapTwJlopR0TqbYsyHzdmOr0=",
+        "lastModified": 1787806024,
+        "narHash": "sha256-h6qUZgaUFTrmbMwCLlQZVlQUUnlhP0fhLwXxAO7VUQ4=",
         "ref": "refs/heads/main",
-        "rev": "37da5623a6d08b0245bbbde51eebb76c211279e3",
+        "rev": "b1b3e1702f0f690f68feb51a01854c6e3ec0cb8c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -549,11 +549,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1787796554,
-        "narHash": "sha256-E+c3jYuxbjMNdNiU0dan71VOu8nE88fhEpZ9YbZTzzg=",
+        "lastModified": 1787801184,
+        "narHash": "sha256-5kNSIBFFcDTFbsm18NrgYl15FqPCYl1KaSOCEXKMHIg=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "4a9441120caf6c6aff273af68995267a35c20fcd",
+        "rev": "fa4b5ffa9007ef847df52351575c25b733da85f4",
         "type": "github"
       },
       "original": {
@@ -687,10 +687,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1787798647,
-        "narHash": "sha256-oKPsGpyuQEgOf4ymr8czNVFNuBZKVDA7EAJmGviFNEA=",
+        "lastModified": 1787806639,
+        "narHash": "sha256-/fO901Cge8YadJMljKt3EgLRrp2hq10H+CIxg/nu8zk=",
         "ref": "refs/heads/main",
-        "rev": "ca496449b81bd2206c647f0ca1d08c05a87df252",
+        "rev": "617ad7dd3139862aca1d66f3f29187e6650e5537",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
