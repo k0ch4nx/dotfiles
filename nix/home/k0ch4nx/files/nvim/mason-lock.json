@@ -29,7 +29,7 @@
   "ruff": "0.16.5",
   "rust-analyzer": "2026-08-24",
   "shellcheck": "v0.11.0",
-  "shfmt": "v3.13.1",
+  "shfmt": "v3.14.0",
   "snyk": "v1.1307.0",
   "starpls": "v0.1.22",
   "statix": "v0.5.8",
