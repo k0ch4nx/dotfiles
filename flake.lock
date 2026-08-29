@@ -687,10 +687,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788020320,
-        "narHash": "sha256-A3X4yF1fOWMIB3IrAvjLhsoRuc7OjIBaau2XL/fqqd0=",
+        "lastModified": 1788023779,
+        "narHash": "sha256-yFn1ZtSDxzP1KhkgY5XrppsKUS5/D17N58u161/SSGw=",
         "ref": "refs/heads/main",
-        "rev": "5a20edf6a1f918db95aa159b473cf03ae8cc6011",
+        "rev": "58360edea4a418e0e7233ac7240ad5e3d232174a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -900,10 +900,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1787952842,
-        "narHash": "sha256-4c4LfSK8Zn3iO0NMK3aTSXGKYu1X4EsqrIepcIhpxpo=",
+        "lastModified": 1788023069,
+        "narHash": "sha256-NQu6nC99eCnLiIh1cwaOH7l9PQTeaqqKLsF9Cg2ZFWA=",
         "ref": "refs/heads/main",
-        "rev": "a1378a9bdf93fb1a617a1af2557c9fa5d3f0a14e",
+        "rev": "aee0da251e4c3699b236a890665049fe2300a344",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
