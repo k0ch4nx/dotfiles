@@ -49,7 +49,10 @@
       "prefs-editor"
       "steam"
       "steinberg-activation-manager"
-      "steinberg-download-assistant"
+      {
+        name = "steinberg-download-assistant";
+        greedy = false;
+      }
       "steinberg-library-manager"
       "tor-browser"
     ];
