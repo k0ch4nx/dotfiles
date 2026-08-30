@@ -35,6 +35,7 @@
       (ffmpeg-full.override {
         withFrei0r = !stdenv.hostPlatform.isDarwin;
       })
+      gamdl
       gh
       git-cliff
       gitlogue
