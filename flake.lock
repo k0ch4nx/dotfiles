@@ -549,11 +549,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1788041036,
-        "narHash": "sha256-J+XBkZpWQ1JRQ0zrnsN6UXYFEThhJNYjQt8tLbyWlgc=",
+        "lastModified": 1788050538,
+        "narHash": "sha256-40eqnYMkoGxACWScMVS+8v0IrTnFAhC9GBNIsx/yxbA=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "66ee86c676e3ae1085cbbe1880f01c46e42d180b",
+        "rev": "866d077048c065d3310081eb53e7d657049070f0",
         "type": "github"
       },
       "original": {
@@ -653,11 +653,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1787736819,
-        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
+        "lastModified": 1787900134,
+        "narHash": "sha256-VYXO0XZlgj06dxJZRhrD3WoSsvq/c7+/Akyoa22pefw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
+        "rev": "83199d0d373dd3ac2b9a1996b1d0263f76ab7a4c",
         "type": "github"
       },
       "original": {
@@ -687,10 +687,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788045207,
-        "narHash": "sha256-gn++y2b2/7veHOUHwtfYbc49JMieru45NH06I+QxMnQ=",
+        "lastModified": 1788051245,
+        "narHash": "sha256-J5++FVAVf+0HOHlRnm80Jp5Ls2gvLLJD9Dm/aK2EW8I=",
         "ref": "refs/heads/main",
-        "rev": "7a548748ca77b8061925b091b06d96d9694f26a1",
+        "rev": "6b22716a81aa7a00f86933a339adec66bc1702ed",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
