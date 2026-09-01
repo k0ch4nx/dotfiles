@@ -99,6 +99,10 @@
       url = "git+https://github.com/kaynetik/skills.git?shallow=1";
       flake = false;
     };
+    kiro-skills = {
+      url = "git+https://github.com/jasonkneen/kiro.git?shallow=1";
+      flake = false;
+    };
     llm-agents.url = "github:numtide/llm-agents.nix";
     mattpocock-skills = {
       url = "git+https://github.com/mattpocock/skills.git?shallow=1";

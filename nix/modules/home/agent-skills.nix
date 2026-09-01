@@ -31,6 +31,11 @@
         subdir = "plugins";
       };
 
+      kiro-skills = {
+        input = "kiro-skills";
+        subdir = "skills";
+      };
+
       critique = {
         input = "gemini-cli";
         subdir = "tools/gemini-cli-bot/.gemini/skills";

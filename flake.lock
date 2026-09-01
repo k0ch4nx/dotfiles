@@ -540,6 +540,23 @@
         "url": "https://github.com/kaynetik/skills.git"
       }
     },
+    "kiro-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1768228112,
+        "narHash": "sha256-40qsmUoEQFXtdDSZOyXulfSZNTPQiX19jqqbHzpxa00=",
+        "ref": "refs/heads/main",
+        "rev": "22577b636dc3095f774ace4c846034514d9fa071",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/jasonkneen/kiro.git"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/jasonkneen/kiro.git"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -750,6 +767,7 @@
         "homebrew-jackielii-tap": "homebrew-jackielii-tap",
         "i-have-adhd": "i-have-adhd",
         "kaynetik-skills": "kaynetik-skills",
+        "kiro-skills": "kiro-skills",
         "llm-agents": "llm-agents",
         "mattpocock-skills": "mattpocock-skills",
         "natural-japanese": "natural-japanese",
