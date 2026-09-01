@@ -417,10 +417,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788284654,
-        "narHash": "sha256-dqAW/waojysGlWJXiDiY6do/uHmbrTmnxiPVS7wIgxg=",
+        "lastModified": 1788302942,
+        "narHash": "sha256-IfOfwlK0dfD/bwXhYRRHqt62Hi9DNAcPEwhWW2i7ETk=",
         "ref": "refs/heads/main",
-        "rev": "0dad3f947e45a736060e524bbefa3eab692809f9",
+        "rev": "fefecc5ca81208bbb29b1297ad2498b7d88f751a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -567,11 +567,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1788299412,
-        "narHash": "sha256-yxWlYf5LfJJa0AkyCE3qRuYO9KvXbF/fDcIJE7eOWSE=",
+        "lastModified": 1788304279,
+        "narHash": "sha256-p7/vwNY0zDAMGbU4j2kYj97vBtGau0OQ7wEWUzxPMOA=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "a8f30a640faaa61eba952b7e87fa90dcd5dd195b",
+        "rev": "843b6bc42ce7f67fe310534b5ff8795218517e55",
         "type": "github"
       },
       "original": {
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788300851,
-        "narHash": "sha256-4uAD29BwnBfG+NLBdOkfK9w9nt/c8ke36F48RTTHvPQ=",
+        "lastModified": 1788304582,
+        "narHash": "sha256-EjOSHkEbBqWcx//rlYUjCr4nMxRVyNm2YrIwRMavfV4=",
         "ref": "refs/heads/main",
-        "rev": "a9469a2119a6cd4251c7346c896c8d9cae3633a3",
+        "rev": "013fe714f23a87facde9b3877051e501247ecbd3",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -1003,10 +1003,10 @@
     "wshobson-agents": {
       "flake": false,
       "locked": {
-        "lastModified": 1788294934,
-        "narHash": "sha256-53+GhYVBES8DOdEi5sFzUVUGfbZ+w5LhCA7Xc7VQjA0=",
+        "lastModified": 1788302183,
+        "narHash": "sha256-sL/1lVCj20Z7WItLZEbafGuw8ifsou0bnPKR9Z77KDM=",
         "ref": "refs/heads/main",
-        "rev": "7b7d96804e9c34ce2cd0aa011cf65244019520b0",
+        "rev": "a30778f8c4e6b0a87567941b7cca4f534bf642b6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/wshobson/agents.git"
