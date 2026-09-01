@@ -251,10 +251,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788196552,
-        "narHash": "sha256-n0ZH22KQmo9tugKCenNy1gTBqd57F4frYQdw5NGWEO4=",
+        "lastModified": 1788214657,
+        "narHash": "sha256-y1j2oErRtQD5sgy/OTIzDUGCafXCRxKAUFtKt8veuT8=",
         "ref": "refs/heads/main",
-        "rev": "f775756a79362846b1b5c8e46dbf38b3833ba26e",
+        "rev": "34950f875e1db782ab97417bfb6e44d1c4a9acf9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -268,10 +268,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1788203776,
-        "narHash": "sha256-u9Y3RtR4z+aYlvTrLRUxmQTUi31okla+6ICSQ+y4oDc=",
+        "lastModified": 1788214462,
+        "narHash": "sha256-OISDt4RavjBVRz6O9yB8chw/mkxrUgJY8LVnDhV+l1s=",
         "ref": "refs/heads/main",
-        "rev": "a104765bf20fd1480a3dd30f514f18f73ca80b8a",
+        "rev": "ca185ef5f7667078a1e70a763bd3a9c71c48acf0",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -300,11 +300,11 @@
     },
     "flake-file": {
       "locked": {
-        "lastModified": 1785282747,
-        "narHash": "sha256-ZwdMXUu0Udb4yzI65+psyJeUF+wexByNEvTUSx1xjVs=",
+        "lastModified": 1788209062,
+        "narHash": "sha256-j4yjVCCguq6s/SIZ2eh2Ll5Z9cJh7VOkIIFNo2PXRd0=",
         "owner": "denful",
         "repo": "flake-file",
-        "rev": "56c46842d70754345c4a4581b8cbebe87b8fc067",
+        "rev": "c460df7fe65ac759989daad04f303fb427406e56",
         "type": "github"
       },
       "original": {
@@ -416,10 +416,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788206390,
-        "narHash": "sha256-m25+TGMn6Lul3kqKZgW2E2pcIOsWiAXjPZFFa84OADw=",
+        "lastModified": 1788208245,
+        "narHash": "sha256-7OS4azkfG3R89NFDAcD0xVYFDMtimXNlSVSCXTNKnXA=",
         "ref": "refs/heads/main",
-        "rev": "f36c9ebe9658ee9f98bf83ad0fe97f747abb743c",
+        "rev": "eff85cf49ca2ef4309a82df624d7deebccaac749",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -549,11 +549,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1788204559,
-        "narHash": "sha256-UYCSXD6mIX04dBSkSR2lEifmDej0F4JvrEZLRJdhEik=",
+        "lastModified": 1788211684,
+        "narHash": "sha256-AFwhd1Nbhrjfb+86gBd9LkGdf/QPhVr3aT+aJ0+64XA=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "f46fd867d270eb1789b9f8c1ee5fc8d5e62a6b0b",
+        "rev": "dff3cd07fb741e3d4bab2ed5f018420900b69a2f",
         "type": "github"
       },
       "original": {
@@ -687,10 +687,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788207447,
-        "narHash": "sha256-eZn4r8ukw4HKfVX021Vd2V7yy8vegws0ShDLSV+paeQ=",
+        "lastModified": 1788218192,
+        "narHash": "sha256-2Rwc2WtWwGiAi87pVLOkgjAbLeNSbgWiRMz1r0Chcls=",
         "ref": "refs/heads/main",
-        "rev": "1363c4744796e7e18ace354efb70ebbdd00bef2c",
+        "rev": "eeedc956088a3f9fac0786c8130c2e7cd388e24a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -917,10 +917,10 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788184038,
-        "narHash": "sha256-wWKuQXkSiXNRsNOiWjVY/NAVmEMu+uPWN873TauW6ZI=",
+        "lastModified": 1788210477,
+        "narHash": "sha256-TgRa/zj+6ofFssbS6TCWErqcYaSbyLZDJWbvPKJ746w=",
         "ref": "refs/heads/main",
-        "rev": "9645e2f89b2d3195847df5c82ddf68b67e4de90f",
+        "rev": "6feac677af72e52ef4d279412276b5a6f21366f0",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/trailofbits/skills.git"
