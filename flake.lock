@@ -51,10 +51,10 @@
     "anthropic-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787332253,
-        "narHash": "sha256-nVid8vENmLDh7ffDqh+bJbEWtXcVltA0qa2rItmniZM=",
+        "lastModified": 1788287438,
+        "narHash": "sha256-xaxkXFpzH4s2OIOcZqPy+HzfRAy2HbKpagjMhY+uinA=",
         "ref": "refs/heads/main",
-        "rev": "3b3fad96af16a10759d930941b4520ba0c40edae",
+        "rev": "53048666b05b4799081517d00e09e0a2dd688678",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/anthropics/skills.git"
@@ -178,10 +178,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1788271353,
-        "narHash": "sha256-/AxOv4rEuV5yFTLrEn34mVHzulj7HNQpwvEe/92Tzo0=",
+        "lastModified": 1788284174,
+        "narHash": "sha256-LU7L0pXZkvj+AJL0tswfaL58n5AOdI/U7lpKCvwTcZA=",
         "ref": "refs/heads/main",
-        "rev": "cfe1367e1eff37ff646db3dfba480d53868f5ce2",
+        "rev": "3901356b0ca09a2a76d5dda10bc3501315f23a80",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -416,10 +416,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788208245,
-        "narHash": "sha256-7OS4azkfG3R89NFDAcD0xVYFDMtimXNlSVSCXTNKnXA=",
+        "lastModified": 1788284654,
+        "narHash": "sha256-dqAW/waojysGlWJXiDiY6do/uHmbrTmnxiPVS7wIgxg=",
         "ref": "refs/heads/main",
-        "rev": "eff85cf49ca2ef4309a82df624d7deebccaac749",
+        "rev": "0dad3f947e45a736060e524bbefa3eab692809f9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -509,10 +509,10 @@
     "i-have-adhd": {
       "flake": false,
       "locked": {
-        "lastModified": 1787750685,
-        "narHash": "sha256-56Ia9a8lvALeSmUDAumfu9nzmYBzONSlBpFv7o1w7ys=",
+        "lastModified": 1788287735,
+        "narHash": "sha256-5N9TM4v0SkGtnAVbd1I7+b0BBOkxzGze5evEpqsmdMg=",
         "ref": "refs/heads/main",
-        "rev": "cbe69fb83c08a37cf54d5ec9ec6bb88c8bc9973c",
+        "rev": "284a2013ae313405382a0c8a88b0cb64fd1543c5",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/ayghri/i-have-adhd.git"
@@ -566,11 +566,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1788258647,
-        "narHash": "sha256-eRtZ4oKZ9/We8qfuqUoISAuqeaJnsIKYPW9JDXqPjHA=",
+        "lastModified": 1788291076,
+        "narHash": "sha256-ex0blV4+9IYBLD8W1IEpEUAGNrom7L3CUHaQ7rRhzh8=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "68c363aaa0acf2337a8e8b311bc780bcb184019c",
+        "rev": "8e6304612ad27dee203207cf0aa9e7af3ae26880",
         "type": "github"
       },
       "original": {
@@ -704,10 +704,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788276390,
-        "narHash": "sha256-BlH/JYC3T2P0/UbPXTalPRN+01rhw8TM1wbqS4ZudXo=",
+        "lastModified": 1788293737,
+        "narHash": "sha256-SWk7Lks+sRxCn3/cp/JMPgn20ZewE16yACfm9A8eNcE=",
         "ref": "refs/heads/main",
-        "rev": "935c16b5e22fae3c7ff5fdee0b834d5e0077d1f6",
+        "rev": "75bcd267f5e72086fa5361e263b0f6cb1248adc6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
