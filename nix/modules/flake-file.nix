@@ -109,6 +109,11 @@ in
         flake = false;
       };
 
+      kiro-skills = {
+        url = "git+https://github.com/jasonkneen/kiro.git?shallow=1";
+        flake = false;
+      };
+
       spring-boot-skills = {
         url = "git+https://github.com/rrezartprebreza/spring-boot-skills.git?shallow=1";
         flake = false;
