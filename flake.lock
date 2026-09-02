@@ -112,11 +112,11 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1776249299,
-        "narHash": "sha256-Dt9t1TGRmJFc0xVYhttNBD6QsAgHOHCArqGa0AyjrJY=",
+        "lastModified": 1788342924,
+        "narHash": "sha256-Sfyygt2dL88+160d014gaXMlWTGIL2HGxlIzLGsGPvE=",
         "owner": "numtide",
         "repo": "blueprint",
-        "rev": "56131e8628f173d24a27f6d27c0215eff57e40dd",
+        "rev": "8be75245e274a789b87cc4df542abbcd8c5e7f93",
         "type": "github"
       },
       "original": {
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788340962,
-        "narHash": "sha256-7q5zYU8nSEZz3L1lDpNTMIzWaP5iIZkH+eZUCMfx21Q=",
+        "lastModified": 1788344433,
+        "narHash": "sha256-XanqjhcsrCHowmwt9kM01qLpHWmb7mJ5vl4VOUibN5Q=",
         "ref": "refs/heads/main",
-        "rev": "d413210bc7420923d101ce64211511cdac7b9464",
+        "rev": "2a8e760b020a2668f2b2cc80abab368bca738ec7",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
