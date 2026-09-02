@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -52,7 +52,7 @@
       nodejs_latest
       oh-my-posh
       onefetch
-      opencode
+      (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode)
       (if stdenv.hostPlatform.isLinux then opensshWithKerberos else openssh)
       progress
       python314

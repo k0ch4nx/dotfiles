@@ -15,52 +15,28 @@
     },
     "lsp": true,
     "permission": {
-        "*": "ask",
-        "bash": {
-            "*": "ask",
-            "cat *": "allow",
-            "curl *": "allow",
-            "echo *": "allow",
-            "find *": "allow",
-            "grep *": "allow",
-            "head *": "allow",
-            "ls *": "allow",
-            "sleep *": "allow",
-            "wc *": "allow"
-        },
-        "glob": "allow",
-        "grep": "allow",
-        "list": "allow",
-        "context7_query-docs": "allow",
-        "context7_resolve-library-id": "allow",
-        "playwright_*": "allow",
-        "read": "allow",
-        "todoread": "allow",
-        "todowrite": "allow",
-        "webfetch": "allow",
-        "websearch_web_search_exa": "allow",
-        "grep_app_searchGitHub": "allow",
-        "skill": "allow"
+        "*": "ask"
     },
     "enabled_providers": [
+        "google",
         "lm-studio",
         "openai",
         "opencode",
-        "opencode-go",
+        "opencode-go"
     ],
     "provider": {
         "lm-studio": {
             "name": "LMStudio",
             "npm": "@ai-sdk/openai-compatible",
             "options": {
-                "baseURL": "http://127.0.0.1:1234/v1",
+                "baseURL": "http://127.0.0.1:1234/v1"
             },
             "blacklist": [
                 "openai/gpt-oss-20b",
                 "qwen/qwen3-30b-a3b-2507",
-                "qwen/qwen3-coder-30b",
+                "qwen/qwen3-coder-30b"
             ]
-        },
+        }
     },
     "plugin": [
         "@mem0/opencode-plugin",
@@ -73,5 +49,6 @@
             }
         ],
         "oh-my-opencode-slim@latest",
+        "opencode-gemini-auth@latest"
     ]
 }
