@@ -128,16 +128,16 @@
     "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1786945682,
-        "narHash": "sha256-VBESSoJccikdhxh3vp3SQeG7cZXTOulMvVkoSqNDEhs=",
+        "lastModified": 1787796349,
+        "narHash": "sha256-5s+MJAFyemD6lvrtL2c0jQ7P/XChdx1MPXzoCaQY+ic=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "5b90e281d4e0c8fbd6ca4d8358276fb305b8d0bd",
+        "rev": "3e3da86e4eaccd23f4ce43df9b0a31b16c707347",
         "type": "github"
       },
       "original": {
         "owner": "Homebrew",
-        "ref": "6.0.18",
+        "ref": "6.0.20",
         "repo": "brew",
         "type": "github"
       }
@@ -179,10 +179,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1788409116,
-        "narHash": "sha256-arAtoflGJai3D3SlESNtL0bel1txjODuppL0xTtSYF0=",
+        "lastModified": 1788444098,
+        "narHash": "sha256-plCcNd8k1nQxqg4HjF7lxswBjYm6Nq8owDOrl3KZX8Y=",
         "ref": "refs/heads/main",
-        "rev": "9006aaf3c6cb1e85f14016c1c79c652dcc82f405",
+        "rev": "781e34846ccdd81fe6d631e312c8fa6a9ba0ad09",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -640,11 +640,11 @@
         "brew-src": "brew-src"
       },
       "locked": {
-        "lastModified": 1787330919,
-        "narHash": "sha256-LslMncqN7uOOH5S88WZtO/EVt2HwD8ltUnfyANk+mC0=",
+        "lastModified": 1788444135,
+        "narHash": "sha256-ChwTDZPvTmEgZdS30dUfgdXlzAPtZAUWwEH/PfDXZmg=",
         "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "b00218e4aec0e5bf07d61a0bb13f842faa582d7b",
+        "rev": "ec8417a617de4d3c739aed40837e308ebd667165",
         "type": "github"
       },
       "original": {
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788441375,
-        "narHash": "sha256-D6yd2pE5Qlh39GVaiDfD7gfkRXGlfvll/jSSy6SvFXo=",
+        "lastModified": 1788445046,
+        "narHash": "sha256-WTurfeWAETHAverngoeOPvTkn7Azux4ae0kakrg2OaQ=",
         "ref": "refs/heads/main",
-        "rev": "d439a47558c185239a7c79b76e0a2cdd6a483883",
+        "rev": "79f0df31c8eb99ae4f93b2a03cba9ee1c76efc7d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
