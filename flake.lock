@@ -360,10 +360,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1788378267,
-        "narHash": "sha256-q8S+sUBznD3RFguoCuE/IUk3jFgJ7srK2KckA59qxR4=",
+        "lastModified": 1788450982,
+        "narHash": "sha256-87GsPrzEfkl4vXnwgYUyFO2KzCi2u3zVVqZJTQTGPqU=",
         "ref": "refs/heads/main",
-        "rev": "55b495d6db1794bf5b7f37a9bc03ebcab5103673",
+        "rev": "8c1ff9ca2055d7e9c68f0dfef92887ee72d99a25",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -434,10 +434,10 @@
     "hashicorp-agent-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1787755167,
-        "narHash": "sha256-bci75VnUKNAujge7FSYxMSKW4CJX4mQZqWI4e7HW+kQ=",
+        "lastModified": 1788450606,
+        "narHash": "sha256-rkF9+21kcLSsl96ZpM43R7QBp8/eDG/VCEa1fEJwukA=",
         "ref": "refs/heads/main",
-        "rev": "326846817128fd1d052d25fbfded490ce2c5886e",
+        "rev": "c2d65dfe492f74d360d35b859b88932222470bd8",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/hashicorp/agent-skills.git"
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788448584,
-        "narHash": "sha256-DnT80jGnN5vLlD2fuGx2naqpGCaumsoJ88N3Z2yVl/I=",
+        "lastModified": 1788452439,
+        "narHash": "sha256-Hw0rA/qv2udNTlQ1kAOt8lIgBeDz6zM5F9I3gT0URV8=",
         "ref": "refs/heads/main",
-        "rev": "d2a616bdf373a5b3cac0add8e9b2f70cd0802f42",
+        "rev": "c478d74980c15b4768b653c51bf5c8146905eb7f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
