@@ -21,8 +21,8 @@
                 ]
             },
             "explorer": {
-                "model": "opencode-go/deepseek-v4-flash",
-                "variant": "high",
+                "model": "opencode-go/longcat-2.0",
+                "variant": "low",
                 "skills": [],
                 "mcps": []
             },
