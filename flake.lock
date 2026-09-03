@@ -51,10 +51,10 @@
     "anthropic-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788287438,
-        "narHash": "sha256-xaxkXFpzH4s2OIOcZqPy+HzfRAy2HbKpagjMhY+uinA=",
+        "lastModified": 1788453433,
+        "narHash": "sha256-sjgPv9tZZVTXPxZWaCOc7JwFceNn3C1ghy8mSHqgqB8=",
         "ref": "refs/heads/main",
-        "rev": "53048666b05b4799081517d00e09e0a2dd688678",
+        "rev": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/anthropics/skills.git"
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788452439,
-        "narHash": "sha256-Hw0rA/qv2udNTlQ1kAOt8lIgBeDz6zM5F9I3gT0URV8=",
+        "lastModified": 1788455811,
+        "narHash": "sha256-3jaqhwL7jhpb0L5/EdCNzECFccJIr8bDfV4gpNq1iCQ=",
         "ref": "refs/heads/main",
-        "rev": "c478d74980c15b4768b653c51bf5c8146905eb7f",
+        "rev": "41344e0b7dbd5629f797c535c985fd87a323abe5",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
