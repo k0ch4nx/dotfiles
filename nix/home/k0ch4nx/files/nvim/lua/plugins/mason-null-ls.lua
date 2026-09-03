@@ -32,6 +32,14 @@ return {
                 function(source_name, methods)
                     require(require("lazy.core.loader").get_main(self)).default_setup(source_name, methods)
                 end,
+                npm_groovy_lint = function(source_name, methods)
+                    local null_ls = require("null-ls")
+                    for _, method in ipairs(methods) do
+                        null_ls.register(null_ls.builtins[method][source_name].with({
+                            filetypes = { "groovy", "Jenkinsfile" },
+                        }))
+                    end
+                end,
             },
         }
     end,
