@@ -8,10 +8,18 @@ function main() {
     nvim \
         --headless \
         -c 'luafile -' <<'LUA'
-local ok, err = pcall(require("codediff.core.installer").install)
+local ok, err = pcall(function()
+    require("lazy").load({ plugins = { "codediff.nvim" } })
+    local installer = require("codediff.core.installer.libvscode_diff")
+    local success, install_err = installer.install()
+    if not success then
+        error(install_err)
+    end
+end)
+
 if not ok then
-    print(err)
-    vim.cmd("cquit")
+    io.stderr:write(tostring(err) .. "\n")
+    vim.cmd("cquit 1")
 else
     vim.cmd("qa")
 end
