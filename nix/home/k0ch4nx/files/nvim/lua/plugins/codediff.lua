@@ -7,5 +7,5 @@ return {
         "MunifTanjim/nui.nvim",
     },
     opts = {},
-    event = "VeryLazy",
+    cmd = "CodeDiff",
 }
