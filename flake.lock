@@ -600,10 +600,10 @@
     "natural-japanese": {
       "flake": false,
       "locked": {
-        "lastModified": 1788502166,
-        "narHash": "sha256-h1GRPomUCqKBr9b3Qvkd8RskqZ56DE1nt1Z6cZGHaXs=",
+        "lastModified": 1788505748,
+        "narHash": "sha256-vg9w7T8Vat+LhLdfLa8g23mJD46shctgWqTwyRaAR7I=",
         "ref": "refs/heads/main",
-        "rev": "71f006b5c72de1fb9134beadc68357a13f667a41",
+        "rev": "cecd53e98d58ab8ba7d9f97a9f4558362d643c5a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/coji/natural-japanese.git"
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788503449,
-        "narHash": "sha256-h8y6YHvVKmeV3D9Fwt3oRyUvHAKcBQATyn4CGkmSZ38=",
+        "lastModified": 1788506319,
+        "narHash": "sha256-mUFGOB1sSFW35irc6I/SHIOLYTzsF2XtFsLmQZXPA9U=",
         "ref": "refs/heads/main",
-        "rev": "f5d1621e54004c013a61a571b8e8709e178adb45",
+        "rev": "cbcbb005fdcf4c8c38770b65957b7f8b6527a1e4",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
