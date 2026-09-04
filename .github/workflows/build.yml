@@ -84,20 +84,87 @@ jobs:
       WSLENV: BASH_ENV/u:DOTFILES_DIR/u:DOTFILES_HOST/u:DOTFILES_USER/u:GITHUB_ACTIONS/u:NIX_EXTRA_CONF/u:TF_TOKEN_app_terraform_io/u:NIX_CACHE_PRIVATE_KEY/u:NIX_CACHE_PRIVATE_KEY_FILE/u:NIX_CACHE_CLOSURE_FILE/u
 
     steps:
-      - name: Install Ubuntu on WSL
+      - name: Restore Ubuntu WSL installer cache
+        id: restore-wsl-installer
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+        with:
+          path: ${{ runner.temp }}\wsl\ubuntu-26.04.1-wsl-amd64.wsl
+          key: wsl-installer-ubuntu-26.04.1-amd64-sha256-48d56724b5c8e60f24893e83e73bbb58c60b3ca22fba3da977075420acd54104
+
+      - name: Download and verify Ubuntu WSL installer
         uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4
         with:
-          timeout_minutes: 10
+          timeout_minutes: 15
+          max_attempts: 3
+          shell: powershell
+          command: |
+            $env:WSL_UTF8 = 1
+
+            $installerDir = "${env:RUNNER_TEMP}\wsl"
+            $installerPath = "${installerDir}\ubuntu-26.04.1-wsl-amd64.wsl"
+            $expectedSha256 = "48d56724b5c8e60f24893e83e73bbb58c60b3ca22fba3da977075420acd54104"
+
+            New-Item -ItemType Directory -Force -Path $installerDir | Out-Null
+
+            $needsDownload = $true
+            if (Test-Path $installerPath) {
+              $actualSha256 = (Get-FileHash -Algorithm SHA256 -Path $installerPath).Hash.ToLower()
+              if ($actualSha256 -eq $expectedSha256) {
+                $needsDownload = $false
+              } else {
+                Remove-Item $installerPath -Force
+              }
+            }
+
+            if ($needsDownload) {
+              curl.exe `
+                --fail `
+                --location `
+                --retry 5 `
+                --retry-all-errors `
+                --retry-delay 5 `
+                --connect-timeout 30 `
+                --output $installerPath `
+                'https://releases.ubuntu.com/26.04/ubuntu-26.04.1-wsl-amd64.wsl'
+
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+
+            $finalSha256 = (Get-FileHash -Algorithm SHA256 -Path $installerPath).Hash.ToLower()
+            if ($finalSha256 -ne $expectedSha256) {
+              Write-Error "SHA-256 mismatch for Ubuntu WSL installer: expected ${expectedSha256}, got ${finalSha256}"
+              exit 1
+            }
+
+      - name: Register Ubuntu WSL distribution
+        uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4
+        with:
+          timeout_minutes: 15
           max_attempts: 2
           shell: powershell
           command: |
-            winget install --id Microsoft.WSL --exact --source winget --accept-source-agreements --accept-package-agreements --silent --verbose
-
             $env:WSL_UTF8 = 1
-            wsl.exe --install Ubuntu --web-download --no-launch
-            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-            wsl.exe --distribution Ubuntu -- echo Created a new distro with user: '$(whoami)'
+            $installerPath = "${env:RUNNER_TEMP}\wsl\ubuntu-26.04.1-wsl-amd64.wsl"
+            $installLocation = "${env:RUNNER_TEMP}\wsl\Ubuntu"
+
+            wsl.exe --distribution Ubuntu --exec true 2>$null
+            $healthy = $LASTEXITCODE -eq 0
+
+            if (-not $healthy) {
+              wsl.exe --terminate Ubuntu 2>$null
+              wsl.exe --unregister Ubuntu 2>$null
+
+              if (Test-Path $installLocation) {
+                Remove-Item $installLocation -Recurse -Force
+              }
+              New-Item -ItemType Directory -Force -Path $installLocation | Out-Null
+
+              wsl.exe --install --from-file $installerPath --name Ubuntu --location $installLocation --no-launch
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+
+            wsl.exe --distribution Ubuntu -- cat /etc/os-release
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Checkout
