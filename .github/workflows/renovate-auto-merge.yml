@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://schemastore.org/github-workflow.json
+
+name: Renovate Auto Merge
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  enable-auto-merge:
+    if: >-
+      github.event.pull_request.user.login == 'renovate[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      startsWith(github.event.pull_request.head.ref, 'renovate/')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enable GitHub auto-merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh pr merge "${PR_NUMBER}" \
+            --repo "${REPOSITORY}" \
+            --auto \
+            --merge
