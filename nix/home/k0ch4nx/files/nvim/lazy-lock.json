@@ -1,7 +1,7 @@
 {
   "actions-preview.nvim": { "branch": "master", "commit": "0ac9c2aa3cfc8c885321c0862b50b6b1c3392405" },
   "blink.cmp": { "branch": "main", "commit": "8e5e03f1ef7991d74950c245910e6118f6d95e3b" },
-  "blink.lib": { "branch": "main", "commit": "e12366919e3447e4227d61e2ce99e2374de76d6a" },
+  "blink.lib": { "branch": "main", "commit": "f55df8a6e0a7acccf45ef0ffbb4ce46110fcf7d0" },
   "budoux.lua": { "branch": "main", "commit": "7f23658b127b9a74aae5b388fefcd997be30cbfc" },
   "codediff.nvim": { "branch": "main", "commit": "a9b716fb9aa70002cf7a7583148ad31cc7c5fa90" },
   "crates.nvim": { "branch": "main", "commit": "b8281be336498035f9288d6542b2881a7140a9ec" },
