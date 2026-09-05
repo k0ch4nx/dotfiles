@@ -86,7 +86,7 @@ jobs:
     steps:
       - name: Restore Ubuntu WSL installer cache
         id: restore-wsl-installer
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
         with:
           path: ${{ runner.temp }}\wsl\ubuntu-26.04.1-wsl-amd64.wsl
           key: wsl-installer-ubuntu-26.04.1-amd64-sha256-48d56724b5c8e60f24893e83e73bbb58c60b3ca22fba3da977075420acd54104
