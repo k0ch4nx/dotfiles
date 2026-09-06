@@ -1,53 +1,26 @@
 {
     "$schema": "https://opencode.ai/config.json",
     "mcp": {
-        "skillsmp": {
-            "type": "local",
-            "command": [
-                "npx",
-                "-y",
-                "skillsmp-mcp-lite"
-            ],
-            "env": {
-                "SKILLSMP_API_KEY": "{env:SKILLSMP_API_KEY}"
+        "servers": {
+            "skillsmp": {
+                "type": "local",
+                "command": ["npx", "-y", "skillsmp-mcp-lite"],
+                "env": {"SKILLSMP_API_KEY": "{env:SKILLSMP_API_KEY}"}
             }
         }
     },
     "lsp": true,
-    "permission": {
-        "*": "ask"
-    },
-    "enabled_providers": [
-        "google",
-        "lm-studio",
-        "openai",
-        "opencode",
-        "opencode-go"
-    ],
-    "provider": {
+    "permissions": [{"action": "*", "resource": "*", "effect": "ask"}],
+    "enabled_providers": ["google", "lm-studio", "openai", "opencode", "opencode-go"],
+    "providers": {
         "lm-studio": {
             "name": "LMStudio",
-            "npm": "@ai-sdk/openai-compatible",
-            "options": {
-                "baseURL": "http://127.0.0.1:1234/v1"
-            },
-            "blacklist": [
-                "openai/gpt-oss-20b",
-                "qwen/qwen3-30b-a3b-2507",
-                "qwen/qwen3-coder-30b"
-            ]
+            "package": "aisdk:@ai-sdk/openai-compatible",
+            "settings": {"baseURL": "http://127.0.0.1:1234/v1"}
         }
     },
-    "plugin": [
-        "@mem0/opencode-plugin",
-        [
-            "github:guochen-thlg/opencode-auto-provider-models",
-            {
-                "provider": [
-                    "lm-studio"
-                ]
-            }
-        ],
+    "plugins": [
+        {"package": "github:guochen-thlg/opencode-auto-provider-models", "options": {"provider": ["lm-studio"]}},
         "oh-my-opencode-slim@latest",
         "opencode-gemini-auth@latest"
     ]

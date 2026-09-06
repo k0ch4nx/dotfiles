@@ -53,6 +53,7 @@
       oh-my-posh
       onefetch
       (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode)
+      (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2)
       (if stdenv.hostPlatform.isLinux then opensshWithKerberos else openssh)
       progress
       python314
