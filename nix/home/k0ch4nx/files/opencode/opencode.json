@@ -20,8 +20,6 @@
         }
     },
     "plugins": [
-        {"package": "github:guochen-thlg/opencode-auto-provider-models", "options": {"provider": ["lm-studio"]}},
-        "oh-my-opencode-slim@latest",
-        "opencode-gemini-auth@latest"
+        "oh-my-opencode-slim@latest"
     ]
 }
