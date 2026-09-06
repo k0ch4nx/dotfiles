@@ -52,7 +52,6 @@
 |---|---|---|---|---|
 | `gemini-api-key.age` | ユーザー | Gemini APIの認証 | Home Manager管理の環境変数 | `secrets/env/gemini-api-key.age` |
 | `gh-token.age` | ユーザー | GitHub APIの認証 | Home Manager管理の環境変数 | `secrets/env/gh-token.age` |
-| `mem0-api-key.age` | ユーザー | Mem0 APIの認証 | Home Manager管理の環境変数 | `secrets/env/mem0-api-key.age` |
 | `nvidia-api-key.age` | ユーザー | NVIDIA APIの認証 | Home Manager管理の環境変数 | `secrets/env/nvidia-api-key.age` |
 | `opencode-go-api-key.age` | ユーザー | OpenCode Go providerの認証 | Home Manager管理の環境変数 | `secrets/env/opencode-go-api-key.age` |
 | `openrouter-api-key.age` | ユーザー | OpenRouter providerの認証 | Home Manager管理の環境変数 | `secrets/env/openrouter-api-key.age` |
