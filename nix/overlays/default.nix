@@ -7,8 +7,6 @@ let
 
   darwinOverlayPaths = [
     ./azahar.nix
-    ./alembic.nix
-    ./blender.nix
     ./terminal-browser.nix
   ];
 
