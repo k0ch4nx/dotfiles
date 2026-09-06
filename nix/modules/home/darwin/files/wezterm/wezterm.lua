@@ -48,6 +48,7 @@ tabline.setup({
 })
 
 config.font_size = 22
+config.scrollback_lines = 999999999
 config.window_decorations = "TITLE|RESIZE|MACOS_USE_BACKGROUND_COLOR_AS_TITLEBAR_COLOR"
 config.font = wezterm.font_with_fallback({
     "UDEV Gothic NFLG",
