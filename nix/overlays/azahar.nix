@@ -1,13 +1,5 @@
-let
-  withLld = import ./with-lld.nix { pname = "azahar"; };
-in
-final: prev:
-let
-  lldPackages = withLld final prev;
-in
-lldPackages
-// {
-  azahar = lldPackages.azahar.overrideAttrs (
+final: prev: {
+  azahar = prev.azahar.overrideAttrs (
     old:
     let
       oldEnv = old.env or { };
