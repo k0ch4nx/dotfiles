@@ -55,7 +55,6 @@
       }
       "steinberg-library-manager"
       "tor-browser"
-      "vibe-island"
     ];
 
   };
