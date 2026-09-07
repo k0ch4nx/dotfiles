@@ -22,6 +22,7 @@ return {
                 "palantir-java-format",
                 "shellcheck",
                 "shfmt",
+                "sqruff",
                 "statix",
                 "terraform",
                 "trivy",
