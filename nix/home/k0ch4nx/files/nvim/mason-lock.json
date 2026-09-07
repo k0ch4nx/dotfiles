@@ -31,6 +31,7 @@
   "shellcheck": "v0.11.0",
   "shfmt": "v3.14.0",
   "snyk": "v1.1307.0",
+  "sqruff": "v0.40.0",
   "starpls": "v0.1.22",
   "statix": "v0.5.8",
   "svelte-language-server": "0.18.4",
