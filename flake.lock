@@ -269,10 +269,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1788976607,
-        "narHash": "sha256-rSabfuuDA9ovq+RLIRUOuYgpLc+D24YeQ1R4clVqRu8=",
+        "lastModified": 1788980449,
+        "narHash": "sha256-RLLsrdtCVDWRwxqnpAC1MHu+KNXix2KJmtduuODU66o=",
         "ref": "refs/heads/main",
-        "rev": "549c14692ccf610f127a4b95eb6f496bb45ab6c9",
+        "rev": "cc91c24f9a35dc79811f2326b6cbf4a74739009a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788977895,
-        "narHash": "sha256-XOCNoQmesrhihGsnYaAIDIoKATjCx43QxoGmoOGfI9c=",
+        "lastModified": 1788981361,
+        "narHash": "sha256-bsGh4roytx4u/oVl4czmIB2tt70I+37zl1jZ5A3N9H4=",
         "ref": "refs/heads/main",
-        "rev": "7d31ecce82961b698899730bac73e11549d9b49d",
+        "rev": "85585df7472832e70a1548b5839a936dfa5c16b6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
