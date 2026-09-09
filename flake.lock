@@ -252,10 +252,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788934088,
-        "narHash": "sha256-Z/SZC/57zAZIc3ei30FihYD27jCmLt3zBvYUaY2/Yjg=",
+        "lastModified": 1788976388,
+        "narHash": "sha256-QaL4P/RqQmVqs3LQD9kFwbqXO+Unoe6ArrcEP6j4FlU=",
         "ref": "refs/heads/main",
-        "rev": "c4a3f7ad4fd8fb50c02a42a6375c0aba4f92e9f7",
+        "rev": "a8fece0fce5f8b0737754a332a1a7c6487e8f927",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -269,10 +269,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1788963647,
-        "narHash": "sha256-r6JWcF4koBOMlTybDtn1uUqSrHiISBZk/OUx0iu9wFE=",
+        "lastModified": 1788976607,
+        "narHash": "sha256-rSabfuuDA9ovq+RLIRUOuYgpLc+D24YeQ1R4clVqRu8=",
         "ref": "refs/heads/main",
-        "rev": "2cb58a0b3c76dff9deac27851677e115a5b0f290",
+        "rev": "549c14692ccf610f127a4b95eb6f496bb45ab6c9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -476,11 +476,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788921139,
-        "narHash": "sha256-2wRuvf9UDw1SYWtBcxNmxLeAtNU1i/hc1c0AKQHdvlM=",
+        "lastModified": 1788974811,
+        "narHash": "sha256-2CTNUiN3OPTdKT0KL8pvk8MJjEA72uWpF/q8MHVj32I=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a2dbe7c2c9333e8234ae8114c7f731784201d108",
+        "rev": "14179aecea13dda28ec6655ad36602e827034558",
         "type": "github"
       },
       "original": {
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788974204,
-        "narHash": "sha256-AzHPQqKY/o3kh6oyqkL6fNW4ePypPIU/TyRn/zNheSA=",
+        "lastModified": 1788977895,
+        "narHash": "sha256-XOCNoQmesrhihGsnYaAIDIoKATjCx43QxoGmoOGfI9c=",
         "ref": "refs/heads/main",
-        "rev": "ffffa9bc2bd5244503d3ac6015531e01276b4c15",
+        "rev": "7d31ecce82961b698899730bac73e11549d9b49d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
