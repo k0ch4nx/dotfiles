@@ -493,10 +493,10 @@
     "homebrew-jackielii-tap": {
       "flake": false,
       "locked": {
-        "lastModified": 1784537903,
-        "narHash": "sha256-vC1tDxOSzxx1u+tbo3gyoZTm7u+GsyymuNL5k0ERd2Y=",
+        "lastModified": 1788952337,
+        "narHash": "sha256-u5mnULrPnCGaCN+ZLAzo4tRktv2ZTxKbPu5k7hVlNoc=",
         "ref": "refs/heads/main",
-        "rev": "634cd3c1a495f59f832813410f07ddf2c4a1c50c",
+        "rev": "80bec50a4487af592f71b3c1ea81385b95e2a7d3",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/jackielii/homebrew-tap.git"
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1788949123,
-        "narHash": "sha256-SC455i/GnUOSenrKQQPQFwqfpgSwsWyY8Y6JlnYGVVI=",
+        "lastModified": 1788952637,
+        "narHash": "sha256-xTtWE58HmN5eXlZRhVC2xnGyTSoCF+DbwXVl8yTmHFE=",
         "ref": "refs/heads/main",
-        "rev": "4023edcbf194aa5359ce50b5d0a04f857ab49235",
+        "rev": "70c90c2ae4b31241c1aa2cb03f72a257d25f867e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
