@@ -269,10 +269,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1789038786,
-        "narHash": "sha256-dM42W3K/zSWuKJlJ+HYpo7QEppYIOjN8uakostgOYNk=",
+        "lastModified": 1789042852,
+        "narHash": "sha256-BndcJy+gu3v8bGG0DHeOnCrX3z5eqrt+PbZIqNSDJEQ=",
         "ref": "refs/heads/main",
-        "rev": "d2b352c20275b643f0966857a89bff5d925345aa",
+        "rev": "f8640355e454b5942fa671e0a6297d3ecd050f69",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -510,10 +510,10 @@
     "i-have-adhd": {
       "flake": false,
       "locked": {
-        "lastModified": 1789029888,
-        "narHash": "sha256-WgPwyTSCR0CL5jpM+r0zbXqj0v/vX92jr7rJyp3VGTI=",
+        "lastModified": 1789041917,
+        "narHash": "sha256-geunhqXrvTcgpXpvHTLz554WYkuxmCfKIwnnvRrWdXg=",
         "ref": "refs/heads/main",
-        "rev": "99dee367d84d764568cb20f8f978b3893cfd6b75",
+        "rev": "4c76175b17421d61babfc35c10ab07604ef578d0",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/ayghri/i-have-adhd.git"
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789038971,
-        "narHash": "sha256-wT+TFYhTzQ6JbvZ1XxX9eoypPFj96lEwL0EbwovnplM=",
+        "lastModified": 1789043301,
+        "narHash": "sha256-RPUMgYb1pjPJo34VUzLCeOb20TpzhEjuRLq01WkJnL0=",
         "ref": "refs/heads/main",
-        "rev": "1dfcddb5c98eb2f5922f9966153886e04a7f2878",
+        "rev": "e6031c1f433895f44c60a4fd1befd9e37344bf6b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
