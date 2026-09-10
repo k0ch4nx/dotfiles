@@ -51,10 +51,10 @@
     "anthropic-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788453433,
-        "narHash": "sha256-sjgPv9tZZVTXPxZWaCOc7JwFceNn3C1ghy8mSHqgqB8=",
+        "lastModified": 1789069448,
+        "narHash": "sha256-tI4bTTBfI1ylltklGyiyA7pLoKXEWtrT6lrmwrpLbCw=",
         "ref": "refs/heads/main",
-        "rev": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
+        "rev": "34040c9c568585f6929bedeaad110ad08f079624",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/anthropics/skills.git"
@@ -417,10 +417,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1789057613,
-        "narHash": "sha256-drFkMeTbzbmuaYNpP/1ZdO/yRdlec5sslhtfkWFuz5E=",
+        "lastModified": 1789070859,
+        "narHash": "sha256-Ie8JsC+nWmD4HR/8wkdxuEN6VhzmBEEze812DDxAcvA=",
         "ref": "refs/heads/main",
-        "rev": "0ecc2fc6be6074c2614e5234c593515068bf695e",
+        "rev": "fd2bd41f0106962cc1a89d64844773dbaaef1905",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789067642,
-        "narHash": "sha256-BSPIZ9HykUa8rfnUWgRm/wQzhATR1eA18bqzGxUfX6o=",
+        "lastModified": 1789071482,
+        "narHash": "sha256-/FxiyVBfUTP7/VlXhBpq20DEGtyBZDoiXM4RffssrP0=",
         "ref": "refs/heads/main",
-        "rev": "4417613747582a5a9e6fda039666c996413753cd",
+        "rev": "5d3cc203b67d4a8314a4f7df119538b7ac9128f8",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -828,11 +828,11 @@
         "userborn": "userborn"
       },
       "locked": {
-        "lastModified": 1788643028,
-        "narHash": "sha256-llyR4NuuJLDS49y8j9zbGi5pzjSuuc6CB8ipPJlXfIk=",
+        "lastModified": 1789068434,
+        "narHash": "sha256-w0qD6GyyY8rQZbMuXsonCXO4OPsLOo8prqN3eAdoiw8=",
         "owner": "numtide",
         "repo": "system-manager",
-        "rev": "41d9628959faa2d12f65057aeb6f566c4ccfbd3d",
+        "rev": "13c7006728ea6cf5f1de1e358809dab2b7f97f25",
         "type": "github"
       },
       "original": {
