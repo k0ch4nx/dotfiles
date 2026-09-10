@@ -269,10 +269,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1789042852,
-        "narHash": "sha256-BndcJy+gu3v8bGG0DHeOnCrX3z5eqrt+PbZIqNSDJEQ=",
+        "lastModified": 1789050696,
+        "narHash": "sha256-4POMOkbNZNBTxs6ceeku+XsoMakfNq7WFuSbLR39Uoo=",
         "ref": "refs/heads/main",
-        "rev": "f8640355e454b5942fa671e0a6297d3ecd050f69",
+        "rev": "928c1dea72f5c330442fc1f595563398b8f389f7",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -417,10 +417,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1789029422,
-        "narHash": "sha256-rFGMMiFgMhK2943TeRqnriad3jP9jyUWsQT1MNMi/P0=",
+        "lastModified": 1789052019,
+        "narHash": "sha256-j6lZO0gywE/lqzH4TyPm0ZjnlfxBUiOzvkh2Z9bYNjw=",
         "ref": "refs/heads/main",
-        "rev": "6e209c43985f570f90b9667e63e2ef0a936fa44f",
+        "rev": "831cfa129dd6a0527c5e9bf43e0687dfb751e329",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -705,10 +705,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789049941,
-        "narHash": "sha256-NsxusCUnN3Yk9nVk6HU3EhJqRnChJpd9vRh5LHFcqFI=",
+        "lastModified": 1789053513,
+        "narHash": "sha256-lrYoCE2hXNtwMBLm1156hxLIUiv7+19DuUX+qKMNQWY=",
         "ref": "refs/heads/main",
-        "rev": "71bbcc616b65b798bf3f975b1a4a71b532603812",
+        "rev": "ce954d8f2c09402f5029bde2c844b8b1926f26fe",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
