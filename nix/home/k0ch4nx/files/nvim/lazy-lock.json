@@ -3,7 +3,7 @@
   "blink.cmp": { "branch": "main", "commit": "473c928d8b9b5b3f638cd085a01899972cf205c6" },
   "blink.lib": { "branch": "main", "commit": "fd9a48ebbe6ec30d5dfcc5b42c243941ccdca1aa" },
   "budoux.lua": { "branch": "main", "commit": "7f23658b127b9a74aae5b388fefcd997be30cbfc" },
-  "codediff.nvim": { "branch": "main", "commit": "dfc9211879d748ea161f983d33272e7ebc111357" },
+  "codediff.nvim": { "branch": "main", "commit": "4b3ad7eb99dd0f02e64bbaf562ca1e87e8c07cc9" },
   "crates.nvim": { "branch": "main", "commit": "b8281be336498035f9288d6542b2881a7140a9ec" },
   "edgy.nvim": { "branch": "main", "commit": "8bfd2808994a988c975694122f68624b8a219f5f" },
   "fidget.nvim": { "branch": "main", "commit": "9e0201673e08e997e7cf52afca5565c70bd117f3" },
