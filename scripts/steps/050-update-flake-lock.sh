@@ -33,8 +33,9 @@ main() (
         set -x
     fi
 
+    nix flake update --accept-flake-config
     nix run --accept-flake-config .#write-flake
-    exec nix flake update --accept-flake-config
+    exec nix flake lock --accept-flake-config
 )
 
 main
