@@ -72,13 +72,13 @@ jobs:
         run: |
           ./scripts/steps/050-update-flake-lock.sh
 
-          unexpected_paths="$(git diff --name-only -- . ':(exclude)flake.lock')"
+          unexpected_paths="$(git diff --name-only -- . ':(exclude)flake.lock' ':(exclude)flake.nix')"
           if [[ -n "${unexpected_paths}" ]]; then
             printf 'Unexpected paths changed:\n%s\n' "${unexpected_paths}" >&2
             exit 1
           fi
 
-          if git diff --quiet -- flake.lock; then
+          if git diff --quiet -- flake.lock flake.nix; then
             printf 'changed=false\n' >>"${GITHUB_OUTPUT}"
           else
             printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
@@ -96,7 +96,9 @@ jobs:
           branch-suffix: timestamp
           base: main
           delete-branch: true
-          add-paths: flake.lock
+          add-paths: |
+            flake.lock
+            flake.nix
           commit-message: "chore: update flake.lock"
           title: "chore: update flake.lock"
           body: |

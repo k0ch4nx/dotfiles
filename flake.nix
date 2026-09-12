@@ -1,4 +1,4 @@
-# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# DO-NOT-EDIT. This file was auto-generated using github:denful/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
   description = "k0ch4nx dotfiles — nix-darwin + system-manager + Home Manager";
@@ -29,10 +29,7 @@
     };
     agent-skills = {
       url = "github:Kyure-A/agent-skills-nix";
-      inputs = {
-        home-manager.follows = "home-manager";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     anthropic-skills = {
       url = "git+https://github.com/anthropics/skills.git?shallow=1";
