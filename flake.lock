@@ -450,11 +450,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789311667,
-        "narHash": "sha256-AHjqAlQ5CoNR+3Y6NqASoQXCwJTqYPDaVIlt913Mv/E=",
+        "lastModified": 1789320570,
+        "narHash": "sha256-1Js4AJiWLV7U1SF3ok0J2tKbBEJYE5YpElGU+7fMbfo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7e3645c737e803fcc98e27bc99c5835c700836f2",
+        "rev": "87b3c74df02a2b2e691a24f3c82774f48a70c1bd",
         "type": "github"
       },
       "original": {
@@ -679,10 +679,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789319612,
-        "narHash": "sha256-PTOng6eXWGYZP+ktw8jW39pCkLcrv31UBkgQdk5EYUQ=",
+        "lastModified": 1789323618,
+        "narHash": "sha256-rRkEGIW7B1APAd8rp1i452kINw/9mPdWVHggd2PDTNQ=",
         "ref": "refs/heads/main",
-        "rev": "0fcaa5c27a73d5c9f1004ff0f802392d00bff634",
+        "rev": "c72435e19089862b00d89756843ef11a6be307b2",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
