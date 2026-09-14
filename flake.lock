@@ -484,10 +484,10 @@
     "i-have-adhd": {
       "flake": false,
       "locked": {
-        "lastModified": 1789055321,
-        "narHash": "sha256-ijQ7Mz0FbeWxlkn7rbn5JuG0e6jQeEYBkuroE2N/MZY=",
+        "lastModified": 1789344358,
+        "narHash": "sha256-nwp682Hd3G6/KxTve/cI+udfhb4/SyWiR4qUgWVpJfk=",
         "ref": "refs/heads/main",
-        "rev": "6f1f982d0a47c65899af3c5a7450b7098bc65325",
+        "rev": "4092de07ce3ed88389d77c0d623b7af89b40ac0e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/ayghri/i-have-adhd.git"
@@ -541,11 +541,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1789334945,
-        "narHash": "sha256-lwAtCnDVRv4osdPoPFgyU07YrqtzjL2UhU6EYj6HHwY=",
+        "lastModified": 1789341694,
+        "narHash": "sha256-HWRM5h+8WKlsREe5mGni8T495ZUXp4ZyyKh5/gKJ3co=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "88dad2f272332d948dd37809b746fc2fb7bcef44",
+        "rev": "bcd2a60f193d93655a836d7a2e05fb5f7bd8bdc5",
         "type": "github"
       },
       "original": {
@@ -679,10 +679,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789341263,
-        "narHash": "sha256-W04q+dMXCvdYXd0odhSvdCJyUKYV7miElX9QgOWmNdw=",
+        "lastModified": 1789347175,
+        "narHash": "sha256-H82ZABMweK/r0BSRchRz6DPgr0AB7Tv17Eqg7o0zf3Y=",
         "ref": "refs/heads/main",
-        "rev": "94cb78d97816e1062aa05a8a4dcf59a5be230efe",
+        "rev": "61b87fa8bd55737d649d3798d54da56f86fda7ec",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
