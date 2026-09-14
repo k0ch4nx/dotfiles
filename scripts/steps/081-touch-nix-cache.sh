@@ -176,7 +176,7 @@ function touch_cache() (
         export TOUCH_CLOSURE="${closure_file}"
         # shellcheck disable=SC2016
         tr '\n' '\000' <"${missing}" \
-            | xargs -0 -n 32 -P 32 bash -c '
+            | xargs -0 -n 32 -P 1 bash -c '
         status=0
         for nar_key; do
             parents="$(awk -F "\t" -v nar="${nar_key}" "{ if (\$1 == nar) print \$2 }" "${TOUCH_NAR_MAP}")"
@@ -226,35 +226,64 @@ function touch_cache() (
             fi
             copy_ok=false
             copy_err=""
+            verify_err=""
             copy_stderr="$(mktemp)"
+            verify_stderr="$(mktemp)"
+            retouch_list="$(mktemp)"
             for attempt in 1 2 3; do
-                if nix copy --accept-flake-config --impure --no-update-lock-file --to "s3://${R2_TOUCH_BUCKET}?endpoint=${AWS_ENDPOINT_URL}&scheme=https&region=auto" --stdin <"${store_list}" >/dev/null 2>"${copy_stderr}"; then
-                    copy_ok=true
-                    break
+                copy_err=""
+                verify_err=""
+                if nix copy --accept-flake-config --impure --no-update-lock-file --option narinfo-cache-positive-ttl 0 --option narinfo-cache-negative-ttl 0 --to "s3://${R2_TOUCH_BUCKET}?endpoint=${AWS_ENDPOINT_URL}&scheme=https&region=auto" --stdin <"${store_list}" >/dev/null 2>"${copy_stderr}"; then
+                    verify_ok=true
+                    : >"${retouch_list}"
+                    while IFS= read -r parent_hash; do
+                        [[ -n "${parent_hash}" ]] || continue
+                        if ! aws s3api head-object --endpoint-url "${AWS_ENDPOINT_URL}" --bucket "${R2_TOUCH_BUCKET}" --key "${parent_hash}.narinfo" >/dev/null 2>"${verify_stderr}"; then
+                            verify_ok=false
+                            verify_err="head-object ${parent_hash}.narinfo: $(tr "\n" " " <"${verify_stderr}")"
+                            continue
+                        fi
+                        narinfo="$(aws s3 cp --endpoint-url "${AWS_ENDPOINT_URL}" "s3://${R2_TOUCH_BUCKET}/${parent_hash}.narinfo" - 2>/dev/null)"
+                        url="$(sed -n "s/^URL: //p" <<<"${narinfo}" | head -n 1)"
+                        if [[ -z "${url}" ]]; then
+                            verify_ok=false
+                            verify_err="no URL in ${parent_hash}.narinfo"
+                            continue
+                        fi
+                        if ! aws s3api head-object --endpoint-url "${AWS_ENDPOINT_URL}" --bucket "${R2_TOUCH_BUCKET}" --key "${url}" >/dev/null 2>"${verify_stderr}"; then
+                            verify_ok=false
+                            verify_err="head-object ${url}: $(tr "\n" " " <"${verify_stderr}")"
+                            continue
+                        fi
+                        printf "%s.narinfo\n" "${parent_hash}" >>"${retouch_list}"
+                        printf "%s\n" "${url}" >>"${retouch_list}"
+                    done <<<"${parents}"
+                    if [[ "${verify_ok}" == true ]]; then
+                        copy_ok=true
+                        break
+                    fi
+                else
+                    copy_err="$(tr "\n" " " <"${copy_stderr}")"
                 fi
-                copy_err="$(tr "\n" " " <"${copy_stderr}")"
                 sleep 1
             done
-            rm -f -- "${copy_stderr}"
+            rm -f -- "${copy_stderr}" "${verify_stderr}"
             if [[ "${copy_ok}" == true ]]; then
                 printf "repair %s: copied %s\n" "${nar_key}" "$(tr "\n" " " <"${store_list}")" >>"${TOUCH_ERRORS}"
             else
-                if [[ -n "${copy_err}" ]]; then
+                if [[ -n "${verify_err}" ]]; then
+                    printf "repair %s: verify failed: %s\n" "${nar_key}" "${verify_err}" >>"${TOUCH_ERRORS}"
+                elif [[ -n "${copy_err}" ]]; then
                     printf "repair %s: copy failed: %s\n" "${nar_key}" "${copy_err}" >>"${TOUCH_ERRORS}"
                 else
                     printf "repair %s: copy failed\n" "${nar_key}" >>"${TOUCH_ERRORS}"
                 fi
-                rm -f -- "${store_list}"
+                rm -f -- "${store_list}" "${retouch_list}"
                 status=1
                 continue
             fi
             rm -f -- "${store_list}"
-            retouch_list="$(mktemp)"
-            printf "%s\n" "${nar_key}" >>"${retouch_list}"
-            while IFS= read -r parent_hash; do
-                [[ -n "${parent_hash}" ]] || continue
-                printf "%s.narinfo\n" "${parent_hash}" >>"${retouch_list}"
-            done <<<"${parents}"
+            LC_ALL=C sort -u "${retouch_list}" -o "${retouch_list}"
             retouch_ok=true
             while IFS= read -r rkey; do
                 [[ -n "${rkey}" ]] || continue
