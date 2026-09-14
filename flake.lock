@@ -541,11 +541,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1789409666,
-        "narHash": "sha256-kBfWY8VLP1u2mFRaqaeHhRQPSbPCnqMukJVNvBmv/HQ=",
+        "lastModified": 1789423215,
+        "narHash": "sha256-x/af5adLjqNKEneNzfH7kaei7ZPMVQGNgmR08RJ05b8=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "9dd4d3486e4d6d4c544d02322b957c5e1e908efa",
+        "rev": "2c2c84fe641c3acbf969d13e7619ff3b4c49721e",
         "type": "github"
       },
       "original": {
@@ -679,10 +679,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789420501,
-        "narHash": "sha256-9Kp/atBcA8t+w/Y+kqC/d4zhnrzFy+mT/Q+BNQkQ/cM=",
+        "lastModified": 1789424012,
+        "narHash": "sha256-ZtReZ2ig+sHepVKMh/NeqDHYEy5ufNs6G9UQjslTmj8=",
         "ref": "refs/heads/main",
-        "rev": "0b9b835d4ec6840f20273219e1535d9e68ca3f59",
+        "rev": "6708e942c4d13a42912bc8f7f94fc52ed82cdfe6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -895,10 +895,10 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1789417116,
-        "narHash": "sha256-nBOmQ20AKU5449mNSqnec2CNBCcWmKYal2KLVHcGLEg=",
+        "lastModified": 1789423317,
+        "narHash": "sha256-ik8tM3XJV13yCuPmiugrdmKTEUMG8GXY7xoy7cs9WIg=",
         "ref": "refs/heads/main",
-        "rev": "f44eeba661acb45b0efecdc89a8aba7f0b7835ff",
+        "rev": "979a3f97a69934cc390ccbb240f16f4adf411989",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/trailofbits/skills.git"
