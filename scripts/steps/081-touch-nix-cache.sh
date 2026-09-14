@@ -140,7 +140,7 @@ function touch_cache() (
                     refreshed=true
                     break
                 fi
-                last_error="$(tr '\n' ' ' <"${stderr_file}")"
+                last_error="$(tr "\n" " " <"${stderr_file}")"
                 sleep 1
             done
 
