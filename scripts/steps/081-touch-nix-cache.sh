@@ -111,6 +111,8 @@ function touch_cache() (
         return 1
     fi
 
+    LC_ALL=C sort -u "${touchlist}" -o "${touchlist}"
+
     local total
     total="$(wc -l <"${touchlist}" | tr -d ' ')"
     printf 'Refreshing %s objects...\n' "${total}"
@@ -122,6 +124,8 @@ function touch_cache() (
         status=0
         for key; do
             refreshed=false
+            stderr_file="$(mktemp)"
+            last_error=""
 
             for attempt in 1 2 3; do
                 # R2 MERGE retains source standard and custom metadata.
@@ -132,15 +136,21 @@ function touch_cache() (
                 --copy-source "${R2_TOUCH_BUCKET}/${key}" \
                 --metadata-directive MERGE \
                 --metadata "nix-cache-touch=${R2_TOUCH_ID}" \
-                >/dev/null 2>&1; then
+                >/dev/null 2>"${stderr_file}"; then
                     refreshed=true
                     break
                 fi
+                last_error="$(tr '\n' ' ' <"${stderr_file}")"
                 sleep 1
             done
 
+            rm -f -- "${stderr_file}"
             if [[ "${refreshed}" != true ]]; then
-                printf "refresh %s\n" "${key}" >>"${TOUCH_ERRORS}"
+                if [[ -n "${last_error}" ]]; then
+                    printf "refresh %s: %s\n" "${key}" "${last_error}" >>"${TOUCH_ERRORS}"
+                else
+                    printf "refresh %s\n" "${key}" >>"${TOUCH_ERRORS}"
+                fi
                 status=1
             fi
         done
