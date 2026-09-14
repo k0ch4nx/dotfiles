@@ -12,13 +12,19 @@ function touch_cache() (
 
     local errors
     local touchlist
+    local narmap
+    local missing
     local closure_file=''
     local remove_closure_file='false'
     errors="$(mktemp)"
     touchlist="$(mktemp)"
+    narmap="$(mktemp)"
+    missing="$(mktemp)"
     export TOUCH_ERRORS="${errors}"
     export TOUCH_LIST="${touchlist}"
-    trap 'rm -f -- "${TOUCH_ERRORS}" "${TOUCH_LIST}"; [[ "${remove_closure_file}" != "true" || -z "${closure_file}" ]] || rm -f -- "${closure_file}"' EXIT
+    export TOUCH_NAR_MAP="${narmap}"
+    export TOUCH_MISSING="${missing}"
+    trap 'rm -f -- "${TOUCH_ERRORS}" "${TOUCH_LIST}" "${TOUCH_NAR_MAP}" "${TOUCH_MISSING}"; [[ "${remove_closure_file}" != "true" || -z "${closure_file}" ]] || rm -f -- "${closure_file}"' EXIT
 
     if [[ -n "${NIX_CACHE_CLOSURE_FILE:-}" ]]; then
         closure_file="${NIX_CACHE_CLOSURE_FILE}"
@@ -98,6 +104,7 @@ function touch_cache() (
             fi
 
             printf "%s.narinfo\n%s\n" "${hash}" "${url}"
+            printf "%s\t%s\n" "${url}" "${hash}" >>"${TOUCH_NAR_MAP}"
         done
         exit "${status}"
     ' _ \
@@ -112,6 +119,7 @@ function touch_cache() (
     fi
 
     LC_ALL=C sort -u "${touchlist}" -o "${touchlist}"
+    LC_ALL=C sort -u "${narmap}" -o "${narmap}"
 
     local total
     total="$(wc -l <"${touchlist}" | tr -d ' ')"
@@ -157,12 +165,142 @@ function touch_cache() (
         exit "${status}"
     ' _ || refresh_status=$?
 
+    awk '/NoSuchKey/ { key=$2; sub(/:$/, "", key); if (key ~ /^nar\//) print key }' "${errors}" | LC_ALL=C sort -u >"${missing}" || true
+    local missing_count
+    missing_count="$(wc -l <"${missing}" | tr -d ' ')"
+    local other_failures
+    other_failures="$(grep -v "NoSuchKey" "${errors}" | wc -l | tr -d ' ' || true)"
+    local repair_status=0
+    if ((missing_count > 0)); then
+        printf 'Repairing %s stale objects...\n' "${missing_count}"
+        export TOUCH_CLOSURE="${closure_file}"
+        # shellcheck disable=SC2016
+        tr '\n' '\000' <"${missing}" \
+            | xargs -0 -n 32 -P 32 bash -c '
+        status=0
+        for nar_key; do
+            parents="$(awk -F "\t" -v nar="${nar_key}" "{ if (\$1 == nar) print \$2 }" "${TOUCH_NAR_MAP}")"
+            if [[ -z "${parents}" ]]; then
+                printf "repair %s: no parent mapping\n" "${nar_key}" >>"${TOUCH_ERRORS}"
+                status=1
+                continue
+            fi
+            store_list="$(mktemp)"
+            while IFS= read -r parent_hash; do
+                [[ -n "${parent_hash}" ]] || continue
+                store_path="$(awk -v h="${parent_hash}" "{ if (index(\$0, \"/\" h \"-\") > 0) { print; exit } }" "${TOUCH_CLOSURE}")"
+                if [[ -z "${store_path}" ]]; then
+                    printf "repair %s: no store path for parent %s\n" "${nar_key}" "${parent_hash}" >>"${TOUCH_ERRORS}"
+                    status=1
+                    continue
+                fi
+                printf "%s\n" "${store_path}" >>"${store_list}"
+                rm_ok=false
+                rm_err=""
+                rm_stderr="$(mktemp)"
+                for attempt in 1 2 3; do
+                    if aws s3 rm --endpoint-url "${AWS_ENDPOINT_URL}" "s3://${R2_TOUCH_BUCKET}/${parent_hash}.narinfo" >/dev/null 2>"${rm_stderr}"; then
+                        rm_ok=true
+                        break
+                    fi
+                    rm_err="$(tr "\n" " " <"${rm_stderr}")"
+                    sleep 1
+                done
+                rm -f -- "${rm_stderr}"
+                if [[ "${rm_ok}" == true ]]; then
+                    printf "repair %s: removed %s.narinfo\n" "${nar_key}" "${parent_hash}" >>"${TOUCH_ERRORS}"
+                else
+                    if [[ -n "${rm_err}" ]]; then
+                        printf "repair %s: remove %s.narinfo failed: %s\n" "${nar_key}" "${parent_hash}" "${rm_err}" >>"${TOUCH_ERRORS}"
+                    else
+                        printf "repair %s: remove %s.narinfo failed\n" "${nar_key}" "${parent_hash}" >>"${TOUCH_ERRORS}"
+                    fi
+                    status=1
+                fi
+            done <<<"${parents}"
+            if [[ ! -s "${store_list}" ]]; then
+                printf "repair %s: no store paths to copy\n" "${nar_key}" >>"${TOUCH_ERRORS}"
+                rm -f -- "${store_list}"
+                status=1
+                continue
+            fi
+            copy_ok=false
+            copy_err=""
+            copy_stderr="$(mktemp)"
+            for attempt in 1 2 3; do
+                if nix copy --accept-flake-config --impure --no-update-lock-file --to "s3://${R2_TOUCH_BUCKET}?endpoint=${AWS_ENDPOINT_URL}&scheme=https&region=auto" --stdin <"${store_list}" >/dev/null 2>"${copy_stderr}"; then
+                    copy_ok=true
+                    break
+                fi
+                copy_err="$(tr "\n" " " <"${copy_stderr}")"
+                sleep 1
+            done
+            rm -f -- "${copy_stderr}"
+            if [[ "${copy_ok}" == true ]]; then
+                printf "repair %s: copied %s\n" "${nar_key}" "$(tr "\n" " " <"${store_list}")" >>"${TOUCH_ERRORS}"
+            else
+                if [[ -n "${copy_err}" ]]; then
+                    printf "repair %s: copy failed: %s\n" "${nar_key}" "${copy_err}" >>"${TOUCH_ERRORS}"
+                else
+                    printf "repair %s: copy failed\n" "${nar_key}" >>"${TOUCH_ERRORS}"
+                fi
+                rm -f -- "${store_list}"
+                status=1
+                continue
+            fi
+            rm -f -- "${store_list}"
+            retouch_list="$(mktemp)"
+            printf "%s\n" "${nar_key}" >>"${retouch_list}"
+            while IFS= read -r parent_hash; do
+                [[ -n "${parent_hash}" ]] || continue
+                printf "%s.narinfo\n" "${parent_hash}" >>"${retouch_list}"
+            done <<<"${parents}"
+            retouch_ok=true
+            while IFS= read -r rkey; do
+                [[ -n "${rkey}" ]] || continue
+                r_ok=false
+                r_err=""
+                r_stderr="$(mktemp)"
+                for attempt in 1 2 3; do
+                    if aws s3api copy-object --endpoint-url "${AWS_ENDPOINT_URL}" --bucket "${R2_TOUCH_BUCKET}" --key "${rkey}" --copy-source "${R2_TOUCH_BUCKET}/${rkey}" --metadata-directive MERGE --metadata "nix-cache-touch=${R2_TOUCH_ID}" >/dev/null 2>"${r_stderr}"; then
+                        r_ok=true
+                        break
+                    fi
+                    r_err="$(tr "\n" " " <"${r_stderr}")"
+                    sleep 1
+                done
+                rm -f -- "${r_stderr}"
+                if [[ "${r_ok}" == true ]]; then
+                    printf "repair %s: retouched %s\n" "${nar_key}" "${rkey}" >>"${TOUCH_ERRORS}"
+                else
+                    if [[ -n "${r_err}" ]]; then
+                        printf "repair %s: retouch %s failed: %s\n" "${nar_key}" "${rkey}" "${r_err}" >>"${TOUCH_ERRORS}"
+                    else
+                        printf "repair %s: retouch %s failed\n" "${nar_key}" "${rkey}" >>"${TOUCH_ERRORS}"
+                    fi
+                    retouch_ok=false
+                    status=1
+                fi
+            done <"${retouch_list}"
+            rm -f -- "${retouch_list}"
+            if [[ "${retouch_ok}" == true ]]; then
+                printf "repair %s: ok\n" "${nar_key}" >>"${TOUCH_ERRORS}"
+            fi
+        done
+        exit "${status}"
+    ' _ || repair_status=$?
+    fi
+
     if ((refresh_status != 0)); then
-        printf 'Failed to refresh cache objects:\n' >&2
-        if [[ -s "${errors}" ]]; then
-            cat "${errors}" >&2
+        if ((missing_count > 0 && repair_status == 0 && other_failures == 0)); then
+            printf 'Repaired %s stale objects.\n' "${missing_count}"
+        else
+            printf 'Failed to refresh cache objects:\n' >&2
+            if [[ -s "${errors}" ]]; then
+                cat "${errors}" >&2
+            fi
+            return 1
         fi
-        return 1
     fi
 
     printf 'Refreshed %s objects.\n' "${total}"
