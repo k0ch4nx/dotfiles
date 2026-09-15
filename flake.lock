@@ -153,10 +153,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1789441842,
-        "narHash": "sha256-MdcYjFu1s0rNbG4dO/WcDliCAoaiiOKFSZYRyef7AIs=",
+        "lastModified": 1789481104,
+        "narHash": "sha256-huS/dUWP+QD+HgqtoMpY5w+iU3itfTQDayPyjfZ2u3Y=",
         "ref": "refs/heads/main",
-        "rev": "560f2fccd9a13099283ea7ef1ff3787da17eb1ef",
+        "rev": "41afe2db061db5388dc438e9ea9d96aa40b7f8dd",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -334,10 +334,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1789160449,
-        "narHash": "sha256-ePqAWyGAuNxjmw5JccSYR8D4yq85N+X6LXkag4h0P7I=",
+        "lastModified": 1789480715,
+        "narHash": "sha256-D0A39TuqbmiUYrVyoGSWnxNDln/pbD2iugkm6k7NRdI=",
         "ref": "refs/heads/main",
-        "rev": "9c1b0a610534d6f8120964cf2672c07807d8fc90",
+        "rev": "ae28844fb54778a09af60dbe74409936aae7f7d9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -679,10 +679,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789477691,
-        "narHash": "sha256-GQxfFwO74Wb5O9iXrlHmnC1ACPPHNOkaqQd1p9bwQ4U=",
+        "lastModified": 1789481947,
+        "narHash": "sha256-7UPK4iQEhKodiJ0EEC/ucM0pH4JVUDi1EmA4gEfEOEI=",
         "ref": "refs/heads/main",
-        "rev": "83c1767446cb101f239cbed430524e2934556ebe",
+        "rev": "129d33889a3cffce99e84c2e15b52e44b69da935",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
