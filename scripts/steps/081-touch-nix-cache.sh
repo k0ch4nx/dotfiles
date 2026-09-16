@@ -7,8 +7,98 @@ set -euo pipefail
 
 R2_TOUCH_SCRIPT_PATH="${BASH_SOURCE[0]}"
 
+function touch_scope() {
+    if [[ -n "${R2_TOUCH_SCOPE:-}" ]]; then
+        printf '%s' "${R2_TOUCH_SCOPE}"
+        return
+    fi
+
+    case "$(uname -s)" in
+    Darwin)
+        printf 'darwin'
+        ;;
+    *)
+        if [[ -r /proc/sys/kernel/osrelease ]] &&
+            grep -qi microsoft /proc/sys/kernel/osrelease; then
+            printf 'wsl'
+        else
+            printf 'linux'
+        fi
+        ;;
+    esac
+}
+
+function touch_marker_key() {
+    printf '_touch/%s' "$(touch_scope)"
+}
+
+function touch_marker_age_seconds() {
+    local key="$1"
+    local epoch
+    local stderr_file
+    local stderr_text
+    stderr_file="$(mktemp)"
+
+    if ! epoch="$(
+        aws s3api head-object \
+            --endpoint-url "${AWS_ENDPOINT_URL}" \
+            --bucket "${R2_TOUCH_BUCKET}" \
+            --key "${key}" \
+            --query 'Metadata.unixepoch' \
+            --output text 2>"${stderr_file}"
+    )"; then
+        stderr_text="$(tr '\n' ' ' <"${stderr_file}")"
+        rm -f -- "${stderr_file}"
+        if [[ "${stderr_text}" != *'404'* && "${stderr_text}" != *'NoSuchKey'* ]]; then
+            printf 'Warning: failed to read the touch marker %s: %s\n' \
+                "${key}" "${stderr_text}" >&2
+        fi
+        return 1
+    fi
+    rm -f -- "${stderr_file}"
+
+    [[ "${epoch}" =~ ^[1-9][0-9]{9}$ ]] || return 1
+
+    printf '%s' "$(($(date +%s) - epoch))"
+}
+
+function update_touch_marker() {
+    local key="$1"
+    local stderr_file
+    stderr_file="$(mktemp)"
+
+    for _ in 1 2 3; do
+        if aws s3api put-object \
+            --endpoint-url "${AWS_ENDPOINT_URL}" \
+            --bucket "${R2_TOUCH_BUCKET}" \
+            --key "${key}" \
+            --metadata "nix-cache-touch=${R2_TOUCH_ID},unixepoch=$(date +%s)" \
+            >/dev/null 2>"${stderr_file}"; then
+            rm -f -- "${stderr_file}"
+            return 0
+        fi
+        sleep 1
+    done
+
+    printf 'put-object %s: %s\n' "${key}" "$(tr '\n' ' ' <"${stderr_file}")" >&2
+    rm -f -- "${stderr_file}"
+    return 1
+}
+
 function touch_cache() (
     set +x
+
+    local marker_key
+    local marker_age
+    local min_interval=86400
+    marker_key="$(touch_marker_key)"
+
+    if marker_age="$(touch_marker_age_seconds "${marker_key}")" &&
+        ((marker_age >= 0 && marker_age < min_interval)); then
+        printf 'Skipping touch: last refresh was %ss ago (marker %s, interval %ss).\n' \
+            "${marker_age}" "${marker_key}" "${min_interval}"
+        return 0
+    fi
 
     local errors
     local touchlist
@@ -332,7 +422,17 @@ function touch_cache() (
         fi
     fi
 
-    printf 'Refreshed %s objects.\n' "${total}"
+    if ((total == 0)); then
+        printf 'No cache objects were refreshed; not updating the touch marker.\n' >&2
+        return 1
+    fi
+
+    if ! update_touch_marker "${marker_key}"; then
+        printf 'Failed to update the touch marker %s.\n' "${marker_key}" >&2
+        return 1
+    fi
+
+    printf 'Refreshed %s objects (marker %s updated).\n' "${total}" "${marker_key}"
 )
 
 function main() (
