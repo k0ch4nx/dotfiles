@@ -21,14 +21,42 @@ end
 local jdtls_java_home = nix_build("temurin-bin-25")
 local project_java_home = nix_build("temurin-bin-17")
 
+local java_root_markers = {
+    { "settings.gradle", "settings.gradle.kts" },
+    { "gradlew", "build.gradle", "build.gradle.kts", "mvnw", "pom.xml", "build.xml" },
+}
+
 ---@type vim.lsp.Config
 return {
-    cmd = {
-        vim.fn.exepath("jdtls"),
-        "--java-executable",
-        jdtls_java_home .. "/bin/java",
-        "--jvm-arg=-javaagent:" .. lombok_jar,
-    },
+    root_dir = function(bufnr, on_dir)
+        local root = vim.fs.root(bufnr, java_root_markers)
+
+        if root then
+            on_dir(root)
+        end
+    end,
+    cmd = function(dispatchers, config)
+        local root = config.root_dir or vim.fn.getcwd()
+        local data_dir = string.format(
+            "%s/jdtls/workspace/%s-%s",
+            vim.fn.stdpath("cache"),
+            vim.fs.basename(root),
+            vim.fn.sha256(root):sub(1, 8)
+        )
+
+        return vim.lsp.rpc.start({
+            vim.fn.exepath("jdtls"),
+            "-data",
+            data_dir,
+            "--java-executable",
+            jdtls_java_home .. "/bin/java",
+            "--jvm-arg=-javaagent:" .. lombok_jar,
+        }, dispatchers, {
+            cwd = config.cmd_cwd,
+            env = config.cmd_env,
+            detached = config.detached,
+        })
+    end,
     cmd_env = vim.tbl_extend("force", vim.fn.environ(), {
         JAVA_HOME = project_java_home,
     }),
@@ -65,25 +93,6 @@ return {
                     true
                 )
             )
-
-            -- local excluded = {
-            --     ["com.microsoft.java.test.runner-jar-with-dependencies.jar"] = true,
-            --     ["jacocoagent.jar"] = true,
-            -- }
-            --
-            -- local java_test_jars = vim.fn.glob(
-            --     mason_packages .. "/java-test/extension/server/*.jar",
-            --     true,
-            --     true
-            -- )
-            --
-            -- for _, jar in ipairs(java_test_jars) do
-            --     local name = vim.fn.fnamemodify(jar, ":t")
-            --
-            --     if not excluded[name] then
-            --         table.insert(bundles, jar)
-            --     end
-            -- end
 
             return bundles
         end)(),
