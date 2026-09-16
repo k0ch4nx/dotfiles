@@ -391,10 +391,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1789529860,
-        "narHash": "sha256-Og+EsnPXRCTFALKiKS6PMaL37GXiWMpw5ws7tGTEcvw=",
+        "lastModified": 1789573488,
+        "narHash": "sha256-ST6u6NRK52EFZm8c4etA2a5/5MCZ/V3OXaYe1syai1U=",
         "ref": "refs/heads/main",
-        "rev": "5fd3ca4827324bc400096a54a49f4811f084597f",
+        "rev": "c248bda8623bd62f55c7456381e996b14c88099e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -484,10 +484,10 @@
     "i-have-adhd": {
       "flake": false,
       "locked": {
-        "lastModified": 1789505807,
-        "narHash": "sha256-p5TYNh1/VYP0WMFAkofsqzIXKWcmvWD3adPz94I/Yu8=",
+        "lastModified": 1789572625,
+        "narHash": "sha256-wnD5crIal23Vtk6GReG2vCkjDuhrpmhWXvrNUq5mZfE=",
         "ref": "refs/heads/main",
-        "rev": "0a84de401019a3a822248df586d88a2b56f8c6af",
+        "rev": "b15d0be58f55b33972ba3e39709e0e5208ef30cb",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/ayghri/i-have-adhd.git"
@@ -679,10 +679,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789571532,
-        "narHash": "sha256-uvfc6zzQ3vHPfaESQeS4N19lA0xgRVRxttdRmsuqQto=",
+        "lastModified": 1789575588,
+        "narHash": "sha256-sVKhBBIXY+HB/KjZZaxdwzdKxnpDynnXk21TnVpparY=",
         "ref": "refs/heads/main",
-        "rev": "b94fe8ffe8cf587d81ca9cf2f6d308fbaeb89e02",
+        "rev": "22c4164c86b5c7d7b745fc479709c7305d87e4e1",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
