@@ -228,6 +228,8 @@ in
 
     GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
 
+    JAVA_HOME = "${pkgs.temurin-bin-25}";
+
     PYTHONPYCACHEPREFIX = "${config.xdg.cacheHome}/python/__pycache__";
     PYTHON_HISTORY = "${config.xdg.dataHome}/python/.python_history";
   };
