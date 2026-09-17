@@ -501,10 +501,10 @@
     "kaynetik-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1777797039,
-        "narHash": "sha256-yTf6V3eAH363YWxV/3bXw/08B68PNmeoPSmd9Nj0Ob4=",
+        "lastModified": 1789636815,
+        "narHash": "sha256-k3D2iFqsloWjM8k5wbav5oJ1ZXeJPvNKPeTUZWlLjyA=",
         "ref": "refs/heads/main",
-        "rev": "7bc6c41c8014b183e0112768cbe937ca05cfb87b",
+        "rev": "7dc19b5bce2307afb1e7b0e74a7dcf08025d4cd5",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/kaynetik/skills.git"
@@ -679,10 +679,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789633462,
-        "narHash": "sha256-mcmZ1Oms8WWXpWGo5VpKehEQn0K+TUfJuLUGapMQr1E=",
+        "lastModified": 1789635983,
+        "narHash": "sha256-j/kESeca2eI5Ljx8ObVhdc4a9BVSevvWa1FKTfL8Bn8=",
         "ref": "refs/heads/main",
-        "rev": "926731587ac9c2c96260a5feb52584ef3d76ed08",
+        "rev": "9ab47386778bb69c227ccc55811c4bce2a2b8aec",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -878,10 +878,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1789633158,
-        "narHash": "sha256-kC+x70XpRkuqUjt+CZ04u0g9XecCuatCoqG6np2iPr0=",
+        "lastModified": 1789633952,
+        "narHash": "sha256-c2HF3JkUaXhXdJqSdBvdzUBuT4v82FDrNZANl0TrA3k=",
         "ref": "refs/heads/main",
-        "rev": "2b41950446c23b6bf97fc28f87ee31982bb34c0e",
+        "rev": "6d682348f4af469b56fa0fd8331b4eb967030893",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
