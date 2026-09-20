@@ -29,11 +29,6 @@ in
 
       nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
-      homebrew-jackielii-tap = {
-        url = "git+https://github.com/jackielii/homebrew-tap.git?shallow=1";
-        flake = false;
-      };
-
       home-manager = {
         url = "github:nix-community/home-manager/master";
         inputs.nixpkgs.follows = "nixpkgs";

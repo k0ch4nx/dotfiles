@@ -7,8 +7,6 @@
     enableRosetta = false;
     user = "k0ch4nx";
     autoMigrate = true;
-    taps."jackielii/homebrew-tap" = inputs.homebrew-jackielii-tap;
-    trust.casks = [ "jackielii/tap/skhd-zig" ];
   };
 
   homebrew = {
@@ -28,6 +26,7 @@
 
     casks = [
       "affinity"
+      "amethyst"
       "android-studio"
       "appcleaner"
       "bettermouse"
@@ -37,7 +36,6 @@
       "gog-galaxy"
       "google-drive"
       "intellij-idea-oss"
-      "jackielii/tap/skhd-zig"
       "kindavim"
       "macfuse"
       "minecraft"

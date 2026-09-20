@@ -464,23 +464,6 @@
         "type": "github"
       }
     },
-    "homebrew-jackielii-tap": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1788952337,
-        "narHash": "sha256-u5mnULrPnCGaCN+ZLAzo4tRktv2ZTxKbPu5k7hVlNoc=",
-        "ref": "refs/heads/main",
-        "rev": "80bec50a4487af592f71b3c1ea81385b95e2a7d3",
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/jackielii/homebrew-tap.git"
-      },
-      "original": {
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/jackielii/homebrew-tap.git"
-      }
-    },
     "i-have-adhd": {
       "flake": false,
       "locked": {
@@ -739,7 +722,6 @@
         "google-skills": "google-skills",
         "hashicorp-agent-skills": "hashicorp-agent-skills",
         "home-manager": "home-manager_2",
-        "homebrew-jackielii-tap": "homebrew-jackielii-tap",
         "i-have-adhd": "i-have-adhd",
         "kaynetik-skills": "kaynetik-skills",
         "kiro-skills": "kiro-skills",

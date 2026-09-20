@@ -1,5 +1,7 @@
 {
   imports = [
+    ./amethyst.nix
+    ./borders.nix
     ./dotfiles.nix
     ./packages.nix
     ./secrets.nix
