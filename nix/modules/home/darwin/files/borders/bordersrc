@@ -9,4 +9,4 @@ options=(
     blacklist=
 )
 
-borders "${options[@]}"
+exec borders "${options[@]}"

@@ -84,10 +84,6 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    homebrew-jackielii-tap = {
-      url = "git+https://github.com/jackielii/homebrew-tap.git?shallow=1";
-      flake = false;
-    };
     i-have-adhd = {
       url = "git+https://github.com/ayghri/i-have-adhd.git?shallow=1";
       flake = false;
