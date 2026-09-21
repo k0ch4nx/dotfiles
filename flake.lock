@@ -524,11 +524,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1789976645,
-        "narHash": "sha256-3acUcDf4j470CFlQEABw1YhtdUYXnBKK6rKrM3h9m7E=",
+        "lastModified": 1789981953,
+        "narHash": "sha256-SCjI5+lIQdX6xG2atKgKvpFC3+3iW3Wp2htY2zRzvjY=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "898eba3be8f0107d8ecb0d62bb181b9372d4f2ab",
+        "rev": "2db27e8a8e019ff6b1a2f7bdb4e3e4eb69caec11",
         "type": "github"
       },
       "original": {
@@ -662,10 +662,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789978986,
-        "narHash": "sha256-eWHik3RuwvvSHaevuPtVmYZZSdXBEBz8FJ71ScuQKZM=",
+        "lastModified": 1789982772,
+        "narHash": "sha256-7zTmSalo9b2HeF2+92vBWs0bi6BiiyMuAXkuRyqf8c0=",
         "ref": "refs/heads/main",
-        "rev": "f17f50ac9fba54e449640db387960d8f7e692b9a",
+        "rev": "72c7e8569d742363c00842d769ef14ac0d2cb84d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -744,10 +744,10 @@
     "spring-boot-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788784153,
-        "narHash": "sha256-Sg3h4ciJSc5e9n9WKYbHPUzx+01MEwtdL4mwweSV3us=",
+        "lastModified": 1789982370,
+        "narHash": "sha256-Noe6oTLBicTj+Ztdq2gGgXA+RNpkHFf6Y0tHwjvGW2c=",
         "ref": "refs/heads/main",
-        "rev": "c43b0b6b7937f63b7e86ab1e19cc229cdc63ddd8",
+        "rev": "f0c06a01b0b7571b519cd43e16692b2483a24514",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/rrezartprebreza/spring-boot-skills.git"
