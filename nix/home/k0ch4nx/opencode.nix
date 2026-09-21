@@ -18,8 +18,12 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/oh-my-opencode-slim.json";
       force = true;
     };
-    ".config/opencode/tui.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/tui.json";
+    ".config/opencode/cli.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/cli.json";
+      force = true;
+    };
+    ".config/cortexkit/magic-context.jsonc" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/magic-context.jsonc";
       force = true;
     };
   };

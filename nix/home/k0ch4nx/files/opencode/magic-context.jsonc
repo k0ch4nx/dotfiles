@@ -1,0 +1,9 @@
+{
+    "$schema": "https://raw.githubusercontent.com/cortexkit/magic-context/master/assets/magic-context.schema.json",
+    "auto_update": false,
+    "historian": {
+        "opencode": {
+            "model": "opencode-go/deepseek-v4.1-flash"
+        }
+    }
+}
