@@ -153,10 +153,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1789964881,
-        "narHash": "sha256-4pn6Cgi7kLctdRH3170IJX/3t8WOCPxFyiEL0ev/sK8=",
+        "lastModified": 1789999248,
+        "narHash": "sha256-LOZTahqquwXDBjxj1LxadlzR4j6txmSypR2UaY8AeLI=",
         "ref": "refs/heads/main",
-        "rev": "a9918fa5cdcafc3d91fef37eb877d81bd7d3590b",
+        "rev": "e886b66c32a56e21687e097cb44f40b3ff4c6a4f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -524,11 +524,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1789993546,
-        "narHash": "sha256-ZCADbHaFMVYjiHbf33whnKIklF/1PmcC5hL5aQCI6tA=",
+        "lastModified": 1789998255,
+        "narHash": "sha256-2KoMd35h7QRN6SjYqhjoAjV1PCuSXMRodEtF7kgrkN4=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "f01ba915dc33c18a683dd13ea00c93ada411947e",
+        "rev": "15d9dfb1f95f7fe2aae505e18a7a413c06a4a722",
         "type": "github"
       },
       "original": {
@@ -662,10 +662,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789996665,
-        "narHash": "sha256-FHIfgRsCASCIWfWRPwtRLb3j/Gda7HMrAxwKO2uxYlo=",
+        "lastModified": 1790000355,
+        "narHash": "sha256-SFE+UMYEdibWRpIFEXQdyvEynRny4IFNLIo1BiGITKI=",
         "ref": "refs/heads/main",
-        "rev": "c371f5f0a57b10ebe38e71b6860ab3644e6af4b3",
+        "rev": "8daa53763346abb614aebcb43241b3bc75e0ae8e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -784,11 +784,11 @@
         "userborn": "userborn"
       },
       "locked": {
-        "lastModified": 1789973414,
-        "narHash": "sha256-6JF58nNvQ+BylQ9o7xzLF8r5StIz8yvn63b3B1xyZNc=",
+        "lastModified": 1789999438,
+        "narHash": "sha256-Gm7Xy8QwnqGG9JFxtHrvvLo9hsCJ+VigtdiFUAKE1Tk=",
         "owner": "numtide",
         "repo": "system-manager",
-        "rev": "22909079d4f6bf60804b33949d7180ccd7e74c6c",
+        "rev": "a92eb76cb0de5370d6a5ee12ac11b379c76d49a3",
         "type": "github"
       },
       "original": {
