@@ -662,10 +662,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1789972929,
-        "narHash": "sha256-3jtDx/kHUbvrxDNdaPvoM89qsN8aZOrHaznBtIW1xEc=",
+        "lastModified": 1789975825,
+        "narHash": "sha256-fpg12hi3dzM7TQKoPjEky+ZtcRcn4NFNnuqWpwvKx6s=",
         "ref": "refs/heads/main",
-        "rev": "591f7bad7e333a6a879e38cfffab7bbc17055800",
+        "rev": "6f60b59b6fe4a89e2050c24b4511ccf0b77bb28a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -784,11 +784,11 @@
         "userborn": "userborn"
       },
       "locked": {
-        "lastModified": 1789938507,
-        "narHash": "sha256-ogqe5h91OsUNPHJ3+LnYEOOuiYItTPErGZbLEiL5E1U=",
+        "lastModified": 1789973414,
+        "narHash": "sha256-6JF58nNvQ+BylQ9o7xzLF8r5StIz8yvn63b3B1xyZNc=",
         "owner": "numtide",
         "repo": "system-manager",
-        "rev": "89d6c56c94bd16145652697e3b268497d666c72a",
+        "rev": "22909079d4f6bf60804b33949d7180ccd7e74c6c",
         "type": "github"
       },
       "original": {
