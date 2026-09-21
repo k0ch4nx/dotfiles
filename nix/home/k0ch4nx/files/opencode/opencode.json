@@ -20,6 +20,10 @@
         }
     },
     "plugins": [
-        "oh-my-opencode-slim@latest"
-    ]
+        "oh-my-opencode-slim@latest",
+        "@cortexkit/opencode-magic-context@latest"
+    ],
+    "compaction": {
+        "auto": false
+    }
 }

@@ -18,8 +18,14 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/oh-my-opencode-slim.json";
       force = true;
     };
-    ".config/opencode/tui.json" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/tui.json";
+    ".config/opencode/cli.json" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/cli.json";
+      force = true;
+    };
+    # Magic Context is an OpenCode plugin but keeps its own config under
+    # ~/.config/cortexkit rather than ~/.config/opencode.
+    ".config/cortexkit/magic-context.jsonc" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${opencodeDir}/magic-context.jsonc";
       force = true;
     };
   };
