@@ -662,10 +662,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790086128,
-        "narHash": "sha256-LkryZGAopmaOeVAsJzloTb1ue9Yw9KOXCZfRp6Yp29w=",
+        "lastModified": 1790090309,
+        "narHash": "sha256-sWLj3CAoHBurSUwP9U//Z8nR61fiA/qVM9dpqaFZdYs=",
         "ref": "refs/heads/main",
-        "rev": "0a5b5381a26b8480021005dc0145524ba6181cdb",
+        "rev": "8f58b7d01273f90b7ab753bcd34a3a7f5143ce1c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
