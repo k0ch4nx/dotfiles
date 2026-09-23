@@ -5,7 +5,7 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
     dependencies = {
         ---@module "nvim-treesitter"
-        "neovim-treesitter/nvim-treesitter",
+        "nvim-treesitter/nvim-treesitter",
     },
     init = function()
         vim.g.no_plugin_maps = true

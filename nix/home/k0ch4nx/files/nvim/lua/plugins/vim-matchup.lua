@@ -5,7 +5,7 @@ return {
     "andymass/vim-matchup",
     dependencies = {
         ---@module "nvim-treesitter"
-        "neovim-treesitter/nvim-treesitter",
+        "nvim-treesitter/nvim-treesitter",
     },
     ---@type matchup.Config
     opts = {},
