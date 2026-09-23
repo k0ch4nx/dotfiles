@@ -34,6 +34,8 @@ return {
             end,
         })
 
+        vim.treesitter.language.register("dotenv", { "env" })
+
         return {}
     end,
     build = ":TSUpdate",
