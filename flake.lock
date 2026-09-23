@@ -334,10 +334,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1790113966,
-        "narHash": "sha256-v36pWwE5xl5mqAD+Q60Ixk4+26YrXfS300TARvD8l2g=",
+        "lastModified": 1790195910,
+        "narHash": "sha256-k9I/QwlH+JDpLxhLpX7PmfIzM5oPVVREXF3ess6SRQw=",
         "ref": "refs/heads/main",
-        "rev": "62364cb2000795537a6895261b37ec668e4cf527",
+        "rev": "f50ba8608e489cc94b44b209e0920a9d072020ad",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -524,11 +524,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1790156955,
-        "narHash": "sha256-fX01id/iJpSbHzVDYgrQHy1vr7OsqCZrNAwfYsestLQ=",
+        "lastModified": 1790198091,
+        "narHash": "sha256-GObKxdlbpHipoMYX2jUMAnU+qOKjSQM/Jrb2kMdnhjw=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "06830d044f23ec9bc55cec62771122d2941c634d",
+        "rev": "e874a624d7c06972075887520f4ae075ea423394",
         "type": "github"
       },
       "original": {
@@ -662,10 +662,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790194233,
-        "narHash": "sha256-pBPi6ofLmO/zJt5xZ/A9Xyj7FNjeB1CAK19069x78zM=",
+        "lastModified": 1790198214,
+        "narHash": "sha256-20S5aDhUbSsZIQWvQiKpez7A3yaN2nprmJRzLc6FVko=",
         "ref": "refs/heads/main",
-        "rev": "bdeca1661473fa73194a55df2bcfc1b3b64e9501",
+        "rev": "d51f3607b9789cb3d354ecce35fbced7485575e0",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
