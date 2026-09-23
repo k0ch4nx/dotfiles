@@ -26,7 +26,6 @@
 
     casks = [
       "affinity"
-      "amethyst"
       "android-studio"
       "appcleaner"
       "bettermouse"
