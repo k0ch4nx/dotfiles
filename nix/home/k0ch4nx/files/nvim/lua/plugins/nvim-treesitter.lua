@@ -2,42 +2,39 @@
 ---@type LazySpec
 return {
     ---@module "nvim-treesitter"
-    "neovim-treesitter/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter",
     dependencies = {
-        "neovim-treesitter/treesitter-parser-registry",
         "RRethy/nvim-treesitter-endwise",
     },
     opts = function()
-        -- https://github.com/neovim-treesitter/nvim-treesitter/tree/main#highlighting
+        -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main#highlighting
         vim.api.nvim_create_autocmd("FileType", {
             pattern = { "*" },
             callback = function()
                 if pcall(vim.treesitter.start) then
-                    -- https://github.com/neovim-treesitter/nvim-treesitter/tree/main#folds
+                    -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main#folds
                     vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                    -- https://github.com/neovim-treesitter/nvim-treesitter/tree/main#indentation
+                    -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main#indentation
                     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                 end
             end,
         })
 
-        ---@type TSConfig
-        return {
-            local_parsers = {
-                dotenv = {
-                    source = {
-                        type = "self_contained",
+        -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main#adding-custom-languages
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "TSUpdate",
+            callback = function()
+                require("nvim-treesitter.parsers").dotenv = {
+                    install_info = {
                         url = "https://github.com/pnx/tree-sitter-dotenv",
-                        queries_path = "queries",
-                        semver = false,
+                        revision = "a16f203ba05f8efedc780690cac217c095946c06",
+                        queries = "queries",
                     },
-                    parser_manifest = {
-                        parser_version = "main",
-                    },
-                    filetypes = { "dotenv", "sh" },
-                },
-            },
-        }
+                }
+            end,
+        })
+
+        return {}
     end,
     build = ":TSUpdate",
     lazy = false,
