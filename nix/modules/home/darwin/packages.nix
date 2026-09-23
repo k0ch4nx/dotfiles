@@ -17,6 +17,7 @@
     jankyborders
     lmstudio
     mcat
+    omni
     orbstack
     ryubing
     sheets
