@@ -32,7 +32,6 @@ window_swap_east = "alt + shift - l"
 window_fullwidth = "alt - f"
 window_manage = "alt - t"
 window_resize = "alt - r"
-restart = "alt + shift - r"
 
 [windows.defaults]
 title = ".*"
