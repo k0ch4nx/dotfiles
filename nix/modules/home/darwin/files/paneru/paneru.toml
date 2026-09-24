@@ -39,6 +39,7 @@ width = 1.0
 horizontal_padding = 4
 vertical_padding = 4
 
+# macOS 27: Steam windows are mis-tiled (upstream: karinushka/paneru#402, open as of v0.5.1).
 [windows.steam]
 bundle_id = "com.valvesoftware.steam"
 title = ".*"
