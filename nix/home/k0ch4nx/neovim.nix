@@ -4,7 +4,10 @@ let
   nvimDir = "${config.dotfiles.path}/nix/home/k0ch4nx/files/nvim";
 in
 {
-  home.packages = [ pkgs.neovim ];
+  programs.neovim = {
+    enable = true;
+    extraPackages = [ pkgs.go ];
+  };
 
   xdg.configFile = {
     "nvim/.luarc.jsonc".source = ./files/nvim/.luarc.jsonc;
