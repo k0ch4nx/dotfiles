@@ -441,10 +441,10 @@
     "hashicorp-agent-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1788450606,
-        "narHash": "sha256-rkF9+21kcLSsl96ZpM43R7QBp8/eDG/VCEa1fEJwukA=",
+        "lastModified": 1790270986,
+        "narHash": "sha256-hFk9cQYpfO+sCxnKIK+Fun1qJJfTaU6WeZj35W0cTao=",
         "ref": "refs/heads/main",
-        "rev": "c2d65dfe492f74d360d35b859b88932222470bd8",
+        "rev": "516354c484b43fa5469567485113dd0c769c3d24",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/hashicorp/agent-skills.git"
@@ -725,10 +725,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790269862,
-        "narHash": "sha256-gXHGPe0TiPel5V2lwLXgTaNRNFaXxyWREKvuLoMlz5I=",
+        "lastModified": 1790274139,
+        "narHash": "sha256-bZqV0A4K9f7QhIO6fvERpKsMl2WXLsZwiMXJf5+ZX24=",
         "ref": "refs/heads/main",
-        "rev": "6e8d06876fd166064abbec4928fb3bb109ebe999",
+        "rev": "ed96ab858b5735b7313ce488f45fd0c4dfca6957",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
