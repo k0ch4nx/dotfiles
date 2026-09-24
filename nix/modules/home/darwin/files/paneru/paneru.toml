@@ -44,32 +44,17 @@ bundle_id = "com.valvesoftware.steam"
 title = ".*"
 manage = true
 
-[windows.system_settings]
-bundle_id = "com.apple.systempreferences"
+[windows.mail]
+bundle_id = "com.apple.mail"
 title = ".*"
-floating = true
+manage = true
 
-[windows.passwords]
-bundle_id = "com.apple.Passwords"
+[windows.geforce_now]
+bundle_id = "com.nvidia.gfnpc.mall"
 title = ".*"
-floating = true
-
-[windows.stickies]
-bundle_id = "com.apple.Stickies"
-title = ".*"
-floating = true
-
-[windows.google_drive]
-bundle_id = "com.google.drivefs"
-title = ".*"
-floating = true
+manage = true
 
 [windows.iina]
 bundle_id = "com.colliderli.iina"
-title = ".*"
-floating = true
-
-[windows.ryujinx]
-bundle_id = "org.ryujinx.Ryujinx"
 title = ".*"
 floating = true
