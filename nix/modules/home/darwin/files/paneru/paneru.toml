@@ -39,6 +39,11 @@ width = 1.0
 horizontal_padding = 4
 vertical_padding = 4
 
+[windows.steam]
+bundle_id = "com.valvesoftware.steam"
+title = ".*"
+manage = true
+
 [windows.system_settings]
 bundle_id = "com.apple.systempreferences"
 title = ".*"
