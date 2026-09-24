@@ -39,19 +39,8 @@ width = 1.0
 horizontal_padding = 4
 vertical_padding = 4
 
-# macOS 27: Steam windows are mis-tiled (upstream: karinushka/paneru#402, open as of v0.5.1).
 [windows.steam]
 bundle_id = "com.valvesoftware.steam"
-title = ".*"
-manage = true
-
-[windows.mail]
-bundle_id = "com.apple.mail"
-title = ".*"
-manage = true
-
-[windows.geforce_now]
-bundle_id = "com.nvidia.gfnpc.mall"
 title = ".*"
 manage = true
 

@@ -1,7 +1,3 @@
--- macOS 27 moved Mission Control's accessibility tree from the Dock process to
--- com.apple.WindowManager, which breaks hs.spaces.gotoSpace ("unable to get
--- Mission Control data from the Dock"). Try the WindowManager tree first, then
--- fall back to the stock implementation. Revisit when Hammerspoon ships a fix.
 local function installSpacesCompat()
     local axuielement = require("hs.axuielement")
     local application = require("hs.application")
