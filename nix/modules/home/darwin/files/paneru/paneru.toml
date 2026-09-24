@@ -17,7 +17,7 @@ workspace_menu_status = true
 
 [decorations.active.border]
 enabled = true
-color = "#92D2FF"
+color = "#F04A00"
 width = 3.0
 radius = "auto"
 
