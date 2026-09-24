@@ -1,7 +1,7 @@
 {
   "bash-language-server": "5.8.1",
   "buildifier": "v10.1.0",
-  "checkstyle": "checkstyle-13.5.0",
+  "checkstyle": "checkstyle-14.1.0",
   "clangd": "23.1.0",
   "codelldb": "v1.12.3",
   "csharpier": "1.2.6",
