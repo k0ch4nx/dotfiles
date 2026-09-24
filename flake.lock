@@ -367,10 +367,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1790209419,
-        "narHash": "sha256-iiGdKuziC5FG49Xke+rzGPAsG/gxVty7ion39xX1m60=",
+        "lastModified": 1790278834,
+        "narHash": "sha256-Fx3Apg8OXEBpbd8oIIzdixiJ3rtYIXBzPmkByXswiQ8=",
         "ref": "refs/heads/main",
-        "rev": "87de0b6369f0466da37d9b3c0c9b77374bb59992",
+        "rev": "cc7e6ad3eb2a41bc9ab5b7039896de5bb84c16c0",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -424,10 +424,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1790269347,
-        "narHash": "sha256-KlaTHvjRUYeXMc288PymAniAC91qwewtnI3YK5s9umo=",
+        "lastModified": 1790278677,
+        "narHash": "sha256-mEzatfR7O4WbwttDFhmpzFIsx2qlid1WzM2rlXB9Dl4=",
         "ref": "refs/heads/main",
-        "rev": "aaca4a8ba575d4549e93eeca776b40a022f875d3",
+        "rev": "748af9bd7e9cd4bd8285d58f6969614b09b0cab3",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -725,10 +725,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790277295,
-        "narHash": "sha256-suT13DVhALfv2ULJKUAyvQYVLn5suDISBPJxolZVWkI=",
+        "lastModified": 1790281237,
+        "narHash": "sha256-s5kKLUjRFyUp0zMDM7mA2M2s0r6VGnr4Xpvskmi2iqI=",
         "ref": "refs/heads/main",
-        "rev": "37783fcbcf78c93c09caf743e0ba53ed44dbfedf",
+        "rev": "da3d100f272f44156809f42bfaeab3de1900ba46",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
