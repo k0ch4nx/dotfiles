@@ -1,12 +1,13 @@
 [options]
 focus_follows_mouse = false
 mouse_follows_focus = true
+animation_speed = 12.0
 
 [padding]
-top = 0
-bottom = 0
-left = 0
-right = 0
+top = 4
+bottom = 4
+left = 4
+right = 4
 
 [swipe.scroll]
 modifier = "alt"
@@ -17,12 +18,8 @@ workspace_menu_status = true
 [decorations.active.border]
 enabled = true
 color = "#92D2FF"
-width = 6.0
+width = 3.0
 radius = "auto"
-
-[decorations.inactive.dim]
-opacity = -0.15
-opacity_night = -0.25
 
 [restore]
 enabled = true
@@ -37,8 +34,9 @@ window_manage = "alt - t"
 window_resize = "alt - r"
 restart = "alt + shift - r"
 
-[windows.gaps]
+[windows.defaults]
 title = ".*"
+width = 1.0
 horizontal_padding = 4
 vertical_padding = 4
 
