@@ -1,0 +1,73 @@
+[options]
+focus_follows_mouse = false
+mouse_follows_focus = true
+
+[padding]
+top = 0
+bottom = 0
+left = 0
+right = 0
+
+[swipe.scroll]
+modifier = "alt"
+
+[decorations]
+workspace_menu_status = true
+
+[decorations.active.border]
+enabled = true
+color = "#92D2FF"
+width = 6.0
+radius = "auto"
+
+[decorations.inactive.dim]
+opacity = -0.15
+opacity_night = -0.25
+
+[restore]
+enabled = true
+
+[bindings]
+window_focus_west = "alt - h"
+window_focus_east = "alt - l"
+window_swap_west = "alt + shift - h"
+window_swap_east = "alt + shift - l"
+window_fullwidth = "alt - f"
+window_manage = "alt - t"
+window_resize = "alt - r"
+restart = "alt + shift - r"
+
+[windows.gaps]
+title = ".*"
+horizontal_padding = 4
+vertical_padding = 4
+
+[windows.system_settings]
+bundle_id = "com.apple.systempreferences"
+title = ".*"
+floating = true
+
+[windows.passwords]
+bundle_id = "com.apple.Passwords"
+title = ".*"
+floating = true
+
+[windows.stickies]
+bundle_id = "com.apple.Stickies"
+title = ".*"
+floating = true
+
+[windows.google_drive]
+bundle_id = "com.google.drivefs"
+title = ".*"
+floating = true
+
+[windows.iina]
+bundle_id = "com.colliderli.iina"
+title = ".*"
+floating = true
+
+[windows.ryujinx]
+bundle_id = "org.ryujinx.Ryujinx"
+title = ".*"
+floating = true

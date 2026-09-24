@@ -14,7 +14,6 @@
     ghidra
     google-chrome
     iina
-    jankyborders
     lmstudio
     mcat
     omni

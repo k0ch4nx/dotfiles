@@ -34,6 +34,12 @@ in
         inputs.nixpkgs.follows = "nixpkgs";
       };
 
+      paneru = {
+        url = "github:karinushka/paneru";
+        inputs.nixpkgs.follows = "nixpkgs";
+        inputs.nix-darwin.follows = "nix-darwin";
+      };
+
       system-manager = {
         url = "github:numtide/system-manager";
         inputs.nixpkgs.follows = "nixpkgs";

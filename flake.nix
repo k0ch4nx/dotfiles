@@ -119,6 +119,13 @@
       url = "git+https://github.com/openclaw/openclaw.git?shallow=1";
       flake = false;
     };
+    paneru = {
+      url = "github:karinushka/paneru";
+      inputs = {
+        nix-darwin.follows = "nix-darwin";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     spring-boot-skills = {
       url = "git+https://github.com/rrezartprebreza/spring-boot-skills.git?shallow=1";
       flake = false;
