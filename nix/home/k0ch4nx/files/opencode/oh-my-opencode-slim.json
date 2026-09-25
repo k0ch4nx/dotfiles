@@ -10,8 +10,8 @@
     "presets": {
         "default": {
             "orchestrator": {
-                "model": "opencode-go/muse-spark-1.3-contributor",
-                "variant": "xhigh",
+                "model": "opencode-go/deepseek-v4.1-flash",
+                "variant": "max",
                 "skills": [
                     "*"
                 ],
@@ -21,8 +21,8 @@
                 ]
             },
             "explorer": {
-                "model": "opencode-go/muse-spark-1.3-contributor",
-                "variant": "high",
+                "model": "opencode-go/deepseek-v4.1-flash",
+                "variant": "max",
                 "skills": [],
                 "mcps": []
             },
@@ -35,8 +35,8 @@
                 "mcps": []
             },
             "librarian": {
-                "model": "opencode-go/muse-spark-1.3-contributor",
-                "variant": "high",
+                "model": "opencode-go/deepseek-v4.1-flash",
+                "variant": "max",
                 "skills": [],
                 "mcps": [
                     "websearch",
@@ -45,120 +45,16 @@
                 ]
             },
             "designer": {
-                "model": "opencode-go/muse-spark-1.3-contributor",
-                "variant": "high",
-                "skills": [
-                    "agent-browser"
-                ],
-                "mcps": []
-            },
-            "fixer": {
-                "model": "opencode-go/muse-spark-1.3-contributor",
-                "variant": "xhigh",
-                "skills": [],
-                "mcps": []
-            }
-        },
-        "chatgpt": {
-            "orchestrator": {
-                "model": "openai/gpt-5.6-terra",
-                "variant": "high",
-                "skills": [
-                    "*"
-                ],
-                "mcps": [
-                    "*",
-                    "!context7"
-                ]
-            },
-            "explorer": {
-                "model": "openai/gpt-5.6-luna",
-                "variant": "medium",
-                "skills": [],
-                "mcps": []
-            },
-            "oracle": {
-                "model": "openai/gpt-5.6-sol",
+                "model": "opencode-go/deepseek-v4.1-flash",
                 "variant": "max",
                 "skills": [
-                    "simplify"
-                ],
-                "mcps": []
-            },
-            "librarian": {
-                "model": "openai/gpt-5.6-luna",
-                "variant": "medium",
-                "skills": [],
-                "mcps": [
-                    "websearch",
-                    "context7",
-                    "gh_grep"
-                ]
-            },
-            "designer": {
-                "model": "openai/gpt-5.6-terra",
-                "variant": "high",
-                "skills": [
                     "agent-browser"
                 ],
                 "mcps": []
             },
             "fixer": {
-                "model": "openai/gpt-5.6-terra",
-                "variant": "high",
-                "skills": [],
-                "mcps": []
-            }
-        },
-        "free": {
-            "orchestrator": {
-                "model": "opencode/nemotron-3-ultra-free",
-                "skills": [
-                    "*"
-                ],
-                "mcps": [
-                    "*",
-                    "!context7"
-                ]
-            },
-            "explorer": {
-                "model": "opencode/nemotron-3.5-lightning-free",
-                "skills": [],
-                "mcps": []
-            },
-            "oracle": {
-                "model": "opencode/big-pickle",
+                "model": "opencode-go/deepseek-v4.1-flash",
                 "variant": "max",
-                "skills": [
-                    "simplify"
-                ],
-                "mcps": []
-            },
-            "librarian": {
-                "model": "opencode/ling-3.0-flash-fin-free",
-                "skills": [],
-                "mcps": [
-                    "websearch",
-                    "context7",
-                    "gh_grep"
-                ]
-            },
-            "designer": {
-                "model": "opencode/mimo-v2.5-free",
-                "variant": "medium",
-                "skills": [
-                    "agent-browser"
-                ],
-                "mcps": []
-            },
-            "fixer": {
-                "model": "opencode/muse-spark-1.2-contributor-free",
-                "skills": [],
-                "mcps": []
-            },
-            "observer": {
-                "model": "opencode/mimo-v2.5-free",
-                "variant": "low",
                 "skills": [],
                 "mcps": []
             }
