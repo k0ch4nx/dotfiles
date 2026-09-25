@@ -135,11 +135,19 @@ in
         fi
 
         function wezterm_tab_title_preexec() {
-          printf '\e]1;%s\a' "''${1[(w)1]}"
+          local label="''${1[(w)1]}"
+          if [ "''${label}" != "''${WEZTERM_TAB_TITLE}" ]; then
+            WEZTERM_TAB_TITLE="''${label}"
+            wezterm cli set-tab-title --pane-id "''${WEZTERM_PANE}" "''${label}" 2>/dev/null
+          fi
         }
 
         function wezterm_tab_title_precmd() {
-          printf '\e]1;%s\a' "''${ZSH_NAME}"
+          local label="''${ZSH_NAME}"
+          if [ "''${label}" != "''${WEZTERM_TAB_TITLE}" ]; then
+            WEZTERM_TAB_TITLE="''${label}"
+            wezterm cli set-tab-title --pane-id "''${WEZTERM_PANE}" "''${label}" 2>/dev/null
+          fi
         }
 
         precmd_functions+=(wezterm_tab_title_precmd)
