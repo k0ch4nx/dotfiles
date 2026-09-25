@@ -133,6 +133,17 @@ in
             fastfetch
           fi
         fi
+
+        function wezterm_tab_title_preexec() {
+          printf '\e]1;%s\a' "''${1[(w)1]}"
+        }
+
+        function wezterm_tab_title_precmd() {
+          printf '\e]1;%s\a' "''${ZSH_NAME}"
+        }
+
+        precmd_functions+=(wezterm_tab_title_precmd)
+        preexec_functions+=(wezterm_tab_title_preexec)
       '';
 
       completionInit = ''
