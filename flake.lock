@@ -367,10 +367,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1790369581,
-        "narHash": "sha256-7qEzg3hwAFbqU7IEMicMZ/3tSctBu+I4IZOMtrakrU4=",
+        "lastModified": 1790376605,
+        "narHash": "sha256-zK2gjHEvAL3wK98NVLwp8wbw0/cYsyacr+56VFFn4u4=",
         "ref": "refs/heads/main",
-        "rev": "361b0bbc58502342d66a2588f1052675c83b7674",
+        "rev": "2fe7c2d3f065dc40ad573d50b2091116f8a4aa18",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -725,10 +725,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790374547,
-        "narHash": "sha256-dr6exT8HNqm1iVWqOssb+alQiteWrI+afZOV1MtHmto=",
+        "lastModified": 1790378086,
+        "narHash": "sha256-qvt02F4E4xP7oF09JpVGHFL9mgKJlZeKZgJSogfBXBI=",
         "ref": "refs/heads/main",
-        "rev": "48f8869987650948f58549cd77d1603952454f6c",
+        "rev": "2bf65e1fc8778aa945a6857cd1862a8b7b1dccfe",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -1034,10 +1034,10 @@
     "wshobson-agents": {
       "flake": false,
       "locked": {
-        "lastModified": 1790374592,
-        "narHash": "sha256-QjXMyS7eirGv3NkTqhnbLux5sGf6SKcDHTAgBJbBMxg=",
+        "lastModified": 1790375654,
+        "narHash": "sha256-CJ/HllcrKqOWod3GkVWgqnCg64mzduLTAntJ2KTfzXc=",
         "ref": "refs/heads/main",
-        "rev": "0d773acf971b5fae28495443c19f37af2c8796fd",
+        "rev": "e28d8596ff89b551d20805f783b584987139c52e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/wshobson/agents.git"
