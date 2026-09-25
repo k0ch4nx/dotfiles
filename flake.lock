@@ -424,10 +424,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1790348282,
-        "narHash": "sha256-S+RnW6p6WzdpuIenyZFXJhFG8c1Q8X7heuyJdAko8Ds=",
+        "lastModified": 1790357905,
+        "narHash": "sha256-zD3DnOqJqoO/JaFuSnCPrvVBj8TyLecYn3cKDgd89Qw=",
         "ref": "refs/heads/main",
-        "rev": "29965301f3c774af19a39d441cbd6a167bf5a4a4",
+        "rev": "72ae9f96916a348858fc1a25ac235995ef224b29",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -483,11 +483,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790292277,
-        "narHash": "sha256-z+knvdMItRrMonmG4RIsqKYIa/hwYUzKjotDTfC5DDc=",
+        "lastModified": 1790359331,
+        "narHash": "sha256-Obs1m3Rs5rTEWjZlOLSJYYAv7nEqQgogSMgWtOv8JBI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4b9add8645d5e2b0f7de18f7a442d08fe2bdcc91",
+        "rev": "6fa0edfe6a025d4d98f44a6c0d704d690dce3378",
         "type": "github"
       },
       "original": {
@@ -725,10 +725,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790356627,
-        "narHash": "sha256-G7XHthY2noqlCITXLjqTVdjUyJpcLXF+RJsQOHHILnA=",
+        "lastModified": 1790360452,
+        "narHash": "sha256-6K2TstJrBpK43YuSUWJDmruYt3XIso5+rBSNns2bJQ8=",
         "ref": "refs/heads/main",
-        "rev": "e124d77e00fadc6108ed5bfc0e57101a40151197",
+        "rev": "e693324ad36ff113bd378afd9ca1f67ff90ad40f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -851,10 +851,10 @@
     "superpowers": {
       "flake": false,
       "locked": {
-        "lastModified": 1789777895,
-        "narHash": "sha256-rgeJhjQyABYlhlyFRmgyhbZmmmIPPNkch4CXyTkGEyM=",
+        "lastModified": 1790359587,
+        "narHash": "sha256-BWPiXoXV+jePP+wn/Z+Af4iehIL7oei00plaWaTzq8s=",
         "ref": "refs/heads/main",
-        "rev": "5bf4e78011075bcfc0dc295f0724994cd123ee71",
+        "rev": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/obra/superpowers.git"
