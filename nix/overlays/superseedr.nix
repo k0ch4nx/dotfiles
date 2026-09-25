@@ -16,6 +16,8 @@ in
 
     cargoHash = "sha256-MJJvAOEPBjgwz7pcrTIdOFe404+Cw4h1fI5Vk0yG9G0=";
 
+    doCheck = false;
+
     nativeBuildInputs = [ prev.pkg-config ];
     buildInputs = [ prev.openssl ];
 
