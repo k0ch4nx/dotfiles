@@ -23,15 +23,23 @@ return {
             local ft = vim.bo[buf].filetype
             local bt = vim.bo[buf].buftype
 
-            if bt ~= "" then
-                return false
-            end
-
             if ft:match("^snacks") or ft == "snacks_layout_box" then
                 return false
             end
 
-            return true
+            if vim.w[win].snacks_layout then
+                return false
+            end
+
+            if bt == "" then
+                return true
+            end
+
+            return bt == "nofile"
+                and ft == ""
+                and vim.api.nvim_buf_get_name(buf) == ""
+                and vim.api.nvim_buf_line_count(buf) == 1
+                and vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == ""
         end
 
         local function mark_main_windows()
