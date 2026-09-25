@@ -183,5 +183,5 @@ for number, key in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }) 
 end
 
 hs.hotkey.bind({ "alt", "shift" }, "r", function()
-    hs.task.new("/etc/profiles/per-user/k0ch4nx/bin/paneru", nil, { "restart" }):start()
+    hs.task.new("/opt/homebrew/opt/rift/bin/rift-cli", nil, { "execute", "config", "reload" }):start()
 end)

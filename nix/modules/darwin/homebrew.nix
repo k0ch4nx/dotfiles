@@ -22,7 +22,7 @@
 
     taps = builtins.attrNames config.nix-homebrew.taps;
 
-    brews = [ ];
+    brews = [ "acsandmann/tap/rift" ];
 
     casks = [
       "affinity"
