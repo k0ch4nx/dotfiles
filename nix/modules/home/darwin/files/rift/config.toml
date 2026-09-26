@@ -65,6 +65,7 @@ workspace_names = ["1", "2", "3", "4", "5"]
 "Alt + Shift + 3" = { move_window_to_workspace = 2 }
 "Alt + Shift + 4" = { move_window_to_workspace = 3 }
 "Alt + Shift + 5" = { move_window_to_workspace = 4 }
+"Alt + Tab" = "switch_to_last_workspace"
 "Alt + H" = { move_focus = "left" }
 "Alt + L" = { move_focus = "right" }
 "Alt + Shift + H" = { move_node = "left" }
