@@ -15,4 +15,9 @@
   home-manager.extraSpecialArgs = { inherit hostName; };
 
   networking.hostName = "MacBook-Pro";
+
+  system.activationScripts.diskSleep.text = ''
+    pmset -c disksleep 0
+    pmset -b disksleep 0
+  '';
 }

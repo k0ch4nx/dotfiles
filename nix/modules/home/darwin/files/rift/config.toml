@@ -24,24 +24,24 @@ alignment = "center"
 focus_navigation_style = "niri"
 
 [settings.layout.gaps.outer]
-top = 4
-left = 4
-bottom = 4
-right = 4
+top = 8
+left = 8
+bottom = 8
+right = 8
 
 [settings.layout.gaps.inner]
-horizontal = 4
-vertical = 4
+horizontal = 8
+vertical = 8
 
 [settings.ui.menu_bar]
-enabled = false
-show_empty = false
-mode = "all"
+enabled = true
+show_empty = true
+mode = "active"
 active_label = "index"
-display_style = "layout"
+display_style = "label"
 
 [settings.gestures]
-enabled = false
+enabled = true
 
 [settings.drag_drop]
 enabled = true
@@ -51,11 +51,21 @@ drop_zone_fraction = 0.25
 preview = false
 
 [virtual_workspaces]
-enabled = false
-default_workspace_count = 1
-workspace_names = ["Main"]
+default_workspace_count = 5
+workspace_names = ["1", "2", "3", "4", "5"]
 
 [keys]
+"Alt + 1" = { switch_to_workspace = 0 }
+"Alt + 2" = { switch_to_workspace = 1 }
+"Alt + 3" = { switch_to_workspace = 2 }
+"Alt + 4" = { switch_to_workspace = 3 }
+"Alt + 5" = { switch_to_workspace = 4 }
+"Alt + Shift + 1" = { move_window_to_workspace = 0 }
+"Alt + Shift + 2" = { move_window_to_workspace = 1 }
+"Alt + Shift + 3" = { move_window_to_workspace = 2 }
+"Alt + Shift + 4" = { move_window_to_workspace = 3 }
+"Alt + Shift + 5" = { move_window_to_workspace = 4 }
+"Alt + Tab" = "switch_to_last_workspace"
 "Alt + H" = { move_focus = "left" }
 "Alt + L" = { move_focus = "right" }
 "Alt + Shift + H" = { move_node = "left" }
