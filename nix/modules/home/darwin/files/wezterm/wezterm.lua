@@ -118,6 +118,7 @@ config.enable_kitty_graphics = true
 config.cell_widths = {
     { first = 0x2460, last = 0x2473, width = 2 },
     { first = 0x24ea, last = 0x24ea, width = 2 },
+    { first = 0x203b, last = 0x203b, width = 2 },
 }
 
 ---@param pane PaneInformation
