@@ -6,15 +6,14 @@
         "home-manager": "home-manager",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "systems": "systems"
+        ]
       },
       "locked": {
-        "lastModified": 1790425413,
-        "narHash": "sha256-wSGavnb6MM/koc2MUiWspqI6eIGFUTQg1c1tArrjAWs=",
+        "lastModified": 1790427641,
+        "narHash": "sha256-z482M5HauhZQ+JAt8BpvAKbcv5yvnhgEh1Rcjval7NQ=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "cdf882ac4ce2da7a91d23ee9e06e852e915cdc64",
+        "rev": "33bcf55ef2dcc8a9acdf5c29499ad22af8ce4c68",
         "type": "github"
       },
       "original": {
@@ -83,7 +82,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_2"
+        "systems": "systems"
       },
       "locked": {
         "lastModified": 1788342924,
@@ -520,7 +519,7 @@
         "bun2nix": "bun2nix",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
-        "systems": "systems_3",
+        "systems": "systems_2",
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
@@ -662,10 +661,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790425358,
-        "narHash": "sha256-6ce1qLh/uVybmycmcW1gheVPJpdwxFg/+y1N6m8iPzs=",
+        "lastModified": 1790428547,
+        "narHash": "sha256-y7kSfUZRb22KC9Tp+XC3VVkU5T6qCWb2kOvgNerTG6s=",
         "ref": "refs/heads/main",
-        "rev": "4e4473b4639ca292c22b81bb6966b5012e0280a8",
+        "rev": "6a58d377cba40daf48f1765d914ff5a6be7aedeb",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -842,21 +841,6 @@
         "type": "github"
       }
     },
-    "systems_4": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "terminal-browser": {
       "flake": false,
       "locked": {
@@ -924,7 +908,7 @@
           "nixpkgs"
         ],
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
-        "systems": "systems_4"
+        "systems": "systems_3"
       },
       "locked": {
         "lastModified": 1770377964,
