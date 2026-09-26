@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   restartRift = ''
@@ -10,10 +10,12 @@ let
 in
 
 {
+  home.packages = [ pkgs.rift-wm ];
+
   launchd.agents.rift = {
     enable = true;
     config = {
-      ProgramArguments = [ "/opt/homebrew/opt/rift/bin/rift" ];
+      ProgramArguments = [ "${pkgs.rift-wm}/bin/rift" ];
       KeepAlive = {
         Crashed = true;
         SuccessfulExit = false;
