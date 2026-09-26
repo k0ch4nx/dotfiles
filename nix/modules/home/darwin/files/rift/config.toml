@@ -1,18 +1,13 @@
 [settings]
-animate = false
+animate = true
 animation_duration = 0.3
 animation_fps = 120.0
 animation_easing = "ease_out_quint"
 default_disable = false
 focus_follows_mouse = true
 mouse_follows_focus = true
-mouse_hides_on_focus = true
-auto_focus_blacklist = [
-    "com.apple.dock",
-    "com.apple.systemuiserver",
-    "com.apple.SecurityAgent",
-    "com.apple.Spotlight",
-]
+mouse_hides_on_focus = false
+auto_focus_blacklist = []
 run_on_start = []
 hot_reload = true
 
@@ -57,6 +52,8 @@ preview = false
 
 [virtual_workspaces]
 enabled = false
+default_workspace_count = 1
+workspace_names = ["Main"]
 
 [keys]
 "Alt + H" = { move_focus = "left" }
