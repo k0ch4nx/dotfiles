@@ -34,11 +34,11 @@ horizontal = 8
 vertical = 8
 
 [settings.ui.menu_bar]
-enabled = false
-show_empty = false
-mode = "all"
+enabled = true
+show_empty = true
+mode = "active"
 active_label = "index"
-display_style = "layout"
+display_style = "label"
 
 [settings.gestures]
 enabled = true
