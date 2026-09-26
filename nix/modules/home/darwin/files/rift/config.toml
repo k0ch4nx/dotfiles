@@ -41,7 +41,7 @@ active_label = "index"
 display_style = "layout"
 
 [settings.gestures]
-enabled = false
+enabled = true
 
 [settings.drag_drop]
 enabled = true
@@ -51,11 +51,18 @@ drop_zone_fraction = 0.25
 preview = false
 
 [virtual_workspaces]
-enabled = false
-default_workspace_count = 1
-workspace_names = ["Main"]
+default_workspace_count = 4
+workspace_names = ["Main", "Development", "Communication", "Utilities"]
 
 [keys]
+"Alt + 1" = { switch_to_workspace = 0 }
+"Alt + 2" = { switch_to_workspace = 1 }
+"Alt + 3" = { switch_to_workspace = 2 }
+"Alt + 4" = { switch_to_workspace = 3 }
+"Alt + Shift + 1" = { move_window_to_workspace = 0 }
+"Alt + Shift + 2" = { move_window_to_workspace = 1 }
+"Alt + Shift + 3" = { move_window_to_workspace = 2 }
+"Alt + Shift + 4" = { move_window_to_workspace = 3 }
 "Alt + H" = { move_focus = "left" }
 "Alt + L" = { move_focus = "right" }
 "Alt + Shift + H" = { move_node = "left" }
