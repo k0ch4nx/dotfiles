@@ -9,11 +9,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790427641,
-        "narHash": "sha256-z482M5HauhZQ+JAt8BpvAKbcv5yvnhgEh1Rcjval7NQ=",
+        "lastModified": 1790428743,
+        "narHash": "sha256-jecbAHUkcpJ2Vh5alHwN26zjfm98z1m/4+qpniXUnn0=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "33bcf55ef2dcc8a9acdf5c29499ad22af8ce4c68",
+        "rev": "35ec68a750c8b55632d18490563db40935eeb59c",
         "type": "github"
       },
       "original": {
@@ -152,10 +152,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1790392015,
-        "narHash": "sha256-gq0xzXwG2cubnc179wnj54AorY9sKfgU+BiJ2HMO2QM=",
+        "lastModified": 1790431231,
+        "narHash": "sha256-AZC1Biwg5WYt3z5RvvUfuLlOzrsIvSyIOqWxpWN1N4k=",
         "ref": "refs/heads/main",
-        "rev": "d4f034a938323db1bff452ea73a9dc701f4b1db9",
+        "rev": "8cb5a6b2f2d0c83d91280e42d2094e29ab52f25f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -661,10 +661,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790428547,
-        "narHash": "sha256-y7kSfUZRb22KC9Tp+XC3VVkU5T6qCWb2kOvgNerTG6s=",
+        "lastModified": 1790432108,
+        "narHash": "sha256-eaQZAF2UG7kzvZWLU2AxXbw6sgb8vhxVmNuwTg8XFGM=",
         "ref": "refs/heads/main",
-        "rev": "6a58d377cba40daf48f1765d914ff5a6be7aedeb",
+        "rev": "84d71bf32329485a3e0b796c86130f2fc3190353",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -928,10 +928,10 @@
     "wshobson-agents": {
       "flake": false,
       "locked": {
-        "lastModified": 1790383231,
-        "narHash": "sha256-u0tF/ojS3ZYSa28WWXJryGBafT+uJVftWhic/7RTnYE=",
+        "lastModified": 1790429402,
+        "narHash": "sha256-YV632X3Qa9XRb+cF3srcOS0/rD1p2IaLHbnxQ+30gKw=",
         "ref": "refs/heads/main",
-        "rev": "6161de4da8164795bc1128e8888c5054a5b67ddf",
+        "rev": "65685054a7587e3bd7caf38bc0f416c91f9be058",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/wshobson/agents.git"
