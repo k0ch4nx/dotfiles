@@ -24,14 +24,14 @@ alignment = "center"
 focus_navigation_style = "niri"
 
 [settings.layout.gaps.outer]
-top = 4
-left = 4
-bottom = 4
-right = 4
+top = 8
+left = 8
+bottom = 8
+right = 8
 
 [settings.layout.gaps.inner]
-horizontal = 4
-vertical = 4
+horizontal = 8
+vertical = 8
 
 [settings.ui.menu_bar]
 enabled = false
