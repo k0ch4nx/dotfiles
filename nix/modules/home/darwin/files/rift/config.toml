@@ -1,9 +1,19 @@
 [settings]
-focus_follows_mouse = false
-mouse_follows_focus = true
-mouse_hides_on_focus = false
-default_disable = false
 animate = false
+animation_duration = 0.3
+animation_fps = 120.0
+animation_easing = "ease_out_quint"
+default_disable = false
+focus_follows_mouse = true
+mouse_follows_focus = true
+mouse_hides_on_focus = true
+auto_focus_blacklist = [
+    "com.apple.dock",
+    "com.apple.systemuiserver",
+    "com.apple.SecurityAgent",
+    "com.apple.Spotlight",
+]
+run_on_start = []
 hot_reload = true
 
 [settings.layout]
@@ -12,13 +22,11 @@ window_insertion_point = "next_to_selection"
 
 [settings.layout.scrolling]
 column_width_ratio = 1.0
+preserve_window_sizes = false
 min_column_width_ratio = 0.25
 max_column_width_ratio = 1.0
-preserve_window_sizes = false
+alignment = "center"
 focus_navigation_style = "niri"
-
-[settings.layout.scrolling.gestures]
-enabled = false
 
 [settings.layout.gaps.outer]
 top = 4
@@ -31,24 +39,24 @@ horizontal = 4
 vertical = 4
 
 [settings.ui.menu_bar]
-enabled = true
-mode = "active"
-display_style = "label"
-active_label = "name"
+enabled = false
 show_empty = false
+mode = "all"
+active_label = "index"
+display_style = "layout"
+
+[settings.gestures]
+enabled = false
+
+[settings.drag_drop]
+enabled = true
+action1 = "none"
+drop_action = "swap"
+drop_zone_fraction = 0.25
+preview = false
 
 [virtual_workspaces]
-default_workspace_count = 1
-default_workspace = 0
-workspace_names = ["Main"]
-
-[[virtual_workspaces.app_rules]]
-app_id = "com.valvesoftware.steam"
-manage = true
-
-[[virtual_workspaces.app_rules]]
-app_id = "com.colliderli.iina"
-floating = true
+enabled = false
 
 [keys]
 "Alt + H" = { move_focus = "left" }
@@ -56,7 +64,7 @@ floating = true
 "Alt + Shift + H" = { move_node = "left" }
 "Alt + Shift + L" = { move_node = "right" }
 "Alt + F" = "toggle_fullscreen_within_gaps"
-"Alt + T" = "toggle_window_floating"
+"Alt + T" = { toggle_window_floating = { center = true } }
 "Alt + R" = { binding_mode = "resize" }
 
 [binding_modes.resize]
