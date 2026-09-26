@@ -38,16 +38,19 @@ let
 
     pythonRelaxDeps = [ "cryptography" ];
 
-    propagatedBuildInputs = with pythonPackages; [
-      aiohttp
-      click
-      cryptography
-      ecpy
-      platformdirs
-      pycryptodome
-      pyyaml
-      requests
-    ] ++ [ construct ];
+    propagatedBuildInputs =
+      with pythonPackages;
+      [
+        aiohttp
+        click
+        cryptography
+        ecpy
+        platformdirs
+        pycryptodome
+        pyyaml
+        requests
+      ]
+      ++ [ construct ];
 
     pythonImportsCheck = [ "pyplayready" ];
   };
