@@ -116,9 +116,35 @@ config.status_update_interval = 200
 config.max_fps = 120
 config.enable_kitty_graphics = true
 config.cell_widths = {
-    { first = 0x2460, last = 0x2473, width = 2 },
-    { first = 0x24ea, last = 0x24ea, width = 2 },
+    { first = 0x2015, last = 0x2015, width = 2 },
+    { first = 0x2025, last = 0x2025, width = 2 },
     { first = 0x203b, last = 0x203b, width = 2 },
+    { first = 0x2051, last = 0x2051, width = 2 },
+    { first = 0x2103, last = 0x2103, width = 2 },
+    { first = 0x2121, last = 0x2121, width = 2 },
+    { first = 0x212b, last = 0x212b, width = 2 },
+    { first = 0x213b, last = 0x213b, width = 2 },
+    { first = 0x2160, last = 0x216b, width = 2 },
+    { first = 0x2170, last = 0x217b, width = 2 },
+    { first = 0x217f, last = 0x217f, width = 2 },
+    { first = 0x221d, last = 0x221d, width = 2 },
+    { first = 0x221f, last = 0x2220, width = 2 },
+    { first = 0x222c, last = 0x222c, width = 2 },
+    { first = 0x222e, last = 0x222e, width = 2 },
+    { first = 0x223d, last = 0x223d, width = 2 },
+    { first = 0x2252, last = 0x2252, width = 2 },
+    { first = 0x2266, last = 0x2267, width = 2 },
+    { first = 0x22bf, last = 0x22bf, width = 2 },
+    { first = 0x2312, last = 0x2312, width = 2 },
+    { first = 0x23be, last = 0x23cc, width = 2 },
+    { first = 0x2460, last = 0x2490, width = 2 },
+    { first = 0x249c, last = 0x24b5, width = 2 },
+    { first = 0x24d0, last = 0x24fe, width = 2 },
+    { first = 0x2605, last = 0x2606, width = 2 },
+    { first = 0x2756, last = 0x2756, width = 2 },
+    { first = 0x2776, last = 0x277f, width = 2 },
+    { first = 0x27a1, last = 0x27a1, width = 2 },
+    { first = 0x1f100, last = 0x1f100, width = 2 },
 }
 
 ---@param pane PaneInformation
