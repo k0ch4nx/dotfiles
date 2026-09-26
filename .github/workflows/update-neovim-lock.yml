@@ -64,8 +64,11 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install Neovim
-        run: nix profile install nixpkgs#neovim
+      - name: Install Neovim (home-manager wrapper)
+        run: |
+          nvim_path="$(nix build --no-link --print-out-paths \
+            ".#darwinConfigurations.macbook-pro.config.home-manager.users.k0ch4nx.programs.neovim.finalPackage")"
+          printf '%s/bin\n' "${nvim_path}" >>"${GITHUB_PATH}"
 
       - name: Link the neovim configuration
         run: |
