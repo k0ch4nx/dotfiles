@@ -1,5 +1,5 @@
 [settings]
-animate = false
+animate = true
 animation_duration = 0.3
 animation_fps = 120.0
 animation_easing = "ease_out_quint"
