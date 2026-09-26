@@ -1,0 +1,65 @@
+[settings]
+focus_follows_mouse = false
+mouse_follows_focus = true
+mouse_hides_on_focus = false
+default_disable = false
+animate = false
+hot_reload = true
+
+[settings.layout]
+mode = "scrolling"
+window_insertion_point = "next_to_selection"
+
+[settings.layout.scrolling]
+column_width_ratio = 1.0
+min_column_width_ratio = 0.25
+max_column_width_ratio = 1.0
+preserve_window_sizes = false
+focus_navigation_style = "niri"
+
+[settings.layout.scrolling.gestures]
+enabled = false
+
+[settings.layout.gaps.outer]
+top = 4
+left = 4
+bottom = 4
+right = 4
+
+[settings.layout.gaps.inner]
+horizontal = 4
+vertical = 4
+
+[settings.ui.menu_bar]
+enabled = true
+mode = "active"
+display_style = "label"
+active_label = "name"
+show_empty = false
+
+[virtual_workspaces]
+default_workspace_count = 1
+default_workspace = 0
+workspace_names = ["Main"]
+
+[[virtual_workspaces.app_rules]]
+app_id = "com.valvesoftware.steam"
+manage = true
+
+[[virtual_workspaces.app_rules]]
+app_id = "com.colliderli.iina"
+floating = true
+
+[keys]
+"Alt + H" = { move_focus = "left" }
+"Alt + L" = { move_focus = "right" }
+"Alt + Shift + H" = { move_node = "left" }
+"Alt + Shift + L" = { move_node = "right" }
+"Alt + F" = "toggle_fullscreen_within_gaps"
+"Alt + T" = "toggle_window_floating"
+"Alt + R" = { binding_mode = "resize" }
+
+[binding_modes.resize]
+"L" = { resize_window_grow = "horizontal" }
+"H" = { resize_window_shrink = "horizontal" }
+"Escape" = { binding_mode = "default" }

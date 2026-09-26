@@ -115,6 +115,10 @@ config.adjust_window_size_when_changing_font_size = false
 config.status_update_interval = 200
 config.max_fps = 120
 config.enable_kitty_graphics = true
+config.cell_widths = {
+    { first = 0x2460, last = 0x2473, width = 2 },
+    { first = 0x24ea, last = 0x24ea, width = 2 },
+}
 
 ---@param pane PaneInformation
 ---@return string

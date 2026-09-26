@@ -144,7 +144,7 @@ function main() (
         # shellcheck disable=SC2024
         AWS_ACCESS_KEY_ID="${access_key_id}" \
             AWS_SECRET_ACCESS_KEY="${secret_access_key}" \
-            sudo --preserve-env=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY \
+            sudo -H --preserve-env=AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY \
             "${root_nix}" copy \
             --option narinfo-cache-positive-ttl 0 \
             --to "${cache}" \

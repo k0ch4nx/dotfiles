@@ -3,7 +3,7 @@
     ./dotfiles.nix
     ./hammerspoon.nix
     ./packages.nix
-    ./paneru.nix
+    ./rift.nix
     ./secrets.nix
     ./shell.nix
     ./vscode.nix

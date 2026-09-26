@@ -181,7 +181,3 @@ for number, key in ipairs({ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" }) 
         move_to_space_number(number)
     end)
 end
-
-hs.hotkey.bind({ "alt", "shift" }, "r", function()
-    hs.task.new("/etc/profiles/per-user/k0ch4nx/bin/paneru", nil, { "restart" }):start()
-end)

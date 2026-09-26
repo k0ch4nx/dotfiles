@@ -107,3 +107,8 @@ vim.lsp.config("*", {
         end
     end,
 })
+
+vim.fn.setcellwidths({
+    { 0x2460, 0x2473, 2 },
+    { 0x24ea, 0x24ea, 2 },
+})
