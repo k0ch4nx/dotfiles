@@ -57,6 +57,8 @@ preview = false
 
 [virtual_workspaces]
 enabled = false
+default_workspace_count = 1
+workspace_names = ["Main"]
 
 [keys]
 "Alt + H" = { move_focus = "left" }
