@@ -111,7 +111,12 @@ let
     )
   );
 
-  versionId = "fabric-loader-${cfg.loaderVersion}-${cfg.mcVersion}";
+  profileVersionId =
+    loader:
+    if loader == "vanilla" then
+      cfg.mcVersion
+    else
+      "fabric-loader-${cfg.loaderVersion}-${cfg.mcVersion}";
 
   minecraft-provision = pkgs.writeShellApplication {
     name = "minecraft-provision";
@@ -125,7 +130,6 @@ let
     text = ''
       baseDir=${lib.escapeShellArg cfg.baseDir}
       launcherProfiles="$baseDir/launcher_profiles.json"
-      versionId=${lib.escapeShellArg versionId}
 
       launcherRunning=0
       if pgrep -x Minecraft >/dev/null 2>&1; then
@@ -158,6 +162,7 @@ let
         local id="$1"
         local name="$2"
         local dir="$3"
+        local versionId="$4"
 
         mkdir -p "$dir"
 
@@ -187,7 +192,7 @@ let
       ${lib.concatStringsSep "\n" (
         lib.mapAttrsToList (
           name: profile:
-          "merge_profile ${lib.escapeShellArg name} ${lib.escapeShellArg name} ${lib.escapeShellArg profile.dir}"
+          "merge_profile ${lib.escapeShellArg name} ${lib.escapeShellArg name} ${lib.escapeShellArg profile.dir} ${lib.escapeShellArg (profileVersionId profile.loader)}"
         ) cfg.profiles
       )}
     '';
@@ -220,6 +225,15 @@ in
               default = "${cfg.baseDir}/profiles/${name}";
               description = "Directory the profile's mods and shaderpacks are linked into.";
             };
+
+            options.loader = lib.mkOption {
+              type = lib.types.enum [
+                "fabric"
+                "vanilla"
+              ];
+              default = "fabric";
+              description = "Loader for the profile's launcher entry. vanilla skips Fabric.";
+            };
           }
         )
       );
@@ -234,7 +248,9 @@ in
       mcVersion = "26.2";
       loaderVersion = "0.19.5";
       profiles = {
-        vanilla = { };
+        vanilla = {
+          loader = "vanilla";
+        };
         performance = { };
         shaders = { };
         experimental = { };
