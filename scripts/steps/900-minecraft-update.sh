@@ -316,6 +316,10 @@ function replace_if_changed() {
 }
 
 function main() (
+    if [[ "${SKIP_UPDATES:-}" == "1" ]]; then
+        return 0
+    fi
+
     cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.."
 
     local loaders_temporary
@@ -331,8 +335,10 @@ function main() (
 
     replace_if_changed "${loaders_temporary}" minecraft/loaders.nix
     replace_if_changed "${installers_temporary}" minecraft/installers.nix
+
+    if [[ "${GITHUB_ACTIONS:-}" != 'true' ]]; then
+        git add -- minecraft
+    fi
 )
 
-if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
-    main
-fi
+main
