@@ -431,7 +431,7 @@ function main() (
     replace_if_changed "${loaders_temporary}" minecraft/loaders.nix
     replace_if_changed "${installers_temporary}" minecraft/installers.nix
 
-    if [[ "${GITHUB_ACTIONS:-}" != 'true' ]]; then
+    if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
         git add -- minecraft
     fi
 )
