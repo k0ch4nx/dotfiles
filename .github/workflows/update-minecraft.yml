@@ -1,0 +1,119 @@
+# yaml-language-server: $schema=https://schemastore.org/github-workflow.json
+
+name: Update minecraft
+
+on:
+  schedule:
+    - cron: "0 15 * * *"
+
+  workflow_dispatch:
+
+concurrency:
+  group: minecraft-update
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check for an existing update
+    runs-on: macos-26
+    permissions:
+      pull-requests: read
+    outputs:
+      proceed: ${{ steps.pull-request.outputs.proceed }}
+
+    steps:
+      - name: Check for an open minecraft update pull request
+        id: pull-request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          open_pr_number="$(
+            gh pr list \
+              --repo "${GITHUB_REPOSITORY}" \
+              --state open \
+              --base main \
+              --json number,headRefName \
+              --jq '.[] | select(.headRefName | startswith("automation/update-minecraft-")) | .number' \
+              | head -n 1
+          )"
+
+          if [[ -n "${open_pr_number}" ]]; then
+            printf 'An update pull request is already open: #%s\n' "${open_pr_number}"
+            printf 'proceed=false\n' >>"${GITHUB_OUTPUT}"
+          else
+            printf 'proceed=true\n' >>"${GITHUB_OUTPUT}"
+          fi
+
+  update:
+    name: Publish an update
+    needs: check
+    if: needs.check.outputs.proceed == 'true'
+    runs-on: macos-26
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24 # v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update minecraft
+        id: update
+        uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4.0.0
+        with:
+          timeout_minutes: 60
+          max_attempts: 2
+          retry_wait_seconds: 30
+          command: |
+            ./scripts/minecraft-update.sh
+
+            unexpected_paths="$(
+              git diff --name-only \
+                -- . \
+                ':(exclude)minecraft'
+            )"
+            if [[ -n "${unexpected_paths}" ]]; then
+              printf 'Unexpected paths changed:\n%s\n' "${unexpected_paths}" >&2
+              exit 1
+            fi
+
+            if git diff --quiet -- minecraft; then
+              printf 'changed=false\n' >>"${GITHUB_OUTPUT}"
+            else
+              printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
+            fi
+
+      - name: Create the pull request
+        id: create-pull-request
+        if: steps.update.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ secrets.AUTOMATION_TOKEN }}
+          branch-token: ${{ secrets.GITHUB_TOKEN }}
+          sign-commits: true
+          branch: automation/update-minecraft
+          branch-suffix: timestamp
+          base: main
+          delete-branch: true
+          add-paths: |
+            minecraft
+          commit-message: "chore: update minecraft"
+          title: "chore: update minecraft"
+          body: |
+            Automated daily minecraft installer, mod and shader update.
+
+            Build validation is handled by the pull request checks.
+
+      - name: Enable auto-merge
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        env:
+          GH_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
+          PR_NUMBER: ${{ steps.create-pull-request.outputs.pull-request-number }}
+        run: gh pr merge --repo "${GITHUB_REPOSITORY}" --merge --auto "${PR_NUMBER}"
