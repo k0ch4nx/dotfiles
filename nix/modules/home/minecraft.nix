@@ -131,10 +131,10 @@ let
     install:
     if install.loader == "neoforge" || install.loader == "forge" then
       installers.${install.loader}.${install.mcVersion}.${install.loaderVersion}
-        or (throw "minecraft: no ${install.loader} installer for Minecraft ${install.mcVersion} with loader ${install.loaderVersion}; run scripts/steps/020-update-minecraft.sh")
+        or (throw "minecraft: no ${install.loader} installer for Minecraft ${install.mcVersion} with loader ${install.loaderVersion}; run scripts/steps/050-update-minecraft.sh")
     else
       installers.${install.loader}
-        or (throw "minecraft: no ${install.loader} installer; run scripts/steps/020-update-minecraft.sh");
+        or (throw "minecraft: no ${install.loader} installer; run scripts/steps/050-update-minecraft.sh");
 
   installerJar = install: pkgs.fetchurl { inherit (installerEntry install) name url hash; };
 
