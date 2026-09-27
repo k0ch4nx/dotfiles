@@ -16,6 +16,8 @@
   home = {
     stateVersion = "26.05";
 
+    file.".cache/zsh/.keep".text = "";
+
     packages = with pkgs; [
       age-plugin-yubikey
       aria2
