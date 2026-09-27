@@ -316,7 +316,7 @@ function replace_if_changed() {
 }
 
 function main() (
-    cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
+    cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.."
 
     local loaders_temporary
     local installers_temporary
