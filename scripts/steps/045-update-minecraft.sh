@@ -54,7 +54,7 @@ function latest_fabric_installer() {
     version="$(
         curl --fail --silent --show-error --location \
             'https://meta.fabricmc.net/v2/versions/installer' \
-            | jq --raw-output '[.[] | select(.stable)][0].version'
+            | nix run nixpkgs#jq -- --raw-output '[.[] | select(.stable)][0].version'
     )"
 
     if [[ -z "${version}" || "${version}" == 'null' ]]; then
@@ -71,7 +71,7 @@ function latest_quilt_installer() {
     version="$(
         curl --fail --silent --show-error --location \
             'https://meta.quiltmc.org/v3/versions/installer' \
-            | jq --raw-output '.[0].version'
+            | nix run nixpkgs#jq -- --raw-output '.[0].version'
     )"
 
     if [[ -z "${version}" || "${version}" == 'null' ]]; then
@@ -89,7 +89,7 @@ function latest_neoforge_installer() {
     version="$(
         curl --fail --silent --show-error --location \
             'https://maven.neoforged.net/api/maven/versions/releases/net/neoforged/neoforge' \
-            | jq --arg prefix "${minecraft_version}.0" --raw-output \
+            | nix run nixpkgs#jq -- --arg prefix "${minecraft_version}.0" --raw-output \
                 '[.versions[] | select(startswith($prefix))] | last'
     )"
 
@@ -108,7 +108,7 @@ function latest_forge_installer() {
     version="$(
         curl --fail --silent --show-error --location \
             'https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json' \
-            | jq --arg key "${minecraft_version}-latest" --raw-output '.promos[$key]'
+            | nix run nixpkgs#jq -- --arg key "${minecraft_version}-latest" --raw-output '.promos[$key]'
     )"
 
     if [[ -z "${version}" || "${version}" == 'null' ]]; then
@@ -129,14 +129,14 @@ function latest_loader_version() {
         version="$(
             curl --fail --silent --show-error --location \
                 "https://meta.fabricmc.net/v2/versions/loader/${minecraft_version}" \
-                | jq --raw-output '([.[] | select(.loader.stable)][0] // .[0]).loader.version'
+                | nix run nixpkgs#jq -- --raw-output '([.[] | select(.loader.stable)][0] // .[0]).loader.version'
         )"
         ;;
     quilt)
         version="$(
             curl --fail --silent --show-error --location \
                 "https://meta.quiltmc.org/v3/versions/loader/${minecraft_version}" \
-                | jq --raw-output '.[0].loader.version'
+                | nix run nixpkgs#jq -- --raw-output '.[0].loader.version'
         )"
         ;;
     neoforge)
@@ -165,7 +165,7 @@ function installer_hash() {
 
     hash="$(
         nix store prefetch-file --json --hash-type sha256 "${url}" \
-            | jq --raw-output '.hash'
+            | nix run nixpkgs#jq -- --raw-output '.hash'
     )"
 
     if [[ -z "${hash}" || "${hash}" == 'null' ]]; then
