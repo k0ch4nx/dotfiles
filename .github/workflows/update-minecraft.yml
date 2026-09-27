@@ -28,13 +28,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           open_pr_number="$(
-            gh pr list \
-              --repo "${GITHUB_REPOSITORY}" \
-              --state open \
-              --base main \
-              --limit 1000 \
-              --json number,headRefName \
-              --jq '.[] | select(.headRefName | startswith("automation/update-minecraft-")) | .number' \
+            gh api --paginate \
+              --method GET \
+              "repos/${GITHUB_REPOSITORY}/pulls" \
+              --raw-field state=open \
+              --raw-field base=main \
+              --jq '.[] | select(.head.ref | startswith("automation/update-minecraft-")) | .number' \
               | head -n 1
           )"
 
