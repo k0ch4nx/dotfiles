@@ -32,6 +32,7 @@ jobs:
               --repo "${GITHUB_REPOSITORY}" \
               --state open \
               --base main \
+              --limit 1000 \
               --json number,headRefName \
               --jq '.[] | select(.headRefName | startswith("automation/update-minecraft-")) | .number' \
               | head -n 1
