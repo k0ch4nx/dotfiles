@@ -111,12 +111,26 @@ let
     )
   );
 
-  profileVersionId =
-    loader:
-    if loader == "vanilla" then
-      cfg.mcVersion
+  profileLoaderVersion =
+    name: profile:
+    if profile.loaderVersion != null then
+      profile.loaderVersion
     else
-      "fabric-loader-${cfg.loaderVersion}-${cfg.mcVersion}";
+      throw "minecraft.profiles.${name}.loaderVersion is required when loader is \"fabric\"";
+
+  profileVersionId =
+    name: profile:
+    if profile.loader == "vanilla" then
+      profile.mcVersion
+    else
+      "fabric-loader-${profileLoaderVersion name profile}-${profile.mcVersion}";
+
+  fabricInstalls = lib.unique (
+    lib.mapAttrsToList (name: profile: {
+      inherit (profile) mcVersion;
+      loaderVersion = profileLoaderVersion name profile;
+    }) (lib.filterAttrs (_: profile: profile.loader == "fabric") cfg.profiles)
+  );
 
   minecraft-provision = pkgs.writeShellApplication {
     name = "minecraft-provision";
@@ -137,11 +151,21 @@ let
         launcherRunning=1
       fi
 
-      java -jar ${fabricInstaller} client \
-        -dir "$baseDir" \
-        -mcversion ${lib.escapeShellArg cfg.mcVersion} \
-        -loader ${lib.escapeShellArg cfg.loaderVersion} \
-        -noprofile
+      install_fabric() {
+        local mcVersion="$1"
+        local loaderVersion="$2"
+
+        java -jar ${fabricInstaller} client \
+          -dir "$baseDir" \
+          -mcversion "$mcVersion" \
+          -loader "$loaderVersion" \
+          -noprofile
+      }
+
+      ${lib.concatMapStringsSep "\n" (
+        install:
+        "install_fabric ${lib.escapeShellArg install.mcVersion} ${lib.escapeShellArg install.loaderVersion}"
+      ) fabricInstalls}
 
       if [[ "$launcherRunning" == 1 ]]; then
         exit 0
@@ -192,7 +216,7 @@ let
       ${lib.concatStringsSep "\n" (
         lib.mapAttrsToList (
           name: profile:
-          "merge_profile ${lib.escapeShellArg name} ${lib.escapeShellArg name} ${lib.escapeShellArg profile.dir} ${lib.escapeShellArg (profileVersionId profile.loader)}"
+          "merge_profile ${lib.escapeShellArg name} ${lib.escapeShellArg name} ${lib.escapeShellArg profile.dir} ${lib.escapeShellArg (profileVersionId name profile)}"
         ) cfg.profiles
       )}
     '';
@@ -205,16 +229,6 @@ in
       description = "Minecraft base directory, the launcher's installation root.";
     };
 
-    mcVersion = lib.mkOption {
-      type = lib.types.str;
-      description = "Minecraft version installed by the Fabric installer.";
-    };
-
-    loaderVersion = lib.mkOption {
-      type = lib.types.str;
-      description = "Fabric loader version installed by the Fabric installer.";
-    };
-
     profiles = lib.mkOption {
       type = lib.types.attrsOf (
         lib.types.submodule (
@@ -224,6 +238,17 @@ in
               type = lib.types.str;
               default = "${cfg.baseDir}/profiles/${name}";
               description = "Directory the profile's mods and shaderpacks are linked into.";
+            };
+
+            options.mcVersion = lib.mkOption {
+              type = lib.types.str;
+              description = "Minecraft version the profile runs.";
+            };
+
+            options.loaderVersion = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "Fabric loader version, required when loader is fabric.";
             };
 
             options.loader = lib.mkOption {
@@ -245,15 +270,23 @@ in
   config = {
     minecraft = {
       baseDir = "${config.home.homeDirectory}/Library/Application Support/minecraft";
-      mcVersion = "26.2";
-      loaderVersion = "0.19.5";
       profiles = {
         vanilla = {
+          mcVersion = "26.2";
           loader = "vanilla";
         };
-        performance = { };
-        shaders = { };
-        experimental = { };
+        performance = {
+          mcVersion = "26.2";
+          loaderVersion = "0.19.5";
+        };
+        shaders = {
+          mcVersion = "26.2";
+          loaderVersion = "0.19.5";
+        };
+        experimental = {
+          mcVersion = "26.2";
+          loaderVersion = "0.19.5";
+        };
       };
     };
 
