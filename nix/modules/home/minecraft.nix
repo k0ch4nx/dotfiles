@@ -90,38 +90,39 @@ let
     ) (findPwTomlFiles root)
   ) cfg.profiles;
 
-  profileLinks = lib.mapAttrs (
+  homeRelative =
+    path:
+    if lib.hasPrefix "${config.home.homeDirectory}/" path then
+      lib.removePrefix "${config.home.homeDirectory}/" path
+    else
+      throw "minecraft: ${path} is outside the home directory and cannot be managed with home.file";
+
+  profileFiles = lib.concatMapAttrs (
     name: entries:
-    lib.mapAttrs (
-      subdir: subdirEntries:
-      pkgs.linkFarm "minecraft-${name}-${subdir}" (
-        map (entry: {
-          name = entry.filename;
-          path = entry.file;
-        }) subdirEntries
-      )
-    ) (lib.groupBy (entry: entry.subdir) entries)
+    lib.listToAttrs (
+      map (entry: {
+        name = "${homeRelative cfg.profiles.${name}.dir}/${entry.subdir}/${entry.filename}";
+        value.source = entry.file;
+      }) entries
+    )
   ) profilePacks;
 
-  activationScript = lib.concatStringsSep "\n" (
+  legacyLinkCleanup = lib.concatStringsSep "\n" (
     lib.flatten (
       lib.mapAttrsToList (
-        name: subdirLinks:
-        lib.mapAttrsToList (
-          subdir: linkFarm:
+        name: entries:
+        map (
+          subdir:
           let
-            profileDir = cfg.profiles.${name}.dir;
-            target = "${profileDir}/${subdir}";
+            target = "${cfg.profiles.${name}.dir}/${subdir}";
           in
           ''
-            if [[ -e ${lib.escapeShellArg target} && ! -L ${lib.escapeShellArg target} ]]; then
-              $DRY_RUN_CMD ${pkgs.coreutils}/bin/rm -rf ${lib.escapeShellArg target}
+            if [[ -L ${lib.escapeShellArg target} ]]; then
+              $DRY_RUN_CMD ${pkgs.coreutils}/bin/rm -f ${lib.escapeShellArg target}
             fi
-            $DRY_RUN_CMD ${pkgs.coreutils}/bin/mkdir -p ${lib.escapeShellArg profileDir}
-            $DRY_RUN_CMD ${pkgs.coreutils}/bin/ln -sfn ${lib.escapeShellArg (toString linkFarm)} ${lib.escapeShellArg target}
           ''
-        ) subdirLinks
-      ) profileLinks
+        ) (lib.unique (map (entry: entry.subdir) entries))
+      ) profilePacks
     )
   );
 
@@ -355,9 +356,11 @@ in
   };
 
   config = {
-    home.activation.minecraftMods = lib.mkIf (activationScript != "") (
-      lib.hm.dag.entryAfter [ "writeBoundary" ] activationScript
+    home.activation.minecraftProfileLinks = lib.mkIf (legacyLinkCleanup != "") (
+      lib.hm.dag.entryBefore [ "checkLinkTargets" ] legacyLinkCleanup
     );
+
+    home.file = profileFiles;
 
     home.packages = lib.mkIf (cfg.profiles != { }) [ minecraft-provision ];
   };
