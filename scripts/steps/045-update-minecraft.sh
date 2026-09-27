@@ -30,27 +30,19 @@ function set_pack_version() {
     printf '%s\n' "${content}" >"${pack_directory}/pack.toml"
 }
 
-function read_minecraft_version() {
-    local version
-
-    version="$(pack_version minecraft/latest minecraft)"
-
-    if [[ -z "${version}" ]]; then
-        printf 'Could not read the minecraft version from minecraft/latest/pack.toml\n' >&2
-        exit 1
-    fi
-
-    printf '%s' "${version}"
-}
-
 function loader_pairs() {
     local pack_directory
     local loader
+    local minecraft_version
+    local loader_version
 
     while read -r pack_directory; do
         for loader in fabric quilt neoforge forge; do
-            if [[ -n "$(pack_version "${pack_directory}" "${loader}")" ]]; then
-                printf '%s %s\n' "${loader}" "$(pack_version "${pack_directory}" minecraft)"
+            minecraft_version="$(pack_version "${pack_directory}" minecraft)"
+            loader_version="$(pack_version "${pack_directory}" "${loader}")"
+
+            if [[ -n "${minecraft_version}" && -n "${loader_version}" ]]; then
+                printf '%s %s %s\n' "${loader}" "${minecraft_version}" "${loader_version}"
             fi
         done
     done < <(pack_directories) | sort -u
@@ -184,16 +176,152 @@ function installer_hash() {
     printf '%s' "${hash}"
 }
 
-function write_installer() {
+function installer_name() {
     local loader="$1"
-    local name="$2"
-    local url="$3"
+    local minecraft_version="$2"
+    local version="$3"
+
+    case "${loader}" in
+    fabric)
+        printf 'fabric-installer-%s.jar' "${version}"
+        ;;
+    quilt)
+        printf 'quilt-installer-%s.jar' "${version}"
+        ;;
+    neoforge)
+        printf 'neoforge-%s-installer.jar' "${version}"
+        ;;
+    forge)
+        printf 'forge-%s-%s-installer.jar' "${minecraft_version}" "${version}"
+        ;;
+    *)
+        printf 'Unsupported loader: %s\n' "${loader}" >&2
+        exit 1
+        ;;
+    esac
+}
+
+function installer_url() {
+    local loader="$1"
+    local minecraft_version="$2"
+    local version="$3"
+
+    case "${loader}" in
+    fabric)
+        printf 'https://maven.fabricmc.net/net/fabricmc/fabric-installer/%s/fabric-installer-%s.jar' "${version}" "${version}"
+        ;;
+    quilt)
+        printf 'https://maven.quiltmc.org/repository/release/org/quiltmc/quilt-installer/%s/quilt-installer-%s.jar' "${version}" "${version}"
+        ;;
+    neoforge)
+        printf 'https://maven.neoforged.net/releases/net/neoforged/neoforge/%s/neoforge-%s-installer.jar' "${version}" "${version}"
+        ;;
+    forge)
+        printf 'https://maven.minecraftforge.net/net/minecraftforge/forge/%s-%s/forge-%s-%s-installer.jar' "${minecraft_version}" "${version}" "${minecraft_version}" "${version}"
+        ;;
+    *)
+        printf 'Unsupported loader: %s\n' "${loader}" >&2
+        exit 1
+        ;;
+    esac
+}
+
+function installer_version() {
+    local loader="$1"
+    local loader_version="$2"
+
+    case "${loader}" in
+    fabric)
+        latest_fabric_installer
+        ;;
+    quilt)
+        latest_quilt_installer
+        ;;
+    neoforge | forge)
+        printf '%s' "${loader_version}"
+        ;;
+    *)
+        printf 'Unsupported loader: %s\n' "${loader}" >&2
+        exit 1
+        ;;
+    esac
+}
+
+function write_installer_entry() {
+    local indent="$1"
+    local loader="$2"
+    local minecraft_version="$3"
+    local version="$4"
+    local name
+    local url
+    local hash
+
+    name="$(installer_name "${loader}" "${minecraft_version}" "${version}")"
+    url="$(installer_url "${loader}" "${minecraft_version}" "${version}")"
+    hash="$(installer_hash "${url}")"
+
+    printf '%sname = "%s";\n' "${indent}" "${name}"
+    printf '%surl = "%s";\n' "${indent}" "${url}"
+    printf '%shash = "%s";\n' "${indent}" "${hash}"
+}
+
+function write_loader_installers() {
+    local loader="$1"
+    local minecraft_version
+    local loader_version
+    local previous_minecraft_version=""
+    local version
 
     printf '  %s = {\n' "${loader}"
-    printf '    name = "%s";\n' "${name}"
-    printf '    url = "%s";\n' "${url}"
-    printf '    hash = "%s";\n' "$(installer_hash "${url}")"
+
+    case "${loader}" in
+    fabric | quilt)
+        read -r _ minecraft_version loader_version
+
+        version="$(installer_version "${loader}" "${loader_version}")"
+        write_installer_entry '    ' "${loader}" "${minecraft_version}" "${version}"
+        ;;
+    neoforge | forge)
+        while read -r _ minecraft_version loader_version; do
+            if [[ "${minecraft_version}" != "${previous_minecraft_version}" ]]; then
+                if [[ -n "${previous_minecraft_version}" ]]; then
+                    printf '    };\n'
+                fi
+
+                printf '    "%s" = {\n' "${minecraft_version}"
+                previous_minecraft_version="${minecraft_version}"
+            fi
+
+            printf '      "%s" = {\n' "${loader_version}"
+            write_installer_entry '        ' "${loader}" "${minecraft_version}" "${loader_version}"
+            printf '      };\n'
+        done
+
+        printf '    };\n'
+        ;;
+    esac
+
     printf '  };\n'
+}
+
+function write_installers() {
+    local pairs
+    local loader
+
+    pairs="$(loader_pairs)"
+
+    if [[ -z "${pairs}" ]]; then
+        printf '{ }\n'
+        return
+    fi
+
+    printf '{\n'
+
+    while read -r loader; do
+        write_loader_installers "${loader}" < <(grep "^${loader} " <<<"${pairs}")
+    done < <(cut -d ' ' -f 1 <<<"${pairs}" | uniq)
+
+    printf '}\n'
 }
 
 function sync_pack_versions() {
@@ -234,7 +362,7 @@ function write_loaders() {
 
     printf '{\n'
 
-    while read -r loader minecraft_version; do
+    while read -r loader minecraft_version _; do
         if [[ "${loader}" != "${previous_loader}" ]]; then
             if [[ -n "${previous_loader}" ]]; then
                 printf '  };\n'
@@ -251,39 +379,6 @@ function write_loaders() {
     done <<<"${pairs}"
 
     printf '  };\n'
-    printf '}\n'
-}
-
-function write_installers() {
-    local minecraft_version
-    local fabric_version
-    local quilt_version
-    local neoforge_version
-    local forge_version
-
-    minecraft_version="$(read_minecraft_version)"
-    fabric_version="$(latest_fabric_installer)"
-    quilt_version="$(latest_quilt_installer)"
-    neoforge_version="$(latest_neoforge_installer "${minecraft_version}")"
-    forge_version="$(latest_forge_installer "${minecraft_version}")"
-
-    printf '{\n'
-    write_installer \
-        fabric \
-        "fabric-installer-${fabric_version}.jar" \
-        "https://maven.fabricmc.net/net/fabricmc/fabric-installer/${fabric_version}/fabric-installer-${fabric_version}.jar"
-    write_installer \
-        quilt \
-        "quilt-installer-${quilt_version}.jar" \
-        "https://maven.quiltmc.org/repository/release/org/quiltmc/quilt-installer/${quilt_version}/quilt-installer-${quilt_version}.jar"
-    write_installer \
-        neoforge \
-        "neoforge-${neoforge_version}-installer.jar" \
-        "https://maven.neoforged.net/releases/net/neoforged/neoforge/${neoforge_version}/neoforge-${neoforge_version}-installer.jar"
-    write_installer \
-        forge \
-        "forge-${minecraft_version}-${forge_version}-installer.jar" \
-        "https://maven.minecraftforge.net/net/minecraftforge/forge/${minecraft_version}-${forge_version}/forge-${minecraft_version}-${forge_version}-installer.jar"
     printf '}\n'
 }
 
