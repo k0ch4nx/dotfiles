@@ -1,6 +1,4 @@
 name = "performance"
-author = "k0ch4nx"
-version = "0.1.0"
 pack-format = "packwiz:1.1.0"
 
 [index]
