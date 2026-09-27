@@ -72,6 +72,8 @@ jobs:
           max_attempts: 2
           retry_wait_seconds: 30
           command: |
+            set -euo pipefail
+
             ./scripts/steps/045-update-minecraft.sh
 
             unexpected_paths="$(
