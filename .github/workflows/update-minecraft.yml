@@ -114,6 +114,16 @@ jobs:
 
             Build validation is handled by the pull request checks.
 
+      - name: Verify the signed commits
+        if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        env:
+          COMMITS_VERIFIED: ${{ steps.create-pull-request.outputs.pull-request-commits-verified }}
+        run: |
+          if [[ "${COMMITS_VERIFIED}" != 'true' ]]; then
+            printf 'Pull request commits are not verified: %s\n' "${COMMITS_VERIFIED:-unset}" >&2
+            exit 1
+          fi
+
       - name: Enable auto-merge
         if: steps.create-pull-request.outputs.pull-request-operation == 'created'
         env:
