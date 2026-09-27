@@ -91,25 +91,6 @@ let
     )
   ) profilePacks;
 
-  legacyLinkCleanup = lib.concatStringsSep "\n" (
-    lib.flatten (
-      lib.mapAttrsToList (
-        name: entries:
-        map (
-          subdir:
-          let
-            target = "${cfg.profiles.${name}.dir}/${subdir}";
-          in
-          ''
-            if [[ -L ${lib.escapeShellArg target} ]]; then
-              $DRY_RUN_CMD ${pkgs.coreutils}/bin/rm -f ${lib.escapeShellArg target}
-            fi
-          ''
-        ) (lib.unique (map (entry: entry.subdir) entries))
-      ) profilePacks
-    )
-  );
-
   profileLoaderVersion =
     name: profile:
     let
@@ -356,10 +337,6 @@ in
   };
 
   config = {
-    home.activation.minecraftProfileLinks = lib.mkIf (legacyLinkCleanup != "") (
-      lib.hm.dag.entryBefore [ "checkLinkTargets" ] legacyLinkCleanup
-    );
-
     home.file = profileFiles;
 
     home.packages = lib.mkIf (cfg.profiles != { }) [ minecraft-provision ];
