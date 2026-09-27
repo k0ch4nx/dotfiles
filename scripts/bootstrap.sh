@@ -44,6 +44,7 @@ function main() {
 
     source "${DOTFILES_DIR}/scripts/steps/030-prepare-terraform-auth.sh"
     source "${DOTFILES_DIR}/scripts/steps/040-prepare-nix-cache.sh"
+    source "${DOTFILES_DIR}/scripts/steps/045-update-minecraft.sh"
     source "${DOTFILES_DIR}/scripts/steps/050-update-flake-lock.sh"
     source "${DOTFILES_DIR}/scripts/steps/060-build-nix-configuration.sh"
     source "${DOTFILES_DIR}/scripts/steps/070-activate-nix-configuration.sh"
