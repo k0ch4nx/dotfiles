@@ -264,13 +264,14 @@ let
 
         mkdir -p "$dir"
 
-        jq \
+        if ! jq -e -s \
           --arg id "$id" \
           --arg name "$name" \
           --arg dir "$dir" \
           --arg versionId "$versionId" \
           --arg now "$now" \
           '
+            if length != 1 then empty else .[0] end |
             .profiles = (.profiles // {}) |
             .profiles[$id] = ((.profiles[$id] // {}) + {
               name: $name,
@@ -282,7 +283,12 @@ let
             }) |
             .version = (.version // 6)
           ' \
-          "$launcherProfiles" > "$temporary"
+          "$launcherProfiles" > "$temporary" || [[ ! -s "$temporary" ]]; then
+          echo "warning: failed to update $launcherProfiles; skipping profile registration" >&2
+          exit 0
+        fi
+
+        chmod 644 "$temporary"
 
         mv -f "$temporary" "$launcherProfiles"
       }
