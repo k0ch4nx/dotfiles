@@ -4,3 +4,13 @@
 
 /result
 /result-*
+
+minecraft/**/*.jar
+minecraft/**/*.zip
+minecraft/**/saves/
+minecraft/**/screenshots/
+minecraft/**/logs/
+minecraft/**/crash-reports/
+minecraft/**/runtime/
+minecraft/**/libraries/
+minecraft/**/assets/
