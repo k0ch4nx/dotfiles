@@ -231,7 +231,7 @@ let
       launcherProfiles="$baseDir/launcher_profiles.json"
 
       launcherRunning=0
-      if pgrep -x Minecraft >/dev/null 2>&1; then
+      if pgrep -f "Minecraft.app/Contents/MacOS/launcher" >/dev/null 2>&1; then
         echo "warning: Minecraft launcher is running; skipping launcher_profiles.json update" >&2
         launcherRunning=1
       fi
