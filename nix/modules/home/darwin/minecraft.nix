@@ -271,20 +271,16 @@ in
     minecraft = {
       baseDir = "${config.home.homeDirectory}/Library/Application Support/minecraft";
       profiles = {
-        vanilla = {
-          mcVersion = "26.2";
+        latest = {
+          mcVersion = "26.3";
           loader = "vanilla";
         };
-        performance = {
-          mcVersion = "26.2";
-          loaderVersion = "0.19.5";
+        snapshot = {
+          mcVersion = "26.4-snapshot-1";
+          loader = "vanilla";
         };
-        shaders = {
-          mcVersion = "26.2";
-          loaderVersion = "0.19.5";
-        };
-        experimental = {
-          mcVersion = "26.2";
+        "fabric-26.3" = {
+          mcVersion = "26.3";
           loaderVersion = "0.19.5";
         };
       };

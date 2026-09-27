@@ -1,4 +1,4 @@
-name = "shaders"
+name = "fabric-26.3"
 pack-format = "packwiz:1.1.0"
 
 [index]
@@ -8,4 +8,4 @@ hash = "fbf8e4166abf6e396915d2bf662c22dde7f5b9b2bc8af0b8fc076ed2755c00fc"
 
 [versions]
 fabric = "0.19.5"
-minecraft = "26.2"
+minecraft = "26.3"
