@@ -85,8 +85,8 @@ jobs:
           max_attempts: 2
           retry_wait_seconds: 30
           command: |
-            ./scripts/steps/100-update-neovim-plugins.sh
-            ./scripts/steps/130-update-neovim-mason-packages.sh
+            ./scripts/steps/110-update-neovim-plugins.sh
+            ./scripts/steps/140-update-neovim-mason-packages.sh
 
             unexpected_paths="$(
               git diff --name-only \
