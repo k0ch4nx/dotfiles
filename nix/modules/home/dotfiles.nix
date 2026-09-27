@@ -44,7 +44,5 @@ in
         "${cfg.ghqRoot}/${cfg.remote}/${cfg.user}/${cfg.repo}";
 
     home.sessionVariables.DOTFILES_DIR = cfg.path;
-
-    xdg.configFile."dotfiles/path".text = "${cfg.path}\n";
   };
 }
