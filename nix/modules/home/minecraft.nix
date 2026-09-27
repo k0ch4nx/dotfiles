@@ -314,7 +314,6 @@ in
   options.minecraft = {
     baseDir = lib.mkOption {
       type = lib.types.str;
-      description = "Minecraft base directory, the launcher's installation root.";
     };
 
     profiles = lib.mkOption {
@@ -325,18 +324,15 @@ in
             options.dir = lib.mkOption {
               type = lib.types.str;
               default = "${cfg.baseDir}/profiles/${name}";
-              description = "Directory the profile's mods and shaderpacks are linked into.";
             };
 
             options.mcVersion = lib.mkOption {
               type = lib.types.str;
-              description = "Minecraft version the profile runs.";
             };
 
             options.loaderVersion = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = null;
-              description = "Loader version, required when loader is not vanilla.";
             };
 
             options.loader = lib.mkOption {
@@ -347,14 +343,11 @@ in
                 "neoforge"
                 "forge"
               ];
-              default = "fabric";
-              description = "Loader for the profile's launcher entry. vanilla skips the loader installation.";
             };
           }
         )
       );
       default = { };
-      description = "Packwiz profiles managed on this host.";
     };
   };
 
