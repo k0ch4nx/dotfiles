@@ -224,7 +224,8 @@ let
       pkgs.coreutils
       pkgs.jdk
       pkgs.jq
-    ];
+    ]
+    ++ lib.optional pkgs.stdenv.hostPlatform.isLinux pkgs.procps;
 
     text = ''
       baseDir=${lib.escapeShellArg cfg.baseDir}
