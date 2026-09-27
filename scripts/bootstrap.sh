@@ -56,10 +56,10 @@ function main() {
     source "${DOTFILES_DIR}/scripts/steps/120-update-neovim-treesitter-parsers.sh"
     source "${DOTFILES_DIR}/scripts/steps/130-update-neovim-mason-packages.sh"
     source "${DOTFILES_DIR}/scripts/steps/140-update-neovim-codediff.sh"
-    source "${DOTFILES_DIR}/scripts/steps/180-provision-minecraft.sh"
     source "${DOTFILES_DIR}/scripts/steps/150-update-macos.sh"
     source "${DOTFILES_DIR}/scripts/steps/160-update-ubuntu.sh"
     source "${DOTFILES_DIR}/scripts/steps/170-collect-nix-garbage.sh"
+    source "${DOTFILES_DIR}/scripts/steps/180-provision-minecraft.sh"
 }
 
 main
