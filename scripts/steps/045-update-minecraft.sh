@@ -353,7 +353,7 @@ function write_loaders() {
     local previous_loader=""
     local version
 
-    pairs="$(loader_pairs)"
+    pairs="$(loader_pairs | cut -d ' ' -f 1,2 | uniq)"
 
     if [[ -z "${pairs}" ]]; then
         printf '{ }\n'
@@ -362,7 +362,7 @@ function write_loaders() {
 
     printf '{\n'
 
-    while read -r loader minecraft_version _; do
+    while read -r loader minecraft_version; do
         if [[ "${loader}" != "${previous_loader}" ]]; then
             if [[ -n "${previous_loader}" ]]; then
                 printf '  };\n'
