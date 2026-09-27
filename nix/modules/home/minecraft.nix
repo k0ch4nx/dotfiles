@@ -12,6 +12,8 @@ let
 
   installers = import ../../../minecraft/installers.nix;
 
+  loaders = import ../../../minecraft/loaders.nix;
+
   fabricInstaller = pkgs.fetchurl {
     inherit (installers.fabric) name url hash;
   };
@@ -125,10 +127,17 @@ let
 
   profileLoaderVersion =
     name: profile:
-    if profile.loaderVersion != null then
-      profile.loaderVersion
+    let
+      version =
+        if profile.loaderVersion != null then
+          profile.loaderVersion
+        else
+          loaders.${profile.loader}.${profile.mcVersion} or null;
+    in
+    if version != null then
+      version
     else
-      throw "minecraft.profiles.${name}.loaderVersion is required when loader is \"${profile.loader}\"";
+      throw "minecraft.profiles.${name}.loaderVersion is not set and minecraft/loaders.nix has no ${profile.loader} entry for ${profile.mcVersion}";
 
   profileVersionId =
     name: profile:

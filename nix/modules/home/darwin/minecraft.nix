@@ -16,7 +16,6 @@
       "fabric-26.3" = {
         mcVersion = "26.3";
         loader = "fabric";
-        loaderVersion = "0.19.5";
       };
     };
   };
