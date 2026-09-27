@@ -14,22 +14,6 @@ let
 
   loaders = import ../../../minecraft/loaders.nix;
 
-  fabricInstaller = pkgs.fetchurl {
-    inherit (installers.fabric) name url hash;
-  };
-
-  quiltInstaller = pkgs.fetchurl {
-    inherit (installers.quilt) name url hash;
-  };
-
-  neoforgeInstaller = pkgs.fetchurl {
-    inherit (installers.neoforge) name url hash;
-  };
-
-  forgeInstaller = pkgs.fetchurl {
-    inherit (installers.forge) name url hash;
-  };
-
   findPwTomlFiles =
     dir:
     lib.flatten (
@@ -162,14 +146,26 @@ let
 
   usedLoaders = lib.unique (map (install: install.loader) loaderInstalls);
 
+  installerEntry =
+    install:
+    if install.loader == "neoforge" || install.loader == "forge" then
+      installers.${install.loader}.${install.mcVersion}.${install.loaderVersion}
+        or (throw "minecraft: no ${install.loader} installer for Minecraft ${install.mcVersion} with loader ${install.loaderVersion}; run scripts/steps/045-update-minecraft.sh")
+    else
+      installers.${install.loader}
+        or (throw "minecraft: no ${install.loader} installer; run scripts/steps/045-update-minecraft.sh");
+
+  installerJar = install: pkgs.fetchurl { inherit (installerEntry install) name url hash; };
+
   loaderSupport = {
     fabric = {
       function = ''
         install_fabric() {
-          local mcVersion="$1"
-          local loaderVersion="$2"
+          local installer="$1"
+          local mcVersion="$2"
+          local loaderVersion="$3"
 
-          java -jar ${fabricInstaller} client \
+          java -jar "$installer" client \
             -dir "$baseDir" \
             -mcversion "$mcVersion" \
             -loader "$loaderVersion" \
@@ -178,16 +174,17 @@ let
       '';
       command =
         install:
-        "install_fabric ${lib.escapeShellArg install.mcVersion} ${lib.escapeShellArg install.loaderVersion}";
+        "install_fabric ${installerJar install} ${lib.escapeShellArg install.mcVersion} ${lib.escapeShellArg install.loaderVersion}";
     };
 
     quilt = {
       function = ''
         install_quilt() {
-          local mcVersion="$1"
-          local loaderVersion="$2"
+          local installer="$1"
+          local mcVersion="$2"
+          local loaderVersion="$3"
 
-          java -jar ${quiltInstaller} install client \
+          java -jar "$installer" install client \
             "$mcVersion" \
             "$loaderVersion" \
             --install-dir="$baseDir" \
@@ -196,35 +193,38 @@ let
       '';
       command =
         install:
-        "install_quilt ${lib.escapeShellArg install.mcVersion} ${lib.escapeShellArg install.loaderVersion}";
+        "install_quilt ${installerJar install} ${lib.escapeShellArg install.mcVersion} ${lib.escapeShellArg install.loaderVersion}";
     };
 
     neoforge = {
       function = ''
         install_neoforge() {
+          local installer="$1"
+
           if [[ ! -f "$launcherProfiles" ]]; then
             echo '{}' > "$launcherProfiles"
           fi
 
-          java -jar ${neoforgeInstaller} --install-client "$baseDir"
+          java -jar "$installer" --install-client "$baseDir"
         }
       '';
-      command = _: "install_neoforge";
+      command = install: "install_neoforge ${installerJar install}";
     };
 
     forge = {
       function = ''
         install_forge() {
+          local installer="$1"
           local microsoftStoreProfiles="$baseDir/launcher_profiles_microsoft_store.json"
 
           if [[ ! -f "$launcherProfiles" && ! -f "$microsoftStoreProfiles" ]]; then
             echo '{}' > "$launcherProfiles"
           fi
 
-          java -jar ${forgeInstaller} --installClient "$baseDir"
+          java -jar "$installer" --installClient "$baseDir"
         }
       '';
-      command = _: "install_forge";
+      command = install: "install_forge ${installerJar install}";
     };
   };
 
