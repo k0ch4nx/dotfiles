@@ -119,3 +119,9 @@ file = "mods/zoomify.pw.toml"
 hash = "2eab932dd5793bbbba9959eb0924d386e0705e96d58b8f6249cd75804c713c18"
 hash-format = "sha256"
 metafile = true
+
+[[files]]
+file = "shaderpacks/complementary-reimagined.pw.toml"
+hash = "75d1d2488a0c332a9a58af7e57f980a1b006c02b3a1c580fbd50443088e4eab0"
+hash-format = "sha256"
+metafile = true
