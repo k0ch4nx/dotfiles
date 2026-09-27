@@ -16,6 +16,24 @@ let
     hash = "sha256-YeA1v3v3AVPhJ0QM403kfJA28KLQxl0VKUVL01zu/k8=";
   };
 
+  quiltInstaller = pkgs.fetchurl {
+    name = "quilt-installer-0.15.1.jar";
+    url = "https://maven.quiltmc.org/repository/release/org/quiltmc/quilt-installer/0.15.1/quilt-installer-0.15.1.jar";
+    hash = "sha256-CiKROMqhuH/Y9WIgOEEGlvmLuFhxonlkDnACQExNDcI=";
+  };
+
+  neoforgeInstaller = pkgs.fetchurl {
+    name = "neoforge-26.3.0.23-beta-installer.jar";
+    url = "https://maven.neoforged.net/releases/net/neoforged/neoforge/26.3.0.23-beta/neoforge-26.3.0.23-beta-installer.jar";
+    hash = "sha256-RuxzbFf4LUKV2Q5/T6aZibEAzZFXK2A3xlwole7tRvU=";
+  };
+
+  forgeInstaller = pkgs.fetchurl {
+    name = "forge-26.3-66.0.5-installer.jar";
+    url = "https://maven.minecraftforge.net/net/minecraftforge/forge/26.3-66.0.5/forge-26.3-66.0.5-installer.jar";
+    hash = "sha256-Daw1s9a9paO/Fc0zk2ObAfGXapWPtK/AZAYQmAY/DrQ=";
+  };
+
   findPwTomlFiles =
     dir:
     lib.flatten (
@@ -116,21 +134,103 @@ let
     if profile.loaderVersion != null then
       profile.loaderVersion
     else
-      throw "minecraft.profiles.${name}.loaderVersion is required when loader is \"fabric\"";
+      throw "minecraft.profiles.${name}.loaderVersion is required when loader is \"${profile.loader}\"";
 
   profileVersionId =
     name: profile:
     if profile.loader == "vanilla" then
       profile.mcVersion
     else
-      "fabric-loader-${profileLoaderVersion name profile}-${profile.mcVersion}";
+      {
+        fabric = "fabric-loader-${profileLoaderVersion name profile}-${profile.mcVersion}";
+        quilt = "quilt-loader-${profileLoaderVersion name profile}-${profile.mcVersion}";
+        neoforge = "neoforge-${profileLoaderVersion name profile}";
+        forge = "${profile.mcVersion}-forge-${profileLoaderVersion name profile}";
+      }
+      .${profile.loader};
 
-  fabricInstalls = lib.unique (
+  loaderInstalls = lib.unique (
     lib.mapAttrsToList (name: profile: {
-      inherit (profile) mcVersion;
+      inherit (profile) loader mcVersion;
       loaderVersion = profileLoaderVersion name profile;
-    }) (lib.filterAttrs (_: profile: profile.loader == "fabric") cfg.profiles)
+    }) (lib.filterAttrs (_: profile: profile.loader != "vanilla") cfg.profiles)
   );
+
+  usedLoaders = lib.unique (map (install: install.loader) loaderInstalls);
+
+  loaderSupport = {
+    fabric = {
+      function = ''
+        install_fabric() {
+          local mcVersion="$1"
+          local loaderVersion="$2"
+
+          java -jar ${fabricInstaller} client \
+            -dir "$baseDir" \
+            -mcversion "$mcVersion" \
+            -loader "$loaderVersion" \
+            -noprofile
+        }
+      '';
+      command =
+        install:
+        "install_fabric ${lib.escapeShellArg install.mcVersion} ${lib.escapeShellArg install.loaderVersion}";
+    };
+
+    quilt = {
+      function = ''
+        install_quilt() {
+          local mcVersion="$1"
+          local loaderVersion="$2"
+
+          java -jar ${quiltInstaller} install client \
+            "$mcVersion" \
+            "$loaderVersion" \
+            --install-dir="$baseDir" \
+            --no-profile
+        }
+      '';
+      command =
+        install:
+        "install_quilt ${lib.escapeShellArg install.mcVersion} ${lib.escapeShellArg install.loaderVersion}";
+    };
+
+    neoforge = {
+      function = ''
+        install_neoforge() {
+          if [[ ! -f "$launcherProfiles" ]]; then
+            echo '{}' > "$launcherProfiles"
+          fi
+
+          java -jar ${neoforgeInstaller} --install-client "$baseDir"
+        }
+      '';
+      command = _: "install_neoforge";
+    };
+
+    forge = {
+      function = ''
+        install_forge() {
+          local microsoftStoreProfiles="$baseDir/launcher_profiles_microsoft_store.json"
+
+          if [[ ! -f "$launcherProfiles" && ! -f "$microsoftStoreProfiles" ]]; then
+            echo '{}' > "$launcherProfiles"
+          fi
+
+          java -jar ${forgeInstaller} --installClient "$baseDir"
+        }
+      '';
+      command = _: "install_forge";
+    };
+  };
+
+  loaderFunctions = lib.concatMapStringsSep "\n" (
+    loader: loaderSupport.${loader}.function
+  ) usedLoaders;
+
+  loaderCalls = lib.concatMapStringsSep "\n" (
+    install: loaderSupport.${install.loader}.command install
+  ) loaderInstalls;
 
   minecraft-provision = pkgs.writeShellApplication {
     name = "minecraft-provision";
@@ -151,21 +251,9 @@ let
         launcherRunning=1
       fi
 
-      install_fabric() {
-        local mcVersion="$1"
-        local loaderVersion="$2"
+      ${loaderFunctions}
 
-        java -jar ${fabricInstaller} client \
-          -dir "$baseDir" \
-          -mcversion "$mcVersion" \
-          -loader "$loaderVersion" \
-          -noprofile
-      }
-
-      ${lib.concatMapStringsSep "\n" (
-        install:
-        "install_fabric ${lib.escapeShellArg install.mcVersion} ${lib.escapeShellArg install.loaderVersion}"
-      ) fabricInstalls}
+      ${loaderCalls}
 
       if [[ "$launcherRunning" == 1 ]]; then
         exit 0
@@ -248,16 +336,19 @@ in
             options.loaderVersion = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = null;
-              description = "Fabric loader version, required when loader is fabric.";
+              description = "Loader version, required when loader is not vanilla.";
             };
 
             options.loader = lib.mkOption {
               type = lib.types.enum [
-                "fabric"
                 "vanilla"
+                "fabric"
+                "quilt"
+                "neoforge"
+                "forge"
               ];
               default = "fabric";
-              description = "Loader for the profile's launcher entry. vanilla skips Fabric.";
+              description = "Loader for the profile's launcher entry. vanilla skips the loader installation.";
             };
           }
         )
