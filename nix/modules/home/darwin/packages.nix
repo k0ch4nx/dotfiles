@@ -10,7 +10,6 @@
     discord
     dolphin-emu
     fabric-installer
-    ferium
     ghidra
     google-chrome
     iina
