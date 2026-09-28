@@ -2,18 +2,16 @@
   "nodes": {
     "agenix": {
       "inputs": {
-        "darwin": "darwin",
-        "home-manager": "home-manager",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1790530381,
-        "narHash": "sha256-/FjF9A8HVLVftjdmz1MPA2G0wSYWRaC628NTAsCqeyI=",
+        "lastModified": 1790555459,
+        "narHash": "sha256-ftyJcr21FzMLq4hnzg3COo7gITOkJ4j+ey0miWCTU3U=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "9353cb29366a8535ac9483065284785fd48012a2",
+        "rev": "b485690a7c97b3793a41dd57edfb05ac84343813",
         "type": "github"
       },
       "original": {
@@ -183,28 +181,6 @@
         "url": "https://github.com/cloudflare/skills.git"
       }
     },
-    "darwin": {
-      "inputs": {
-        "nixpkgs": [
-          "agenix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1783744694,
-        "narHash": "sha256-2cp6N3rrwnGYLTx9l6N+NI+kwrCWxvJUbj5WJhvB29A=",
-        "owner": "nix-darwin",
-        "repo": "nix-darwin",
-        "rev": "c3e90c89649b07d1a96e4b9dd6cd0d6e44b91a74",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-darwin",
-        "ref": "nix-darwin-26.05",
-        "repo": "nix-darwin",
-        "type": "github"
-      }
-    },
     "dot-skills": {
       "flake": false,
       "locked": {
@@ -242,10 +218,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1790548469,
-        "narHash": "sha256-RSEJ28uOwpMa+yFRId41VZ4FAfrza/q9FL5+2mj6/pU=",
+        "lastModified": 1790555929,
+        "narHash": "sha256-jeK8xPFXEAtJiqOcRz4Q7YhW/tWMz9XhfmwOLhjNY7w=",
         "ref": "refs/heads/main",
-        "rev": "eaeef53a15854e68cb2be336c2ba47e111fa25c3",
+        "rev": "d3b8a3e908904e242ed2dbe66af62cca71131419",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -424,28 +400,6 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "agenix",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1790215976,
-        "narHash": "sha256-VkR1rMGyjU9jtw8ISFx5uqR9e+LEaOlhHwrseFkiIVk=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "a6631107a83ceab5872f298a2ea710859c80c4cb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "release-26.05",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "home-manager_2": {
-      "inputs": {
-        "nixpkgs": [
           "nixpkgs"
         ]
       },
@@ -524,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1790544273,
-        "narHash": "sha256-7sHKIrBWisORd15dWSjFWmMzBrIaq3X382D0z3hQxHE=",
+        "lastModified": 1790555299,
+        "narHash": "sha256-A4ZG1Y9Itut5xO+CLwi06CElVlwj4FnhZMgg2Xiucho=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "731841902f710c6b0696cffb3ce50eba3732a88e",
+        "rev": "2475131b50dbc795684c55ba771d94401f068fd6",
         "type": "github"
       },
       "original": {
@@ -662,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790550943,
-        "narHash": "sha256-AtyqypPe5fw1Un8WYSXf4//yMG6kswhRFX3gCCGyhDo=",
+        "lastModified": 1790556911,
+        "narHash": "sha256-z2Y5BODvztQcZKiXsyauJK66MIG+10dykDP5YA5vCtk=",
         "ref": "refs/heads/main",
-        "rev": "e71571231be00a39ea88bcc02e7facb41ed23dff",
+        "rev": "11c32c43137950e0b40972e3e25863af532a3eb7",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -721,7 +675,7 @@
         "genshijin": "genshijin",
         "google-skills": "google-skills",
         "hashicorp-agent-skills": "hashicorp-agent-skills",
-        "home-manager": "home-manager_2",
+        "home-manager": "home-manager",
         "i-have-adhd": "i-have-adhd",
         "kaynetik-skills": "kaynetik-skills",
         "kiro-skills": "kiro-skills",
