@@ -383,10 +383,10 @@
     "hashicorp-agent-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1790270986,
-        "narHash": "sha256-hFk9cQYpfO+sCxnKIK+Fun1qJJfTaU6WeZj35W0cTao=",
+        "lastModified": 1790611439,
+        "narHash": "sha256-0v+QQqIClVddw8zNg7Zb2CkPA1+AJNf5bNRRHHDWU7s=",
         "ref": "refs/heads/main",
-        "rev": "516354c484b43fa5469567485113dd0c769c3d24",
+        "rev": "f706481af9b8fedb66de909f6243ad29601afa0c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/hashicorp/agent-skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790608783,
-        "narHash": "sha256-2Ho6laOyaS2gIfA12jth8B+DeuSMraE8dvU67Rtca5g=",
+        "lastModified": 1790615869,
+        "narHash": "sha256-7hFss+VXUdaaHDo405FoWZz1k9v/fHd6LwhovPSgi7w=",
         "ref": "refs/heads/main",
-        "rev": "1b919d5ee2ec6abe413a4d6c148370d308a4b709",
+        "rev": "20021ebe9b7a96539c98b8dd3a578fb46534ee05",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -738,11 +738,11 @@
         "userborn": "userborn"
       },
       "locked": {
-        "lastModified": 1789999438,
-        "narHash": "sha256-Gm7Xy8QwnqGG9JFxtHrvvLo9hsCJ+VigtdiFUAKE1Tk=",
+        "lastModified": 1790615532,
+        "narHash": "sha256-YZqUkgbUEWdb+f8LtyM47NBhxnh2GLYEdzOYM9uTTOs=",
         "owner": "numtide",
         "repo": "system-manager",
-        "rev": "a92eb76cb0de5370d6a5ee12ac11b379c76d49a3",
+        "rev": "2473258afe1f7fbaa6229dc77961dd8a89ca713e",
         "type": "github"
       },
       "original": {
