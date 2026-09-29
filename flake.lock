@@ -201,10 +201,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1790677679,
-        "narHash": "sha256-j7/qmhkUe+fJNX/ietWRumQEOeVOnIfJZdJDCb+Lf0I=",
+        "lastModified": 1790700941,
+        "narHash": "sha256-jopAMj8xJDhojmnX6D/LVINzBhTevsqUAghClZINWRU=",
         "ref": "refs/heads/main",
-        "rev": "303cb54ef85994f4c3ff5b4307b62477de0bf41a",
+        "rev": "ff66f963fb82944910814f91e4aead62ff5c69eb",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790698944,
-        "narHash": "sha256-yNJZIK/l+dYp1wkCWxGe5JsJhcOtvGb4DoRG06cnYVk=",
+        "lastModified": 1790702196,
+        "narHash": "sha256-icqgiHmrW7OiSypFkkOxnwxmtbmT+hC3PkEOdBz8dss=",
         "ref": "refs/heads/main",
-        "rev": "f59cefe7d1cac6ecd91bd106b523886014b425ae",
+        "rev": "2e966bfa63d4ed90811cd00a8fe6f336b220e9cf",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
