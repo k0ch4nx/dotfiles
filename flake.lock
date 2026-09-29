@@ -494,10 +494,10 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1789726349,
-        "narHash": "sha256-L3CpIT2DeI+fUFl9fcygojtQo2DzEen69rMD1XqR1vM=",
+        "lastModified": 1790685460,
+        "narHash": "sha256-zQ/wVrcHjIC+UjP4nDw3HARMqZd6LIDFmHKlp8AADYI=",
         "ref": "refs/heads/main",
-        "rev": "c55ee46073ed923f86ce59a5eb3b6d895095d1b7",
+        "rev": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/mattpocock/skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790684896,
-        "narHash": "sha256-F6eekOqrg31w/VeSi4Xne+zf9H1DjrxLMJeEvKiEkPQ=",
+        "lastModified": 1790688220,
+        "narHash": "sha256-RvHWXLtu/OZeXUe+aCV8YW6fwOvt7hTzmu/WcNHuIRU=",
         "ref": "refs/heads/main",
-        "rev": "124ddc0a49fe09ec2d08cb307de642e9d7d4f314",
+        "rev": "dc6e5cd22712b829ab5aad13512cf402ed37d050",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
