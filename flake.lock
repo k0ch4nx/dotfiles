@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790555459,
-        "narHash": "sha256-ftyJcr21FzMLq4hnzg3COo7gITOkJ4j+ey0miWCTU3U=",
+        "lastModified": 1790731580,
+        "narHash": "sha256-t0/a6GmvrgwpkWw64R/Lkqb0iPJFJhrZXWMyxyc9dWA=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "b485690a7c97b3793a41dd57edfb05ac84343813",
+        "rev": "4a99c135afc914f19dcda6c458d740cf81f531d1",
         "type": "github"
       },
       "original": {
@@ -218,10 +218,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1790723087,
-        "narHash": "sha256-DoIqzEf161ddPVVqk7j0sVfp/kydLTOYHwdPvgkhLtk=",
+        "lastModified": 1790731445,
+        "narHash": "sha256-8lzhKpcYtGCvddJ7NjDsVHOJrbLMWpqwzOaKdKvmU4U=",
         "ref": "refs/heads/main",
-        "rev": "d30588f90a82e49e3d4c18c072c9f1e9f1c294f6",
+        "rev": "c70874fae9eb0e5ad0365beb7e2955899fd1d30f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790729665,
-        "narHash": "sha256-vmCoZS972XX+4PWd4Qy4UcyeFT2h8/iR7petRb9ENf8=",
+        "lastModified": 1790732261,
+        "narHash": "sha256-MKsPogS0X3PYUvdDz2qIBa6gOj57+JgeFRRwAKyR3/k=",
         "ref": "refs/heads/main",
-        "rev": "ffe52f387525f465634a8729186462fd6e89bea9",
+        "rev": "858993c1a41c180da5743c110b5d8cc38bc74007",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
