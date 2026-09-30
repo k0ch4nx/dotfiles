@@ -27,7 +27,7 @@
                 "mcps": []
             },
             "oracle": {
-                "model": "openai/gpt-6-astra",
+                "model": "openai/gpt-6.1-sol",
                 "variant": "max",
                 "skills": [
                     "simplify"
