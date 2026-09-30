@@ -53,6 +53,11 @@ in
 
     screencapture.target = "preview";
 
+    screensaver = {
+      askForPassword = true;
+      askForPasswordDelay = 120;
+    };
+
     menuExtraClock = {
       ShowAMPM = true;
       ShowDate = 1;
@@ -101,6 +106,8 @@ in
         showsCursor = true;
         style = "selection";
       };
+
+      "com.apple.screensaver".idleTime = 180;
 
       "com.apple.Safari" = {
         AutoOpenSafeDownloads = false;
