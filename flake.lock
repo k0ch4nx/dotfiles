@@ -218,10 +218,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1790731445,
-        "narHash": "sha256-8lzhKpcYtGCvddJ7NjDsVHOJrbLMWpqwzOaKdKvmU4U=",
+        "lastModified": 1790895041,
+        "narHash": "sha256-YYQKYFyY17Z6UykhnX+r/t5Y8Ld4EHNrFvzo+Upnl0w=",
         "ref": "refs/heads/main",
-        "rev": "c70874fae9eb0e5ad0365beb7e2955899fd1d30f",
+        "rev": "c05b2d6614f62f6db0047669aa4eefb223d478f9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1790866708,
-        "narHash": "sha256-1yu2AwhKxU2VtZh7dB5r1KUK2iu8aSrxX0+tGyZtAf0=",
+        "lastModified": 1790897690,
+        "narHash": "sha256-TOBRVhHp5mxpPnznm0pZmZovKEGGs0sonUooQAldKYc=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "83cd3693f5f33071ceb33977f2298c8b40b2aba4",
+        "rev": "4bf9e89967f7c00cf5c5fc85a2741169267d2e1d",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1790891114,
-        "narHash": "sha256-pMmdoUp7GUFS3ae53CQqV4tqzQvxZ/GHjPR5W4Bq60U=",
+        "lastModified": 1790904625,
+        "narHash": "sha256-hNmjQK4hP0+7tiw4cFd4ewCONys8QrBkr9GyNhjGl6Q=",
         "ref": "refs/heads/main",
-        "rev": "db0aa867f24dfe2cc00e073d96f2580cb514dd87",
+        "rev": "01d479d85e2ab933bebb69d7c0d87e2cca4337f7",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -738,11 +738,11 @@
         "userborn": "userborn"
       },
       "locked": {
-        "lastModified": 1790615532,
-        "narHash": "sha256-YZqUkgbUEWdb+f8LtyM47NBhxnh2GLYEdzOYM9uTTOs=",
+        "lastModified": 1790893495,
+        "narHash": "sha256-/rmaPvTJN27TVt2HU3fjnC7x7RqHL3wYBV2exA3tVco=",
         "owner": "numtide",
         "repo": "system-manager",
-        "rev": "2473258afe1f7fbaa6229dc77961dd8a89ca713e",
+        "rev": "0e6432da4aaaa2f9e0914acbda5e67697def7fbf",
         "type": "github"
       },
       "original": {
@@ -799,10 +799,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1790890638,
-        "narHash": "sha256-9k0nzgbwpwEc2n6lhln28HvCHhzhS9qrGQcsZaQ6d/M=",
+        "lastModified": 1790896976,
+        "narHash": "sha256-UWEvvce32J5wlbdrB1+MZuuo1MG/FN2HaTV9W61sFXs=",
         "ref": "refs/heads/main",
-        "rev": "28de0060acfae47d5077ad93c82706068967c448",
+        "rev": "fd5f1798b128cd71508aa534ddbf67caf05ec0b8",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
