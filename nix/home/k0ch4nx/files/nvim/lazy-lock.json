@@ -52,7 +52,7 @@
   "tiny-glimmer.nvim": { "branch": "main", "commit": "9a48d8a7436231cb16d47c88f924702e5602870a" },
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
   "vim-matchup": { "branch": "master", "commit": "0106b1afd4a2f7e1098037b5ceb161bab7471088" },
-  "vimdoc-ja": { "branch": "master", "commit": "0458e291b606fb291c337c5269d38b80b6ae23ed" },
+  "vimdoc-ja": { "branch": "master", "commit": "b0607519c3312255c236e5f29d50f6d22339a848" },
   "wezterm-types": { "branch": "main", "commit": "998639c5c5dd4513912966465772af80e7005f32" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }
