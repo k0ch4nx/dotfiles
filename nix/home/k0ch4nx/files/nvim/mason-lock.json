@@ -39,7 +39,7 @@
   "tailwindcss-language-server": "0.16.0",
   "terraform": "v1.16.4",
   "terraform-ls": "v0.39.0",
-  "tombi": "v1.7.0",
+  "tombi": "v1.7.1",
   "trivy": "v0.75.0",
   "typescript-language-server": "6.0.1",
   "typos-lsp": "v0.1.56",
