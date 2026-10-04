@@ -16,14 +16,7 @@
     },
     "lsp": true,
     "permissions": [{"action": "*", "resource": "*", "effect": "ask"}],
-    "enabled_providers": ["google", "lm-studio", "openai", "opencode", "opencode-go"],
-    "providers": {
-        "lm-studio": {
-            "name": "LMStudio",
-            "package": "aisdk:@ai-sdk/openai-compatible",
-            "settings": {"baseURL": "http://127.0.0.1:1234/v1"}
-        }
-    },
+    "enabled_providers": ["google", "lmstudio", "openai", "opencode", "opencode-go"],
     "plugins": [
         "oh-my-opencode-slim@latest",
         "@cortexkit/opencode-magic-context@latest"
