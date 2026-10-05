@@ -3,7 +3,7 @@
     "auto_update": false,
     "historian": {
         "opencode": {
-            "model": "opencode-go/deepseek-v4.1-flash"
+            "model": "opencode-go/longcat-2.5-preview-free"
         }
     }
 }

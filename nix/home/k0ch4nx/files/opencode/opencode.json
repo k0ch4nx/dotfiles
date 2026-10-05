@@ -15,7 +15,7 @@
         }
     },
     "lsp": true,
-    "permissions": [{"action": "*", "resource": "*", "effect": "ask"}],
+    "permissions": [{"action": "*", "resource": "*", "effect": "allow"}],
     "enabled_providers": ["google", "lmstudio", "openai", "opencode", "opencode-go"],
     "plugins": [
         "oh-my-opencode-slim@latest",
