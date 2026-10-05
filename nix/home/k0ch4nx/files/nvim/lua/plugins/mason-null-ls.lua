@@ -17,7 +17,6 @@ return {
                 "csharpier",
                 "hadolint",
                 "npm-groovy-lint",
-                "oxfmt",
                 "oxlint",
                 "palantir-java-format",
                 "shellcheck",
