@@ -102,7 +102,7 @@ function read_hcp_terraform_token() (
     fi
 
     decrypt_secret \
-        "$(find_secret hcp-terraform-token)" \
+        "$(find_secret auth/hcp-terraform-token)" \
         "$(find_yubikey_identity)" \
         "$(find_rage)" \
         "$(find_age_plugin_yubikey)"
@@ -117,7 +117,7 @@ function read_nix_cache_private_key() (
     fi
 
     decrypt_secret \
-        "$(find_secret nix-cache-local-private-key)" \
+        "$(find_secret auth/nix-cache-local-private-key)" \
         "$(find_yubikey_identity)" \
         "$(find_rage)" \
         "$(find_age_plugin_yubikey)"
@@ -181,8 +181,8 @@ function main() {
         local private_key="${NIX_CACHE_PRIVATE_KEY:-}"
         local gh_token="${GH_TOKEN:-}"
 
-        token_file="$(find_secret hcp-terraform-token)"
-        private_key_file="$(find_secret nix-cache-local-private-key)"
+        token_file="$(find_secret auth/hcp-terraform-token)"
+        private_key_file="$(find_secret auth/nix-cache-local-private-key)"
         if [[ -z "${gh_token}" ]]; then
             gh_token_file="$(find_secret env/gh-token)"
         fi

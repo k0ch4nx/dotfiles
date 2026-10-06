@@ -12,15 +12,16 @@ let
         ) (builtins.attrNames envFiles)
       );
   requiredSecretNames = (builtins.map (name: "env/${name}.age") envSecretNames) ++ [
-    "hcp-terraform-token.age"
+    "auth/hcp-terraform-token.age"
     "ssh/id_ed25519.age"
     "ssh/id_ed25519_gh_work.age"
     "ssh/id_ed25519_sk.age"
     "ssh/id_ed25519_sk_gh_auth_pers.age"
     "ssh/id_ed25519_gh_sign_pers.age"
+    "codesign/rift.pem.age"
   ];
   optionalSecretNames = [
-    "nix-cache-local-private-key.age"
+    "auth/nix-cache-local-private-key.age"
   ];
   secretNames =
     requiredSecretNames ++ builtins.filter (name: builtins.pathExists ./${name}) optionalSecretNames;
