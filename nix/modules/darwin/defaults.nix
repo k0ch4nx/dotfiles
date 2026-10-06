@@ -120,4 +120,12 @@ in
       "com.apple.ActivityMonitor".UpdatePeriod = 1;
     };
   };
+
+  launchd.daemons.iogpu-wired-limit.serviceConfig = {
+    ProgramArguments = [
+      "/usr/sbin/sysctl"
+      "iogpu.wired_limit_mb=30720"
+    ];
+    RunAtLoad = true;
+  };
 }
