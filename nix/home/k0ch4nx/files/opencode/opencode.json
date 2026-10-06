@@ -9,14 +9,33 @@
             },
             "skillsmp": {
                 "type": "local",
-                "command": ["npx", "-y", "skillsmp-mcp-lite"],
-                "env": {"SKILLSMP_API_KEY": "{env:SKILLSMP_API_KEY}"}
+                "command": [
+                    "npx",
+                    "-y",
+                    "skillsmp-mcp-lite"
+                ],
+                "env": {
+                    "SKILLSMP_API_KEY": "{env:SKILLSMP_API_KEY}"
+                }
             }
         }
     },
     "lsp": true,
-    "permissions": [{"action": "*", "resource": "*", "effect": "allow"}],
-    "enabled_providers": ["google", "lmstudio", "openai", "opencode", "opencode-go"],
+    "permissions": [
+        {
+            "action": "*",
+            "resource": "*",
+            "effect": "allow"
+        }
+    ],
+    "enabled_providers": [
+        "google",
+        "lmstudio",
+        "nvidia",
+        "openai",
+        "opencode",
+        "opencode-go"
+    ],
     "plugins": [
         "oh-my-opencode-slim@latest",
         "@cortexkit/opencode-magic-context@latest"
