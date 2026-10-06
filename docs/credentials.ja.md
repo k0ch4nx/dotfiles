@@ -21,8 +21,8 @@
 |---|---|---|---|---|
 | `AUTOMATION_TOKEN` | GitHub | Terraform GitHub provider、更新PR、auto-mergeの認証 | GitHub Actions、Terraform | GitHub Actions Secrets |
 | `TF_API_TOKEN` | HCP Terraform | CI専用。HCP Terraform stateの認証。ローカルtokenとは別 | GitHub Actions | GitHub Actions Secrets |
-| `TF_TOKEN_app_terraform_io` | HCP Terraform | ローカルTerraform CLIの認証。CIの`TF_API_TOKEN`とは別 | ローカルTerraform、bootstrap | bootstrapがYubiKeyで`secrets/hcp-terraform-token.age`を復号し、実行時だけTerraformへ渡す |
-| `nix-cache-local-private-key.age` | ユーザー | local Nix cache署名 | local Nix cache | `secrets/nix-cache-local-private-key.age` |
+| `TF_TOKEN_app_terraform_io` | HCP Terraform | ローカルTerraform CLIの認証。CIの`TF_API_TOKEN`とは別 | ローカルTerraform、bootstrap | bootstrapがYubiKeyで`secrets/auth/hcp-terraform-token.age`を復号し、実行時だけTerraformへ渡す |
+| `nix-cache-local-private-key.age` | ユーザー | local Nix cache署名 | local Nix cache | `secrets/auth/nix-cache-local-private-key.age` |
 
 ## SSH
 
