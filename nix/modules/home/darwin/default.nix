@@ -8,4 +8,6 @@
     ./shell.nix
     ./vscode.nix
   ];
+
+  rift.signedCopy.enable = true;
 }
