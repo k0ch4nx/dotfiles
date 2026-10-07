@@ -10,7 +10,16 @@
     "presets": {
         "default": {
             "orchestrator": {
-                "model": "opencode-go/deepseek-v4.1-flash",
+                "model": [
+                    {
+                        "id": "opencode-go/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    }
+                ],
                 "variant": "max",
                 "skills": [
                     "*"
@@ -21,7 +30,16 @@
                 ]
             },
             "explorer": {
-                "model": "opencode-go/deepseek-v4.1-flash",
+                "model": [
+                    {
+                        "id": "opencode-go/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    }
+                ],
                 "variant": "max",
                 "skills": [],
                 "mcps": []
@@ -35,7 +53,16 @@
                 "mcps": []
             },
             "librarian": {
-                "model": "opencode-go/deepseek-v4.1-flash",
+                "model": [
+                    {
+                        "id": "opencode-go/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    }
+                ],
                 "variant": "max",
                 "skills": [],
                 "mcps": [
@@ -45,7 +72,16 @@
                 ]
             },
             "designer": {
-                "model": "opencode-go/deepseek-v4.1-flash",
+                "model": [
+                    {
+                        "id": "opencode-go/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    }
+                ],
                 "variant": "max",
                 "skills": [
                     "agent-browser"
@@ -53,7 +89,16 @@
                 "mcps": []
             },
             "fixer": {
-                "model": "opencode-go/deepseek-v4.1-flash",
+                "model": [
+                    {
+                        "id": "opencode-go/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    }
+                ],
                 "variant": "max",
                 "skills": [],
                 "mcps": []

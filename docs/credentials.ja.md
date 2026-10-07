@@ -50,6 +50,7 @@
 
 | 名称 | 発行元 | 権限・用途 | 利用場所 | 管理場所 |
 |---|---|---|---|---|
+| `commandcode-api-key.age` | ユーザー | CommandCode APIの認証 | Home Manager管理の環境変数 | `secrets/env/commandcode-api-key.age` |
 | `gemini-api-key.age` | ユーザー | Gemini APIの認証 | Home Manager管理の環境変数 | `secrets/env/gemini-api-key.age` |
 | `gh-token.age` | ユーザー | GitHub APIの認証 | Home Manager管理の環境変数 | `secrets/env/gh-token.age` |
 | `nvidia-api-key.age` | ユーザー | NVIDIA APIの認証 | Home Manager管理の環境変数 | `secrets/env/nvidia-api-key.age` |
