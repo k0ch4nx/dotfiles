@@ -29,6 +29,7 @@
         }
     ],
     "enabled_providers": [
+        "commandcode",
         "google",
         "lmstudio",
         "nvidia",
@@ -38,7 +39,13 @@
     ],
     "plugins": [
         "oh-my-opencode-slim@latest",
-        "@cortexkit/opencode-magic-context@latest"
+        "@cortexkit/opencode-magic-context@latest",
+        {
+            "package": "@etsuya/opencode-commandcode-provider@latest",
+            "options": {
+                "authFileFallback": false
+            }
+        }
     ],
     "compaction": {
         "auto": false
