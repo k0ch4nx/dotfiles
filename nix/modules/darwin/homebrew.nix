@@ -34,6 +34,7 @@
       "freecad"
       "gog-galaxy"
       "google-drive"
+      "iloader"
       "intellij-idea-oss"
       "kindavim"
       "macfuse"
