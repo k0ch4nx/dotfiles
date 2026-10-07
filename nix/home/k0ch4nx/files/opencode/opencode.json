@@ -29,13 +29,13 @@
         }
     ],
     "enabled_providers": [
+        "commandcode",
         "google",
         "lmstudio",
         "nvidia",
         "openai",
         "opencode",
-        "opencode-go",
-        "commandcode"
+        "opencode-go"
     ],
     "plugins": [
         "oh-my-opencode-slim@latest",
