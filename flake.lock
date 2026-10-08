@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1791382404,
-        "narHash": "sha256-qJluhT1JcOMmHQCnjW54z3DSgz/4KDcuVwE5FeDz/Po=",
+        "lastModified": 1791429010,
+        "narHash": "sha256-UB7N9r0jXIulw7NOBhRBG4E+kc9KT/fwSALtDF3Y+qY=",
         "ref": "refs/heads/main",
-        "rev": "8293bc3e6130e49391c1a3530cd73212f01aec83",
+        "rev": "14680ec431ec8cbfd42b12ddcbe58e2f4ee3cccf",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -201,10 +201,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1791376341,
-        "narHash": "sha256-u+PwxIBdWTXsGyhH5KdVWqHFzqw8vqejg/zy8ynEexY=",
+        "lastModified": 1791448222,
+        "narHash": "sha256-UI3RDBll4KoSqTzy5xVK8J3BzgDbuGdWX4qRG67gJyM=",
         "ref": "refs/heads/main",
-        "rev": "a660de83c2f9cad071a5d568f7d77041ccd07059",
+        "rev": "a51399b8327cd01e44ce6f40959ab1f0d330ab29",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1791422288,
-        "narHash": "sha256-IdELDsvtV1Kflqpv4o5GZoNeUyoK/RN84tiZMGeHJPs=",
+        "lastModified": 1791448620,
+        "narHash": "sha256-9VeyFUeLkMKtx4xEeoneycUnhVNesyNX5vQJobeABr4=",
         "ref": "refs/heads/main",
-        "rev": "7d97937ff01d3e6fe232df79fbd3cef40403b161",
+        "rev": "55b4e13eba6d86dec14bddd0a4cd25e63055f786",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -438,10 +438,10 @@
     "kaynetik-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1789636815,
-        "narHash": "sha256-k3D2iFqsloWjM8k5wbav5oJ1ZXeJPvNKPeTUZWlLjyA=",
+        "lastModified": 1791435336,
+        "narHash": "sha256-8qNXF8Zib/ULOhmwSVjC4cfyVczbBPm3Obh9DLY97Ks=",
         "ref": "refs/heads/main",
-        "rev": "7dc19b5bce2307afb1e7b0e74a7dcf08025d4cd5",
+        "rev": "3ecbe1424cd5357bbb171e19cf27e2fc8dd83994",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/kaynetik/skills.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1791420960,
-        "narHash": "sha256-IrkWOS5RNVEBLAAPbzfe8/n+YfpSDj6rKvVdBTl3/uQ=",
+        "lastModified": 1791440787,
+        "narHash": "sha256-nRO1wEJmb4wjz+0Mhpg5VWURTqZRBZq3MvMjtPkKuAI=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "d6e0728e247621456c3c119f9c22857f281f158b",
+        "rev": "2109db8971dc18137ff1ac9393627c761609600d",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1791422991,
-        "narHash": "sha256-ujncv/O1nlzVUTLHL5YQ4LDtQuPkpz9Gj2eJoTvntaI=",
+        "lastModified": 1791448969,
+        "narHash": "sha256-0My+gZSIOi2LNl5oKsmFuISGZl7mDtZzFN3WcCs6Ivg=",
         "ref": "refs/heads/main",
-        "rev": "954012f95a6a9c91837f32c2b0d92603f20925db",
+        "rev": "24c3201e57cb5a0036362557b4c26c2ddf9c3ea9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
