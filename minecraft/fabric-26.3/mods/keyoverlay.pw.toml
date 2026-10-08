@@ -1,0 +1,13 @@
+name = "Key Overlay"
+filename = "KeyOverlay-26.3.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/Upv1bw1P/versions/mms4BnWK/KeyOverlay-26.3.jar"
+hash-format = "sha512"
+hash = "64afe6b74850b40f63a51c8ac264bb394ccc855c80e8ad328f804ab57e92afaba707cdefab9ba514e95dfa12fb9fe13ca85f69d85e7d20e6cd677cd9a2cbce09"
+
+[update]
+[update.modrinth]
+mod-id = "Upv1bw1P"
+version = "mms4BnWK"
