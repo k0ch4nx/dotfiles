@@ -7,6 +7,12 @@ hash-format = "sha256"
 metafile = true
 
 [[files]]
+file = "mods/bobby.pw.toml"
+hash = "7412c982b4fb5331fdceec4edc1d26746e4c62fbda5bad1f8789ed5e27d7adbb"
+hash-format = "sha256"
+metafile = true
+
+[[files]]
 file = "mods/c2me-fabric.pw.toml"
 hash = "67cd707b00e8a67a867a53bfb4da7a596ac80f3ff4bcbcd76fbfd40780600453"
 hash-format = "sha256"
@@ -37,6 +43,12 @@ hash-format = "sha256"
 metafile = true
 
 [[files]]
+file = "mods/flashback.pw.toml"
+hash = "34a7b3bd30d26c585638537c7a84281fce92b7e4054f1e76978a000895f97a5a"
+hash-format = "sha256"
+metafile = true
+
+[[files]]
 file = "mods/iris.pw.toml"
 hash = "1f5c464b85f8ca75424eee7d6e9d5c0a706fe787e399c2dea1071a37a27dc24d"
 hash-format = "sha256"
@@ -57,6 +69,12 @@ metafile = true
 [[files]]
 file = "mods/litematica.pw.toml"
 hash = "7773756117027a90766b2849a5f6f55e81c0547623fbf2c6ed777b5f0ce04245"
+hash-format = "sha256"
+metafile = true
+
+[[files]]
+file = "mods/macos-input-fixes.pw.toml"
+hash = "181f2261705517708850b7ab8e439e184508093cb16ff0c841c176e8c8296b0d"
 hash-format = "sha256"
 metafile = true
 
