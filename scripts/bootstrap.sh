@@ -44,6 +44,7 @@ function main() {
 
     source "${DOTFILES_DIR}/scripts/steps/030-prepare-terraform-auth.sh"
     source "${DOTFILES_DIR}/scripts/steps/040-prepare-nix-cache.sh"
+    source "${DOTFILES_DIR}/scripts/steps/045-update-minecraft.sh"
     source "${DOTFILES_DIR}/scripts/steps/050-update-flake-lock.sh"
     source "${DOTFILES_DIR}/scripts/steps/060-build-nix-configuration.sh"
     source "${DOTFILES_DIR}/scripts/steps/070-activate-nix-configuration.sh"
@@ -56,6 +57,7 @@ function main() {
     source "${DOTFILES_DIR}/scripts/steps/130-update-neovim-mason-packages.sh"
     source "${DOTFILES_DIR}/scripts/steps/140-update-neovim-codediff.sh"
     source "${DOTFILES_DIR}/scripts/steps/150-update-opencode-plugins.sh"
+    source "${DOTFILES_DIR}/scripts/steps/155-install-minecraft.sh"
     source "${DOTFILES_DIR}/scripts/steps/160-update-macos.sh"
     source "${DOTFILES_DIR}/scripts/steps/170-update-ubuntu.sh"
     source "${DOTFILES_DIR}/scripts/steps/180-collect-nix-garbage.sh"
