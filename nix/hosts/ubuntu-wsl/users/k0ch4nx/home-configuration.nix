@@ -23,7 +23,9 @@
 
   systemd.user.services.agenix.Install.WantedBy = lib.mkForce [ ];
 
-  home.activation.activateAgenixInteractively = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
-    ${builtins.head config.systemd.user.services.agenix.Service.ExecStart}
-  '';
+  home.activation.activateAgenixInteractively = lib.hm.dag.entryAfter [ "reloadSystemd" ] (
+    lib.concatMapStringsSep "\n" (command: "run ${lib.escapeShellArgs [ command ]}") (
+      lib.toList config.systemd.user.services.agenix.Service.ExecStart
+    )
+  );
 }

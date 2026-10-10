@@ -18,6 +18,9 @@ let
     };
   };
 
+  wslHomeConfiguration =
+    blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl";
+
   flake-file-eval = import ./flake-file.nix { inherit inputs; };
 
   flake-file-apps = inputs.nixpkgs.lib.genAttrs systems (
@@ -42,8 +45,7 @@ blueprint
 
     ubuntu-wsl = {
       system = blueprint.systemConfigs.ubuntu-wsl;
-      home =
-        blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl".activationPackage;
+      home = wslHomeConfiguration.activationPackage;
     };
   };
 
@@ -69,6 +71,6 @@ blueprint
     };
   };
 
-  homeConfigurations."k0ch4nx@ubuntu-wsl" =
-    blueprint.legacyPackages.x86_64-linux.homeConfigurations."k0ch4nx@ubuntu-wsl";
+  homeConfigurations."k0ch4nx@ubuntu-wsl" = wslHomeConfiguration;
+  legacyPackages = { };
 }
