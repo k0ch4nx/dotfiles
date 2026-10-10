@@ -465,15 +465,43 @@ function run_packwiz() {
         printf 'packwiz %s failed with exit status %s\n' "$*" "${status}" >&2
         return "${status}"
     fi
+}
 
-    if grep --quiet --ignore-case -E '(^|[^[:alnum:]_-])(failed|error)([^[:alnum:]_-]|$)' <<<"${output}"; then
-        printf 'packwiz %s reported a failure\n' "$*" >&2
-        return 1
+function pack_files() {
+    local pack_directory="$1"
+    local files
+
+    if files="$(
+        python3 - "${pack_directory}/index.toml" <<'PYTHON' 2>/dev/null
+import sys
+import tomllib
+
+with open(sys.argv[1], 'rb') as handle:
+    index = tomllib.load(handle)
+
+for entry in index.get('files', []):
+    if not isinstance(entry, dict):
+        continue
+
+    path = entry.get('file')
+
+    if isinstance(path, str) and path.endswith('.pw.toml'):
+        print(path)
+PYTHON
+    )"; then
+        if [[ -n "${files}" ]]; then
+            printf '%s\n' "${files}"
+            return 0
+        fi
     fi
+
+    find "${pack_directory}" -type f -name '*.pw.toml' -print | LC_ALL=C sort
 }
 
 function update_packs() {
     local pack_directory
+    local file
+    local name
 
     for pack_directory in minecraft/*/; do
         if [[ ! -f "${pack_directory}/pack.toml" ]]; then
@@ -483,7 +511,18 @@ function update_packs() {
         (
             cd -- "${pack_directory}"
 
-            run_packwiz update --all -y
+            while IFS= read -r file; do
+                if [[ -z "${file}" ]]; then
+                    continue
+                fi
+
+                name="$(basename -- "${file}" .pw.toml)"
+
+                if ! run_packwiz update -y "${name}"; then
+                    exit 1
+                fi
+            done < <(pack_files ".")
+
             run_packwiz refresh
         )
     done
@@ -560,6 +599,229 @@ function sync_directory() {
     done < <(find "${destination}" -mindepth 1 -depth -print0)
 }
 
+function hash_file() {
+    if command -v sha256sum >/dev/null 2>&1; then
+        sha256sum "$1"
+    else
+        shasum -a 256 "$1"
+    fi
+}
+
+function tree_hash() {
+    local directory="$1"
+
+    (
+        cd -- "${directory}" || exit 1
+
+        find . -mindepth 1 -type f -print | LC_ALL=C sort | while IFS= read -r file; do
+            printf '%s ' "${file}"
+            hash_file "${file}"
+        done
+    )
+}
+
+function update_lock_path() {
+    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+        printf '%s' "${MINECRAFT_UPDATE_LOCK:-${RUNNER_TEMP:-/tmp}/minecraft-update.lock}"
+    else
+        printf '%s' "${MINECRAFT_UPDATE_LOCK:-${XDG_STATE_HOME:-$HOME/.local/state}/minecraft-update.lock}"
+    fi
+}
+
+function lock_unavailable() {
+    local lock="$1"
+    local reason="$2"
+
+    if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
+        printf 'error: could not acquire the minecraft update lock %s: %s\n' "${lock}" "${reason}" >&2
+        exit 1
+    fi
+
+    printf 'warning: could not acquire the minecraft update lock %s: %s; skipping the minecraft update\n' "${lock}" "${reason}" >&2
+    exit 0
+}
+
+function acquire_update_lock() {
+    local lock
+    local holder
+    local tombstone
+    local attempts=0
+
+    lock="$(update_lock_path)"
+
+    if ! mkdir -p -- "$(dirname -- "${lock}")" 2>/dev/null; then
+        lock_unavailable "${lock}" 'the lock directory could not be created'
+    fi
+
+    while ((attempts < 3)); do
+        attempts=$((attempts + 1))
+
+        if [[ ! -e "${lock}" && ! -L "${lock}" ]]; then
+            if ln -s -- "$$" "${lock}" 2>/dev/null; then
+                LOCK_TARGET="${lock}"
+                return 0
+            fi
+
+            continue
+        fi
+
+        holder=''
+
+        if [[ -L "${lock}" ]]; then
+            holder="$(readlink -- "${lock}" 2>/dev/null || true)"
+        fi
+
+        if [[ -n "${holder}" && "${holder}" != "$$" ]] && kill -0 "${holder}" 2>/dev/null; then
+            lock_unavailable "${lock}" 'another update is running'
+        fi
+
+        tombstone="${lock}.stale.$$.${attempts}"
+
+        if mv -- "${lock}" "${tombstone}" 2>/dev/null; then
+            rm -rf -- "${tombstone}" 2>/dev/null || true
+            continue
+        fi
+    done
+
+    lock_unavailable "${lock}" 'another update is running'
+}
+
+function release_update_lock() {
+    local holder
+
+    if [[ -n "${LOCK_TARGET:-}" ]]; then
+        holder="$(readlink -- "${LOCK_TARGET}" 2>/dev/null || true)"
+
+        if [[ -z "${holder}" || "${holder}" == "$$" ]]; then
+            rm -f -- "${LOCK_TARGET}"
+        fi
+
+        LOCK_TARGET=''
+    fi
+}
+
+function cleanup_update_minecraft() {
+    local status=$?
+
+    if [[ -n "${staging:-}" ]]; then
+        rm -rf -- "${staging}" || true
+    fi
+
+    if [[ -n "${loaders_temporary:-}" ]]; then
+        rm -f -- "${loaders_temporary}" "${installers_temporary:-}" || true
+    fi
+
+    if [[ -n "${backup_root:-}" ]]; then
+        rm -rf -- "${backup_root}" || true
+    fi
+
+    release_update_lock || true
+
+    exit "${status}"
+}
+
+function publish_minecraft() (
+    set -e
+
+    local staging="$1"
+    local backup="$2"
+    local baseline="$3"
+    local loaders_temporary="$4"
+    local installers_temporary="$5"
+    local backup_ready=0
+    local published=0
+    local preserved=''
+    local current
+    local original
+    local staged
+
+    restore_minecraft() {
+        local restored
+
+        restored="$(mktemp -d)" || return 1
+
+        if cp -R -- "${backup}" "${restored}/minecraft"; then
+            rm -rf -- minecraft || true
+            mv -- "${restored}/minecraft" minecraft 2>/dev/null || true
+        fi
+
+        rm -rf -- "${restored}" || true
+
+        return 0
+    }
+
+    preserve_backup() {
+        local target
+
+        target="${TMPDIR:-/tmp}/minecraft-restore-backup.$$.$(date +%s)"
+
+        if mv -- "${backup}" "${target}" 2>/dev/null; then
+            preserved="${target}"
+            return 0
+        fi
+
+        return 1
+    }
+
+    publish_failed() {
+        local status=$?
+
+        if ((published == 1)); then
+            exit "${status}"
+        fi
+
+        trap - EXIT
+
+        if ((backup_ready == 1)); then
+            restore_minecraft
+
+            if [[ "$(tree_hash minecraft)" != "${original}" ]]; then
+                if preserve_backup; then
+                    printf 'error: the committed minecraft data could not be restored; kept the backup at %s\n' "${preserved}" >&2
+                else
+                    printf 'error: the committed minecraft data could not be restored and the backup %s could not be kept\n' "${backup}" >&2
+                fi
+
+                exit 1
+            fi
+        fi
+
+        printf 'error: the minecraft update failed; kept the committed minecraft data\n' >&2
+        exit 1
+    }
+
+    trap publish_failed EXIT
+
+    cp -- "${loaders_temporary}" "${staging}/minecraft/loaders.nix"
+    cp -- "${installers_temporary}" "${staging}/minecraft/installers.nix"
+
+    current="$(tree_hash minecraft)"
+
+    if [[ "${current}" != "${baseline}" ]]; then
+        printf 'error: the committed minecraft data changed while the update was staged\n' >&2
+        exit 1
+    fi
+
+    original="${current}"
+
+    cp -R -- minecraft "${backup}"
+    backup_ready=1
+
+    sync_directory "${staging}/minecraft" minecraft
+    replace_if_changed "${loaders_temporary}" minecraft/loaders.nix
+    replace_if_changed "${installers_temporary}" minecraft/installers.nix
+
+    staged="$(tree_hash "${staging}/minecraft")"
+    current="$(tree_hash minecraft)"
+
+    if [[ "${current}" != "${staged}" ]]; then
+        printf 'error: the published minecraft data does not match the staged data\n' >&2
+        exit 1
+    fi
+
+    published=1
+)
+
 function update_minecraft() (
     set +x
     set -e
@@ -569,15 +831,26 @@ function update_minecraft() (
 
     cd -- "${repository}"
 
+    local staging=''
+    local loaders_temporary=''
+    local installers_temporary=''
+    local backup_root=''
+    local backup=''
+    local baseline=''
+
+    trap cleanup_update_minecraft EXIT
+
+    acquire_update_lock
+
+    baseline="$(tree_hash "${repository}/minecraft")"
+
     nixpkgs_rev="$(resolve_nixpkgs_rev)"
 
-    local staging
-    local loaders_temporary
-    local installers_temporary
     staging="$(mktemp -d)"
     loaders_temporary="$(mktemp)"
     installers_temporary="$(mktemp)"
-    trap 'rm -rf -- "${staging}"; rm -f -- "${loaders_temporary}" "${installers_temporary}"' EXIT
+    backup_root="$(mktemp -d)"
+    backup="${backup_root}/minecraft"
 
     cp -R -- minecraft "${staging}/minecraft"
 
@@ -590,9 +863,7 @@ function update_minecraft() (
 
     cd -- "${repository}"
 
-    sync_directory "${staging}/minecraft" minecraft
-    replace_if_changed "${loaders_temporary}" minecraft/loaders.nix
-    replace_if_changed "${installers_temporary}" minecraft/installers.nix
+    publish_minecraft "${staging}" "${backup}" "${baseline}" "${loaders_temporary}" "${installers_temporary}"
 
     if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
         git add -- minecraft
@@ -627,7 +898,7 @@ function main() (
         printf 'warning: the minecraft update failed; keeping the committed minecraft data\n' >&2
     fi
 
-    return 0
+    return "${status}"
 )
 
 main
