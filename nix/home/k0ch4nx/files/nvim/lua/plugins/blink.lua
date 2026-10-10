@@ -126,12 +126,4 @@ return {
         build = "cargo build --release",
         event = { "VeryLazy" },
     },
-    {
-        ---@module "blink-cmp-copilot"
-        "giuxtaposition/blink-cmp-copilot",
-        dependencies = {
-            "zbirenbaum/copilot.lua",
-        },
-        optional = true,
-    },
 }

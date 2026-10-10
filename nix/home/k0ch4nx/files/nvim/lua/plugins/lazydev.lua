@@ -6,7 +6,7 @@ return {
         optional = true,
     },
     {
-        "sudo-tee/wezterm-types",
+        "DrKJeff16/wezterm-types",
         optional = true,
     },
     {

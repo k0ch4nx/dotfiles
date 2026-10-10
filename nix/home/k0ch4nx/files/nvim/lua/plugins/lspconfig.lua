@@ -24,5 +24,13 @@ return {
                 vim.lsp.config(server, override(config))
             end
         end
+
+        local bashls = vim.lsp.config["bashls"]
+
+        if bashls then
+            vim.lsp.config("bashls", {
+                filetypes = vim.list_extend(vim.deepcopy(bashls.filetypes or {}), { "zsh" }),
+            })
+        end
     end,
 }
