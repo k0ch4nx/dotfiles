@@ -21,11 +21,9 @@ return {
                     local pickers = Snacks.picker.get({ source = "explorer" }) or {}
 
                     return vim.iter(pickers):any(function(picker)
-                        local wins = picker.layout and picker.layout.wins or {}
+                        local root = picker.layout and picker.layout.root
 
-                        return vim.iter(pairs(wins)):any(function(_, layout_win)
-                            return layout_win.win == win
-                        end)
+                        return root ~= nil and root.win == win
                     end)
                 end,
                 title = "Explorer",
@@ -61,7 +59,7 @@ return {
             },
         },
         options = {
-            left = { size = 0.2 },
+            left = { size = 0.25 },
             bottom = { size = 0.35 },
         },
         animate = {

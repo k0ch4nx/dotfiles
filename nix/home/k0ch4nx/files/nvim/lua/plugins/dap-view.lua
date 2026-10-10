@@ -67,7 +67,7 @@ return {
             vim.keymap.set("n", "<F11>", dap.step_into, keymap_opts("DAP: Step Into"))
             vim.keymap.set("n", "<S-F11>", dap.step_out, keymap_opts("DAP: Step Out"))
             vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, keymap_opts("DAP: Toggle Breakpoint"))
-            vim.keymap.set("n", "<C-S-F5>", dap.stop, keymap_opts("DAP: Stop"))
+            vim.keymap.set("n", "<S-F5>", dap.stop, keymap_opts("DAP: Stop"))
             vim.keymap.set("n", "<C-S-F5>", dap.restart, keymap_opts("DAP: Restart"))
 
             vim.keymap.set("n", "<Leader>dl", function()

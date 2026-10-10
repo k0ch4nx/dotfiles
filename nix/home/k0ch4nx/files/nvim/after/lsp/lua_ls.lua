@@ -2,18 +2,6 @@ local util = require("util")
 
 ---@type vim.lsp.Config
 return {
-    -- ---@param client vim.lsp.Client
-    -- ---@param bufnr integer
-    -- on_attach = function(client, bufnr)
-    --     vim.api.nvim_create_autocmd("BufDelete", {
-    --         buffer = vim.api.nvim_get_current_buf(),
-    --         callback = function(opts)
-    --             if vim.lsp.buf_is_attached(bufnr, client.id) then
-    --                 vim.lsp.buf_detach_client(bufnr, client.id)
-    --             end
-    --         end,
-    --     })
-    -- end,
     settings = {
         -- https://luals.github.io/wiki/settings
         Lua = {
