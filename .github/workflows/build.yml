@@ -43,7 +43,7 @@ jobs:
           DOTFILES_DIR: ${{ github.workspace }}
           DOTFILES_HOST: macbook-pro
           NIX_CACHE_CLOSURE_FILE: ${{ runner.temp }}/nix-cache-closure
-        run: ./scripts/steps/060-build-nix-configuration.sh
+        run: ./scripts/steps/070-build-nix-configuration.sh
 
       - name: Prepare the CI signing key
         if: &main-only >-
@@ -64,12 +64,12 @@ jobs:
           DOTFILES_DIR: ${{ github.workspace }}
           NIX_CACHE_CLOSURE_FILE: ${{ runner.temp }}/nix-cache-closure
           TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
-        run: ./scripts/steps/080-push-nix-cache.sh
+        run: ./scripts/steps/090-push-nix-cache.sh
 
       - name: Touch the cache
         if: *main-only
         env: *r2-env-darwin
-        run: ./scripts/steps/081-touch-nix-cache.sh
+        run: ./scripts/steps/091-touch-nix-cache.sh
 
   ubuntu-wsl:
     name: Ubuntu WSL
@@ -199,7 +199,7 @@ jobs:
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
-          exec: ./scripts/steps/060-build-nix-configuration.sh
+          exec: ./scripts/steps/070-build-nix-configuration.sh
 
       - name: Prepare the CI signing key
         if: *main-only
@@ -223,7 +223,7 @@ jobs:
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
-          exec: ./scripts/steps/080-push-nix-cache.sh
+          exec: ./scripts/steps/090-push-nix-cache.sh
 
       - name: Touch the cache
         if: *main-only
@@ -232,4 +232,4 @@ jobs:
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
-          exec: ./scripts/steps/081-touch-nix-cache.sh
+          exec: ./scripts/steps/091-touch-nix-cache.sh
