@@ -57,10 +57,9 @@ function main() {
     source "${DOTFILES_DIR}/scripts/steps/140-update-neovim-mason-packages.sh"
     source "${DOTFILES_DIR}/scripts/steps/150-update-neovim-codediff.sh"
     source "${DOTFILES_DIR}/scripts/steps/160-update-opencode-plugins.sh"
-    source "${DOTFILES_DIR}/scripts/steps/170-install-minecraft.sh"
-    source "${DOTFILES_DIR}/scripts/steps/180-update-macos.sh"
-    source "${DOTFILES_DIR}/scripts/steps/190-update-ubuntu.sh"
-    source "${DOTFILES_DIR}/scripts/steps/200-collect-nix-garbage.sh"
+    source "${DOTFILES_DIR}/scripts/steps/170-update-macos.sh"
+    source "${DOTFILES_DIR}/scripts/steps/180-update-ubuntu.sh"
+    source "${DOTFILES_DIR}/scripts/steps/190-collect-nix-garbage.sh"
 }
 
 main

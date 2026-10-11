@@ -878,7 +878,7 @@ function main() (
         return 0
     fi
 
-    if [[ "${GITHUB_ACTIONS:-}" != 'true' ]] && ! command -v minecraft-provision >/dev/null 2>&1; then
+    if [[ "${GITHUB_ACTIONS:-}" != 'true' ]] && [[ "$(uname -s)" != 'Darwin' ]]; then
         printf 'warning: minecraft provisioning is not enabled on this host; skipping the minecraft update\n' >&2
         return 0
     fi

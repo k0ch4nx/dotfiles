@@ -235,6 +235,9 @@ let
       installerCommand
   ) loaderInstalls;
 
+  pgrepPath =
+    if pkgs.stdenv.hostPlatform.isDarwin then "/usr/bin/pgrep" else "${pkgs.procps}/bin/pgrep";
+
   minecraft-provision = pkgs.writeShellApplication {
     name = "minecraft-provision";
 
@@ -250,7 +253,12 @@ let
       launcherProfiles="$baseDir/launcher_profiles.json"
 
       launcherRunning=0
-      if pgrep -f "Minecraft.app/Contents/MacOS/launcher" >/dev/null 2>&1 || pgrep -f '^[^ ]*[m]inecraft-launcher' >/dev/null 2>&1; then
+      pgrepBin=${pgrepPath}
+
+      if [[ ! -x "$pgrepBin" ]]; then
+        echo "warning: pgrep is not available; assuming the Minecraft launcher may be running" >&2
+        launcherRunning=1
+      elif "$pgrepBin" -f "Minecraft.app/Contents/MacOS/launcher" >/dev/null 2>&1 || "$pgrepBin" -f '^[^ ]*[m]inecraft-launcher' >/dev/null 2>&1; then
         echo "warning: Minecraft launcher is running; skipping launcher_profiles.json update" >&2
         launcherRunning=1
       fi
@@ -366,6 +374,10 @@ in
   config = {
     home.file = profileFiles;
 
-    home.packages = lib.mkIf (cfg.profiles != { }) [ minecraft-provision ];
+    home.activation.minecraftProvision = lib.mkIf (cfg.profiles != { }) (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        run ${minecraft-provision}/bin/minecraft-provision
+      ''
+    );
   };
 }
