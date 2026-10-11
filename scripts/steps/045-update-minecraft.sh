@@ -690,7 +690,11 @@ function cleanup_update_minecraft() {
     fi
 
     if [[ -n "${backup_root:-}" ]]; then
-        rm -rf -- "${backup_root}" || true
+        if ((status != 0)) && [[ -d "${backup:-}" ]]; then
+            printf 'warning: keeping the minecraft backup at %s\n' "${backup}" >&2
+        else
+            rm -rf -- "${backup_root}" || true
+        fi
     fi
 
     release_update_lock || true
@@ -709,22 +713,26 @@ function publish_minecraft() (
     local backup_ready=0
     local published=0
     local preserved=''
+    local restored=''
     local current
     local original
     local staged
 
     restore_minecraft() {
-        local restored
+        restored=''
 
-        restored="$(mktemp -d)" || return 1
+        if ! restored="$(mktemp -d)"; then
+            restored=''
+            return 1
+        fi
 
         if ! cp -R -- "${backup}" "${restored}/minecraft"; then
-            rm -rf -- "${restored}" || true
+            printf 'error: the committed minecraft data could not be staged for the restore; keeping %s\n' "${restored}" >&2
             return 1
         fi
 
         if ! mv -- minecraft "${restored}/retired"; then
-            rm -rf -- "${restored}" || true
+            printf 'error: the published minecraft data could not be retired for the restore; keeping %s\n' "${restored}" >&2
             return 1
         fi
 
@@ -733,7 +741,12 @@ function publish_minecraft() (
                 cp -R -- "${restored}/retired" minecraft 2>/dev/null || true
             fi
 
-            rm -rf -- "${restored}" || true
+            printf 'error: the committed minecraft data could not be put back in place; keeping %s\n' "${restored}" >&2
+            return 1
+        fi
+
+        if [[ ! -d minecraft || "$(tree_hash minecraft)" != "${original}" ]]; then
+            printf 'error: the restored minecraft data does not match the committed data; keeping %s\n' "${restored}" >&2
             return 1
         fi
 
@@ -757,6 +770,8 @@ function publish_minecraft() (
 
     publish_failed() {
         local status=$?
+        local preserve_status=0
+        local restore_status=0
 
         if ((published == 1)); then
             exit "${status}"
@@ -765,19 +780,37 @@ function publish_minecraft() (
         trap - EXIT
 
         if ((backup_ready == 1)); then
-            if ! preserve_backup; then
+            preserve_status=0
+            preserve_backup || preserve_status=$?
+
+            restore_status=0
+            restore_minecraft || restore_status=$?
+
+            if ((restore_status == 0)) && [[ "$(tree_hash minecraft)" == "${original}" ]]; then
+                if [[ -n "${preserved}" ]]; then
+                    rm -rf -- "${preserved}" || true
+                    rm -rf -- "${backup_root}" || true
+                fi
+
+                if ((preserve_status == 0)); then
+                    printf 'error: the minecraft update failed; kept the committed minecraft data\n' >&2
+                else
+                    printf 'error: the minecraft update failed; restored the committed minecraft data but the backup %s could not be kept\n' "${backup}" >&2
+                fi
+
+                exit 1
+            fi
+
+            if [[ -n "${preserved}" ]]; then
+                printf 'error: the committed minecraft data could not be restored; kept the backup at %s\n' "${preserved}" >&2
+            else
                 printf 'error: the committed minecraft data could not be restored and the backup %s could not be kept\n' "${backup}" >&2
-                exit 1
             fi
 
-            if restore_minecraft && [[ "$(tree_hash minecraft)" == "${original}" ]]; then
-                rm -rf -- "${preserved}" || true
-
-                printf 'error: the minecraft update failed; kept the committed minecraft data\n' >&2
-                exit 1
+            if [[ -n "${restored}" ]]; then
+                printf 'error: the partial restore state is kept at %s\n' "${restored}" >&2
             fi
 
-            printf 'error: the committed minecraft data could not be restored; kept the backup at %s\n' "${preserved}" >&2
             exit 1
         fi
 
