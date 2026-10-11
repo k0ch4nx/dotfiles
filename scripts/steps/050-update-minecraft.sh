@@ -591,8 +591,8 @@ function lock_unavailable() {
 
 function acquire_update_lock() {
     local lock
-    local attempt
-    local holder
+    local owner
+    local readback
 
     lock="$(update_lock_path)"
 
@@ -600,58 +600,48 @@ function acquire_update_lock() {
         lock_unavailable "${lock}" 'the lock directory could not be created'
     fi
 
-    attempt=0
+    if ! mkdir -- "${lock}" 2>/dev/null; then
+        lock_unavailable "${lock}" 'another update is running; remove the lock directory by hand if it is stale'
+    fi
 
-    while :; do
-        if mkdir -- "${lock}" 2>/dev/null; then
-            break
-        fi
+    owner="$$-${RANDOM}-$(date +%s)"
 
-        holder=''
-        if [[ -f "${lock}/pid" ]]; then
-            read -r holder <"${lock}/pid" || holder=''
-        fi
-
-        if [[ -d "${lock}" && -f "${lock}/pid" ]] && ! kill -0 "${holder}" 2>/dev/null; then
-            rm -rf -- "${lock}" 2>/dev/null || true
-        fi
-
-        attempt=$((attempt + 1))
-
-        if ((attempt >= 3)); then
-            lock_unavailable "${lock}" 'another update is running'
-        fi
-    done
-
-    if ! printf '%s\n' "$$" >"${lock}/pid" 2>/dev/null; then
+    if ! printf '%s\n' "${owner}" >"${lock}/owner" 2>/dev/null; then
+        rm -rf -- "${lock}" 2>/dev/null || true
         lock_unavailable "${lock}" 'the lock could not be claimed'
     fi
 
-    holder=''
+    readback=''
 
-    if [[ -f "${lock}/pid" ]]; then
-        read -r holder <"${lock}/pid" || holder=''
+    if [[ -f "${lock}/owner" ]]; then
+        read -r readback <"${lock}/owner" || readback=''
     fi
 
-    if [[ ! -d "${lock}" || "${holder}" != "$$" ]] || ! kill -0 "$$" 2>/dev/null; then
+    if [[ "${readback}" != "${owner}" ]]; then
         lock_unavailable "${lock}" 'the lock was acquired twice'
     fi
+
+    update_lock_owner="${owner}"
 }
 
 function release_update_lock() {
     local lock
-    local holder
+    local owner
+
+    [[ -n "${update_lock_owner:-}" ]] || return 0
 
     lock="$(update_lock_path)"
-    holder=''
+    owner=''
 
-    if [[ -f "${lock}/pid" ]]; then
-        read -r holder <"${lock}/pid" || holder=''
+    if [[ -f "${lock}/owner" ]]; then
+        read -r owner <"${lock}/owner" || owner=''
     fi
 
-    if [[ -d "${lock}" && "${holder}" == "$$" ]]; then
+    if [[ "${owner}" == "${update_lock_owner}" ]]; then
         rm -rf -- "${lock}"
     fi
+
+    update_lock_owner=''
 }
 
 function cleanup_update_minecraft() {
