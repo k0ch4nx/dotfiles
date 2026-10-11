@@ -14,7 +14,7 @@ metafile = true
 
 [[files]]
 file = "mods/c2me-fabric.pw.toml"
-hash = "67cd707b00e8a67a867a53bfb4da7a596ac80f3ff4bcbcd76fbfd40780600453"
+hash = "f4e4462219c63a8e43019670f21d3c52a5294ca4c70c55182ba6df02a803eecb"
 hash-format = "sha256"
 metafile = true
 
@@ -32,13 +32,13 @@ metafile = true
 
 [[files]]
 file = "mods/fabric-api.pw.toml"
-hash = "6b342a83e9736f0832e750c8d631273cf600305d73b32c8bd6a977811f6972ee"
+hash = "5650bba7cb2d17f5ac1c543ee6c0d72560624aa530e1dc51d2aa9772e96d991a"
 hash-format = "sha256"
 metafile = true
 
 [[files]]
 file = "mods/fabric-language-kotlin.pw.toml"
-hash = "7a7f5673b6e33eebaed00c0c453fc41d11c7474eb320c3ce8736d415fcfe2682"
+hash = "1811d49906aa7a1e7f1230535c6fec91be45129d028f7900cf35571a497e42b3"
 hash-format = "sha256"
 metafile = true
 
@@ -50,7 +50,7 @@ metafile = true
 
 [[files]]
 file = "mods/iris.pw.toml"
-hash = "1f5c464b85f8ca75424eee7d6e9d5c0a706fe787e399c2dea1071a37a27dc24d"
+hash = "3af2426b8d83a5fcda1ff6de2035d53bcff532653c196f2ea6d7647995e45131"
 hash-format = "sha256"
 metafile = true
 
@@ -68,7 +68,7 @@ metafile = true
 
 [[files]]
 file = "mods/litematica.pw.toml"
-hash = "7773756117027a90766b2849a5f6f55e81c0547623fbf2c6ed777b5f0ce04245"
+hash = "5f52a5a69d6ea21c65a9df879fb9b334ed2aaf3ddb50bf13c9e2a57cc079a50d"
 hash-format = "sha256"
 metafile = true
 
@@ -80,13 +80,13 @@ metafile = true
 
 [[files]]
 file = "mods/malilib.pw.toml"
-hash = "3e92e54da297b8a9ecf7b5db1a520938e6bc81c4a6e585de7b340e94554b15f1"
+hash = "aa19aaf146fb03f895583147e1906b950c9acc2c31a16110d3764401a65a79e1"
 hash-format = "sha256"
 metafile = true
 
 [[files]]
 file = "mods/minihud.pw.toml"
-hash = "30fae97d75e570c598194515916e802c78716a298cdf05755a5fd90064348c5a"
+hash = "3cc0adb13783202ba6b53fdfc3a0dfed4b9d0e95c9c186a4796b3530c2d83c13"
 hash-format = "sha256"
 metafile = true
 
@@ -116,7 +116,7 @@ metafile = true
 
 [[files]]
 file = "mods/sodium.pw.toml"
-hash = "54d699d9ba85bb08b9fd3696a11c7449ea1175a118805855143e1c88fa54aa6b"
+hash = "95b014c29351598261257614a55955215bba353a93593b2050cb07da295d3302"
 hash-format = "sha256"
 metafile = true
 
@@ -134,7 +134,7 @@ metafile = true
 
 [[files]]
 file = "mods/zoomify.pw.toml"
-hash = "2eab932dd5793bbbba9959eb0924d386e0705e96d58b8f6249cd75804c713c18"
+hash = "7ac50a41949c05df550b62d54051bc171491644eef010aa19bd8abe3419909b1"
 hash-format = "sha256"
 metafile = true
 
