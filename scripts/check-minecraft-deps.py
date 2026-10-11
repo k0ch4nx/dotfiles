@@ -1,6 +1,5 @@
 import hashlib
 import io
-import itertools
 import json
 import re
 import shutil
@@ -18,6 +17,14 @@ class CheckError(Exception):
     pass
 
 
+class MinimalPrerelease:
+    __slots__ = ()
+
+    def __repr__(self):
+        return "MINIMAL"
+
+
+MINIMAL_PRERELEASE = MinimalPrerelease()
 VERSION_RE = re.compile(
     r"^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([0-9A-Za-z.\-]*))?(?:\+([0-9A-Za-z.\-]+))?$"
 )
@@ -29,7 +36,6 @@ HASHERS = {
     "sha512": hashlib.sha512,
 }
 WILDCARDS = {"x", "X", "*"}
-MINIMAL_PRERELEASE = "MINIMAL"
 LOADERS = ("fabric", "quilt", "neoforge", "forge")
 RANGE_MODS = {"minecraft", "fabricloader"}
 SEARCH_BUDGET = 50000
@@ -55,12 +61,10 @@ def compare_prerelease(left, right):
         return 0 if right is None else 1
     if right is None:
         return -1
-    left_minimal = MINIMAL_PRERELEASE in left
-    right_minimal = MINIMAL_PRERELEASE in right
-    if left_minimal or right_minimal:
-        if left_minimal and right_minimal:
+    if left is MINIMAL_PRERELEASE or right is MINIMAL_PRERELEASE:
+        if left is MINIMAL_PRERELEASE and right is MINIMAL_PRERELEASE:
             return 0
-        return -1 if left_minimal else 1
+        return -1 if left is MINIMAL_PRERELEASE else 1
     for left_part, right_part in zip(left, right):
         if left_part == right_part:
             continue
@@ -114,7 +118,7 @@ def range_lower(components, prerelease):
     return (values[0], values[1], values[2], prerelease)
 
 
-def term_matches(version_text, term):
+def parse_term(term):
     match = TERM_RE.match(term)
     if not match:
         raise CheckError(f"invalid range term {term!r}")
@@ -124,6 +128,28 @@ def term_matches(version_text, term):
         (index for index, part in enumerate(components) if part is None), None
     )
     specified = len(components) if first_wildcard is None else first_wildcard
+    if first_wildcard is not None and operator != "=":
+        raise CheckError(f"invalid range term {term!r}")
+    return operator, components, prerelease, first_wildcard, specified
+
+
+def parse_ranges(ranges):
+    candidates = ranges if isinstance(ranges, list) else [ranges]
+    if not candidates:
+        raise CheckError("empty dependency range")
+    groups = []
+    for candidate in candidates:
+        if not isinstance(candidate, str):
+            raise CheckError(f"invalid dependency range {candidate!r}")
+        terms = candidate.split()
+        if not terms:
+            raise CheckError(f"invalid dependency range {candidate!r}")
+        groups.append([parse_term(term) for term in terms])
+    return groups
+
+
+def term_matches(version_text, parsed):
+    operator, components, prerelease, first_wildcard, specified = parsed
     version = parse_version(version_text)
 
     if operator == "=":
@@ -135,36 +161,27 @@ def term_matches(version_text, term):
             )
         return compare_versions(version, range_lower(components, prerelease)) == 0
 
-    if first_wildcard is not None and operator in (">=", ">", "<", "<="):
-        raise CheckError(f"invalid range term {term!r}")
-
     lower = range_lower(components, prerelease)
 
-    if operator in (">=", ">", "<", "<="):
-        if operator == ">=":
-            return compare_versions(version, lower) >= 0
-        if operator == ">":
-            return compare_versions(version, lower) > 0
-        if operator == "<=":
-            return compare_versions(version, lower) <= 0
+    if operator == ">=":
+        return compare_versions(version, lower) >= 0
+    if operator == ">":
+        return compare_versions(version, lower) > 0
+    if operator == "<=":
+        return compare_versions(version, lower) <= 0
+    if operator == "<":
         return compare_versions(version, lower) < 0
 
     if operator == "^":
-        major = components[0] if components and components[0] is not None else None
-        if major is None:
-            return True
-        upper = (major + 1, 0, 0, (MINIMAL_PRERELEASE,))
+        upper = (components[0] + 1, 0, 0, MINIMAL_PRERELEASE)
         return (
             compare_versions(version, lower) >= 0
             and compare_versions(version, upper) < 0
         )
 
     if operator == "~":
-        major = components[0] if components and components[0] is not None else None
-        if major is None:
-            return True
         minor = components[1] if specified >= 2 and components[1] is not None else 0
-        upper = (major, minor + 1, 0, (MINIMAL_PRERELEASE,))
+        upper = (components[0], minor + 1, 0, MINIMAL_PRERELEASE)
         return (
             compare_versions(version, lower) >= 0
             and compare_versions(version, upper) < 0
@@ -173,21 +190,14 @@ def term_matches(version_text, term):
     raise CheckError(f"unsupported operator {operator!r}")
 
 
-def range_matches(version_text, ranges):
-    candidates = ranges if isinstance(ranges, list) else [ranges]
-    if not candidates:
-        raise CheckError("empty dependency range")
-    groups = []
-    for candidate in candidates:
-        if not isinstance(candidate, str):
-            raise CheckError(f"invalid dependency range {candidate!r}")
-        terms = candidate.split()
-        if not terms:
-            raise CheckError(f"invalid dependency range {candidate!r}")
-        groups.append(terms)
+def ranges_match(version_text, groups):
     return any(
         all(term_matches(version_text, term) for term in terms) for terms in groups
     )
+
+
+def range_matches(version_text, ranges):
+    return ranges_match(version_text, parse_ranges(ranges))
 
 
 def format_range(ranges):
@@ -226,6 +236,42 @@ def provides_field(value):
     if isinstance(value, list):
         return [entry for entry in value if isinstance(entry, str) and entry]
     return []
+
+
+class Candidate:
+    __slots__ = (
+        "id",
+        "version",
+        "provides",
+        "depends",
+        "breaks",
+        "recommends",
+        "suggests",
+        "parent",
+        "nested",
+    )
+
+    def __init__(
+        self, mod_id, version, provides, depends, breaks, recommends, suggests, parent
+    ):
+        self.id = mod_id
+        self.version = version
+        self.provides = provides
+        self.depends = depends
+        self.breaks = breaks
+        self.recommends = recommends
+        self.suggests = suggests
+        self.parent = parent
+        self.nested = parent is not None
+
+    def identity(self):
+        return (
+            self.id,
+            self.version,
+            tuple(sorted(self.provides)),
+            json.dumps(self.depends, sort_keys=True),
+            json.dumps(self.breaks, sort_keys=True),
+        )
 
 
 def read_mod_metadata(jar_path):
@@ -287,7 +333,7 @@ def metadata_section(metadata, key):
     return value if isinstance(value, dict) else {}
 
 
-def collect_nested(archive, depth, entries):
+def collect_nested(archive, depth, parent, collected, known):
     if depth > NEST_LIMIT:
         return
     try:
@@ -300,6 +346,7 @@ def collect_nested(archive, depth, entries):
             nested_metadata = read_jar_metadata(payload)
         except (KeyError, ValueError, zipfile.BadZipFile, OSError):
             continue
+        candidate = None
         nested_id = nested_metadata.get("id")
         nested_version = nested_metadata.get("version")
         if (
@@ -308,27 +355,33 @@ def collect_nested(archive, depth, entries):
             and isinstance(nested_version, str)
             and nested_version
         ):
-            entries.append(
-                (
-                    nested_id,
-                    nested_version,
-                    provides_field(nested_metadata.get("provides")),
-                    metadata_section(nested_metadata, "depends"),
-                    metadata_section(nested_metadata, "breaks"),
-                )
+            candidate = Candidate(
+                nested_id,
+                nested_version,
+                provides_field(nested_metadata.get("provides")),
+                metadata_section(nested_metadata, "depends"),
+                metadata_section(nested_metadata, "breaks"),
+                metadata_section(nested_metadata, "recommends"),
+                metadata_section(nested_metadata, "suggests"),
+                parent,
             )
+            identity = candidate.identity()
+            existing = known.get(identity)
+            if existing is None:
+                known[identity] = candidate
+                collected.append(candidate)
+            else:
+                candidate = existing
         with zipfile.ZipFile(io.BytesIO(payload)) as inner:
-            collect_nested(inner, depth + 1, entries)
+            collect_nested(inner, depth + 1, candidate or parent, collected, known)
 
 
-def read_nested_metadata(jar_path):
-    entries = []
+def read_nested_candidates(jar_path, parent, collected, known):
     try:
         with zipfile.ZipFile(jar_path) as archive:
-            collect_nested(archive, 0, entries)
+            collect_nested(archive, 0, parent, collected, known)
     except (zipfile.BadZipFile, OSError):
         pass
-    return entries
 
 
 def loader_version(pack_directory, versions, loader):
@@ -379,16 +432,10 @@ def check_pack(pack_directory, temporary_directory):
     metafiles = (
         sorted(mods_directory.glob("*.pw.toml")) if mods_directory.is_dir() else []
     )
-    mods = {}
-    candidates = {}
-    nested_mods = []
-    seen_nested = set()
+    top_level = {}
+    nested = []
+    known = {}
     counter = 0
-
-    def add_candidate(mod_id, mod_version):
-        existing = candidates.setdefault(mod_id, [])
-        if mod_version not in existing:
-            existing.append(mod_version)
 
     for metafile in metafiles:
         counter += 1
@@ -420,49 +467,36 @@ def check_pack(pack_directory, temporary_directory):
                 suggests,
                 provides,
             ) = read_mod_metadata(destination)
-            nested_entries = read_nested_metadata(destination)
+            candidate = Candidate(
+                mod_id,
+                mod_version,
+                provides,
+                depends,
+                breaks,
+                recommends,
+                suggests,
+                None,
+            )
+            nested_start = len(nested)
+            read_nested_candidates(destination, candidate, nested, known)
         except (OSError, tomllib.TOMLDecodeError, CheckError) as error:
             problems.append(f"ERROR {metafile.relative_to(pack_directory)}: {error}")
             continue
-        if mod_id in mods and mods[mod_id]["version"] != mod_version:
-            problems.append(f"ERROR {metafile.name}: duplicate mod id {mod_id}")
+        existing = top_level.get(mod_id)
+        if existing is not None:
+            if existing.version != mod_version:
+                problems.append(f"ERROR {metafile.name}: duplicate mod id {mod_id}")
+            else:
+                del nested[nested_start:]
             continue
-        mods[mod_id] = {
-            "version": mod_version,
-            "depends": depends,
-            "breaks": breaks,
-            "recommends": recommends,
-            "suggests": suggests,
-        }
-        add_candidate(mod_id, mod_version)
-        for provided in provides:
-            add_candidate(provided, mod_version)
-        for (
-            nested_id,
-            nested_version,
-            nested_provides,
-            nested_depends,
-            nested_breaks,
-        ) in nested_entries:
-            add_candidate(nested_id, nested_version)
-            for provided in nested_provides:
-                add_candidate(provided, nested_version)
-            identity = (
-                nested_id,
-                nested_version,
-                json.dumps(nested_depends, sort_keys=True),
-                json.dumps(nested_breaks, sort_keys=True),
-            )
-            if identity in seen_nested:
-                continue
-            seen_nested.add(identity)
-            nested_mods.append(
-                (nested_id, nested_version, nested_depends, nested_breaks)
-            )
-    if any("java" in entry["depends"] for entry in mods.values()):
+        top_level[mod_id] = candidate
+    if any("java" in entry.depends for entry in top_level.values()):
         skips.append(
             "SKIP java dependencies (java version is provided by the launcher, not pinned in pack.toml)"
         )
+
+    mandatory = list(top_level.values())
+    mandatory_ids = {candidate.id for candidate in mandatory}
 
     range_cache = {}
 
@@ -471,7 +505,7 @@ def check_pack(pack_directory, temporary_directory):
         cached = range_cache.get(key)
         if cached is None:
             try:
-                cached = range_matches(version, ranges)
+                cached = ranges_match(version, parse_ranges(ranges))
             except CheckError as error:
                 cached = error
             range_cache[key] = cached
@@ -479,18 +513,77 @@ def check_pack(pack_directory, temporary_directory):
             raise cached
         return cached
 
+    chains = {}
+    for candidate in nested:
+        chain = []
+        current = candidate.parent
+        while current is not None and current.nested:
+            chain.append(current)
+            current = current.parent
+        chains[candidate] = tuple(chain)
+
+    def newest(candidate):
+        try:
+            parsed_version = parse_version(candidate.version)
+            orderable = 1
+        except CheckError:
+            parsed_version = (0, 0, 0, None)
+            orderable = 0
+        numbers = parsed_version[:3]
+        return (-orderable, -numbers[0], -numbers[1], -numbers[2], candidate.version)
+
+    def options_for(chosen):
+        taken = {candidate.id for candidate in chosen}
+        available = {}
+        for candidate in nested:
+            if candidate.id in taken or candidate.id in mandatory_ids:
+                continue
+            if all(ancestor in chosen for ancestor in chains[candidate]):
+                available.setdefault(candidate.id, []).append(candidate)
+        pending = []
+        for mod_id in sorted(available):
+            group = available[mod_id]
+            if len(group) > 1:
+                group = sorted(group, key=newest)
+            pending.append((mod_id, group))
+        pending.sort(key=lambda entry: (len(entry[1]), entry[0]))
+        return pending
+
+    def ambiguous(selection):
+        owners = {}
+        for candidate in selection:
+            for key in (candidate.id,) + tuple(candidate.provides):
+                owner = owners.get(key)
+                if owner is None:
+                    owners[key] = candidate
+                elif owner is not candidate:
+                    return key, owner, candidate
+        return None
+
+    clash = ambiguous(mandatory)
+    if clash is not None:
+        key, first, second = clash
+        problems.extend(report(set(mandatory)))
+        problems.append(
+            f"FAIL {key} is supplied by both {first.id} {first.version} and "
+            f"{second.id} {second.version} (ambiguous provides)"
+        )
+        return problems, skips, len(top_level)
+
     def evaluate(selection):
         found = []
         found_skips = []
+        available = {}
+        for candidate in selection:
+            for key in (candidate.id,) + tuple(candidate.provides):
+                available.setdefault(key, []).append(candidate.version)
 
         def present(dependency):
             if dependency == "minecraft":
                 return [minecraft_version]
             if dependency == "fabricloader":
                 return None if loader_version_value is None else [loader_version_value]
-            if dependency in selection:
-                return [selection[dependency]]
-            return []
+            return available.get(dependency, [])
 
         def resolve(mod_id, dependency, ranges, required):
             versions_present = present(dependency)
@@ -560,13 +653,26 @@ def check_pack(pack_directory, temporary_directory):
                     continue
                 check_break(mod_id, target, breaks[target])
 
-        for mod_id in sorted(mods):
-            entry = mods[mod_id]
-            inspect(mod_id, entry["depends"], entry["breaks"], entry)
-        for nested_id, nested_version, nested_depends, nested_breaks in nested_mods:
-            if selection.get(nested_id) != nested_version:
-                continue
-            inspect(nested_id, nested_depends, nested_breaks, {})
+        for candidate in sorted(
+            (entry for entry in selection if not entry.nested),
+            key=lambda entry: entry.id,
+        ):
+            inspect(
+                candidate.id,
+                candidate.depends,
+                candidate.breaks,
+                {"recommends": candidate.recommends, "suggests": candidate.suggests},
+            )
+        for candidate in nested:
+            if candidate in selection:
+                inspect(candidate.id, candidate.depends, candidate.breaks, {})
+        clash = ambiguous(selection)
+        if clash is not None:
+            key, first, second = clash
+            found.append(
+                f"FAIL {key} is supplied by both {first.id} {first.version} and "
+                f"{second.id} {second.version} (ambiguous provides)"
+            )
         return found, found_skips
 
     def report(selection):
@@ -576,43 +682,81 @@ def check_pack(pack_directory, temporary_directory):
                 skips.append(line)
         return found
 
-    fixed = {
-        mod_id: versions[0]
-        for mod_id, versions in candidates.items()
-        if len(versions) == 1
-    }
-    variable = [
-        mod_id for mod_id in sorted(candidates) if len(candidates[mod_id]) > 1
-    ]
-    selection = dict(fixed)
-    if not variable:
-        problems.extend(report(selection))
-    else:
-        found_selection = None
-        fewest = None
-        attempts = 0
-        for combination in itertools.product(
-            *[candidates[mod_id] for mod_id in variable]
-        ):
-            attempts += 1
-            if attempts > SEARCH_BUDGET:
+    def ambiguous(selection):
+        owners = {}
+        for candidate in selection:
+            for key in (candidate.id,) + tuple(candidate.provides):
+                owner = owners.get(key)
+                if owner is None:
+                    owners[key] = candidate
+                elif owner is not candidate:
+                    return key, owner, candidate
+        return None
+
+    clash = ambiguous(mandatory)
+    if clash is not None:
+        key, first, second = clash
+        problems.extend(report(mandatory))
+        problems.append(
+            f"FAIL {key} is supplied by both {first.id} {first.version} and "
+            f"{second.id} {second.version} (ambiguous provides)"
+        )
+        return problems, skips, len(top_level)
+
+    initial = options_for(frozenset())
+    variable = ", ".join(
+        f"{mod_id} ({'/'.join(candidate.version for candidate in group)})"
+        for mod_id, group in initial
+        if len(group) > 1
+    )
+    attempts = 0
+    steps = 0
+    exhausted = False
+    solution = None
+    fewest = None
+    stack = [((), None, None)]
+    while stack:
+        selection, pending, queue = stack[-1]
+        if pending is None:
+            steps += 1
+            if steps > SEARCH_BUDGET:
+                exhausted = True
                 break
-            candidate_selection = dict(fixed)
-            candidate_selection.update(zip(variable, combination))
-            found = report(candidate_selection)
-            if not found:
-                found_selection = candidate_selection
-                break
+            pending = options_for(set(selection))
+        if queue is None and pending:
+            stack[-1] = (selection, pending, list(reversed(pending[0][1])))
+            continue
+        if queue:
+            stack.append((selection + (queue.pop(),), None, None))
+            continue
+        stack.pop()
+        if pending:
+            continue
+        attempts += 1
+        if attempts > SEARCH_BUDGET:
+            exhausted = True
+            break
+        found = report(set(selection) | set(mandatory))
+        if found:
             if fewest is None or len(found) < len(fewest):
                 fewest = found
-        if found_selection is None:
+        else:
+            solution = True
+            break
+    if solution is None:
+        if exhausted and variable:
             problems.append(
-                "FAIL no consistent version selection exists for "
-                + ", ".join(f"{mod_id} ({'/'.join(candidates[mod_id])})" for mod_id in variable)
+                f"FAIL mod selection search budget of {SEARCH_BUDGET} attempts "
+                f"exceeded while searching for a consistent version selection "
+                f"for {variable}"
             )
-            if fewest is not None:
-                problems.extend(sorted(set(fewest)))
-    return problems, skips, len(mods)
+        elif variable:
+            problems.append(
+                f"FAIL no consistent version selection exists for {variable}"
+            )
+        if fewest is not None:
+            problems.extend(sorted(set(fewest)))
+    return problems, skips, len(top_level)
 
 
 def discover_pack_directories():
