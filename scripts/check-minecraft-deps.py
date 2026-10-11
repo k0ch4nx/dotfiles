@@ -372,7 +372,7 @@ def collect_nested(archive, depth, parent, collected, known):
                 collected.append(candidate)
             else:
                 for entry in candidate.parents:
-                    if entry not in existing.parents:
+                    if entry is not existing and entry not in existing.parents:
                         existing.parents = existing.parents + (entry,)
                 candidate = existing
         with zipfile.ZipFile(io.BytesIO(payload)) as inner:
@@ -516,19 +516,20 @@ def check_pack(pack_directory, temporary_directory):
             raise cached
         return cached
 
-    def adoptions(candidate, chosen, taken):
+    def adoptions(candidate, chosen, taken, visited):
         if candidate in chosen or not candidate.nested:
             return ((candidate,),)
-        if candidate.id in taken:
+        if candidate.id in taken or candidate in visited:
             return ()
         bundles = []
+        circled = visited | {candidate}
         for parent in candidate.parents:
-            if parent in chosen or parent.id in mandatory_ids:
+            if parent in chosen:
                 paths = [(candidate,)]
             else:
                 paths = [
                     (candidate,) + bundle
-                    for bundle in adoptions(parent, chosen, taken)
+                    for bundle in adoptions(parent, chosen, taken, circled)
                 ]
             for path in paths:
                 if path not in bundles:
@@ -552,7 +553,7 @@ def check_pack(pack_directory, temporary_directory):
         for candidate in nested:
             if candidate.id in taken or candidate.id in mandatory_ids:
                 continue
-            if not adoptions(candidate, chosen, taken):
+            if not adoptions(candidate, chosen, taken, frozenset()):
                 continue
             available.setdefault(candidate.id, []).append(candidate)
         pending = []
@@ -723,7 +724,7 @@ def check_pack(pack_directory, temporary_directory):
             choices = [
                 bundle
                 for candidate in pending[0][1]
-                for bundle in adoptions(candidate, chosen, taken)
+                for bundle in adoptions(candidate, chosen, taken, frozenset())
             ]
             stack[-1] = (selection, pending, list(reversed(choices)))
             continue
