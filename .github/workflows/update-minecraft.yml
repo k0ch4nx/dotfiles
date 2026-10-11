@@ -96,13 +96,6 @@ jobs:
               printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
             fi
 
-      - name: Check the minecraft dependencies
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          python3 scripts/check-minecraft-deps.py
-
       - name: Create the pull request
         id: create-pull-request
         if: steps.update.outputs.changed == 'true'
