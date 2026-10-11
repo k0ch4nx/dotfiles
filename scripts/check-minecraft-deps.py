@@ -247,7 +247,7 @@ class Candidate:
         "breaks",
         "recommends",
         "suggests",
-        "parent",
+        "parents",
         "nested",
     )
 
@@ -261,7 +261,7 @@ class Candidate:
         self.breaks = breaks
         self.recommends = recommends
         self.suggests = suggests
-        self.parent = parent
+        self.parents = () if parent is None else (parent,)
         self.nested = parent is not None
 
     def identity(self):
@@ -371,6 +371,9 @@ def collect_nested(archive, depth, parent, collected, known):
                 known[identity] = candidate
                 collected.append(candidate)
             else:
+                for entry in candidate.parents:
+                    if entry not in existing.parents:
+                        existing.parents = existing.parents + (entry,)
                 candidate = existing
         with zipfile.ZipFile(io.BytesIO(payload)) as inner:
             collect_nested(inner, depth + 1, candidate or parent, collected, known)
@@ -513,14 +516,25 @@ def check_pack(pack_directory, temporary_directory):
             raise cached
         return cached
 
-    chains = {}
-    for candidate in nested:
-        chain = []
-        current = candidate.parent
-        while current is not None and current.nested:
-            chain.append(current)
-            current = current.parent
-        chains[candidate] = tuple(chain)
+    def adoptions(candidate, chosen, taken):
+        if candidate in chosen or not candidate.nested:
+            return ((candidate,),)
+        if candidate.id in taken:
+            return ()
+        bundles = []
+        for parent in candidate.parents:
+            if parent in chosen or parent.id in mandatory_ids:
+                paths = [(candidate,)]
+            else:
+                paths = [
+                    (candidate,) + bundle
+                    for bundle in adoptions(parent, chosen, taken)
+                ]
+            for path in paths:
+                if path not in bundles:
+                    bundles.append(path)
+        bundles.sort(key=len)
+        return tuple(bundles)
 
     def newest(candidate):
         try:
@@ -538,8 +552,9 @@ def check_pack(pack_directory, temporary_directory):
         for candidate in nested:
             if candidate.id in taken or candidate.id in mandatory_ids:
                 continue
-            if all(ancestor in chosen for ancestor in chains[candidate]):
-                available.setdefault(candidate.id, []).append(candidate)
+            if not adoptions(candidate, chosen, taken):
+                continue
+            available.setdefault(candidate.id, []).append(candidate)
         pending = []
         for mod_id in sorted(available):
             group = available[mod_id]
@@ -548,27 +563,6 @@ def check_pack(pack_directory, temporary_directory):
             pending.append((mod_id, group))
         pending.sort(key=lambda entry: (len(entry[1]), entry[0]))
         return pending
-
-    def ambiguous(selection):
-        owners = {}
-        for candidate in selection:
-            for key in (candidate.id,) + tuple(candidate.provides):
-                owner = owners.get(key)
-                if owner is None:
-                    owners[key] = candidate
-                elif owner is not candidate:
-                    return key, owner, candidate
-        return None
-
-    clash = ambiguous(mandatory)
-    if clash is not None:
-        key, first, second = clash
-        problems.extend(report(set(mandatory)))
-        problems.append(
-            f"FAIL {key} is supplied by both {first.id} {first.version} and "
-            f"{second.id} {second.version} (ambiguous provides)"
-        )
-        return problems, skips, len(top_level)
 
     def evaluate(selection):
         found = []
@@ -724,10 +718,17 @@ def check_pack(pack_directory, temporary_directory):
                 break
             pending = options_for(set(selection))
         if queue is None and pending:
-            stack[-1] = (selection, pending, list(reversed(pending[0][1])))
+            chosen = set(selection)
+            taken = {candidate.id for candidate in selection}
+            choices = [
+                bundle
+                for candidate in pending[0][1]
+                for bundle in adoptions(candidate, chosen, taken)
+            ]
+            stack[-1] = (selection, pending, list(reversed(choices)))
             continue
         if queue:
-            stack.append((selection + (queue.pop(),), None, None))
+            stack.append((selection + queue.pop(), None, None))
             continue
         stack.pop()
         if pending:
@@ -744,11 +745,11 @@ def check_pack(pack_directory, temporary_directory):
             solution = True
             break
     if solution is None:
-        if exhausted and variable:
+        if exhausted:
             problems.append(
                 f"FAIL mod selection search budget of {SEARCH_BUDGET} attempts "
-                f"exceeded while searching for a consistent version selection "
-                f"for {variable}"
+                f"exceeded while searching for a consistent version selection"
+                + (f" for {variable}" if variable else "")
             )
         elif variable:
             problems.append(
