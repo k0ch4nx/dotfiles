@@ -469,31 +469,6 @@ function run_packwiz() {
 
 function pack_files() {
     local pack_directory="$1"
-    local files
-
-    if files="$(
-        python3 - "${pack_directory}/index.toml" <<'PYTHON' 2>/dev/null
-import sys
-import tomllib
-
-with open(sys.argv[1], 'rb') as handle:
-    index = tomllib.load(handle)
-
-for entry in index.get('files', []):
-    if not isinstance(entry, dict):
-        continue
-
-    path = entry.get('file')
-
-    if isinstance(path, str) and path.endswith('.pw.toml'):
-        print(path)
-PYTHON
-    )"; then
-        if [[ -n "${files}" ]]; then
-            printf '%s\n' "${files}"
-            return 0
-        fi
-    fi
 
     find "${pack_directory}" -type f -name '*.pw.toml' -print | LC_ALL=C sort
 }
@@ -526,33 +501,6 @@ function update_packs() {
             run_packwiz refresh
         )
     done
-}
-
-function verify_packs() {
-    local repository="$1"
-    local checker="${repository}/scripts/check-minecraft-deps.py"
-    local pack_directory
-    local packs=()
-
-    if [[ ! -f "${checker}" ]]; then
-        if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
-            printf 'Expected the dependency checker at %s\n' "${checker}" >&2
-            exit 1
-        fi
-
-        printf 'warning: %s does not exist; skipping the dependency check\n' "${checker}" >&2
-        return 0
-    fi
-
-    while read -r pack_directory; do
-        packs+=("${pack_directory}")
-    done < <(pack_directories)
-
-    if (( ${#packs[@]} == 0 )); then
-        return 0
-    fi
-
-    python3 "${checker}" "${packs[@]}"
 }
 
 function replace_if_changed() {
@@ -643,7 +591,8 @@ function lock_unavailable() {
 
 function acquire_update_lock() {
     local lock
-    local status
+    local attempt
+    local holder
 
     lock="$(update_lock_path)"
 
@@ -651,30 +600,57 @@ function acquire_update_lock() {
         lock_unavailable "${lock}" 'the lock directory could not be created'
     fi
 
-    if [[ -d "${lock}" || -L "${lock}" ]]; then
-        rm -rf -- "${lock}"
-    fi
+    attempt=0
 
-    if ! { exec 9>"${lock}"; } 2>/dev/null; then
-        lock_unavailable "${lock}" 'the lock file could not be created'
-    fi
-
-    status=0
-    python3 -c 'import fcntl
-fcntl.flock(9, fcntl.LOCK_EX | fcntl.LOCK_NB)' 9>&9 2>/dev/null || status=$?
-
-    if ((status != 0)); then
-        if { : >&9; } 2>/dev/null; then
-            exec 9>&-
+    while :; do
+        if mkdir -- "${lock}" 2>/dev/null; then
+            break
         fi
 
-        lock_unavailable "${lock}" 'another update is running'
+        holder=''
+        if [[ -f "${lock}/pid" ]]; then
+            read -r holder <"${lock}/pid" || holder=''
+        fi
+
+        if [[ -d "${lock}" && -f "${lock}/pid" ]] && ! kill -0 "${holder}" 2>/dev/null; then
+            rm -rf -- "${lock}" 2>/dev/null || true
+        fi
+
+        attempt=$((attempt + 1))
+
+        if ((attempt >= 3)); then
+            lock_unavailable "${lock}" 'another update is running'
+        fi
+    done
+
+    if ! printf '%s\n' "$$" >"${lock}/pid" 2>/dev/null; then
+        lock_unavailable "${lock}" 'the lock could not be claimed'
+    fi
+
+    holder=''
+
+    if [[ -f "${lock}/pid" ]]; then
+        read -r holder <"${lock}/pid" || holder=''
+    fi
+
+    if [[ ! -d "${lock}" || "${holder}" != "$$" ]] || ! kill -0 "$$" 2>/dev/null; then
+        lock_unavailable "${lock}" 'the lock was acquired twice'
     fi
 }
 
 function release_update_lock() {
-    if { : >&9; } 2>/dev/null; then
-        exec 9>&-
+    local lock
+    local holder
+
+    lock="$(update_lock_path)"
+    holder=''
+
+    if [[ -f "${lock}/pid" ]]; then
+        read -r holder <"${lock}/pid" || holder=''
+    fi
+
+    if [[ -d "${lock}" && "${holder}" == "$$" ]]; then
+        rm -rf -- "${lock}"
     fi
 }
 
@@ -887,7 +863,6 @@ function update_minecraft() (
     write_loaders >"${loaders_temporary}"
     update_packs
     write_installers >"${installers_temporary}"
-    verify_packs "${repository}"
 
     cd -- "${repository}"
 
