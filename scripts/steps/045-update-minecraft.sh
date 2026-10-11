@@ -643,9 +643,7 @@ function lock_unavailable() {
 
 function acquire_update_lock() {
     local lock
-    local holder
-    local tombstone
-    local attempts=0
+    local status
 
     lock="$(update_lock_path)"
 
@@ -653,50 +651,30 @@ function acquire_update_lock() {
         lock_unavailable "${lock}" 'the lock directory could not be created'
     fi
 
-    while ((attempts < 3)); do
-        attempts=$((attempts + 1))
+    if [[ -d "${lock}" || -L "${lock}" ]]; then
+        rm -rf -- "${lock}"
+    fi
 
-        if [[ ! -e "${lock}" && ! -L "${lock}" ]]; then
-            if ln -s -- "$$" "${lock}" 2>/dev/null; then
-                LOCK_TARGET="${lock}"
-                return 0
-            fi
+    if ! { exec 9>"${lock}"; } 2>/dev/null; then
+        lock_unavailable "${lock}" 'the lock file could not be created'
+    fi
 
-            continue
+    status=0
+    python3 -c 'import fcntl
+fcntl.flock(9, fcntl.LOCK_EX | fcntl.LOCK_NB)' 9>&9 2>/dev/null || status=$?
+
+    if ((status != 0)); then
+        if { : >&9; } 2>/dev/null; then
+            exec 9>&-
         fi
 
-        holder=''
-
-        if [[ -L "${lock}" ]]; then
-            holder="$(readlink -- "${lock}" 2>/dev/null || true)"
-        fi
-
-        if [[ -n "${holder}" && "${holder}" != "$$" ]] && kill -0 "${holder}" 2>/dev/null; then
-            lock_unavailable "${lock}" 'another update is running'
-        fi
-
-        tombstone="${lock}.stale.$$.${attempts}"
-
-        if mv -- "${lock}" "${tombstone}" 2>/dev/null; then
-            rm -rf -- "${tombstone}" 2>/dev/null || true
-            continue
-        fi
-    done
-
-    lock_unavailable "${lock}" 'another update is running'
+        lock_unavailable "${lock}" 'another update is running'
+    fi
 }
 
 function release_update_lock() {
-    local holder
-
-    if [[ -n "${LOCK_TARGET:-}" ]]; then
-        holder="$(readlink -- "${LOCK_TARGET}" 2>/dev/null || true)"
-
-        if [[ -z "${holder}" || "${holder}" == "$$" ]]; then
-            rm -f -- "${LOCK_TARGET}"
-        fi
-
-        LOCK_TARGET=''
+    if { : >&9; } 2>/dev/null; then
+        exec 9>&-
     fi
 }
 
@@ -740,9 +718,23 @@ function publish_minecraft() (
 
         restored="$(mktemp -d)" || return 1
 
-        if cp -R -- "${backup}" "${restored}/minecraft"; then
-            rm -rf -- minecraft || true
-            mv -- "${restored}/minecraft" minecraft 2>/dev/null || true
+        if ! cp -R -- "${backup}" "${restored}/minecraft"; then
+            rm -rf -- "${restored}" || true
+            return 1
+        fi
+
+        if ! mv -- minecraft "${restored}/retired"; then
+            rm -rf -- "${restored}" || true
+            return 1
+        fi
+
+        if ! mv -- "${restored}/minecraft" minecraft; then
+            if ! mv -- "${restored}/retired" minecraft 2>/dev/null; then
+                cp -R -- "${restored}/retired" minecraft 2>/dev/null || true
+            fi
+
+            rm -rf -- "${restored}" || true
+            return 1
         fi
 
         rm -rf -- "${restored}" || true
@@ -755,7 +747,7 @@ function publish_minecraft() (
 
         target="${TMPDIR:-/tmp}/minecraft-restore-backup.$$.$(date +%s)"
 
-        if mv -- "${backup}" "${target}" 2>/dev/null; then
+        if ( cd -- "${backup_root}" && cp -R -- minecraft "${target}" ); then
             preserved="${target}"
             return 0
         fi
@@ -773,17 +765,20 @@ function publish_minecraft() (
         trap - EXIT
 
         if ((backup_ready == 1)); then
-            restore_minecraft
-
-            if [[ "$(tree_hash minecraft)" != "${original}" ]]; then
-                if preserve_backup; then
-                    printf 'error: the committed minecraft data could not be restored; kept the backup at %s\n' "${preserved}" >&2
-                else
-                    printf 'error: the committed minecraft data could not be restored and the backup %s could not be kept\n' "${backup}" >&2
-                fi
-
+            if ! preserve_backup; then
+                printf 'error: the committed minecraft data could not be restored and the backup %s could not be kept\n' "${backup}" >&2
                 exit 1
             fi
+
+            if restore_minecraft && [[ "$(tree_hash minecraft)" == "${original}" ]]; then
+                rm -rf -- "${preserved}" || true
+
+                printf 'error: the minecraft update failed; kept the committed minecraft data\n' >&2
+                exit 1
+            fi
+
+            printf 'error: the committed minecraft data could not be restored; kept the backup at %s\n' "${preserved}" >&2
+            exit 1
         fi
 
         printf 'error: the minecraft update failed; kept the committed minecraft data\n' >&2
