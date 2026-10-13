@@ -1,0 +1,22 @@
+--- a/src/actor/app.rs
++++ b/src/actor/app.rs
+@@ -11,7 +11,7 @@
+ use std::time::{Duration, Instant};
+ 
+ use objc2::rc::Retained;
+-use objc2_app_kit::NSRunningApplication;
++use objc2_app_kit::{NSApplicationActivationPolicy, NSRunningApplication};
+ use objc2_application_services::AXError;
+ #[cfg(test)]
+ use objc2_core_foundation::CGPoint;
+@@ -2334,7 +2334,9 @@
+         info!(?pid, ?bundle_id, "Could not get ProcessInfo; exiting app thread");
+         return;
+     };
+-    if process_info.is_xpc {
++    if process_info.is_xpc
++        && running_app.activationPolicy() != NSApplicationActivationPolicy::Regular
++    {
+         // XPC processes are not supposed to have windows so at best they are
+         // extra work and noise. Worse, Apple's QuickLookUIService reports
+         // having standard windows (these seem to be for Finder previews), but
