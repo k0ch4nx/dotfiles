@@ -111,6 +111,11 @@
         subdir = "skills";
       };
 
+      yomiyasu = {
+        input = "yomiyasu";
+        subdir = "skills";
+      };
+
       openai-skills = {
         input = "openai-skills";
         subdir = "skills/.curated";

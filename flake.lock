@@ -692,7 +692,8 @@
         "system-manager": "system-manager",
         "terminal-browser": "terminal-browser",
         "trailofbits-skills": "trailofbits-skills",
-        "wshobson-agents": "wshobson-agents"
+        "wshobson-agents": "wshobson-agents",
+        "yomiyasu": "yomiyasu"
       }
     },
     "spring-boot-skills": {
@@ -895,6 +896,23 @@
         "shallow": true,
         "type": "git",
         "url": "https://github.com/wshobson/agents.git"
+      }
+    },
+    "yomiyasu": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791863709,
+        "narHash": "sha256-hBM4uV/otDc5YlHGW8GNze9v7EOuj+zbxArxk04MCrQ=",
+        "ref": "refs/heads/main",
+        "rev": "60bf877acebc86651e0b67d70112a66245f87758",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/nanaism/yomiyasu.git"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/nanaism/yomiyasu.git"
       }
     }
   },

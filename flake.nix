@@ -143,5 +143,9 @@
       url = "git+https://github.com/wshobson/agents.git?shallow=1";
       flake = false;
     };
+    yomiyasu = {
+      url = "git+https://github.com/nanaism/yomiyasu.git?shallow=1";
+      flake = false;
+    };
   };
 }

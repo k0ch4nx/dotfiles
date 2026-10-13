@@ -58,6 +58,11 @@ in
         flake = false;
       };
 
+      yomiyasu = {
+        url = "git+https://github.com/nanaism/yomiyasu.git?shallow=1";
+        flake = false;
+      };
+
       dot-skills = {
         url = "git+https://github.com/pproenca/dot-skills.git?shallow=1";
         flake = false;
