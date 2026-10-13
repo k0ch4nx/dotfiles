@@ -83,11 +83,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1788342924,
-        "narHash": "sha256-Sfyygt2dL88+160d014gaXMlWTGIL2HGxlIzLGsGPvE=",
+        "lastModified": 1791920352,
+        "narHash": "sha256-Zbd0CGR2Dh9USbYglGXQ09FJXxxKkD5w5vi99nlz1yE=",
         "owner": "numtide",
         "repo": "blueprint",
-        "rev": "8be75245e274a789b87cc4df542abbcd8c5e7f93",
+        "rev": "2bf123541bd5024046f32299c9f8a6cc6bdd8a9f",
         "type": "github"
       },
       "original": {
@@ -201,10 +201,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1791898006,
-        "narHash": "sha256-I6vRwFsfsI3RXYJWYPp0wRYTJ0Cp0fUBGKDBDOj0G6g=",
+        "lastModified": 1791917915,
+        "narHash": "sha256-Fix6QLoS6eEobE/M1Z1WZuL+AOhmArcLdVZXjPa/9co=",
         "ref": "refs/heads/main",
-        "rev": "3b4ec85cfe6dddc62564db6783593ca1cc293cd0",
+        "rev": "9de888b8ce55da34e76a113bd7b2d463d6b3e1e6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -250,11 +250,11 @@
     },
     "flake-file": {
       "locked": {
-        "lastModified": 1791840448,
-        "narHash": "sha256-u10FOsDRA1GMRcn1+hYf2eD1K+LP/F9/+AeErkKraPg=",
+        "lastModified": 1791921652,
+        "narHash": "sha256-IunIcPxJCww7NqKxRMANF7G9lOWdrCX03upD5LWVMTI=",
         "owner": "denful",
         "repo": "flake-file",
-        "rev": "d3600508b0b031221459f7358ab88c438a81ac83",
+        "rev": "9da57b7af20b60011178b70ff660fddae69506db",
         "type": "github"
       },
       "original": {
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1791911219,
-        "narHash": "sha256-D2pskDwo8KftTCqwi5402FsC5qZ0CcrZUwwYQcT7nKM=",
+        "lastModified": 1791925004,
+        "narHash": "sha256-++goVyPn/dZ0nuNM+h7VpGmXBJJNOWqNVglE2rsadB0=",
         "ref": "refs/heads/main",
-        "rev": "f76d47591d912770037656990c965eb193fdd73e",
+        "rev": "42c51822084ac25cd5d97ac0023822c5235f88c8",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1791908459,
-        "narHash": "sha256-ypA7NeyhRCKOCXSn16azrXPAocjv6+G1TGFchPwImDY=",
+        "lastModified": 1791923978,
+        "narHash": "sha256-O0eNY2N3U5wxx+3yY4fePixNNAo9wxpVgoPRd193nUI=",
         "ref": "refs/heads/main",
-        "rev": "4601752b28d601d54efb39b06a37488107fc6b1f",
+        "rev": "56b016c3db73bec44dcb0e2baccf155e45b9f5ef",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1791895923,
-        "narHash": "sha256-XxGPHDTwN57LtQTFldjmJ8Riq3jE0tl3tdI0G1tQlL0=",
+        "lastModified": 1791930534,
+        "narHash": "sha256-Zli7yUmIU1GDhuGvTddGU2KvoIHsytC3lD+q85T7f+s=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "174d851a8a4923e274aa49c44d2ba7853acb87f3",
+        "rev": "3745c4a54a96dc3f8906540e93f9ab4bd5e8b3c3",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1791912521,
-        "narHash": "sha256-omkOAO7bcIVhmgHzsXqX0UrNY34InGtCwn0PQqn7ZoU=",
+        "lastModified": 1791930748,
+        "narHash": "sha256-qSMK/wXIpVf6T4EBYsWJVSKD08pNjAxn1EHyex6guhU=",
         "ref": "refs/heads/main",
-        "rev": "584074cab6da238ee25eea47676064cd52bbb891",
+        "rev": "83e694c1f45f9bd09577af83b1ece52256fed709",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
