@@ -13,6 +13,8 @@ in
   rift-wm = prev.rift-wm.overrideAttrs (old: {
     inherit version src;
 
+    patches = (old.patches or [ ]) ++ [ ./patches/rift/regular-xpc-apps.patch ];
+
     cargoDeps = prev.rustPlatform.fetchCargoVendor {
       inherit src;
       name = "rift-wm-${version}";
