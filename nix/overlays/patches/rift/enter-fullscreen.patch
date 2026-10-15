@@ -1,0 +1,105 @@
+--- a/crates/rift-protocol/src/commands.rs
++++ b/crates/rift-protocol/src/commands.rs
+@@ -50,6 +50,7 @@
+     ToggleWindowFloatingWithOptions(ToggleWindowFloatingOptions),
+     ToggleFullscreen,
+     ToggleFullscreenWithinGaps,
++    EnterFullscreenWithinGaps,
+     ResizeWindowGrow(ResizeOrientation),
+     ResizeWindowShrink(ResizeOrientation),
+     ResizeWindowBy {
+--- a/src/layout_engine/engine.rs
++++ b/src/layout_engine/engine.rs
+@@ -2066,18 +2066,23 @@
+             return EventResponse::default();
+         }
+ 
+-        if let LayoutCommand::ToggleFullscreen | LayoutCommand::ToggleFullscreenWithinGaps =
+-            &command
++        if let LayoutCommand::ToggleFullscreen
++        | LayoutCommand::ToggleFullscreenWithinGaps
++        | LayoutCommand::EnterFullscreenWithinGaps = &command
+             && is_floating
+         {
+             let Some(wid) = self.focused_window else {
+                 return EventResponse::default();
+             };
+             let target = match command {
+-                LayoutCommand::ToggleFullscreenWithinGaps => FloatingFullscreenKind::WithinGaps,
++                LayoutCommand::ToggleFullscreenWithinGaps
++                | LayoutCommand::EnterFullscreenWithinGaps => FloatingFullscreenKind::WithinGaps,
+                 _ => FloatingFullscreenKind::Full,
+             };
+             if self.floating.fullscreen_kind(wid) == Some(target) {
++                if matches!(command, LayoutCommand::EnterFullscreenWithinGaps) {
++                    return EventResponse::default();
++                }
+                 self.floating.set_fullscreen(wid, None);
+             } else {
+                 // Only save the pre-fullscreen frame when switching from a non-fullscreen state,
+@@ -2326,6 +2331,21 @@
+                 let raise_windows = self.workspaces[workspace_id]
+                     .layout_system
+                     .toggle_fullscreen_within_gaps_of_selection(layout);
++                if raise_windows.is_empty() {
++                    EventResponse::default()
++                } else {
++                    EventResponse {
++                        changed: true,
++                        raise_windows,
++                        focus_window: None,
++                        boundary_hit: None,
++                    }
++                }
++            }
++            LayoutCommand::EnterFullscreenWithinGaps => {
++                let raise_windows = self.workspaces[workspace_id]
++                    .layout_system
++                    .enter_fullscreen_within_gaps_of_selection(layout);
+                 if raise_windows.is_empty() {
+                     EventResponse::default()
+                 } else {
+--- a/src/layout_engine/systems/scrolling.rs
++++ b/src/layout_engine/systems/scrolling.rs
+@@ -1953,6 +1953,16 @@
+         self.toggle_fullscreen(layout, true)
+     }
+ 
++    fn enter_fullscreen_within_gaps_of_selection(&mut self, layout: LayoutId) -> Vec<WindowId> {
++        let already = self.layouts.get(layout).is_some_and(|state| {
++            state.selected().is_some_and(|wid| state.fullscreen_within_gaps.contains(&wid))
++        });
++        if already {
++            return Vec::new();
++        }
++        self.toggle_fullscreen(layout, true)
++    }
++
+     fn has_any_fullscreen_node(&self, layout: LayoutId) -> bool {
+         self.layouts
+             .get(layout)
+--- a/src/layout_engine/systems.rs
++++ b/src/layout_engine/systems.rs
+@@ -271,6 +271,9 @@
+ 
+     fn toggle_fullscreen_of_selection(&mut self, layout: LayoutId) -> Vec<WindowId>;
+     fn toggle_fullscreen_within_gaps_of_selection(&mut self, layout: LayoutId) -> Vec<WindowId>;
++    fn enter_fullscreen_within_gaps_of_selection(&mut self, _layout: LayoutId) -> Vec<WindowId> {
++        Vec::new()
++    }
+     fn has_any_fullscreen_node(&self, layout: LayoutId) -> bool;
+ 
+     fn join_selection_with_direction(&mut self, _layout: LayoutId, _direction: Direction) {}
+@@ -358,6 +361,12 @@
+             layout: LayoutId,
+         ) -> Vec<WindowId> {
+             self.inner.toggle_fullscreen_within_gaps_of_selection(layout)
++        }
++        fn enter_fullscreen_within_gaps_of_selection(
++            &mut self,
++            layout: LayoutId,
++        ) -> Vec<WindowId> {
++            self.inner.enter_fullscreen_within_gaps_of_selection(layout)
+         }
+         fn has_any_fullscreen_node(&self, layout: LayoutId) -> bool {
+             self.inner.has_any_fullscreen_node(layout)
