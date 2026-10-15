@@ -66,15 +66,13 @@ workspace_names = ["1", "2", "3", "4", "5"]
 "Alt + Shift + 4" = { move_window_to_workspace = 3 }
 "Alt + Shift + 5" = { move_window_to_workspace = 4 }
 "Alt + Tab" = "switch_to_last_workspace"
+"Alt + N" = "next_workspace"
+"Alt + P" = "prev_workspace"
 "Alt + H" = { move_focus = "left" }
 "Alt + L" = { move_focus = "right" }
 "Alt + Shift + H" = { move_node = "left" }
 "Alt + Shift + L" = { move_node = "right" }
-"Alt + F" = "toggle_fullscreen_within_gaps"
+"Alt + F" = "enter_fullscreen_within_gaps"
 "Alt + T" = { toggle_window_floating = { center = true } }
-"Alt + R" = { binding_mode = "resize" }
-
-[binding_modes.resize]
-"L" = { resize_window_grow = "horizontal" }
-"H" = { resize_window_shrink = "horizontal" }
-"Escape" = { binding_mode = "default" }
+"Ctrl + Cmd + H" = { resize_window_shrink = "horizontal" }
+"Ctrl + Cmd + L" = { resize_window_grow = "horizontal" }
