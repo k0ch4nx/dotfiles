@@ -14,7 +14,7 @@ metafile = true
 
 [[files]]
 file = "mods/c2me-fabric.pw.toml"
-hash = "de10bdef8fb648f67d5872522993e60902c3d87c6a45102466f2d2c7710e5ccc"
+hash = "f20e4f913819c95adec0c962a28c9a68d19cf6b3f68a3c26230bd086e840f06c"
 hash-format = "sha256"
 metafile = true
 
@@ -116,7 +116,7 @@ metafile = true
 
 [[files]]
 file = "mods/sodium.pw.toml"
-hash = "95b014c29351598261257614a55955215bba353a93593b2050cb07da295d3302"
+hash = "0bf314c578473659bd89915114cac8e60994988f405218726a48d35b06e9316c"
 hash-format = "sha256"
 metafile = true
 
