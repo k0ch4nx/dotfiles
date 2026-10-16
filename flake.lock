@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1792120498,
-        "narHash": "sha256-Uiwd4fH6YYU7peK+43Ql5XCtqYdMrfcqvxQUOHZrAnc=",
+        "lastModified": 1792161445,
+        "narHash": "sha256-hzX1f3eSSh798ijn5/U9TzNpkcZE+kSUjZirGyWkBz0=",
         "ref": "refs/heads/main",
-        "rev": "40918d59f53ad2777d6a61d570c52ecc033ab9c9",
+        "rev": "f3c23580e41d6b6c5d49f174e33763dcac8ea985",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1792115921,
-        "narHash": "sha256-9zf8NvRNhLLSVLQnPG0Thecuj5+VgrKcbQXlMaij10Y=",
+        "lastModified": 1792167340,
+        "narHash": "sha256-6tc9O0+k3UvebFSL3dhbtO5EU9PVh8FVyI2lP/xNs2c=",
         "ref": "refs/heads/main",
-        "rev": "b25669d84e1a404e30c176d779e732e25dafcec0",
+        "rev": "9656cff4aca74ebd158506c94927c70e9f8e46fb",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1792152928,
-        "narHash": "sha256-ahsKVt3JvZF06aUP373lGJ0EWZF+gmEVbVEpHE4LcQA=",
+        "lastModified": 1792171066,
+        "narHash": "sha256-uf2v77mMAvINkPrF0gJ8DzkT+U0VZpP93sMF+VGLqhk=",
         "ref": "refs/heads/main",
-        "rev": "97e77ff7eaa5f04f519e12d65c121a31682bf6cd",
+        "rev": "6f281b1d07277b3fede4b25c9f3a9fe996e62da7",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -901,10 +901,10 @@
     "yomiyasu": {
       "flake": false,
       "locked": {
-        "lastModified": 1792140292,
-        "narHash": "sha256-M1yr4+/1IfZWQDyRbqFZMsNWYBT90UGgj4y7qcnkQtU=",
+        "lastModified": 1792162214,
+        "narHash": "sha256-Q+/UajpxZks496j0WZ4/8d1L20pHD/XfnThQOt5Uupw=",
         "ref": "refs/heads/main",
-        "rev": "b8ddf6e5c044d7a3e24ae5db64852465e7bd6cd3",
+        "rev": "68075bea91ae27958766effd6aaa56d42d6be125",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nanaism/yomiyasu.git"
