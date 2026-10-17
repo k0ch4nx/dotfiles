@@ -265,7 +265,9 @@ let
       baseDir=${lib.escapeShellArg cfg.baseDir}
       launcherProfiles="$baseDir/launcher_profiles.json"
       pgrepBin=${pgrepPath}
-      lockPath="''${TMPDIR:-/tmp}/minecraft-provision-$(id -u).lock"
+      lockPath="$baseDir/.minecraft-provision.lock"
+
+      mkdir -p "$baseDir"
 
       if ! exec 9>"$lockPath"; then
         echo "warning: could not open the lock file $lockPath; skipping profile registration" >&2
@@ -312,18 +314,34 @@ let
         fi
       }
 
+      validProfiles() {
+        jq -e -s '
+          length == 1 and
+          (.[0] | type == "object") and
+          (.[0].profiles == null or (.[0].profiles | type == "object")) and
+          (.[0].profiles == null or all(.[0].profiles[]; type == "object"))
+        ' "$launcherProfiles" >/dev/null 2>&1
+      }
+
       ${loaderFunctions}
+
+      if [[ -f "$launcherProfiles" ]] && ! validProfiles; then
+        echo "warning: $launcherProfiles is not a valid launcher profile store; leaving it unchanged" >&2
+        exit 0
+      fi
 
       backedUp=0
 
       ${lib.optionalString loaderWritesProfiles ''
-        if ! launcherRunning; then
-          if ! backupProfiles; then
-            echo "warning: could not back up $launcherProfiles; skipping profile registration" >&2
-            exit 0
-          fi
-          backedUp=1
+        if launcherRunning; then
+          echo "warning: Minecraft launcher is running; skipping profile registration" >&2
+          exit 0
         fi
+        if ! backupProfiles; then
+          echo "warning: could not back up $launcherProfiles; skipping profile registration" >&2
+          exit 0
+        fi
+        backedUp=1
       ''}
 
       ${loaderCalls}
@@ -338,12 +356,7 @@ let
         exit 0
       fi
 
-      if ! jq -e -s '
-        length == 1 and
-        (.[0] | type == "object") and
-        (.[0].profiles == null or (.[0].profiles | type == "object")) and
-        (.[0].profiles == null or all(.[0].profiles[]; type == "object"))
-      ' "$launcherProfiles" >/dev/null 2>&1; then
+      if ! validProfiles; then
         echo "warning: $launcherProfiles is not a valid launcher profile store; leaving it unchanged" >&2
         exit 0
       fi
@@ -355,6 +368,7 @@ let
       cleanup() {
         [[ -z "$work" ]] || rm -f "$work"
         [[ -z "$next" ]] || rm -f "$next"
+        rm -f "$launcherProfiles.bak.tmp"
         return 0
       }
       trap cleanup EXIT
