@@ -8,6 +8,14 @@
 let
   cfg = config.minecraft;
 
+  customProfiles = lib.filterAttrs (_: profile: profile.type == "custom") cfg.profiles;
+
+  builtinProfiles = lib.filterAttrs (_: profile: profile.type != "custom") cfg.profiles;
+
+  builtinTypeCounts = lib.foldl' (
+    counts: profile: counts // { ${profile.type} = (counts.${profile.type} or 0) + 1; }
+  ) { } (lib.attrValues builtinProfiles);
+
   minecraftDir = ../../../minecraft;
 
   installers = import ../../../minecraft/installers.nix;
@@ -72,7 +80,7 @@ let
         file = fetchPwToml path;
       }
     ) (findPwTomlFiles root)
-  ) cfg.profiles;
+  ) customProfiles;
 
   homeRelative =
     path:
@@ -122,7 +130,7 @@ let
     lib.mapAttrsToList (name: profile: {
       inherit (profile) loader mcVersion;
       loaderVersion = profileLoaderVersion name profile;
-    }) (lib.filterAttrs (_: profile: profile.loader != "vanilla") cfg.profiles)
+    }) (lib.filterAttrs (_: profile: profile.loader != "vanilla") customProfiles)
   );
 
   usedLoaders = lib.unique (map (install: install.loader) loaderInstalls);
@@ -217,6 +225,10 @@ let
     loader: loaderSupport.${loader}.function
   ) usedLoaders;
 
+  loaderWritesProfiles = lib.any (
+    install: loaderSupport.${install.loader}.writesLauncherProfiles
+  ) loaderInstalls;
+
   loaderCalls = lib.concatMapStringsSep "\n" (
     install:
     let
@@ -225,7 +237,7 @@ let
     in
     if support.writesLauncherProfiles then
       ''
-        if [[ "$launcherRunning" == 1 ]]; then
+        if launcherRunning; then
           echo "warning: Minecraft launcher is running; skipping the ${install.loader} installer" >&2
         else
           ${installerCommand}
@@ -243,6 +255,7 @@ let
 
     runtimeInputs = [
       pkgs.coreutils
+      pkgs.flock
       pkgs.jdk
       pkgs.jq
     ]
@@ -251,27 +264,90 @@ let
     text = ''
       baseDir=${lib.escapeShellArg cfg.baseDir}
       launcherProfiles="$baseDir/launcher_profiles.json"
-
-      launcherRunning=0
       pgrepBin=${pgrepPath}
+      lockPath="$baseDir/.minecraft-provision.lock"
 
-      if [[ ! -x "$pgrepBin" ]]; then
-        echo "warning: pgrep is not available; assuming the Minecraft launcher may be running" >&2
-        launcherRunning=1
-      elif "$pgrepBin" -f "Minecraft.app/Contents/MacOS/launcher" >/dev/null 2>&1 || "$pgrepBin" -f '^[^ ]*[m]inecraft-launcher' >/dev/null 2>&1; then
-        echo "warning: Minecraft launcher is running; skipping launcher_profiles.json update" >&2
-        launcherRunning=1
+      mkdir -p "$baseDir"
+
+      if ! exec 9>"$lockPath"; then
+        echo "warning: could not open the lock file $lockPath; skipping profile registration" >&2
+        exit 0
       fi
+
+      if ! flock -n 9; then
+        echo "warning: another minecraft-provision is running; skipping profile registration" >&2
+        exit 0
+      fi
+
+      launcherRunning() {
+        local pattern
+        local rc
+
+        if [[ ! -x "$pgrepBin" ]]; then
+          echo "warning: pgrep is not available; assuming the Minecraft launcher may be running" >&2
+          return 0
+        fi
+
+        for pattern in \
+          "Minecraft.app/Contents/MacOS/launcher" \
+          "launcher.bundle/Contents/MacOS/launcher" \
+          '^[^ ]*[m]inecraft-launcher'; do
+          rc=0
+          "$pgrepBin" -f "$pattern" >/dev/null 2>&1 || rc=$?
+          case "$rc" in
+            0) return 0 ;;
+            1) ;;
+            *)
+              echo "warning: pgrep failed for '$pattern' (status $rc); assuming the Minecraft launcher may be running" >&2
+              return 0
+              ;;
+          esac
+        done
+
+        return 1
+      }
+
+      backupProfiles() {
+        if [[ -f "$launcherProfiles" ]]; then
+          cp -f "$launcherProfiles" "$launcherProfiles.bak.tmp" &&
+            mv -f "$launcherProfiles.bak.tmp" "$launcherProfiles.bak"
+        fi
+      }
+
+      validProfiles() {
+        jq -e -s '
+          length == 1 and
+          (.[0] | type == "object") and
+          (.[0].profiles == null or (.[0].profiles | type == "object")) and
+          (.[0].profiles == null or all(.[0].profiles[]; type == "object"))
+        ' "$launcherProfiles" >/dev/null 2>&1
+      }
 
       ${loaderFunctions}
 
-      if [[ -f "$launcherProfiles" ]]; then
-        cp -f "$launcherProfiles" "$launcherProfiles.bak"
+      if [[ -f "$launcherProfiles" ]] && ! validProfiles; then
+        echo "warning: $launcherProfiles is not a valid launcher profile store; leaving it unchanged" >&2
+        exit 0
       fi
+
+      backedUp=0
+
+      ${lib.optionalString loaderWritesProfiles ''
+        if launcherRunning; then
+          echo "warning: Minecraft launcher is running; skipping profile registration" >&2
+          exit 0
+        fi
+        if ! backupProfiles; then
+          echo "warning: could not back up $launcherProfiles; skipping profile registration" >&2
+          exit 0
+        fi
+        backedUp=1
+      ''}
 
       ${loaderCalls}
 
-      if [[ "$launcherRunning" == 1 ]]; then
+      if launcherRunning; then
+        echo "warning: Minecraft launcher is running; skipping launcher_profiles.json update" >&2
         exit 0
       fi
 
@@ -280,23 +356,41 @@ let
         exit 0
       fi
 
+      if ! validProfiles; then
+        echo "warning: $launcherProfiles is not a valid launcher profile store; leaving it unchanged" >&2
+        exit 0
+      fi
+
       now="$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
-      temporary="$(mktemp "$baseDir/launcher_profiles.json.XXXXXX")"
-      trap 'rm -f "$temporary"' EXIT
+      originalHash="$(sha256sum "$launcherProfiles" | cut -d' ' -f1)"
+      work=""
+      next=""
+      cleanup() {
+        [[ -z "$work" ]] || rm -f "$work"
+        [[ -z "$next" ]] || rm -f "$next"
+        rm -f "$launcherProfiles.bak.tmp"
+        return 0
+      }
+      trap cleanup EXIT
+      work="$(mktemp "$baseDir/launcher_profiles.json.XXXXXX")"
+      cp -p "$launcherProfiles" "$work"
 
       merge_profile() {
         local id="$1"
         local name="$2"
         local dir="$3"
         local versionId="$4"
+        local icon="$5"
 
         mkdir -p "$dir"
 
+        next="$(mktemp "$baseDir/launcher_profiles.json.XXXXXX")"
         if ! jq -e -s \
           --arg id "$id" \
           --arg name "$name" \
           --arg dir "$dir" \
           --arg versionId "$versionId" \
+          --arg icon "$icon" \
           --arg now "$now" \
           '
             if length != 1 then empty else .[0] end |
@@ -309,24 +403,93 @@ let
               lastVersionId: $versionId,
               gameDir: $dir
             }) |
+            (if $icon == "" then . else .profiles[$id].icon = $icon end) |
             .version = (.version // 6)
           ' \
-          "$launcherProfiles" > "$temporary" || [[ ! -s "$temporary" ]]; then
-          echo "warning: failed to update $launcherProfiles; skipping profile registration" >&2
+          "$work" > "$next" || [[ ! -s "$next" ]] || ! jq -e . "$next" >/dev/null 2>&1; then
+          rm -f "$next"
+          next=""
+          echo "warning: failed to update $launcherProfiles; leaving it unchanged" >&2
           exit 0
         fi
+        mv -f "$next" "$work"
+        next=""
+      }
 
-        chmod 644 "$temporary"
+      merge_builtin() {
+        local type="$1"
+        local dir="$2"
+        local count
 
-        mv -f "$temporary" "$launcherProfiles"
+        count="$(jq --arg type "$type" '[.profiles // {} | to_entries[] | select(.value.type == $type)] | length' "$work" 2>/dev/null)" || exit 0
+        if [[ "$count" != "1" ]]; then
+          echo "warning: found $count launcher profiles of type $type; skipping its game directory" >&2
+          return 0
+        fi
+
+        mkdir -p "$dir"
+
+        next="$(mktemp "$baseDir/launcher_profiles.json.XXXXXX")"
+        if ! jq -e \
+          --arg type "$type" \
+          --arg dir "$dir" \
+          '
+            ([.profiles // {} | to_entries[] | select(.value.type == $type)] | first) as $entry |
+            .profiles[$entry.key].gameDir = $dir
+          ' \
+          "$work" > "$next" || [[ ! -s "$next" ]] || ! jq -e . "$next" >/dev/null 2>&1; then
+          rm -f "$next"
+          next=""
+          echo "warning: failed to update $launcherProfiles; leaving it unchanged" >&2
+          exit 0
+        fi
+        mv -f "$next" "$work"
+        next=""
       }
 
       ${lib.concatStringsSep "\n" (
         lib.mapAttrsToList (
           name: profile:
-          "merge_profile ${lib.escapeShellArg name} ${lib.escapeShellArg name} ${lib.escapeShellArg profile.dir} ${lib.escapeShellArg (profileVersionId name profile)}"
-        ) cfg.profiles
+          "merge_profile ${lib.escapeShellArg name} ${lib.escapeShellArg name} ${lib.escapeShellArg profile.dir} ${lib.escapeShellArg (profileVersionId name profile)} ${
+            lib.escapeShellArg (if profile.icon == null then "" else profile.icon)
+          }"
+        ) customProfiles
       )}
+
+      ${lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (
+          _: profile: "merge_builtin ${lib.escapeShellArg profile.type} ${lib.escapeShellArg profile.dir}"
+        ) builtinProfiles
+      )}
+
+      newHash="$(sha256sum "$work" | cut -d' ' -f1)"
+      if [[ "$newHash" == "$originalHash" ]]; then
+        exit 0
+      fi
+
+      if launcherRunning; then
+        echo "warning: the Minecraft launcher started during the update; leaving $launcherProfiles unchanged" >&2
+        exit 0
+      fi
+
+      if [[ "$(sha256sum "$launcherProfiles" | cut -d' ' -f1)" != "$originalHash" ]]; then
+        echo "warning: $launcherProfiles changed during the update; leaving it unchanged" >&2
+        exit 0
+      fi
+
+      if ! chmod --reference="$launcherProfiles" "$work" 2>/dev/null; then
+        echo "warning: could not preserve the permissions of $launcherProfiles; leaving it unchanged" >&2
+        exit 0
+      fi
+
+      if [[ "$backedUp" == 0 ]]; then
+        if ! backupProfiles; then
+          echo "warning: could not back up $launcherProfiles; leaving it unchanged" >&2
+          exit 0
+        fi
+      fi
+
+      mv -f "$work" "$launcherProfiles"
     '';
   };
 in
@@ -346,8 +509,23 @@ in
               default = "${cfg.baseDir}/profiles/${name}";
             };
 
+            options.type = lib.mkOption {
+              type = lib.types.enum [
+                "custom"
+                "latest-release"
+                "latest-snapshot"
+              ];
+              default = "custom";
+            };
+
+            options.icon = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+            };
+
             options.mcVersion = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
             };
 
             options.loaderVersion = lib.mkOption {
@@ -356,13 +534,16 @@ in
             };
 
             options.loader = lib.mkOption {
-              type = lib.types.enum [
-                "vanilla"
-                "fabric"
-                "quilt"
-                "neoforge"
-                "forge"
-              ];
+              type = lib.types.nullOr (
+                lib.types.enum [
+                  "vanilla"
+                  "fabric"
+                  "quilt"
+                  "neoforge"
+                  "forge"
+                ]
+              );
+              default = null;
             };
           }
         )
@@ -372,6 +553,35 @@ in
   };
 
   config = {
+    assertions = [
+      {
+        assertion = lib.all (profile: profile.loader != null && profile.mcVersion != null) (
+          lib.attrValues customProfiles
+        );
+        message = "minecraft.profiles: custom profiles require loader and mcVersion";
+      }
+      {
+        assertion = lib.all (
+          profile: profile.loader == null && profile.mcVersion == null && profile.loaderVersion == null
+        ) (lib.attrValues builtinProfiles);
+        message = "minecraft.profiles: built-in profiles must not set loader, mcVersion or loaderVersion";
+      }
+      {
+        assertion = lib.all (profile: profile.icon == null) (lib.attrValues builtinProfiles);
+        message = "minecraft.profiles: built-in profiles cannot set icon";
+      }
+      {
+        assertion = lib.all (count: count <= 1) (lib.attrValues builtinTypeCounts);
+        message = "minecraft.profiles: each built-in profile type can be configured at most once";
+      }
+      {
+        assertion = lib.all (profile: profile.icon == null || profile.icon != "") (
+          lib.attrValues cfg.profiles
+        );
+        message = "minecraft.profiles: icon must not be empty; omit it to keep the existing icon";
+      }
+    ];
+
     home.file = profileFiles;
 
     home.activation.minecraftProvision = lib.mkIf (cfg.profiles != { }) (
