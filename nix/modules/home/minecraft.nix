@@ -225,6 +225,10 @@ let
     loader: loaderSupport.${loader}.function
   ) usedLoaders;
 
+  loaderWritesProfiles = lib.any (
+    install: loaderSupport.${install.loader}.writesLauncherProfiles
+  ) loaderInstalls;
+
   loaderCalls = lib.concatMapStringsSep "\n" (
     install:
     let
@@ -251,6 +255,7 @@ let
 
     runtimeInputs = [
       pkgs.coreutils
+      pkgs.flock
       pkgs.jdk
       pkgs.jq
     ]
@@ -260,19 +265,66 @@ let
       baseDir=${lib.escapeShellArg cfg.baseDir}
       launcherProfiles="$baseDir/launcher_profiles.json"
       pgrepBin=${pgrepPath}
+      lockPath="''${TMPDIR:-/tmp}/minecraft-provision-$(id -u).lock"
+
+      if ! exec 9>"$lockPath"; then
+        echo "warning: could not open the lock file $lockPath; skipping profile registration" >&2
+        exit 0
+      fi
+
+      if ! flock -n 9; then
+        echo "warning: another minecraft-provision is running; skipping profile registration" >&2
+        exit 0
+      fi
 
       launcherRunning() {
+        local pattern
+        local rc
+
         if [[ ! -x "$pgrepBin" ]]; then
           echo "warning: pgrep is not available; assuming the Minecraft launcher may be running" >&2
           return 0
         fi
-        "$pgrepBin" -f "Minecraft.app/Contents/MacOS/launcher" >/dev/null 2>&1 && return 0
-        "$pgrepBin" -f "launcher.bundle/Contents/MacOS/launcher" >/dev/null 2>&1 && return 0
-        "$pgrepBin" -f '^[^ ]*[m]inecraft-launcher' >/dev/null 2>&1 && return 0
+
+        for pattern in \
+          "Minecraft.app/Contents/MacOS/launcher" \
+          "launcher.bundle/Contents/MacOS/launcher" \
+          '^[^ ]*[m]inecraft-launcher'; do
+          rc=0
+          "$pgrepBin" -f "$pattern" >/dev/null 2>&1 || rc=$?
+          case "$rc" in
+            0) return 0 ;;
+            1) ;;
+            *)
+              echo "warning: pgrep failed for '$pattern' (status $rc); assuming the Minecraft launcher may be running" >&2
+              return 0
+              ;;
+          esac
+        done
+
         return 1
       }
 
+      backupProfiles() {
+        if [[ -f "$launcherProfiles" ]]; then
+          cp -f "$launcherProfiles" "$launcherProfiles.bak.tmp" &&
+            mv -f "$launcherProfiles.bak.tmp" "$launcherProfiles.bak"
+        fi
+      }
+
       ${loaderFunctions}
+
+      backedUp=0
+
+      ${lib.optionalString loaderWritesProfiles ''
+        if ! launcherRunning; then
+          if ! backupProfiles; then
+            echo "warning: could not back up $launcherProfiles; skipping profile registration" >&2
+            exit 0
+          fi
+          backedUp=1
+        fi
+      ''}
 
       ${loaderCalls}
 
@@ -286,8 +338,13 @@ let
         exit 0
       fi
 
-      if ! jq -e . "$launcherProfiles" >/dev/null 2>&1; then
-        echo "warning: $launcherProfiles is not valid JSON; leaving it unchanged" >&2
+      if ! jq -e -s '
+        length == 1 and
+        (.[0] | type == "object") and
+        (.[0].profiles == null or (.[0].profiles | type == "object")) and
+        (.[0].profiles == null or all(.[0].profiles[]; type == "object"))
+      ' "$launcherProfiles" >/dev/null 2>&1; then
+        echo "warning: $launcherProfiles is not a valid launcher profile store; leaving it unchanged" >&2
         exit 0
       fi
 
@@ -339,7 +396,7 @@ let
           rm -f "$next"
           next=""
           echo "warning: failed to update $launcherProfiles; leaving it unchanged" >&2
-          return 0
+          exit 0
         fi
         mv -f "$next" "$work"
         next=""
@@ -350,7 +407,7 @@ let
         local dir="$2"
         local count
 
-        count="$(jq --arg type "$type" '[.profiles // {} | to_entries[] | select(.value.type == $type)] | length' "$work" 2>/dev/null)" || return 0
+        count="$(jq --arg type "$type" '[.profiles // {} | to_entries[] | select(.value.type == $type)] | length' "$work" 2>/dev/null)" || exit 0
         if [[ "$count" != "1" ]]; then
           echo "warning: found $count launcher profiles of type $type; skipping its game directory" >&2
           return 0
@@ -364,14 +421,13 @@ let
           --arg dir "$dir" \
           '
             ([.profiles // {} | to_entries[] | select(.value.type == $type)] | first) as $entry |
-            .profiles[$entry.key].gameDir = $dir |
-            .version = (.version // 6)
+            .profiles[$entry.key].gameDir = $dir
           ' \
           "$work" > "$next" || [[ ! -s "$next" ]] || ! jq -e . "$next" >/dev/null 2>&1; then
           rm -f "$next"
           next=""
           echo "warning: failed to update $launcherProfiles; leaving it unchanged" >&2
-          return 0
+          exit 0
         fi
         mv -f "$next" "$work"
         next=""
@@ -407,8 +463,18 @@ let
         exit 0
       fi
 
-      cp -f "$launcherProfiles" "$launcherProfiles.bak"
-      chmod --reference="$launcherProfiles" "$work" 2>/dev/null || chmod 644 "$work"
+      if ! chmod --reference="$launcherProfiles" "$work" 2>/dev/null; then
+        echo "warning: could not preserve the permissions of $launcherProfiles; leaving it unchanged" >&2
+        exit 0
+      fi
+
+      if [[ "$backedUp" == 0 ]]; then
+        if ! backupProfiles; then
+          echo "warning: could not back up $launcherProfiles; leaving it unchanged" >&2
+          exit 0
+        fi
+      fi
+
       mv -f "$work" "$launcherProfiles"
     '';
   };
@@ -493,6 +559,12 @@ in
       {
         assertion = lib.all (count: count <= 1) (lib.attrValues builtinTypeCounts);
         message = "minecraft.profiles: each built-in profile type can be configured at most once";
+      }
+      {
+        assertion = lib.all (profile: profile.icon == null || profile.icon != "") (
+          lib.attrValues cfg.profiles
+        );
+        message = "minecraft.profiles: icon must not be empty; omit it to keep the existing icon";
       }
     ];
 
