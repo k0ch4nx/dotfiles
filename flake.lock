@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1792225321,
-        "narHash": "sha256-txG9PoMnqd64b+E7a9InEmd0tMU9Bfr7reOn+IPF1dY=",
+        "lastModified": 1792226690,
+        "narHash": "sha256-IFe04Zpq0aJ/sLYPBABcW7EZlqky4Bb46wubC8A50cs=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "f1beeb4d8609c51f7a9793ae92d41812e71f15cd",
+        "rev": "c250766160603f5ef582adecb4f453b009f63365",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1792225697,
-        "narHash": "sha256-vB0VN/jl5wg8w/20CLrESJmMD+Lyum0rsk3j56dnVxE=",
+        "lastModified": 1792241548,
+        "narHash": "sha256-7d7II2vcXOT5SOLvShYSQmwiG0d6loAa5IcYj7aDRMg=",
         "ref": "refs/heads/main",
-        "rev": "ffb250d717c41abc0c40de1972e51aa0cfaa602c",
+        "rev": "0318b5baf8eaec2ea96759b123546f25dd5226b6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -699,10 +699,10 @@
     "spring-boot-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1789982370,
-        "narHash": "sha256-Noe6oTLBicTj+Ztdq2gGgXA+RNpkHFf6Y0tHwjvGW2c=",
+        "lastModified": 1792235557,
+        "narHash": "sha256-vUX4rzqVH/9KR3l34C9NZmphc5KEarDoAzSLgyrv26U=",
         "ref": "refs/heads/main",
-        "rev": "f0c06a01b0b7571b519cd43e16692b2483a24514",
+        "rev": "a317397a9657255f4064cbded92b1c9c76306873",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/rrezartprebreza/spring-boot-skills.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1792224854,
-        "narHash": "sha256-1FP8Q7o8eS3fHMiCtVoDb0iA7s8a3JnGLxKWmRPD7mw=",
+        "lastModified": 1792229794,
+        "narHash": "sha256-1aQVK+vdBrbFnH2iaFxWqmmAdRt7ra2rOS1LDItatx0=",
         "ref": "refs/heads/main",
-        "rev": "1b86d3444aca7489e13e714a22682f1b1ccd5af1",
+        "rev": "11efc6e6fc4f923066829022db2fcbf040be8e14",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
@@ -901,10 +901,10 @@
     "yomiyasu": {
       "flake": false,
       "locked": {
-        "lastModified": 1792198911,
-        "narHash": "sha256-GuCSFIHzkQwpKhB06jihweDitz6WWYj6xKDdmd9HG/s=",
+        "lastModified": 1792238191,
+        "narHash": "sha256-cvZgUFMYWVJ2yuYmbDCR+jzO9n2qEOiDU++VfKPi1c8=",
         "ref": "refs/heads/main",
-        "rev": "1bc21f9c8e6a55fc4ccd5a2c7dfe78a7b0d814c5",
+        "rev": "84e1f5b15e497538fcfe19ab7e9c6f6d138f19ff",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nanaism/yomiyasu.git"
