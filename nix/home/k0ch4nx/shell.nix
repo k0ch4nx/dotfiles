@@ -244,7 +244,7 @@ in
     NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
 
     NVIM_JDTLS_JAVA_HOME = "${pkgs.temurin-bin-25}";
-    NVIM_PROJECT_JAVA_HOME = "${pkgs.temurin-bin-17}";
+    NVIM_PROJECT_JAVA_HOME = "${pkgs.temurin-bin-25}";
 
     OPENCODE_DISABLE_CLAUDE_CODE = "1";
 

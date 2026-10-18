@@ -58,7 +58,7 @@ return {
             configuration = {
                 runtimes = {
                     {
-                        name = "JavaSE-17",
+                        name = "JavaSE-25",
                         path = project_java_home,
                         default = true,
                     },
