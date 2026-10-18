@@ -30,21 +30,51 @@ return {
                 require("mason-nvim-dap.settings").current.ensure_installed
             )
 
+            local failures = {}
+            local packages = {}
             local done = 0
             local total = 0
 
-            local function make_installer(package_name)
-                local package = registry.get_package(package_name)
+            local function record_failure(package_name, err)
+                table.insert(failures, ("%s: %s"):format(package_name, tostring(err)))
+            end
 
+            local function wait_until(predicate, timeout)
+                local deadline = vim.uv.now() + timeout
+
+                while not predicate() do
+                    if vim.uv.now() >= deadline then
+                        return false
+                    end
+
+                    async.sleep(100)
+                end
+
+                return true
+            end
+
+            local function make_installer(package)
                 return function()
                     local installed_version = package:get_installed_version()
                     local latest_version = package:get_latest_version()
 
-                    if
-                        (installed_version and installed_version == latest_version)
-                        or package:is_installing()
-                        or package:is_uninstalling()
-                    then
+                    if installed_version and installed_version == latest_version then
+                        return
+                    end
+
+                    local function is_idle()
+                        return not package:is_installing() and not package:is_uninstalling()
+                    end
+
+                    if not wait_until(is_idle, 10 * 60 * 1000) then
+                        record_failure(package.name, "timed out waiting for an install to finish")
+
+                        return
+                    end
+
+                    installed_version = package:get_installed_version()
+
+                    if installed_version and installed_version == latest_version then
                         return
                     end
 
@@ -64,18 +94,53 @@ return {
                                 )
                             )
 
+                            if not success then
+                                record_failure(package.name, err)
+                            end
+
                             resolve({ success, package, err })
                         end)
                     end)
                 end
             end
 
-            registry.refresh()
-
             async.run_blocking(function()
-                async.wait_all(vim.tbl_map(make_installer, targets))
+                local refreshed, refresh_err = async.wait(function(resolve)
+                    registry.refresh(function(success, result)
+                        resolve(success, result)
+                    end)
+                end)
+
+                if not refreshed then
+                    vim.notify(
+                        ("[mason] Registry refresh failed: %s"):format(refresh_err),
+                        vim.log.levels.WARN
+                    )
+                end
+
+                for _, target in ipairs(targets) do
+                    local ok, package = pcall(registry.get_package, target)
+
+                    if ok then
+                        table.insert(packages, package)
+                    else
+                        record_failure(target, package)
+                    end
+                end
+
+                async.wait_all(vim.tbl_map(make_installer, packages))
                 async.scheduler()
             end)
+
+            for _, package in ipairs(packages) do
+                if not package:is_installed() then
+                    record_failure(package.name, "not installed")
+                end
+            end
+
+            if #failures > 0 then
+                error(("[mason] MasonInstallAll failed:\n%s"):format(table.concat(failures, "\n")), 0)
+            end
         end, {})
 
         return {
