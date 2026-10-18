@@ -1,6 +1,7 @@
 {
   flake,
   hostName,
+  lib,
   ...
 }:
 
@@ -16,7 +17,8 @@
 
   networking.hostName = "MacBook-Pro";
 
-  system.activationScripts.diskSleep.text = ''
+  system.activationScripts.postActivation.text = lib.mkAfter ''
+    pmset -a displaysleep 10
     pmset -c disksleep 0
     pmset -b disksleep 0
   '';
