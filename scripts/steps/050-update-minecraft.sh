@@ -857,10 +857,6 @@ function update_minecraft() (
     cd -- "${repository}"
 
     publish_minecraft "${staging}" "${backup}" "${baseline}" "${loaders_temporary}" "${installers_temporary}"
-
-    if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
-        git add -- minecraft
-    fi
 )
 
 function main() (
