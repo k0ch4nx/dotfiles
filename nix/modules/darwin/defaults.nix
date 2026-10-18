@@ -55,7 +55,7 @@ in
 
     screensaver = {
       askForPassword = true;
-      askForPasswordDelay = 120;
+      askForPasswordDelay = 0;
     };
 
     menuExtraClock = {
@@ -107,7 +107,7 @@ in
         style = "selection";
       };
 
-      "com.apple.screensaver".idleTime = 180;
+      "com.apple.screensaver".idleTime = 300;
 
       "com.apple.Safari" = {
         AutoOpenSafeDownloads = false;
