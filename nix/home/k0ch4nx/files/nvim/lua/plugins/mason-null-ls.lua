@@ -18,7 +18,6 @@ return {
                 "hadolint",
                 "npm-groovy-lint",
                 "oxlint",
-                "palantir-java-format",
                 "shellcheck",
                 "shfmt",
                 "sqruff",
