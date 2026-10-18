@@ -7,8 +7,8 @@
 -use objc2_app_kit::NSRunningApplication;
 +use objc2_app_kit::{NSApplicationActivationPolicy, NSRunningApplication};
  use objc2_application_services::AXError;
- #[cfg(test)]
- use objc2_core_foundation::CGPoint;
+ use objc2_core_foundation::{CGPoint, CGRect, CGSize};
+ use serde::{Deserialize, Serialize};
 @@ -2334,7 +2334,9 @@
          info!(?pid, ?bundle_id, "Could not get ProcessInfo; exiting app thread");
          return;
