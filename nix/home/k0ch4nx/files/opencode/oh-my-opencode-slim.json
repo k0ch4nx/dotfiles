@@ -12,11 +12,19 @@
             "orchestrator": {
                 "model": [
                     {
+                        "id": "opencode/deepseek-v4.1-flash-free",
+                        "variant": "max"
+                    },
+                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
                     },
                     {
                         "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
                         "variant": "max"
                     }
                 ],
@@ -32,11 +40,19 @@
             "explorer": {
                 "model": [
                     {
+                        "id": "opencode/deepseek-v4.1-flash-free",
+                        "variant": "max"
+                    },
+                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
                     },
                     {
                         "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
                         "variant": "max"
                     }
                 ],
@@ -55,11 +71,19 @@
             "librarian": {
                 "model": [
                     {
+                        "id": "opencode/deepseek-v4.1-flash-free",
+                        "variant": "max"
+                    },
+                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
                     },
                     {
                         "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
                         "variant": "max"
                     }
                 ],
@@ -74,11 +98,19 @@
             "designer": {
                 "model": [
                     {
+                        "id": "opencode/deepseek-v4.1-flash-free",
+                        "variant": "max"
+                    },
+                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
                     },
                     {
                         "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
                         "variant": "max"
                     }
                 ],
@@ -91,11 +123,19 @@
             "fixer": {
                 "model": [
                     {
+                        "id": "opencode/deepseek-v4.1-flash-free",
+                        "variant": "max"
+                    },
+                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
                     },
                     {
                         "id": "commandcode/deepseek-v4.1-flash",
+                        "variant": "max"
+                    },
+                    {
+                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
                         "variant": "max"
                     }
                 ],
