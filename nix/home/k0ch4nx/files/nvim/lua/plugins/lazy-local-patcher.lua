@@ -13,6 +13,10 @@ return {
         local git_execute = patcher.git_execute
 
         patcher.git_execute = function(path, cmd, error_level)
+            if vim.fn.isdirectory(path) == 0 then
+                return { success = false, output = "not an installed plugin" }
+            end
+
             local result = git_execute(path, cmd, error_level)
 
             if not result.success then
