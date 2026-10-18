@@ -1,6 +1,6 @@
 final: prev:
 let
-  version = "1.0.15";
+  version = "1.0.16";
 in
 {
   superseedr = prev.rustPlatform.buildRustPackage {
@@ -11,10 +11,10 @@ in
       owner = "Jagalite";
       repo = "superseedr";
       rev = "v${version}";
-      hash = "sha256-wbHq7Hml2bUJfyGEVM1P29x1uruLnCvmJbP1L7exDOc=";
+      hash = "sha256-RJTXeO0gD2HMP/og0XZNlC7OKbhfkltj7nQ9N7UnjZQ=";
     };
 
-    cargoHash = "sha256-MJJvAOEPBjgwz7pcrTIdOFe404+Cw4h1fI5Vk0yG9G0=";
+    cargoHash = "sha256-3g3IpuB9a9zVgdeuNG9iO0m7ZjYcCtuvxxMnaLVIXSA=";
 
     doCheck = false;
 
