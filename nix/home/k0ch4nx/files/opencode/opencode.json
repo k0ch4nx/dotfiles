@@ -58,7 +58,8 @@
             "options": {
                 "authFileFallback": false
             }
-        }
+        },
+        "@plannotator/opencode@latest"
     ],
     "compaction": {
         "auto": false
