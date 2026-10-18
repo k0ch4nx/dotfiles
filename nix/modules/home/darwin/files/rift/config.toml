@@ -41,7 +41,7 @@ active_label = "index"
 display_style = "label"
 
 [settings.gestures]
-enabled = true
+enabled = false
 
 [settings.drag_drop]
 enabled = true
