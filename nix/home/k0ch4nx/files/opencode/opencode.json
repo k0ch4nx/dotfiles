@@ -30,6 +30,7 @@
     ],
     "enabled_providers": [
         "commandcode",
+        "deepinfra",
         "google",
         "lmstudio",
         "nvidia",
