@@ -38,6 +38,18 @@
         "opencode",
         "opencode-go"
     ],
+    "providers": {
+        "opencode": {
+            "models": {
+                "deepseek-v4.1-flash-free": {
+                    "limit": {
+                        "context": 1000000,
+                        "output": 384000
+                    }
+                }
+            }
+        }
+    },
     "plugins": [
         "oh-my-opencode-slim@latest",
         "@cortexkit/opencode-magic-context@latest",
