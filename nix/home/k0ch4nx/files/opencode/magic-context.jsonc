@@ -1,9 +1,26 @@
 {
     "$schema": "https://raw.githubusercontent.com/cortexkit/magic-context/master/assets/magic-context.schema.json",
     "auto_update": false,
+    "language": "ja",
     "historian": {
         "opencode": {
-            "model": "opencode-go/longcat-2.5-preview-free"
+            "model": "opencode-go/beam-free",
+            "fallback_models": [
+                "opencode-go/longcat-2.5-preview-free"
+            ]
+        }
+    },
+    "dreamer": {
+        "opencode": {
+            "model": "opencode-go/beam-free",
+            "fallback_models": [
+                "opencode-go/longcat-2.5-preview-free"
+            ]
+        }
+    },
+    "memory": {
+        "git_commit_indexing": {
+            "enabled": true
         }
     }
 }
