@@ -20,6 +20,12 @@ return {
                 return package_name
             end
 
+            local dap_map = require("mason-nvim-dap.mappings.source").nvim_dap_to_package
+
+            local function to_dap_package_name(alias)
+                return dap_map[alias] or alias
+            end
+
             local targets = util.table.unique(
                 vim.tbl_map(
                     to_package_name,
@@ -27,7 +33,10 @@ return {
                 ),
                 { "snyk" },
                 require("mason-null-ls.settings").current.ensure_installed,
-                require("mason-nvim-dap.settings").current.ensure_installed
+                vim.tbl_map(
+                    to_dap_package_name,
+                    require("mason-nvim-dap.settings").current.ensure_installed
+                )
             )
 
             local failures = {}
