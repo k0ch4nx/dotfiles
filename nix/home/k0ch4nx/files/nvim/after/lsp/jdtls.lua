@@ -2,24 +2,17 @@ local mason_root = vim.fn.stdpath("data") .. "/mason"
 local mason_packages = mason_root .. "/packages"
 local lombok_jar = mason_root .. "/share/jdtls/lombok.jar"
 
-local function nix_build(package)
-    local result = vim.system({
-        "nix",
-        "build",
-        "nixpkgs#" .. package,
-        "--no-link",
-        "--print-out-paths",
-    }, { text = true }):wait()
+local jdtls_java_home = vim.env.NVIM_JDTLS_JAVA_HOME
+local project_java_home = vim.env.NVIM_PROJECT_JAVA_HOME
 
-    if result.code ~= 0 then
-        error("Failed to get " .. package .. ": " .. result.stderr)
-    end
+if not (jdtls_java_home and project_java_home) then
+    vim.notify_once(
+        "jdtls disabled: NVIM_JDTLS_JAVA_HOME and NVIM_PROJECT_JAVA_HOME must be set",
+        vim.log.levels.WARN
+    )
 
-    return vim.trim(result.stdout)
+    return {}
 end
-
-local jdtls_java_home = nix_build("temurin-bin-25")
-local project_java_home = nix_build("temurin-bin-17")
 
 local java_root_markers = {
     { "settings.gradle", "settings.gradle.kts" },
