@@ -12,7 +12,27 @@ return {
         local main = require(require("lazy.core.loader").get_main(self))
         main.setup(opts)
 
-        local utils = require("textcase.shared.utils")
+        local function get_visual_region(mode)
+            local pos1 = vim.fn.getpos("v")
+            local pos2 = vim.fn.getpos(".")
+            local region_opts = { type = mode }
+            local segments = vim.fn.getregionpos(pos1, pos2, region_opts)
+            local lines = vim.fn.getregion(pos1, pos2, region_opts)
+            local start = segments[1][1]
+            local finish = segments[#segments][2]
+            local end_col = lines[#lines]:len()
+
+            if start[2] == finish[2] then
+                end_col = end_col + start[3] - 1
+            end
+
+            return {
+                start_row = start[2],
+                start_col = start[3],
+                end_row = finish[2],
+                end_col = end_col,
+            }
+        end
 
         vim.keymap.set({ "v" }, "<Leader>tc", function()
             local mode = vim.api.nvim_get_mode().mode
@@ -24,12 +44,7 @@ return {
             local source_win = vim.api.nvim_get_current_win()
             local source_buf = vim.api.nvim_get_current_buf()
 
-            local visual_region = utils.get_visual_region(
-                source_buf,
-                true,
-                nil,
-                utils.get_mode_at_operator(mode)
-            )
+            local visual_region = get_visual_region(mode)
 
             Snacks.picker({
                 finder = function()
