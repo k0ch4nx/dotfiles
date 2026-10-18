@@ -57,6 +57,7 @@
       onefetch
       (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2)
       (if stdenv.hostPlatform.isLinux then opensshWithKerberos else openssh)
+      plannotator
       progress
       python314
       python3Packages.huggingface-hub
