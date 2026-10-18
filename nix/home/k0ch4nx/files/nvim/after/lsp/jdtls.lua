@@ -2,14 +2,10 @@ local mason_root = vim.fn.stdpath("data") .. "/mason"
 local mason_packages = mason_root .. "/packages"
 local lombok_jar = mason_root .. "/share/jdtls/lombok.jar"
 
-local jdtls_java_home = vim.env.NVIM_JDTLS_JAVA_HOME
-local project_java_home = vim.env.NVIM_PROJECT_JAVA_HOME
+local java_home = vim.env.JAVA_HOME
 
-if not (jdtls_java_home and project_java_home) then
-    vim.notify_once(
-        "jdtls disabled: NVIM_JDTLS_JAVA_HOME and NVIM_PROJECT_JAVA_HOME must be set",
-        vim.log.levels.WARN
-    )
+if not java_home then
+    vim.notify_once("jdtls: JAVA_HOME is not set; falling back to the default setup", vim.log.levels.WARN)
 
     return {}
 end
@@ -42,7 +38,7 @@ return {
             "-data",
             data_dir,
             "--java-executable",
-            jdtls_java_home .. "/bin/java",
+            java_home .. "/bin/java",
             "--jvm-arg=-javaagent:" .. lombok_jar,
         }, dispatchers, {
             cwd = config.cmd_cwd,
@@ -50,29 +46,6 @@ return {
             detached = config.detached,
         })
     end,
-    cmd_env = vim.tbl_extend("force", vim.fn.environ(), {
-        JAVA_HOME = project_java_home,
-    }),
-    settings = {
-        java = {
-            configuration = {
-                runtimes = {
-                    {
-                        name = "JavaSE-25",
-                        path = project_java_home,
-                        default = true,
-                    },
-                },
-            },
-            import = {
-                gradle = {
-                    java = {
-                        home = project_java_home,
-                    },
-                },
-            },
-        },
-    },
     init_options = {
         bundles = (function()
             local bundles = {}
