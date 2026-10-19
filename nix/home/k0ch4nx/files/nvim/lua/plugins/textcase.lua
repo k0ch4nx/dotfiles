@@ -33,8 +33,10 @@ return {
                 end_col = end_col - 1
             end
 
-            if start_row == end_row and start_col == 0 and end_col == 0 then
-                return
+            if start_col == 0 then
+                local line = vim.api.nvim_buf_get_lines(0, start_row - 1, start_row, false)[1] or ""
+
+                start_col = #line + 1
             end
 
             if start_row > end_row or (start_row == end_row and start_col - 1 >= end_col) then
