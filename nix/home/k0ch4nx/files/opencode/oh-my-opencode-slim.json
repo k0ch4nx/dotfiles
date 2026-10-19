@@ -2,7 +2,6 @@
     "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
     "disabled_agents": [
         "council",
-        "explore",
         "observer"
     ],
     "image_routing": "direct",
@@ -58,7 +57,10 @@
                 ],
                 "variant": "max",
                 "skills": [],
-                "mcps": []
+                "mcps": [
+                    "context7",
+                    "gh_grep"
+                ]
             },
             "oracle": {
                 "model": "openai/gpt-6.1-sol",
@@ -67,33 +69,6 @@
                     "simplify"
                 ],
                 "mcps": []
-            },
-            "librarian": {
-                "model": [
-                    {
-                        "id": "opencode/deepseek-v4.1-flash-free",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "opencode-go/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "commandcode/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
-                        "variant": "max"
-                    }
-                ],
-                "variant": "max",
-                "skills": [],
-                "mcps": [
-                    "websearch",
-                    "context7",
-                    "gh_grep"
-                ]
             },
             "designer": {
                 "model": [
