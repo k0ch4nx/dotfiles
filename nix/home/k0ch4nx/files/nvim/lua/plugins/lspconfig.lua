@@ -16,6 +16,27 @@ return {
                     end):totable(),
                 }
             end,
+            ts_ls = function(config)
+                local vue_typescript_plugin = vim.fn.stdpath("data")
+                    .. "/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin"
+
+                if vim.fn.isdirectory(vue_typescript_plugin) == 0 then
+                    return {}
+                end
+
+                return {
+                    filetypes = vim.list_extend(vim.deepcopy(config.filetypes or {}), { "vue" }),
+                    init_options = {
+                        plugins = {
+                            {
+                                name = "@vue/typescript-plugin",
+                                location = vue_typescript_plugin,
+                                languages = { "vue" },
+                            },
+                        },
+                    },
+                }
+            end,
         }
 
         for server, override in pairs(overrides) do

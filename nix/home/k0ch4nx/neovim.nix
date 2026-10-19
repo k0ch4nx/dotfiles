@@ -13,6 +13,7 @@ in
     "nvim/.luarc.jsonc".source = ./files/nvim/.luarc.jsonc;
     "nvim/after".source = ./files/nvim/after;
     "nvim/init.lua".source = ./files/nvim/init.lua;
+    "nvim/lazy-nvim".source = pkgs.vimPlugins.lazy-nvim;
     "nvim/lua".source = ./files/nvim/lua;
     "nvim/patches".source = ./files/nvim/patches;
     "nvim/lazy-lock.json" = {

@@ -12,7 +12,44 @@ return {
         local main = require(require("lazy.core.loader").get_main(self))
         main.setup(opts)
 
-        local utils = require("textcase.shared.utils")
+        local function get_visual_region(mode)
+            local pos1 = vim.fn.getpos("v")
+            local pos2 = vim.fn.getpos(".")
+            local segments = vim.fn.getregionpos(pos1, pos2, { type = mode })
+            local start = segments[1][1]
+            local finish = segments[#segments][2]
+            local start_row, start_col, start_off = start[2], start[3], start[4]
+            local end_row, end_col, end_off = finish[2], finish[3], finish[4]
+
+            if start_off > 0 then
+                local line = vim.api.nvim_buf_get_lines(0, start_row - 1, start_row, false)[1] or ""
+
+                if start_col <= #line then
+                    start_col = vim.fn.byteidx(line, vim.fn.charidx(line, start_col - 1) + 1) + 1
+                end
+            end
+
+            if end_off > 0 then
+                end_col = end_col - 1
+            end
+
+            if start_col == 0 then
+                local line = vim.api.nvim_buf_get_lines(0, start_row - 1, start_row, false)[1] or ""
+
+                start_col = #line + 1
+            end
+
+            if start_row > end_row or (start_row == end_row and start_col - 1 >= end_col) then
+                return
+            end
+
+            return {
+                start_row = start_row,
+                start_col = start_col,
+                end_row = end_row,
+                end_col = end_col,
+            }
+        end
 
         vim.keymap.set({ "v" }, "<Leader>tc", function()
             local mode = vim.api.nvim_get_mode().mode
@@ -24,12 +61,11 @@ return {
             local source_win = vim.api.nvim_get_current_win()
             local source_buf = vim.api.nvim_get_current_buf()
 
-            local visual_region = utils.get_visual_region(
-                source_buf,
-                true,
-                nil,
-                utils.get_mode_at_operator(mode)
-            )
+            local visual_region = get_visual_region(mode)
+
+            if not visual_region then
+                return
+            end
 
             Snacks.picker({
                 finder = function()

@@ -11,8 +11,8 @@ return {
             -- https://github.com/jay-babu/mason-nvim-dap.nvim/blob/main/lua/mason-nvim-dap/mappings/source.lua
             ensure_installed = {
                 "codelldb",
-                "java-debug-adapter",
-                "java-test",
+                "javadbg",
+                "javatest",
             },
             -- https://github.com/mfussenegger/nvim-dap/discussions/869#discussioncomment-8121995
             handlers = {

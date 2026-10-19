@@ -18,7 +18,6 @@ return {
                 "hadolint",
                 "npm-groovy-lint",
                 "oxlint",
-                "palantir-java-format",
                 "shellcheck",
                 "shfmt",
                 "sqruff",
@@ -39,6 +38,11 @@ return {
                             filetypes = { "groovy", "Jenkinsfile" },
                         }))
                     end
+                end,
+                terraform = function()
+                    local null_ls = require("null-ls")
+                    null_ls.register(null_ls.builtins.formatting.terraform_fmt)
+                    null_ls.register(null_ls.builtins.diagnostics.terraform_validate)
                 end,
             },
         }

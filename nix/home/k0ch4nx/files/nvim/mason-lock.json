@@ -1,4 +1,5 @@
 {
+  "astro-language-server": "2.17.2",
   "bash-language-server": "5.8.1",
   "buildifier": "v10.1.0",
   "checkstyle": "checkstyle-14.1.0",

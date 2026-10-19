@@ -1,4 +1,4 @@
-require("bootstrap")
+vim.opt.rtp:prepend(vim.fn.stdpath("config") .. "/lazy-nvim")
 
 -- https://lazy.folke.io/configuration
 -- https://lazy.folke.io/spec
