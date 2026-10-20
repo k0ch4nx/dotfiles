@@ -78,7 +78,7 @@ jobs:
           command: |
             set -euo pipefail
 
-            ./scripts/steps/050-update-minecraft.sh
+            ./scripts/steps/040-update-minecraft.sh
 
             unexpected_paths="$(
               git diff --name-only \
