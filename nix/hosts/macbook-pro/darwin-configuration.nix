@@ -19,7 +19,7 @@
 
   system.activationScripts.postActivation.text = lib.mkAfter ''
     pmset -a displaysleep 10
-    pmset -c disksleep 0
-    pmset -b disksleep 0
+    pmset -b lessbright 0
+    pmset -c sleep 0
   '';
 }
