@@ -7,68 +7,91 @@ return {
     config = function()
         local lint = require("lint")
 
-        -- `npm-groovy-lint` has no built-in equivalent in nvim-lint.
-        lint.linters.npm_groovy_lint = {
-            name = "npm_groovy_lint",
-            cmd = "npm-groovy-lint",
-            stdin = false,
-            append_fname = true,
-            args = function()
-                local args = { "--failon", "none", "-o", "json" }
+        -- nvim-lint ships a stdin-based npm-groovy-lint linter.
+        -- Jenkinsfiles additionally need `--no-parse`.
+        lint.linters.npm_groovy_lint = function()
+            local linter = vim.deepcopy(lint.linters["npm-groovy-lint"])
 
-                -- https://github.com/nvuillam/npm-groovy-lint/issues/422#issuecomment-2324321544
-                if vim.fn.expand("%:t") == "Jenkinsfile" then
-                    table.insert(args, "--no-parse")
-                end
+            if vim.fn.expand("%:t") == "Jenkinsfile" then
+                table.insert(linter.args, 1, "--no-parse")
+            end
 
-                return args
-            end,
-            ignore_exitcode = true,
-            parser = function(output)
-                local ok, decoded = pcall(vim.json.decode, output)
+            return linter
+        end
 
-                if not ok or type(decoded) ~= "table" or type(decoded.files) ~= "table" then
-                    return {}
-                end
+        -- `terraform validate` reports the whole module. The built-in parser
+        -- mislabels cross-file diagnostics, so rebuild it and keep only the
+        -- diagnostics that belong to the current buffer.
+        lint.linters.terraform_validate = function()
+            local severity = {
+                notice = vim.diagnostic.severity.INFO,
+                warning = vim.diagnostic.severity.WARN,
+                error = vim.diagnostic.severity.ERROR,
+            }
 
-                local diagnostics = {}
+            return {
+                cmd = "terraform",
+                args = {
+                    function()
+                        return "-chdir=" .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.:h")
+                    end,
+                    "validate",
+                    "-json",
+                },
+                append_fname = false,
+                stdin = false,
+                stream = "stdout",
+                ignore_exitcode = true,
+                parser = function(output, bufnr)
+                    local ok, decoded = pcall(vim.json.decode, output)
 
-                for _, file in pairs(decoded.files) do
-                    for _, err in ipairs(file.errors or {}) do
-                        local range = err.range or {}
-                        local start = range.start or {}
-                        local finish = range["end"] or {}
-
-                        table.insert(diagnostics, {
-                            lnum = math.max((start.line or err.line or 1) - 1, 0),
-                            end_lnum = math.max((finish.line or err.line or 1) - 1, 0),
-                            col = start.character or 0,
-                            end_col = finish.character or 0,
-                            message = err.msg,
-                            code = err.rule,
-                            severity = err.severity == "error" and vim.diagnostic.severity.ERROR
-                                or err.severity == "warning" and vim.diagnostic.severity.WARN
-                                or vim.diagnostic.severity.INFO,
-                        })
+                    if not ok or type(decoded) ~= "table" then
+                        return {}
                     end
-                end
 
-                return diagnostics
-            end,
-        }
+                    local buf_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
+                    local diagnostics = {}
+
+                    for _, diagnostic in ipairs(decoded.diagnostics or {}) do
+                        local range = diagnostic.range
+
+                        if range and range.filename == buf_path then
+                            local message = diagnostic.summary or ""
+
+                            if diagnostic.detail then
+                                message = message .. " - " .. diagnostic.detail
+                            end
+
+                            table.insert(diagnostics, {
+                                lnum = tonumber(range.start.line) - 1,
+                                col = tonumber(range.start.column) - 1,
+                                end_lnum = tonumber(range["end"].line) - 1,
+                                end_col = tonumber(range["end"].column) - 1,
+                                message = message,
+                                source = "terraform validate",
+                                severity = severity[diagnostic.severity] or vim.diagnostic.severity.ERROR,
+                            })
+                        end
+                    end
+
+                    return diagnostics
+                end,
+            }
+        end
 
         -- `mason-null-ls` used to register these diagnostics through none-ls.
         -- `oxlint` and `ruff` are omitted because their LSP servers already report.
         lint.linters_by_ft = {
+            bash = { "shellcheck" },
+            bzl = { "buildifier" },
             dockerfile = { "hadolint", "trivy" },
             groovy = { "npm_groovy_lint" },
-            Jenkinsfile = { "npm_groovy_lint" },
+            helm = { "trivy" },
             java = { "checkstyle" },
             nix = { "statix" },
             sh = { "shellcheck" },
-            bash = { "shellcheck" },
-            zsh = { "shellcheck" },
             sql = { "sqruff" },
+            starlark = { "buildifier" },
             terraform = { "terraform_validate", "trivy" },
             tf = { "terraform_validate", "trivy" },
             ["terraform-vars"] = { "terraform_validate", "trivy" },

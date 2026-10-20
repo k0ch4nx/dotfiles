@@ -15,38 +15,9 @@ let
         ln -s ${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $out/bin/codelldb
       '';
 
-  # nixpkgs does not package the Gradle language server yet.
-  # https://github.com/microsoft/vscode-gradle
-  gradle-language-server = pkgs.stdenvNoCC.mkDerivation {
-    pname = "gradle-language-server";
-    version = "3.17.3";
-
-    src = pkgs.fetchurl {
-      url = "https://open-vsx.org/api/vscjava/vscode-gradle/3.17.3/file/vscjava.vscode-gradle-3.17.3.vsix";
-      hash = "sha256-fam1F9DNKMNFIqvyA4Ut4D9EuqLtx3bcUz67XD9WTFg=";
-    };
-
-    nativeBuildInputs = [ pkgs.unzip ];
-
-    dontUnpack = true;
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/share/gradle-language-server $out/bin
-      unzip -q "$src" -d $out/share/gradle-language-server
-
-      cat > $out/bin/gradle-language-server <<EOF
-      #!${pkgs.runtimeShell}
-      exec ${pkgs.jre}/bin/java -jar $out/share/gradle-language-server/extension/lib/gradle-language-server.jar "\$@"
-      EOF
-      chmod +x $out/bin/gradle-language-server
-
-      runHook postInstall
-    '';
-
-    meta.mainProgram = "gradle-language-server";
-  };
+  # nixpkgs does not package the Gradle language server yet, and the upstream
+  # VSIX ships a named-pipe-only server that nvim-lspconfig cannot speak to.
+  # `gradle_ls` is therefore not enabled.
 
   neovimTools = with pkgs; [
     go
@@ -57,7 +28,6 @@ let
     clang-tools
     docker-compose-language-service
     dockerfile-language-server
-    gradle-language-server
     jdt-language-server
     lua-language-server
     nil
@@ -126,6 +96,8 @@ in
       java_debug_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
       lombok_jar = "${pkgs.lombok}/share/java/lombok.jar";
       powershell_bundle = "${pkgs.powershell-editor-services}/lib/powershell-editor-services";
+      rust_analyzer = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+      typescript_tsdk = "${pkgs.typescript_5}/lib/node_modules/typescript/lib";
       vue_typescript_plugin = "${pkgs.vue-language-server}/lib/language-tools/packages/typescript-plugin";
     };
   };

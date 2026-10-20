@@ -1,13 +1,5 @@
 local nix = require("util").nix_paths()
 
-local java_home = vim.env.JAVA_HOME
-
-if not java_home then
-    vim.notify_once("jdtls: JAVA_HOME is not set; falling back to the default setup", vim.log.levels.WARN)
-
-    return {}
-end
-
 local java_root_markers = {
     { "settings.gradle", "settings.gradle.kts" },
     { "gradlew", "build.gradle", "build.gradle.kts", "mvnw", "pom.xml", "build.xml" },
@@ -43,8 +35,6 @@ return {
             vim.fn.exepath("jdtls"),
             "-data",
             data_dir,
-            "--java-executable",
-            java_home .. "/bin/java",
         }
 
         if nix.lombok_jar and vim.fn.filereadable(nix.lombok_jar) == 1 then

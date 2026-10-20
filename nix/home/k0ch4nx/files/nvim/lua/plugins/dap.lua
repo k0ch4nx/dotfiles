@@ -27,7 +27,7 @@ return {
         local function launch_config()
             return {
                 {
-                    name = "Launch file",
+                    name = "LLDB: Launch",
                     type = "codelldb",
                     request = "launch",
                     program = function()
@@ -35,13 +35,29 @@ return {
                     end,
                     cwd = "${workspaceFolder}",
                     stopOnEntry = false,
+                    args = {},
+                    console = "integratedTerminal",
+                },
+                {
+                    name = "LLDB: Launch (args)",
+                    type = "codelldb",
+                    request = "launch",
+                    program = function()
+                        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopOnEntry = false,
+                    args = function()
+                        return vim.split(vim.fn.input("Args: "), " +", { trimempty = true })
+                    end,
+                    console = "integratedTerminal",
                 },
             }
         end
 
-        dap.configurations.c = launch_config()
-        dap.configurations.cpp = launch_config()
-        dap.configurations.rust = launch_config()
+        for _, filetype in ipairs({ "c", "cpp", "rust", "swift", "zig" }) do
+            dap.configurations[filetype] = launch_config()
+        end
     end,
     optional = true,
 }
