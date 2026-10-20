@@ -106,16 +106,5 @@ return {
                 lint.try_lint()
             end,
         })
-
-        -- none-ls used to expose statix fixes through the code-action menu.
-        vim.api.nvim_create_autocmd("FileType", {
-            group = group,
-            pattern = "nix",
-            callback = function(event)
-                vim.keymap.set("n", "<Leader>ca", function()
-                    require("util.statix").code_actions()
-                end, { buffer = event.buf, desc = "Statix fixes" })
-            end,
-        })
     end,
 }
