@@ -7,5 +7,13 @@ vim.keymap.set({ "n", "v" }, "k", function()
 end, { expr = true })
 
 vim.keymap.set({ "n", "v" }, "<Leader>f", function()
-    vim.lsp.buf.format({ async = true })
+    if vim.g.vscode then
+        if vim.fn.exists("VSCodeNotify") == 1 then
+            vim.fn.VSCodeNotify("editor.action.formatDocument")
+        end
+
+        return
+    end
+
+    require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format buffer" })

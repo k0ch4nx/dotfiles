@@ -11,10 +11,6 @@
             "orchestrator": {
                 "model": [
                     {
-                        "id": "opencode/deepseek-v4.1-flash-free",
-                        "variant": "max"
-                    },
-                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
                     },
@@ -38,10 +34,6 @@
             },
             "explorer": {
                 "model": [
-                    {
-                        "id": "opencode/deepseek-v4.1-flash-free",
-                        "variant": "max"
-                    },
                     {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
@@ -73,10 +65,6 @@
             "designer": {
                 "model": [
                     {
-                        "id": "opencode/deepseek-v4.1-flash-free",
-                        "variant": "max"
-                    },
-                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
                     },
@@ -97,10 +85,6 @@
             },
             "fixer": {
                 "model": [
-                    {
-                        "id": "opencode/deepseek-v4.1-flash-free",
-                        "variant": "max"
-                    },
                     {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"

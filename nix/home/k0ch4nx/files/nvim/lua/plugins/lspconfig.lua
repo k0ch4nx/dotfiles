@@ -3,8 +3,9 @@
 return {
     ---@module "lspconfig"
     "neovim/nvim-lspconfig",
-    optional = true,
     config = function()
+        local nix = require("util").nix_paths()
+
         ---@type table<string, fun(config: vim.lsp.Config): vim.lsp.Config>
         local overrides = {
             oxfmt = function(config)
@@ -17,10 +18,9 @@ return {
                 }
             end,
             ts_ls = function(config)
-                local vue_typescript_plugin = vim.fn.stdpath("data")
-                    .. "/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin"
+                local vue_typescript_plugin = nix.vue_typescript_plugin
 
-                if vim.fn.isdirectory(vue_typescript_plugin) == 0 then
+                if not vue_typescript_plugin or vim.fn.isdirectory(vue_typescript_plugin) == 0 then
                     return {}
                 end
 
@@ -41,6 +41,7 @@ return {
 
         for server, override in pairs(overrides) do
             local config = vim.lsp.config[server]
+
             if config then
                 vim.lsp.config(server, override(config))
             end
@@ -53,5 +54,46 @@ return {
                 filetypes = vim.list_extend(vim.deepcopy(bashls.filetypes or {}), { "zsh" }),
             })
         end
+
+        if nix.rust_analyzer then
+            vim.lsp.config("rust_analyzer", {
+                cmd = { nix.rust_analyzer },
+            })
+        end
+
+        vim.lsp.enable({
+            "astro",
+            "bashls",
+            "clangd",
+            "cssls",
+            "docker_compose_language_service",
+            "dockerls",
+            "eslint",
+            "html",
+            "jdtls",
+            "jedi_language_server",
+            "jsonls",
+            "lua_ls",
+            "nil_ls",
+            "oxfmt",
+            "oxlint",
+            "powershell_es",
+            "pyrefly",
+            "roslyn_ls",
+            "ruff",
+            "rust_analyzer",
+            "sqls",
+            "starpls",
+            "svelte",
+            "tailwindcss",
+            "terraformls",
+            "tombi",
+            "ts_ls",
+            "typos_lsp",
+            "vue_ls",
+            "yamlls",
+            "zls",
+        })
     end,
+    event = { "BufReadPre", "BufNewFile", "VeryLazy" },
 }
