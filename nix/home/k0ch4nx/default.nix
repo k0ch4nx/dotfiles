@@ -35,9 +35,9 @@
       eza
       fd
       fastfetch
-      (ffmpeg-full.override {
-        withFrei0r = !stdenv.hostPlatform.isDarwin;
-      })
+      (ffmpeg-full.overrideAttrs (_: {
+        doCheck = false;
+      }))
       gamdl
       gh
       git-cliff

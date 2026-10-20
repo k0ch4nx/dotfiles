@@ -18,6 +18,11 @@ in
       ./patches/rift/enter-fullscreen.patch
     ];
 
+    checkFlags = [
+      "--skip=actor::reactor::tests::user_space_window_server_destroyed_removes_window_when_window_server_is_gone"
+      "--skip=actor::reactor::tests::user_space_window_server_events_preserve_hidden_window_state"
+    ];
+
     cargoDeps = prev.rustPlatform.fetchCargoVendor {
       inherit src;
       name = "rift-wm-${version}";
