@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792369191,
-        "narHash": "sha256-Ptf4Drj8JYQDpNGEo9o+Tc7+hyjYxe+zrYO3J4jrYT4=",
+        "lastModified": 1792507013,
+        "narHash": "sha256-8tKjSQajD3mUND1GaAuaWTcuyUpgcGsh5V+l4ibzC7U=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "847720f0e73a77ce6503b63fba6c357c742c28a7",
+        "rev": "5e5b88a0c8e56f291a108c2fe9934054d9745b2e",
         "type": "github"
       },
       "original": {
@@ -61,10 +61,10 @@
     "autoskills": {
       "flake": false,
       "locked": {
-        "lastModified": 1791983999,
-        "narHash": "sha256-D1+Do6tlwuB3OcTXO9q183QpcZ+zerY3sC/hahY1uM4=",
+        "lastModified": 1792491847,
+        "narHash": "sha256-frug+Lnn/FCZulBcuAGl88uOx8eWv+FCsyjyZB8MHsg=",
         "ref": "refs/heads/main",
-        "rev": "b4489cbdc36ba8c9de8f4dd844bab0b6b559579f",
+        "rev": "2dbab03b41988327e5c714d3fb233ebbce915e8c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/midudev/autoskills.git"
@@ -201,10 +201,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1792431178,
-        "narHash": "sha256-LzqVJ6hwSbhS2SciXZCeq5gjGB44/1Q5a5DOfF+N6Mc=",
+        "lastModified": 1792513245,
+        "narHash": "sha256-7ROX0EBN5CwbrBjX5WKUF4N+U9uNOKFdg3fvLS9Varo=",
         "ref": "refs/heads/main",
-        "rev": "9386ed7c1148a7bef970aa0502371c982effa01c",
+        "rev": "cbb2bb74cb70e0c5ee49cca10470a92da03d4b25",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -218,10 +218,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1792467558,
-        "narHash": "sha256-KY8xb2+kjtO7x00+N5ywA1yJgGqopshV9UdSY8Aq79U=",
+        "lastModified": 1792507678,
+        "narHash": "sha256-9VHkZpL9JX0hqUEtCvuoElHGXVOLo747/rCUkZU2PAY=",
         "ref": "refs/heads/main",
-        "rev": "6f1881aeafa3c48f7b603cc4be4b2e4e70daad59",
+        "rev": "07971588f8ac7a60080ba8c1b7920c9e8e733e7d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1792435456,
-        "narHash": "sha256-jxgOVYLUzVRMOLQv/tGubEDvBdkg7c5jVIs1PJk/I3Y=",
+        "lastModified": 1792508240,
+        "narHash": "sha256-MfEN+nVnWqQoKUbaS2VZk2e9ifapY6yPwpObfddnI5o=",
         "ref": "refs/heads/main",
-        "rev": "22bf5d15d546318171a1a27dda7fcdff9cb3029b",
+        "rev": "536c96d92c858fbd7cf4e7e5e0029a02550b4dd3",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -404,11 +404,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792467281,
-        "narHash": "sha256-l1aACVdR3Wm6V0MGoTKqUg2tPKVNKGAVoz22jJ4QDw4=",
+        "lastModified": 1792495086,
+        "narHash": "sha256-TyoYH983Nsc++1scw0SoOEKshPSJWJDxK7tTmuZ974M=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5bf02bcfede52ca95f693069ac28ace376942c05",
+        "rev": "ec80131710bffcdf3b8498cf41f3a0579833b023",
         "type": "github"
       },
       "original": {
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1792490931,
-        "narHash": "sha256-qZCopKj0d47xQGame1EcW1GdEo/VIIqVjMWIeMqawCs=",
+        "lastModified": 1792490949,
+        "narHash": "sha256-vGjr+2nzejufjFvsqgGhvEEO6yN+fRj6ukKUItAULZ8=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "e743a34a0a76cb9d5a8dd68609a7a8935fe6a542",
+        "rev": "06419f6a482c5a4d38d703f4b88b128740d3124e",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1792491437,
-        "narHash": "sha256-69+uqRIzhKkaHHW6m+DCMvpULdgmbCGyy3DKfbMHCLA=",
+        "lastModified": 1792512972,
+        "narHash": "sha256-4TnlUNDGVCsqjycfug6Ae18TtlnYOaENBHOUMoc6zjQ=",
         "ref": "refs/heads/main",
-        "rev": "80afbe1b7950116b6d55c557c7c7d4bc5fd01330",
+        "rev": "78e97d169703a32ee97221f91593ab20200bc05f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
