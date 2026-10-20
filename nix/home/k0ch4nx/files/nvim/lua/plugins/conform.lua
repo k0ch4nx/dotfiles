@@ -11,7 +11,6 @@ return {
                 stdin = true,
             },
         },
-        -- LSP formatting is used as a fallback for every other filetype.
         formatters_by_ft = {
             bzl = { "buildifier" },
             cs = { "csharpier" },

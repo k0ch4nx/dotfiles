@@ -55,15 +55,12 @@ return {
             })
         end
 
-        -- Rustup proxies `rust-analyzer` earlier in PATH and fails when the
-        -- active toolchain has no component installed.
         if nix.rust_analyzer then
             vim.lsp.config("rust_analyzer", {
                 cmd = { nix.rust_analyzer },
             })
         end
 
-        -- `snyk_ls` was already excluded from mason-lspconfig's ensure_installed.
         vim.lsp.enable({
             "astro",
             "bashls",

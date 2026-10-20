@@ -3,8 +3,6 @@
 let
   nvimDir = "${config.dotfiles.path}/nix/home/k0ch4nx/files/nvim";
 
-  # codelldb ships its adapter inside the VS Code extension directory, so expose
-  # the binary on PATH for nvim-dap.
   codelldb =
     pkgs.runCommandLocal "codelldb-${pkgs.vscode-extensions.vadimcn.vscode-lldb.version}"
       {
@@ -15,14 +13,9 @@ let
         ln -s ${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb $out/bin/codelldb
       '';
 
-  # nixpkgs does not package the Gradle language server yet, and the upstream
-  # VSIX ships a named-pipe-only server that nvim-lspconfig cannot speak to.
-  # `gradle_ls` is therefore not enabled.
-
   neovimTools = with pkgs; [
     go
 
-    # LSP servers
     astro-language-server
     bash-language-server
     clang-tools
@@ -53,7 +46,6 @@ let
     zls
     python3Packages.jedi-language-server
 
-    # Formatters and linters
     buildifier
     checkstyle
     csharpier
@@ -69,7 +61,6 @@ let
     yamlfmt
     yamllint
 
-    # DAP
     codelldb
   ];
 in
@@ -90,7 +81,6 @@ in
       source = config.lib.file.mkOutOfStoreSymlink "${nvimDir}/lazy-lock.json";
       force = true;
     };
-    # Store paths that the Lua configuration cannot express itself.
     "nvim/nix-paths.json".text = builtins.toJSON {
       codelldb = "${codelldb}/bin/codelldb";
       java_debug_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";

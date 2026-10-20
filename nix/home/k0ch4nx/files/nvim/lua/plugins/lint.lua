@@ -7,8 +7,6 @@ return {
     config = function()
         local lint = require("lint")
 
-        -- nvim-lint ships a stdin-based npm-groovy-lint linter.
-        -- Jenkinsfiles additionally need `--no-parse`.
         lint.linters.npm_groovy_lint = function()
             local linter = vim.deepcopy(lint.linters["npm-groovy-lint"])
 
@@ -19,9 +17,6 @@ return {
             return linter
         end
 
-        -- `terraform validate` reports the whole module. The built-in parser
-        -- mislabels cross-file diagnostics, so rebuild it and keep only the
-        -- diagnostics that belong to the current buffer.
         lint.linters.terraform_validate = function()
             local severity = {
                 notice = vim.diagnostic.severity.INFO,
@@ -79,7 +74,6 @@ return {
             }
         end
 
-        -- `oxlint` and `ruff` are omitted because their LSP servers already report.
         lint.linters_by_ft = {
             bash = { "shellcheck" },
             bzl = { "buildifier" },
