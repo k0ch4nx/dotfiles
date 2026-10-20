@@ -37,6 +37,24 @@ M.math = {
     i32_max = bit.bnot(bit.lshift(1, 31)),
 }
 
+---Reads the Nix-provided paths from `nix-paths.json`.
+---@return { codelldb?: string, java_debug_dir?: string, lombok_jar?: string, powershell_bundle?: string, vue_typescript_plugin?: string }
+M.nix_paths = function()
+    local path = vim.fn.stdpath("config") .. "/nix-paths.json"
+    local file = io.open(path, "r")
+
+    if not file then
+        return {}
+    end
+
+    local content = file:read("*a")
+    file:close()
+
+    local ok, decoded = pcall(vim.json.decode, content)
+
+    return ok and decoded or {}
+end
+
 M.table = {
     unique = function(...)
         local seen = {}

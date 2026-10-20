@@ -1,6 +1,4 @@
-local mason_root = vim.fn.stdpath("data") .. "/mason"
-local mason_packages = mason_root .. "/packages"
-local lombok_jar = mason_root .. "/share/jdtls/lombok.jar"
+local nix = require("util").nix_paths()
 
 local java_home = vim.env.JAVA_HOME
 
@@ -14,6 +12,14 @@ local java_root_markers = {
     { "settings.gradle", "settings.gradle.kts" },
     { "gradlew", "build.gradle", "build.gradle.kts", "mvnw", "pom.xml", "build.xml" },
 }
+
+local function java_debug_bundles()
+    if not nix.java_debug_dir then
+        return {}
+    end
+
+    return vim.fn.glob(nix.java_debug_dir .. "/*.jar", true, true)
+end
 
 ---@type vim.lsp.Config
 return {
@@ -33,35 +39,26 @@ return {
             vim.fn.sha256(root):sub(1, 8)
         )
 
-        return vim.lsp.rpc.start({
+        local args = {
             vim.fn.exepath("jdtls"),
             "-data",
             data_dir,
             "--java-executable",
             java_home .. "/bin/java",
-            "--jvm-arg=-javaagent:" .. lombok_jar,
-        }, dispatchers, {
+        }
+
+        if nix.lombok_jar and vim.fn.filereadable(nix.lombok_jar) == 1 then
+            table.insert(args, "--jvm-arg=-javaagent:" .. nix.lombok_jar)
+        end
+
+        return vim.lsp.rpc.start(args, dispatchers, {
             cwd = config.cmd_cwd,
             env = config.cmd_env,
             detached = config.detached,
         })
     end,
     init_options = {
-        bundles = (function()
-            local bundles = {}
-
-            vim.list_extend(
-                bundles,
-                vim.fn.glob(
-                    mason_packages
-                    .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar",
-                    true,
-                    true
-                )
-            )
-
-            return bundles
-        end)(),
+        bundles = java_debug_bundles(),
     },
     handlers = {
         ---@param ctx lsp.HandlerContext

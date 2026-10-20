@@ -86,12 +86,10 @@ jobs:
           retry_wait_seconds: 30
           command: |
             ./scripts/steps/110-update-neovim-plugins.sh
-            ./scripts/steps/140-update-neovim-mason-packages.sh
 
             unexpected_paths="$(
               git diff --name-only \
-                -- ':(exclude)nix/home/k0ch4nx/files/nvim/lazy-lock.json' \
-                ':(exclude)nix/home/k0ch4nx/files/nvim/mason-lock.json'
+                -- ':(exclude)nix/home/k0ch4nx/files/nvim/lazy-lock.json'
             )"
             if [[ -n "${unexpected_paths}" ]]; then
               printf 'Unexpected paths changed:\n%s\n' "${unexpected_paths}" >&2
@@ -100,8 +98,7 @@ jobs:
 
             if \
               git diff --quiet \
-                -- nix/home/k0ch4nx/files/nvim/lazy-lock.json \
-                nix/home/k0ch4nx/files/nvim/mason-lock.json; then
+                -- nix/home/k0ch4nx/files/nvim/lazy-lock.json; then
               printf 'changed=false\n' >>"${GITHUB_OUTPUT}"
             else
               printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
@@ -121,7 +118,6 @@ jobs:
           delete-branch: true
           add-paths: |
             nix/home/k0ch4nx/files/nvim/lazy-lock.json
-            nix/home/k0ch4nx/files/nvim/mason-lock.json
           commit-message: "chore: update neovim lock files"
           title: "chore: update neovim lock files"
           body: |

@@ -6,7 +6,6 @@ return {
     ---@module "lualine"
     "nvim-lualine/lualine.nvim",
     dependencies = {
-        "nvimtools/none-ls.nvim",
         "rebelot/kanagawa.nvim",
 
         "nvim-tree/nvim-web-devicons",
@@ -47,19 +46,7 @@ return {
         local lsp = function()
             local clients = vim.iter(vim.lsp.get_clients({ bufnr = 0 }))
                 :map(function(client)
-                    local name = client.id .. ":" .. client.name
-                    if client.name == "null-ls" then
-                        return (name .. "[%s]"):format(table.concat(
-                            vim.iter(require("null-ls.sources").get_available(vim.bo.filetype))
-                            :map(function(source)
-                                return source.name
-                            end)
-                            :totable(),
-                            " "
-                        ))
-                    else
-                        return name
-                    end
+                    return client.id .. ":" .. client.name
                 end)
                 :totable()
             if not next(clients) then

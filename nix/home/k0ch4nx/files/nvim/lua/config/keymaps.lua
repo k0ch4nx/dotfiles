@@ -7,5 +7,5 @@ vim.keymap.set({ "n", "v" }, "k", function()
 end, { expr = true })
 
 vim.keymap.set({ "n", "v" }, "<Leader>f", function()
-    vim.lsp.buf.format({ async = true })
+    require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format buffer" })

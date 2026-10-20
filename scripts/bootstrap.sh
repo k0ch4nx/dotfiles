@@ -54,7 +54,6 @@ function main() {
     source "${DOTFILES_DIR}/scripts/steps/110-update-neovim-plugins.sh"
     source "${DOTFILES_DIR}/scripts/steps/120-install-neovim-treesitter-parsers.sh"
     source "${DOTFILES_DIR}/scripts/steps/130-update-neovim-treesitter-parsers.sh"
-    source "${DOTFILES_DIR}/scripts/steps/140-update-neovim-mason-packages.sh"
     source "${DOTFILES_DIR}/scripts/steps/150-update-neovim-codediff.sh"
     source "${DOTFILES_DIR}/scripts/steps/160-update-opencode-plugins.sh"
     source "${DOTFILES_DIR}/scripts/steps/170-update-macos.sh"
