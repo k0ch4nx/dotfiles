@@ -37,7 +37,6 @@ M.math = {
     i32_max = bit.bnot(bit.lshift(1, 31)),
 }
 
----Reads the Nix-provided paths from `nix-paths.json`.
 ---@return { codelldb?: string, java_debug_dir?: string, lombok_jar?: string, powershell_bundle?: string, vue_typescript_plugin?: string }
 M.nix_paths = function()
     local path = vim.fn.stdpath("config") .. "/nix-paths.json"

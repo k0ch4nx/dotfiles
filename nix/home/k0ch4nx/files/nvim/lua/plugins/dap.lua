@@ -14,7 +14,6 @@ return {
         local nix = require("util").nix_paths()
         local codelldb = nix.codelldb or "codelldb"
 
-        -- `mason-nvim-dap` used to register this adapter.
         dap.adapters.codelldb = {
             type = "server",
             port = "${port}",

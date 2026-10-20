@@ -79,7 +79,6 @@ return {
             }
         end
 
-        -- `mason-null-ls` used to register these diagnostics through none-ls.
         -- `oxlint` and `ruff` are omitted because their LSP servers already report.
         lint.linters_by_ft = {
             bash = { "shellcheck" },

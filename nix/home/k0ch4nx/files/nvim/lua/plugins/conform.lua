@@ -3,8 +3,6 @@
 return {
     ---@module "conform"
     "stevearc/conform.nvim",
-    cmd = { "ConformInfo" },
-    event = { "BufWritePre" },
     opts = {
         formatters = {
             npm_groovy_lint = {
@@ -13,7 +11,6 @@ return {
                 stdin = true,
             },
         },
-        -- `mason-null-ls` used to provide these through none-ls.
         -- LSP formatting is used as a fallback for every other filetype.
         formatters_by_ft = {
             bzl = { "buildifier" },
@@ -30,4 +27,6 @@ return {
             nix = { "nixfmt" },
         },
     },
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
 }

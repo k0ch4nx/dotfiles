@@ -3,7 +3,6 @@
 return {
     ---@module "lspconfig"
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile", "VeryLazy" },
     config = function()
         local nix = require("util").nix_paths()
 
@@ -64,7 +63,6 @@ return {
             })
         end
 
-        -- These used to be enabled through mason-lspconfig.
         -- `snyk_ls` was already excluded from mason-lspconfig's ensure_installed.
         vim.lsp.enable({
             "astro",
@@ -100,4 +98,5 @@ return {
             "zls",
         })
     end,
+    event = { "BufReadPre", "BufNewFile", "VeryLazy" },
 }
