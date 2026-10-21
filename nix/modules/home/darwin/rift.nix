@@ -21,7 +21,7 @@ let
   sourcePackage = "${pkgs.rift-wm}";
   signerPackage = "${pkgs.rcodesign}";
 
-  riftLabel = config.launchd.agents.rift.config.Label;
+  riftLabel = "org.nix-community.home.rift";
 
   restartRift = ''
     userId="$(id -u)"
@@ -30,25 +30,21 @@ let
     fi
   '';
 
-  launcher = pkgs.writeShellScript "rift-signed-launcher" ''
-    signed="${dst}"
-
-    if [ -x "$signed" ]; then
-      exec "$signed"
-    fi
-
-    attempts=0
-    while [ "$attempts" -lt 300 ]; do
-      /bin/sleep 1
-      if [ -x "$signed" ]; then
-        exec "$signed"
-      fi
-      attempts=$((attempts + 1))
-    done
-
-    echo "rift: signed executable unavailable; awaiting activation" >&2
-    exit 0
-  '';
+  riftPlist = pkgs.writeText "${riftLabel}.plist" (
+    lib.generators.toPlist { escape = true; } {
+      Label = riftLabel;
+      ProgramArguments = [ dst ];
+      RunAtLoad = true;
+      KeepAlive = {
+        Crashed = true;
+        SuccessfulExit = false;
+      };
+      Nice = -20;
+      ProcessType = "Interactive";
+      EnvironmentVariables.XDG_CONFIG_HOME =
+        if config.xdg.enable then config.xdg.configHome else "${home}/.config";
+    }
+  );
 
   riftSign = ''
     if [[ -v DRY_RUN ]]; then
@@ -467,31 +463,35 @@ in
   config = {
     home.packages = [ pkgs.rift-wm ];
 
-    launchd.agents.rift = {
-      enable = true;
-      config = lib.mkMerge [
-        {
-          ProgramArguments = [ "${pkgs.rift-wm}/bin/rift" ];
-          KeepAlive = {
-            Crashed = true;
-            SuccessfulExit = false;
-          };
-          Nice = -20;
-          ProcessType = "Interactive";
-          EnvironmentVariables = {
-            XDG_CONFIG_HOME =
-              if config.xdg.enable then config.xdg.configHome else "${config.home.homeDirectory}/.config";
-          };
-          RunAtLoad = true;
-        }
-        (lib.mkIf cfg.enable {
-          ProgramArguments = lib.mkForce [ "${launcher}" ];
-        })
-      ];
-    };
+    home.activation.riftLaunchAgent = lib.mkIf cfg.enable (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        plist="${home}/Library/LaunchAgents/${riftLabel}.plist"
+        domain="gui/$(/usr/bin/id -u)"
+        job="$domain/${riftLabel}"
+        /usr/bin/install -d -m 755 "${home}/Library/LaunchAgents"
+        if /usr/bin/cmp -s "${riftPlist}" "$plist"; then
+          if ! /bin/launchctl print "$job" >/dev/null 2>&1; then
+            /bin/launchctl bootstrap "$domain" "$plist" 2>/dev/null || true
+          fi
+        else
+          /bin/launchctl bootout "$job" 2>/dev/null || true
+          waited=0
+          while /bin/launchctl print "$job" >/dev/null 2>&1 && [ "$waited" -lt 50 ]; do
+            /bin/sleep 0.1
+            waited=$((waited + 1))
+          done
+          /usr/bin/install -m 644 "${riftPlist}" "$plist"
+          attempts=0
+          while ! /bin/launchctl bootstrap "$domain" "$plist" 2>/dev/null && [ "$attempts" -lt 3 ]; do
+            attempts=$((attempts + 1))
+            /bin/sleep 0.5
+          done
+        fi
+      ''
+    );
 
     home.activation.riftPrepare = lib.mkIf cfg.enable (
-      lib.hm.dag.entryBetween [ "setupLaunchAgents" ] [ "writeBoundary" ] ''
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         run ${pkgs.coreutils}/bin/install -d -m 700 "${signedDir}" "${stateDir}" "${stateDir}/gcroots"
       ''
     );
