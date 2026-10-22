@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1792659252,
-        "narHash": "sha256-NIlsBDhfTbiaAkN7hIZ6BQBhupD5dF+ABMNenOLwdrk=",
+        "lastModified": 1792677084,
+        "narHash": "sha256-k3fWelqUcFvM/nCFMDNcHLHtRGOetu4y+Yh3scO4M44=",
         "ref": "refs/heads/main",
-        "rev": "90bb0a8853daa6ab597c303a69d80ad8ee3e44d5",
+        "rev": "6f82b205c0acbe185ce513ce0390bc4b57caa877",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -404,11 +404,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792605213,
-        "narHash": "sha256-J73EBU30r2hXvHCcBtaigQDAIu/GGPYk1nc6P9THcmg=",
+        "lastModified": 1792668857,
+        "narHash": "sha256-chUrnAqBhBLvXBUsLFxFYBIl8c0GWp06wdjmAMS8l+U=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ab97a5d09e0f2aa7339cfd35ec5824fd6653e27c",
+        "rev": "cb7de2c7e589afe7531d4832c71ad4df144624ea",
         "type": "github"
       },
       "original": {
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1792658527,
-        "narHash": "sha256-h7osOr5BBm0QlPHbJ0+weyQnOdXbO1oMTAa1d9iSCQc=",
+        "lastModified": 1792668368,
+        "narHash": "sha256-PoqUEkQ+/NKnGF66iwIwLzqdVOUO6lX1i8DvvtU7buY=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "1584582de5ae46adfc985c21107bdd28a6f2c3b0",
+        "rev": "327ba8b06108782bb26e22aec8df01806573aa49",
         "type": "github"
       },
       "original": {
@@ -511,10 +511,10 @@
     "natural-japanese": {
       "flake": false,
       "locked": {
-        "lastModified": 1792591853,
-        "narHash": "sha256-Dy/ad6dzx5uBDtq9Sy0j+1ZyiulkLke9I1g+kasaGzs=",
+        "lastModified": 1792677192,
+        "narHash": "sha256-zVvjrTTNqkfGYLIiRiLBzkOpGJ3CVgsw5i2n00rNzKU=",
         "ref": "refs/heads/main",
-        "rev": "a7084032d9bb7dae12d62351bcea3063da11436e",
+        "rev": "83fd5437620d7beb4a8393b63641ede80bc1c870",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/coji/natural-japanese.git"
@@ -532,11 +532,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792624390,
-        "narHash": "sha256-Qw1+LMJtF10B8FVqZdIlAEfNyGmhxzfgnvm1UD9+zY8=",
+        "lastModified": 1792667976,
+        "narHash": "sha256-qlW9xfM0TFDIU6wGTXfTZ2xSgvgOlV89YHdvfjQ+e0Q=",
         "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "57abbd54db8e267474f9154d80bad195462fa081",
+        "rev": "38cf0abb072c30fff68da0e3f516fc8a7cfb8fc0",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1792662944,
-        "narHash": "sha256-qcM40gh74NC73gHx8eS/gS5mIRfM/BVkUKgqvDSwQRE=",
+        "lastModified": 1792681321,
+        "narHash": "sha256-jQGmAhq9Lokq2wTviO0XCP/GEY3Ug1wxD0DUSwKuJiQ=",
         "ref": "refs/heads/main",
-        "rev": "674a03367c1432e0a65a0b91f02ccd66d8005eb9",
+        "rev": "ae40e1864ba6ea2a8d0f37362933c6bbf59b2cff",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -817,10 +817,10 @@
     "trailofbits-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1792605686,
-        "narHash": "sha256-U/I25L1ppA0jEohkoyFEy8xFREQ1aIZ7XvQrhMgWUTY=",
+        "lastModified": 1792681239,
+        "narHash": "sha256-FQyhz8l4DMRBG1ER9q0A2FqMu5mhAm2DzRnKdhg1G6o=",
         "ref": "refs/heads/main",
-        "rev": "f0dd11d2b1da17a1ff8c403741fbe1f6bca0f871",
+        "rev": "22d756ad7cebb8e4a8333c4c936bdc4868dd86da",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/trailofbits/skills.git"
