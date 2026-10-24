@@ -4,6 +4,7 @@ return {
     ---@module "noice"
     "folke/noice.nvim",
     dependencies = {
+        ---@module "notify"
         "rcarriga/nvim-notify",
     },
     event = { "UIEnter" },

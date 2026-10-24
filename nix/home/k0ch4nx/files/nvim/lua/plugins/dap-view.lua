@@ -4,6 +4,7 @@ return {
     ---@module "dap-view"
     "igorlfs/nvim-dap-view",
     dependencies = {
+        ---@module "dap"
         "mfussenegger/nvim-dap",
     },
     event = { "VeryLazy" },

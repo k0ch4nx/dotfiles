@@ -5,7 +5,9 @@ return {
         ---@module "blink.cmp"
         "saghen/blink.cmp",
         dependencies = {
+            ---@module "lazydev"
             "folke/lazydev.nvim",
+            ---@module "blink.lib"
             "saghen/blink.lib",
         },
         event = { "VeryLazy" },

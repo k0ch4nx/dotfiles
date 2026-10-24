@@ -4,7 +4,8 @@ return {
     ---@module "textcase"
     "johmsalas/text-case.nvim",
     dependencies = {
-        "folke/snacks.nvim", ---@module "snacks"
+        ---@module "snacks"
+        "folke/snacks.nvim",
     },
     event = { "VeryLazy" },
     config = function(self, opts)

@@ -7,7 +7,9 @@ return {
     ---@module "cokeline"
     "willothy/nvim-cokeline",
     dependencies = {
+        ---@module "plenary"
         "nvim-lua/plenary.nvim",
+        ---@module "nvim-web-devicons"
         "nvim-tree/nvim-web-devicons",
     },
     event = { "UIEnter" },

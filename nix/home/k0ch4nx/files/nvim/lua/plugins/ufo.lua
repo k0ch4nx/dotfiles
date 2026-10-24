@@ -4,6 +4,7 @@ return {
     ---@module "ufo"
     "kevinhwang91/nvim-ufo",
     dependencies = {
+        ---@module "promise-async"
         "kevinhwang91/promise-async",
     },
     event = { "VeryLazy" },

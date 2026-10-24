@@ -4,6 +4,7 @@ return {
     ---@module "otter"
     "jmbuhr/otter.nvim",
     dependencies = {
+        ---@module "nvim-treesitter"
         "nvim-treesitter/nvim-treesitter",
     },
     lazy = false,

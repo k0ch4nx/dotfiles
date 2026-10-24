@@ -4,6 +4,7 @@ return {
     ---@module "nvim-treesitter"
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
+        ---@module "nvim-treesitter-endwise"
         "RRethy/nvim-treesitter-endwise",
     },
     lazy = false,
