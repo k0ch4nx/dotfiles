@@ -6,7 +6,7 @@ return {
     dependencies = {
         "mfussenegger/nvim-dap",
     },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     config = function(self, opts)
         ---@module "dap-view"
         local main = require(require("lazy.core.loader").get_main(self))

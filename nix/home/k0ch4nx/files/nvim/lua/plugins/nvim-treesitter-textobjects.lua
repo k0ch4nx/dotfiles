@@ -7,7 +7,7 @@ return {
         ---@module "nvim-treesitter"
         "nvim-treesitter/nvim-treesitter",
     },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     keys = {
         {
             "am",

@@ -3,7 +3,7 @@
 return {
     ---@module "tiny-glimmer"
     "rachartier/tiny-glimmer.nvim",
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     opts = {
         overwrite = {
             undo = {

@@ -6,7 +6,7 @@ return {
     dependencies = {
         "folke/snacks.nvim", ---@module "snacks"
     },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     config = function(self, opts)
         ---@module "textcase"
         local main = require(require("lazy.core.loader").get_main(self))

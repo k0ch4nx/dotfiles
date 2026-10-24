@@ -3,7 +3,7 @@
 return {
     ---@module "edgy"
     "folke/edgy.nvim",
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     ---@type Edgy.Config
     opts = {
         left = {

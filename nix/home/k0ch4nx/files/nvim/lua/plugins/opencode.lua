@@ -3,7 +3,7 @@
 return {
     ---@module "opencode"
     "nickjvandyke/opencode.nvim",
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     keys = {
         {
             "<Leader>oa",

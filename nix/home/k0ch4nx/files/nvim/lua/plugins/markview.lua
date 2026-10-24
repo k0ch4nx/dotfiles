@@ -3,7 +3,7 @@
 return {
     ---@module "markview"
     "OXY2DEV/markview.nvim",
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     ---@type markview.config
     opts = {
         renderers = {

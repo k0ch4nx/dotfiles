@@ -6,7 +6,7 @@ return {
     dependencies = {
         "kevinhwang91/promise-async",
     },
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     opts = function(self, opts) ---@diagnostic disable-line: unused-local
         return {
             preview = {

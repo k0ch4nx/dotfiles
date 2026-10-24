@@ -3,7 +3,7 @@
 return {
     ---@module "crates"
     "saecki/crates.nvim",
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     opts = {
         popup = {
             border = "rounded",

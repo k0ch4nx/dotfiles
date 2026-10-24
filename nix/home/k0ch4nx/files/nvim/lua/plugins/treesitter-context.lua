@@ -3,7 +3,7 @@
 return {
     ---@module "treesitter-context"
     "nvim-treesitter/nvim-treesitter-context",
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     ---@type TSContext.UserConfig
     opts = {},
 }
