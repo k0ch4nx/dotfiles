@@ -3,6 +3,6 @@
 return {
     "vim-jp/vimdoc-ja",
     dependencies = {},
-    build = "git reset --hard HEAD",
     event = "VeryLazy",
+    build = "git reset --hard HEAD",
 }

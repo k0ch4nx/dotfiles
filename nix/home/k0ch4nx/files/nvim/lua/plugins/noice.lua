@@ -6,6 +6,7 @@ return {
     dependencies = {
         "rcarriga/nvim-notify",
     },
+    event = "UIEnter",
     ---@type NoiceConfig
     opts = {
         lsp = {
@@ -25,5 +26,4 @@ return {
             },
         },
     },
-    event = "UIEnter",
 }

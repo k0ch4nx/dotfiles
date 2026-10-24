@@ -6,6 +6,8 @@ return {
     dependencies = {
         "RRethy/nvim-treesitter-endwise",
     },
+    lazy = false,
+    build = ":TSUpdate",
     opts = function()
         -- https://github.com/nvim-treesitter/nvim-treesitter/tree/main#highlighting
         vim.api.nvim_create_autocmd("FileType", {
@@ -38,6 +40,4 @@ return {
 
         return {}
     end,
-    build = ":TSUpdate",
-    lazy = false,
 }

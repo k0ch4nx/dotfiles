@@ -3,6 +3,7 @@
 return {
     ---@module "toggleterm"
     "akinsho/toggleterm.nvim",
+    event = "VeryLazy",
     ---@type ToggleTermConfig
     ---@diagnostic disable-next-line: missing-fields
     opts = {
@@ -21,5 +22,4 @@ return {
             winblend = vim.o.winblend,
         },
     },
-    event = "VeryLazy",
 }

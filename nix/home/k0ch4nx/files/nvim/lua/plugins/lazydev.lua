@@ -16,6 +16,7 @@ return {
             "Bilal2453/luvit-meta",
             "DrKJeff16/wezterm-types",
         },
+        ft = "lua",
         ---@type lazydev.Config
         ---@diagnostic disable-next-line: missing-fields
         opts = {
@@ -24,6 +25,5 @@ return {
                 { path = "wezterm-types", mods = { "wezterm" } },
             },
         },
-        ft = "lua",
     },
 }

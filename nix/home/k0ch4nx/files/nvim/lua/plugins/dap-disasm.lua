@@ -7,6 +7,6 @@ return {
         "igorlfs/nvim-dap-view",
         "mfussenegger/nvim-dap",
     },
-    opts = {},
     event = "VeryLazy",
+    opts = {},
 }

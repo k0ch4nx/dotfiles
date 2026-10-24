@@ -6,6 +6,6 @@ return {
     dependencies = {
         "MunifTanjim/nui.nvim",
     },
-    opts = {},
     cmd = "CodeDiff",
+    opts = {},
 }

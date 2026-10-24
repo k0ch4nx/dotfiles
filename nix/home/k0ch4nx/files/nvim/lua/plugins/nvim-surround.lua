@@ -3,8 +3,8 @@
 return {
     ---@module "nvim-surround"
     "kylechui/nvim-surround",
+    event = "VeryLazy",
     opts = {
         move_cursor = "sticky",
     },
-    event = "VeryLazy",
 }

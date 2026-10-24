@@ -10,6 +10,7 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
     },
+    event = { "UIEnter" },
     ---@diagnostic disable-next-line: unused-local
     opts = function(self)
         local buffers = require("cokeline.buffers")
@@ -292,5 +293,4 @@ return {
             },
         }
     end,
-    event = { "UIEnter" },
 }

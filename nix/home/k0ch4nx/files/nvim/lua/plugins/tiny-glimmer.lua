@@ -3,6 +3,7 @@
 return {
     ---@module "tiny-glimmer"
     "rachartier/tiny-glimmer.nvim",
+    event = "VeryLazy",
     opts = {
         overwrite = {
             undo = {
@@ -17,5 +18,4 @@ return {
             "snacks_picker_list",
         },
     },
-    event = "VeryLazy",
 }

@@ -7,11 +7,7 @@ return {
         ---@module "nvim-treesitter"
         "nvim-treesitter/nvim-treesitter",
     },
-    init = function()
-        vim.g.no_plugin_maps = true
-    end,
-    ---@type TSTextObjects.Config
-    opts = {},
+    event = "VeryLazy",
     keys = {
         {
             "am",
@@ -42,6 +38,10 @@ return {
             mode = { "x", "o" },
         },
     },
+    init = function()
+        vim.g.no_plugin_maps = true
+    end,
+    ---@type TSTextObjects.Config
+    opts = {},
     branch = "main",
-    event = "VeryLazy",
 }

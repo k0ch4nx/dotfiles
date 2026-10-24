@@ -3,6 +3,7 @@
 return {
     ---@module "dap"
     "mfussenegger/nvim-dap",
+    optional = true,
     init = function()
         vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpoint", linehl = "", numhl = "" })
         vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
@@ -58,5 +59,4 @@ return {
             dap.configurations[filetype] = launch_config()
         end
     end,
-    optional = true,
 }
