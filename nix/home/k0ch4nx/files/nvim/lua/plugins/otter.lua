@@ -4,8 +4,10 @@ return {
     ---@module "otter"
     "jmbuhr/otter.nvim",
     dependencies = {
+        ---@module "nvim-treesitter"
         "nvim-treesitter/nvim-treesitter",
     },
+    lazy = false,
     opts = function()
         vim.api.nvim_create_user_command("OtterActivate", function() require("otter").activate() end, {})
         ---@type OtterConfig
@@ -15,5 +17,4 @@ return {
             },
         }
     end,
-    lazy = false,
 }

@@ -4,8 +4,10 @@ return {
     ---@module "ufo"
     "kevinhwang91/nvim-ufo",
     dependencies = {
+        ---@module "promise-async"
         "kevinhwang91/promise-async",
     },
+    event = { "VeryLazy" },
     opts = function(self, opts) ---@diagnostic disable-line: unused-local
         return {
             preview = {
@@ -16,5 +18,4 @@ return {
             },
         }
     end,
-    event = "VeryLazy",
 }

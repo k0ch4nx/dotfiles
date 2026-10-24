@@ -3,6 +3,7 @@
 return {
     ---@module "statuscol"
     "luukvbaal/statuscol.nvim",
+    event = { "UIEnter" },
     opts = function(self, opts) ---@diagnostic disable-line: unused-local
         local builtin = require("statuscol.builtin")
 
@@ -27,5 +28,4 @@ return {
             },
         }
     end,
-    event = "UIEnter",
 }

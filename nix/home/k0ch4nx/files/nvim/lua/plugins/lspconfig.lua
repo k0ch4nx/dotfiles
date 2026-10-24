@@ -3,6 +3,7 @@
 return {
     ---@module "lspconfig"
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile", "VeryLazy" },
     config = function()
         local nix = require("util").nix_paths()
 
@@ -95,5 +96,4 @@ return {
             "zls",
         })
     end,
-    event = { "BufReadPre", "BufNewFile", "VeryLazy" },
 }

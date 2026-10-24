@@ -4,9 +4,10 @@ return {
     ---@module "textcase"
     "johmsalas/text-case.nvim",
     dependencies = {
-        "folke/snacks.nvim", ---@module "snacks"
+        ---@module "snacks"
+        "folke/snacks.nvim",
     },
-    opts = {},
+    event = { "VeryLazy" },
     config = function(self, opts)
         ---@module "textcase"
         local main = require(require("lazy.core.loader").get_main(self))
@@ -156,5 +157,5 @@ return {
             })
         end)
     end,
-    event = "VeryLazy",
+    opts = {},
 }

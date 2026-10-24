@@ -3,6 +3,16 @@
 return {
     ---@module "kanagawa"
     "rebelot/kanagawa.nvim",
+    lazy = false,
+    priority = math.huge,
+    ---@param opts KanagawaConfig
+    config = function(self, opts)
+        ---@module "kanagawa"
+        local main = require(require("lazy.core.loader").get_main(self))
+
+        main.setup(opts)
+        main.load("wave")
+    end,
     ---@type KanagawaConfig
     ---@diagnostic disable-next-line: missing-fields
     opts = {
@@ -39,14 +49,4 @@ return {
             }
         end,
     },
-    ---@param opts KanagawaConfig
-    config = function(self, opts)
-        ---@module "kanagawa"
-        local main = require(require("lazy.core.loader").get_main(self))
-
-        main.setup(opts)
-        main.load("wave")
-    end,
-    priority = math.huge,
-    lazy = false,
 }

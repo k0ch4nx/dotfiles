@@ -3,6 +3,7 @@
 return {
     ---@module "gitsigns"
     "lewis6991/gitsigns.nvim",
+    event = { "VeryLazy" },
     ---@return Gitsigns.Config
     opts = function(self)
         return {
@@ -84,5 +85,4 @@ return {
             end,
         }
     end,
-    event = "VeryLazy",
 }

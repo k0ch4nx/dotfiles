@@ -5,9 +5,13 @@ return {
         ---@module "blink.cmp"
         "saghen/blink.cmp",
         dependencies = {
+            ---@module "lazydev"
             "folke/lazydev.nvim",
+            ---@module "blink.lib"
             "saghen/blink.lib",
         },
+        event = { "VeryLazy" },
+        build = "cargo build --release",
         ---@type blink.cmp.Config
         opts = {
             keymap = {
@@ -123,7 +127,5 @@ return {
                 nerd_font_variant = "normal",
             },
         },
-        build = "cargo build --release",
-        event = { "VeryLazy" },
     },
 }

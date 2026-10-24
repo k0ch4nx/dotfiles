@@ -3,6 +3,8 @@
 return {
     ---@module "conform"
     "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
     opts = {
         formatters = {
             npm_groovy_lint = {
@@ -26,6 +28,4 @@ return {
             nix = { "nixfmt" },
         },
     },
-    event = { "BufWritePre" },
-    cmd = { "ConformInfo" },
 }

@@ -5,6 +5,7 @@ local util = require("util")
 return {
     ---@module "which-key"
     "folke/which-key.nvim",
+    event = { "VeryLazy" },
     ---@type wk.Opts
     opts = {
         win = {
@@ -12,5 +13,4 @@ return {
             border = util.opt.winborder,
         },
     },
-    event = "VeryLazy",
 }

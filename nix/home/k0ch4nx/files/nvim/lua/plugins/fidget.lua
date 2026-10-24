@@ -3,6 +3,7 @@
 return {
     ---@module "fidget"
     "j-hui/fidget.nvim",
+    event = { "UIEnter" },
     opts = {
         -- https://github.com/j-hui/fidget.nvim?tab=readme-ov-file#options
         progress = {
@@ -19,5 +20,4 @@ return {
             },
         },
     },
-    event = "UIEnter",
 }

@@ -3,8 +3,6 @@
 return {
     ---@module "lazy-local-patcher"
     "polirritmico/lazy-local-patcher.nvim",
-    ---@type LazyLocalPatcher.Options
-    opts = {},
     lazy = false,
     config = function(self, opts)
         local main = require("lazy-local-patcher")
@@ -87,4 +85,6 @@ return {
             end,
         })
     end,
+    ---@type LazyLocalPatcher.Options
+    opts = {},
 }

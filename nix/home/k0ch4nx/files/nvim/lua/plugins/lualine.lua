@@ -6,10 +6,13 @@ return {
     ---@module "lualine"
     "nvim-lualine/lualine.nvim",
     dependencies = {
+        ---@module "kanagawa"
         "rebelot/kanagawa.nvim",
 
+        ---@module "nvim-web-devicons"
         "nvim-tree/nvim-web-devicons",
     },
+    event = { "UIEnter" },
     opts = function()
         -- https://github.com/nvim-lualine/lualine.nvim/blob/master/examples/slanted-gaps.lua
 
@@ -93,5 +96,4 @@ return {
             }),
         }
     end,
-    event = { "UIEnter" },
 }

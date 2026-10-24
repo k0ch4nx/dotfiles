@@ -7,7 +7,7 @@ return {
         ---@module "nvim-treesitter"
         "nvim-treesitter/nvim-treesitter",
     },
+    lazy = false,
     ---@type matchup.Config
     opts = {},
-    lazy = false,
 }

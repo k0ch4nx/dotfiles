@@ -4,30 +4,10 @@ return {
     ---@module "dap-view"
     "igorlfs/nvim-dap-view",
     dependencies = {
+        ---@module "dap"
         "mfussenegger/nvim-dap",
     },
-    opts = {
-        winbar = {
-            sections = {
-                "watches",
-                "scopes",
-                "exceptions",
-                "breakpoints",
-                "threads",
-                "repl",
-                "sessions",
-                "console",
-                "disassembly",
-            },
-            default_section = "scopes",
-            controls = {
-                enabled = true,
-            },
-        },
-        virtual_text = {
-            enabled = true,
-        },
-    },
+    event = { "VeryLazy" },
     config = function(self, opts)
         ---@module "dap-view"
         local main = require(require("lazy.core.loader").get_main(self))
@@ -110,5 +90,26 @@ return {
             end
         end
     end,
-    event = "VeryLazy",
+    opts = {
+        winbar = {
+            sections = {
+                "watches",
+                "scopes",
+                "exceptions",
+                "breakpoints",
+                "threads",
+                "repl",
+                "sessions",
+                "console",
+                "disassembly",
+            },
+            default_section = "scopes",
+            controls = {
+                enabled = true,
+            },
+        },
+        virtual_text = {
+            enabled = true,
+        },
+    },
 }

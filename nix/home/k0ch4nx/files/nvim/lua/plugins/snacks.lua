@@ -5,6 +5,35 @@ local util = require("util")
 return {
     ---@module "snacks"
     "folke/snacks.nvim",
+    lazy = false,
+    priority = 1000,
+    keys = {
+        { "<Leader>sp", function() Snacks.picker() end },
+        { "<Leader>se", function() Snacks.explorer() end, desc = "snacks.nvim: Explorer" },
+        { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+        { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+        { "grr", function() Snacks.picker.lsp_references() end, desc = "References" },
+        { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+        { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+        {
+            "<C-f>",
+            function()
+                if vim.fn.getcmdtype() ~= ":" then
+                    return vim.api.nvim_replace_termcodes("<C-f>", true, false, true)
+                end
+
+                local cmdline = vim.fn.getcmdline()
+                vim.schedule(function()
+                    Snacks.picker.command_history({ pattern = cmdline })
+                end)
+
+                return vim.api.nvim_replace_termcodes("<C-c>", true, false, true)
+            end,
+            mode = "c",
+            expr = true,
+            desc = "Command History Picker",
+        },
+    },
     init = function()
         local group = vim.api.nvim_create_augroup("snacks_main_window", { clear = true })
 
@@ -440,33 +469,4 @@ return {
             },
         }
     end,
-    keys = {
-        { "<Leader>sp", function() Snacks.picker() end },
-        { "<Leader>se", function() Snacks.explorer() end, desc = "snacks.nvim: Explorer" },
-        { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
-        { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
-        { "grr", function() Snacks.picker.lsp_references() end, desc = "References" },
-        { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
-        { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
-        {
-            "<C-f>",
-            function()
-                if vim.fn.getcmdtype() ~= ":" then
-                    return vim.api.nvim_replace_termcodes("<C-f>", true, false, true)
-                end
-
-                local cmdline = vim.fn.getcmdline()
-                vim.schedule(function()
-                    Snacks.picker.command_history({ pattern = cmdline })
-                end)
-
-                return vim.api.nvim_replace_termcodes("<C-c>", true, false, true)
-            end,
-            mode = "c",
-            expr = true,
-            desc = "Command History Picker",
-        },
-    },
-    priority = 1000,
-    lazy = false,
 }
