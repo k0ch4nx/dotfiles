@@ -4,18 +4,12 @@
     "language": "ja",
     "historian": {
         "opencode": {
-            "model": "opencode-go/beam-free",
-            "fallback_models": [
-                "opencode-go/longcat-2.5-preview-free"
-            ]
+            "model": "opencode-go/beam-free"
         }
     },
     "dreamer": {
         "opencode": {
-            "model": "opencode-go/beam-free",
-            "fallback_models": [
-                "opencode-go/longcat-2.5-preview-free"
-            ]
+            "model": "opencode-go/beam-free"
         }
     },
     "memory": {
