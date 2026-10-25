@@ -1,6 +1,6 @@
 final: prev:
 let
-  version = "0.18.1";
+  version = "0.19.4";
 in
 {
   omni = prev.stdenvNoCC.mkDerivation {
@@ -9,7 +9,7 @@ in
 
     src = prev.fetchurl {
       url = "https://github.com/hanxiao/omni-macos/releases/download/v${version}/Omni-${version}.dmg";
-      hash = "sha256-YyNC9ZPdxUmOUra5Iz23e56LcnucBe7kELLIw/hIjaM=";
+      hash = "sha256-XFHWDKwwulFIImbceIhw8rKM1RynSWW0O9vOv5v1+DM=";
     };
 
     nativeBuildInputs = [ prev.undmg ];
