@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1792865223,
-        "narHash": "sha256-L6ifOWprBjADWGUiZXMarrigb2UoFscqIc1nI/9ED7Q=",
+        "lastModified": 1793031478,
+        "narHash": "sha256-2KKPxXeGHJs4owmhbQKRWmMEgXVcQWINWtmXpPTNDPo=",
         "ref": "refs/heads/main",
-        "rev": "88cee4945062501c7012d3fc3adf4f68d5f9c3b7",
+        "rev": "b0c6da8ee3478ebca9e1c90a25bdcdf856b6cc5e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -201,10 +201,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1792690751,
-        "narHash": "sha256-jbv6CrsIkhRahJ6bo2c/M/ji9g0LoRTqjiBQr/0J9hQ=",
+        "lastModified": 1793053999,
+        "narHash": "sha256-GrtKtwlAOebbz5ijpTklY8H+4NJlAt5PgcGZxKDfPpc=",
         "ref": "refs/heads/main",
-        "rev": "a6bf43ab61967c30919334986515163ab24d7635",
+        "rev": "cf03b2d2ee17ad2800763108698d869f5b997774",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -218,10 +218,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1792531703,
-        "narHash": "sha256-ps8WhgXaIJMQLRwa8JgbgjAntdTWIMF3j1hpU/RKb0E=",
+        "lastModified": 1792987437,
+        "narHash": "sha256-PCe5xh91zgxtZuxEtDKpZL+bbQVSsJatbdGRlWhHwdY=",
         "ref": "refs/heads/main",
-        "rev": "90606c8315ee09cafc303515c5f33024db6b9882",
+        "rev": "25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -250,11 +250,11 @@
     },
     "flake-file": {
       "locked": {
-        "lastModified": 1791955343,
-        "narHash": "sha256-yquDmN2vKAtSfwJLXcEwpq9z+4txQLtlPd+Hmxss+nM=",
+        "lastModified": 1792905615,
+        "narHash": "sha256-KdGEzlRQPHBbNPD+AChjry8eWEx0TCrGKy1Hkacj+bA=",
         "owner": "denful",
         "repo": "flake-file",
-        "rev": "1281456a5218ac60ada6fcb40a8f894684940199",
+        "rev": "7b08dbc223bb1a758a515aad9653a6bf196bc772",
         "type": "github"
       },
       "original": {
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1792788227,
-        "narHash": "sha256-Xvy3M2IfMNSlYmBaO1DqFg1xBWN6PfApiWNya6Yr9do=",
+        "lastModified": 1793045563,
+        "narHash": "sha256-VjGNSOXWsnK3DV+t3cwOshZc2XIaLN7BAevWt7NB0mI=",
         "ref": "refs/heads/main",
-        "rev": "cd1b45c2db0a5ea7b7fc3b67c1ba5879601d6005",
+        "rev": "363a13119a57354f469732577518b9d6b319d1d6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1792785861,
-        "narHash": "sha256-HWIkI2xO5i74Nih/1iKxGd2DLcidPotknngqNTDk22A=",
+        "lastModified": 1793045964,
+        "narHash": "sha256-lQ/5apLIqIk2WbwCyZxoRR0yBjk306mk3/An2SztlRE=",
         "ref": "refs/heads/main",
-        "rev": "e0ac7bdbe2611699fa615bd93c3b5628f4d3faab",
+        "rev": "84e8150e4fa71bf422d5b224e215f5ba13864aa3",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -404,11 +404,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792818371,
-        "narHash": "sha256-yhEZAzZRNvzYpoAlyFY3wM75V9BmkIXJIueof8S5gOg=",
+        "lastModified": 1793033486,
+        "narHash": "sha256-fXVURa0+CSCgaxLt8tmPNJq2U+fGYOwbk5j2YUe7kSc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2cd3234928f60bbff695a7ee56115ef7799c47cd",
+        "rev": "7db163b2aee7e410e396b48aed02f646d742b9b8",
         "type": "github"
       },
       "original": {
@@ -438,10 +438,10 @@
     "kaynetik-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1791435336,
-        "narHash": "sha256-8qNXF8Zib/ULOhmwSVjC4cfyVczbBPm3Obh9DLY97Ks=",
+        "lastModified": 1792924360,
+        "narHash": "sha256-8BZGo1mg5HX2UA51gC4JH9eQNkRGTelTMqHO9+zYhbw=",
         "ref": "refs/heads/main",
-        "rev": "3ecbe1424cd5357bbb171e19cf27e2fc8dd83994",
+        "rev": "47ae1148b416d82ffa14dfe73555d3a7bfbeca4a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/kaynetik/skills.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1792856955,
-        "narHash": "sha256-G+DZhXnybjKLxQsXZVUNhJQ0oFgclOyux4zYI0c3FKg=",
+        "lastModified": 1793055784,
+        "narHash": "sha256-bBJkqUecWMGtQKVFhQEU9YmFPRWfckmjrd7htJymjj8=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "125f2c1b3ddccf591fe8d4d9d86d1171913ba64a",
+        "rev": "c11e8bfec6a1b2d7038f7455049b002709cb1e65",
         "type": "github"
       },
       "original": {
@@ -511,10 +511,10 @@
     "natural-japanese": {
       "flake": false,
       "locked": {
-        "lastModified": 1792814651,
-        "narHash": "sha256-tlTZAeJ25Ub3ZRuVOtJqqWWE+xxlz0nf6pITRpWbD1E=",
+        "lastModified": 1792974181,
+        "narHash": "sha256-C1BOvSkUscNB8tGSaiSnIcX3GGNsDMIhEbP0oF4e2yo=",
         "ref": "refs/heads/main",
-        "rev": "a88b8e92d38cf5b339950752faba1da5ec1f49f4",
+        "rev": "7d23ad10af4b850b8dfeb6ef19b24335ad37922b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/coji/natural-japanese.git"
@@ -582,11 +582,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1792502884,
-        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
+        "lastModified": 1792773339,
+        "narHash": "sha256-rZLrzrC6i+jnTAlvPZHogKDulY7WWDEv9hJeHieO7Zw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
+        "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1792869694,
-        "narHash": "sha256-QNzZEwD+V6eI2HX6r93mtQPmwk0Tb6XBxGW+CnkVbEs=",
+        "lastModified": 1793058122,
+        "narHash": "sha256-5cGO/vRaxLLyNYuPlNqDKIDJwwGiv4bx+w75e3+BBfo=",
         "ref": "refs/heads/main",
-        "rev": "4f66fa40729efe87750c633ea02d9ace123ed4d7",
+        "rev": "1a6c4fb4de3ced4c5954a0d06a43fdbb279f7e19",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -739,11 +739,11 @@
         "userborn": "userborn"
       },
       "locked": {
-        "lastModified": 1792607061,
-        "narHash": "sha256-pwFFodVRmQObesGOg3RFBq7EXE2sAX5N5Ob72vhi8Wk=",
+        "lastModified": 1793041121,
+        "narHash": "sha256-ZV34Z3i8D8bbPhWcAlr3PpZHtuqqgnELaciSoOblhlg=",
         "owner": "numtide",
         "repo": "system-manager",
-        "rev": "15d8876e7001965441384ad6a6ab52dce6fa478a",
+        "rev": "81d5c1e8b2924679c1adc7b67e536917c12b3571",
         "type": "github"
       },
       "original": {
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1792490483,
-        "narHash": "sha256-UUcdXk49yCKycUnP7GE7zZ9iQJl7kjWnl0+hkbededw=",
+        "lastModified": 1793038359,
+        "narHash": "sha256-U4EgyGlZE4bUkaRUZQZL8HhFSEYqqTr2Z7qR7XruPOw=",
         "ref": "refs/heads/main",
-        "rev": "660ec51e0ec0e5172338a2920e50089943882af4",
+        "rev": "2856ef0d7eb3f462ef25e5376fe25555c1648f9c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
@@ -901,10 +901,10 @@
     "yomiyasu": {
       "flake": false,
       "locked": {
-        "lastModified": 1792806802,
-        "narHash": "sha256-DCCxurga9X2BXPaSkW6sJWRv2Yj/AWtQ9cMsPvepIZY=",
+        "lastModified": 1793000286,
+        "narHash": "sha256-oux/b3Xn0UCfBZuCrzs7pKnXeZwS4jsU3vblsCPQAh0=",
         "ref": "refs/heads/main",
-        "rev": "15244a1369c192d6b7e74963ee9709537fadf166",
+        "rev": "41e5aec228f080fe24e5f795efee2ac3fda61839",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nanaism/yomiyasu.git"
