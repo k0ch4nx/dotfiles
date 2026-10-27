@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1793075480,
-        "narHash": "sha256-A3kapTsPjTcDDzYwZsrm7fC9CRC2wfwdJtyArOCqrZQ=",
+        "lastModified": 1793096052,
+        "narHash": "sha256-hyKyQxX1W0npieGg0QM3AW6FYChSzBLTUKw2HLFc7Go=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "85a1a634e10c6f1820cd003592305669a21bc47e",
+        "rev": "19aa61c4ac6f9fc341fa28d545a3b2fa4c4ba4af",
         "type": "github"
       },
       "original": {
@@ -494,10 +494,10 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1792425100,
-        "narHash": "sha256-2FKfe3/Fwc4MmwBLa+d/oQW4/gtYIssdWapy2MPd39I=",
+        "lastModified": 1793087052,
+        "narHash": "sha256-CkNJKbSlW8bUSfvHqfl7JTPnq8o1iYdzI24LGDMojE4=",
         "ref": "refs/heads/main",
-        "rev": "5beb35b040e3de97e54fa9e386d7e42d15c295c2",
+        "rev": "59db609eb1e18aaf59b63284d0e52255aff0c63c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/mattpocock/skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1793075779,
-        "narHash": "sha256-7uoXE9oUIjTuyNu6d/Gnax1DRImfGwvynqWe8J8lVFk=",
+        "lastModified": 1793096328,
+        "narHash": "sha256-YwCZeOi2+jN/dGD4vuM6OmjXmrs6b/ZSyGM06prBrlg=",
         "ref": "refs/heads/main",
-        "rev": "5856b6ba3e512a9ffb4dcd151a941414011ccf26",
+        "rev": "dfff2ccf6cbfc0ee494ed39c15924d39dcefb496",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
