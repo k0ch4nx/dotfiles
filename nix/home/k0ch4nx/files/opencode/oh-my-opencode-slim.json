@@ -11,6 +11,10 @@
             "orchestrator": {
                 "model": [
                     {
+                        "id": "openai/gpt-6.1-terra",
+                        "variant": "max"
+                    },
+                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "max"
                     },
