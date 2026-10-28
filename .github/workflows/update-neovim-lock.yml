@@ -68,37 +68,114 @@ jobs:
         run: |
           nvim_path="$(nix build --no-link --print-out-paths \
             ".#darwinConfigurations.macbook-pro.config.home-manager.users.k0ch4nx.programs.neovim.finalPackage")"
+          lazy_nvim_source="$(nix build --no-link --print-out-paths \
+            '.#darwinConfigurations.macbook-pro.config.home-manager.users.k0ch4nx.xdg.configFile."nvim/lazy-nvim".source')"
+
+          if [[ -z "${lazy_nvim_source}" || ! -d "${lazy_nvim_source}/lua/lazy" ]]; then
+            printf 'Missing lazy.nvim source: %s\n' "${lazy_nvim_source:-<empty>}" >&2
+            exit 1
+          fi
+
           printf '%s/bin\n' "${nvim_path}" >>"${GITHUB_PATH}"
+          printf 'LAZY_NVIM_SOURCE=%s\n' "${lazy_nvim_source}" >>"${GITHUB_ENV}"
 
       - name: Link the neovim configuration
+        id: link_config
         run: |
-          mkdir -p ~/.config
-          ln -sfn "${{ github.workspace }}/nix/home/k0ch4nx/files/nvim" ~/.config/nvim
+          source_dir="${GITHUB_WORKSPACE}/nix/home/k0ch4nx/files/nvim"
+
+          if [[ -z "${RUNNER_TEMP:-}" || ! -d "${RUNNER_TEMP}" ]]; then
+            printf 'RUNNER_TEMP is not set or not a directory: %s\n' "${RUNNER_TEMP:-<unset>}" >&2
+            exit 1
+          fi
+
+          if [[ -z "${LAZY_NVIM_SOURCE:-}" || ! -d "${LAZY_NVIM_SOURCE}/lua/lazy" ]]; then
+            printf 'Missing lazy.nvim source: %s\n' "${LAZY_NVIM_SOURCE:-<unset>}" >&2
+            exit 1
+          fi
+
+          config_home="$(mktemp -d "${RUNNER_TEMP}/nvim-config.XXXXXX")"
+
+          if [[ -z "${config_home}" || "${config_home}" != "${RUNNER_TEMP}"/* ]]; then
+            printf 'Unexpected config directory: %s\n' "${config_home:-<empty>}" >&2
+            exit 1
+          fi
+
+          config_dir="${config_home}/nvim"
+          mkdir -p "${config_dir}"
+
+          for entry in .luarc.jsonc init.lua lua after patches; do
+            ln -s "${source_dir}/${entry}" "${config_dir}/${entry}"
+          done
+
+          # lazy.nvim writes doc/tags. Use a writable copy in the temp config;
+          # the Nix store source must never be modified.
+          cp -RL "${LAZY_NVIM_SOURCE}" "${config_dir}/lazy-nvim"
+          chmod -R u+w "${config_dir}/lazy-nvim"
+
+          printf 'config_home=%s\n' "${config_home}" >>"${GITHUB_OUTPUT}"
 
       - name: Update neovim lock files
         id: update
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          XDG_CONFIG_HOME: ${{ steps.link_config.outputs.config_home }}
         uses: nick-fields/retry@ad984534de44a9489a53aefd81eb77f87c70dc60 # v4.0.0
         with:
           timeout_minutes: 60
           max_attempts: 2
           retry_wait_seconds: 30
           command: |
+            set -euo pipefail
+
+            if [[ -z "${XDG_CONFIG_HOME:-}" || ! -d "${XDG_CONFIG_HOME}/nvim" ]]; then
+              printf 'Missing XDG_CONFIG_HOME from the link step: %s\n' "${XDG_CONFIG_HOME:-<unset>}" >&2
+              exit 1
+            fi
+
+            if [[ -z "${RUNNER_TEMP:-}" || ! -d "${RUNNER_TEMP}" ]]; then
+              printf 'RUNNER_TEMP is not set or not a directory: %s\n' "${RUNNER_TEMP:-<unset>}" >&2
+              exit 1
+            fi
+
+            # Each retry attempt gets fresh plugin data, cache, and state so a
+            # partially completed clone/build cannot mask a failure on retry.
+            attempt_root="$(mktemp -d "${RUNNER_TEMP}/nvim-attempt.XXXXXX")"
+            if [[ -z "${attempt_root}" || "${attempt_root}" != "${RUNNER_TEMP}"/* ]]; then
+              printf 'Unexpected attempt directory: %s\n' "${attempt_root:-<empty>}" >&2
+              exit 1
+            fi
+
+            export XDG_DATA_HOME="${attempt_root}/data"
+            export XDG_CACHE_HOME="${attempt_root}/cache"
+            export XDG_STATE_HOME="${attempt_root}/state"
+            mkdir -p "${XDG_DATA_HOME}" "${XDG_CACHE_HOME}" "${XDG_STATE_HOME}"
+
+            config_dir="${XDG_CONFIG_HOME}/nvim"
+            lockfile_rel="nix/home/k0ch4nx/files/nvim/lazy-lock.json"
+            checkout_lockfile="${GITHUB_WORKSPACE}/${lockfile_rel}"
+            config_lockfile="${config_dir}/lazy-lock.json"
+
+            # Start each attempt from the checked-in lockfile. The checkout is
+            # only updated after a successful sync.
+            cp "${checkout_lockfile}" "${config_lockfile}"
+
             ./scripts/steps/100-update-neovim-plugins.sh
 
             unexpected_paths="$(
               git diff --name-only \
-                -- ':(exclude)nix/home/k0ch4nx/files/nvim/lazy-lock.json'
+                -- ":(exclude)${lockfile_rel}"
             )"
             if [[ -n "${unexpected_paths}" ]]; then
               printf 'Unexpected paths changed:\n%s\n' "${unexpected_paths}" >&2
               exit 1
             fi
 
+            cp "${config_lockfile}" "${checkout_lockfile}"
+
             if \
               git diff --quiet \
-                -- nix/home/k0ch4nx/files/nvim/lazy-lock.json; then
+                -- "${lockfile_rel}"; then
               printf 'changed=false\n' >>"${GITHUB_OUTPUT}"
             else
               printf 'changed=true\n' >>"${GITHUB_OUTPUT}"
