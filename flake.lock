@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1793194425,
-        "narHash": "sha256-IhtKWx9Xa1UhKBoPnTGJqBNHi2XzYJZfbPp/Wu2Oohg=",
+        "lastModified": 1793280751,
+        "narHash": "sha256-laN0W63EIYOrAPYaqgpAGq7CelzPFNoZeNBzA/vIOEE=",
         "ref": "refs/heads/main",
-        "rev": "81b0e8f8f40513c31b3388e600506e8b48a85bc2",
+        "rev": "c37342f4293ba66d210cc601568faeea880fa482",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1793253278,
-        "narHash": "sha256-5jSsyYgEatNgAexLkvDUgN7P9vUIayHWyZVy7a50fsg=",
+        "lastModified": 1793267696,
+        "narHash": "sha256-pU0HWLzBuoGIYLMIjoZNqiALCAUl9JwV6ujIyOZO3i4=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "9c622ec005a9bb0a3f4b9098b395670484b05ccd",
+        "rev": "e452052b9efb54fd59f8a06cbc09978fb542a3c2",
         "type": "github"
       },
       "original": {
@@ -494,10 +494,10 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1793087052,
-        "narHash": "sha256-CkNJKbSlW8bUSfvHqfl7JTPnq8o1iYdzI24LGDMojE4=",
+        "lastModified": 1793270571,
+        "narHash": "sha256-XpP8D7V2seR0sJ9bErscXgVLY2+6QiaA8TR/l8v2gx0=",
         "ref": "refs/heads/main",
-        "rev": "59db609eb1e18aaf59b63284d0e52255aff0c63c",
+        "rev": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/mattpocock/skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1793256661,
-        "narHash": "sha256-uWpXitXxaWX6QJB46z7c0H55lb58GoF67Tv2iC2FNkE=",
+        "lastModified": 1793282482,
+        "narHash": "sha256-CJIVxloHX4wZVkdyf1P6VcrMKy+YcpmjfH9obf/VdVw=",
         "ref": "refs/heads/main",
-        "rev": "540091c8bd8bfc537f5620221390057a801fd3a2",
+        "rev": "36383b8ce1606562b994831b50965a1243b51e6a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -699,10 +699,10 @@
     "spring-boot-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1792660924,
-        "narHash": "sha256-nKu2Z0yu9CU/2aJM3Wv23XuDWXzfJ/1ykkewu1EzFEg=",
+        "lastModified": 1793270364,
+        "narHash": "sha256-4GTaio27QE225wxqhQToP0818sxsGGBC72d7TL9v2m4=",
         "ref": "refs/heads/main",
-        "rev": "42bd5f1240be2379012a0491b0162dc430980313",
+        "rev": "c2c23fe4a8aac4278a1b0e6d15955b3dffee1f7c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/rrezartprebreza/spring-boot-skills.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1793194044,
-        "narHash": "sha256-RQ7kJrHGzFrIZX0ABupv+eOYFDU100Z4H578zIVtXJ4=",
+        "lastModified": 1793273381,
+        "narHash": "sha256-CAwAutMVbXoKZ0cMvOJSEU6IQyF9mTZYgY9a6l9kCOs=",
         "ref": "refs/heads/main",
-        "rev": "6e94e407148f07d5646f3f2b89007c65c3a847eb",
+        "rev": "2c175622bb7c0ff4c82bd7806a41a894c4a383b6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
