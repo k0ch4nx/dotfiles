@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1793306033,
-        "narHash": "sha256-GmSN3ZLSEJsT5MhjEhp9gfItCAx+J9OsOc0Il66TODU=",
+        "lastModified": 1793383059,
+        "narHash": "sha256-MgQPI2SGu6aYnyRT6cwnlrIFQDN7jhHTuVR8v7TRC00=",
         "ref": "refs/heads/main",
-        "rev": "b633c0703417eff3f6db8b684515e2b26a824e82",
+        "rev": "a60946692b11e2f144a8fe4db46bbc4e514daa7a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1793358260,
-        "narHash": "sha256-R9kx+0P9w8MmSgJlSJmhp9v6rGWddbZxWH5yae3shRo=",
+        "lastModified": 1793381982,
+        "narHash": "sha256-zKJZHuVdl6EJL08lEpgeOglsDq0HWc5C7+9afLEZiMs=",
         "ref": "refs/heads/main",
-        "rev": "ed65d8a24b0e3e79665962978d98e30a0f8da0eb",
+        "rev": "b7e47d1a25180a6addc2ac954df98d86d8deb8f9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1793368751,
-        "narHash": "sha256-mRmsaEN1ruyo52RQl43vOZ1sVTfVKOszwmLlvag7gbs=",
+        "lastModified": 1793387434,
+        "narHash": "sha256-yRddsbSSrWD7YmWyBs21amMa2/kp2WUgGaa6TUogdco=",
         "ref": "refs/heads/main",
-        "rev": "95fa337a11e90a2f6882b6489664992a66ae28b6",
+        "rev": "6941b99db5206045d1508a9717990f1f80999486",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1793273381,
-        "narHash": "sha256-CAwAutMVbXoKZ0cMvOJSEU6IQyF9mTZYgY9a6l9kCOs=",
+        "lastModified": 1793387014,
+        "narHash": "sha256-LLMxzJK0rzQk5xL9zV0VErLu/5g7FnLfUUW8Qto02HQ=",
         "ref": "refs/heads/main",
-        "rev": "2c175622bb7c0ff4c82bd7806a41a894c4a383b6",
+        "rev": "14b2f3e8938d1606e7f4e52276e44baf328b95e4",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
