@@ -62,6 +62,12 @@ return {
             })
         end
 
+        if nix.yaml_language_server then
+            vim.lsp.config("yamlls", {
+                cmd = { nix.yaml_language_server, "--stdio" },
+            })
+        end
+
         vim.lsp.enable({
             "astro",
             "bashls",
