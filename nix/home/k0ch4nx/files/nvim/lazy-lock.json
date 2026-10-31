@@ -16,7 +16,7 @@
   "lualine.nvim": { "branch": "master", "commit": "221ce6b2d999187044529f49da6554a92f740a96" },
   "luvit-meta": { "branch": "main", "commit": "7edcd52ac6f2acc2f83f0cc27ac989a142408fbf" },
   "markview-smart-tables.nvim": { "branch": "main", "commit": "01134a5bf48f1b7abe27b26a6b89262685bb309f" },
-  "markview.nvim": { "branch": "main", "commit": "ecc5a8867daa1856f8bcc5fdbceca8f5a5ce5f5d" },
+  "markview.nvim": { "branch": "main", "commit": "aadb6d817577d553bbef61e8b9073f1bf4b87e08" },
   "md-render.nvim": { "branch": "main", "commit": "4f6d73a276356bc23dbffa594d2a54dc978e98bb" },
   "mini.cursorword": { "branch": "main", "commit": "1600b99d6adab31e7ab3c231111100dbbcefad58" },
   "noice.nvim": { "branch": "main", "commit": "7bfd942445fb63089b59f97ca487d605e715f155" },
