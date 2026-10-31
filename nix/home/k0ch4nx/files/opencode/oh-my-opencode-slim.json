@@ -11,7 +11,7 @@
             "orchestrator": {
                 "model": [
                     {
-                        "id": "openai/gpt-6.1-terra",
+                        "id": "openai/gpt-6-luna-fast",
                         "variant": "max"
                     },
                     {
