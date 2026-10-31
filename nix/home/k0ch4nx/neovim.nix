@@ -89,6 +89,7 @@ in
       rust_analyzer = "${pkgs.rust-analyzer}/bin/rust-analyzer";
       typescript_tsdk = "${pkgs.typescript_5}/lib/node_modules/typescript/lib";
       vue_typescript_plugin = "${pkgs.vue-language-server}/lib/language-tools/packages/typescript-plugin";
+      yaml_language_server = "${pkgs.yaml-language-server}/bin/yaml-language-server";
     };
   };
 }

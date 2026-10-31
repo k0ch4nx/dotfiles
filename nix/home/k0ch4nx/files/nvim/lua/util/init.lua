@@ -37,7 +37,7 @@ M.math = {
     i32_max = bit.bnot(bit.lshift(1, 31)),
 }
 
----@return { codelldb?: string, java_debug_dir?: string, lombok_jar?: string, powershell_bundle?: string, vue_typescript_plugin?: string }
+---@return { codelldb?: string, java_debug_dir?: string, lombok_jar?: string, powershell_bundle?: string, vue_typescript_plugin?: string, yaml_language_server?: string }
 M.nix_paths = function()
     local path = vim.fn.stdpath("config") .. "/nix-paths.json"
     local file = io.open(path, "r")
