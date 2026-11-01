@@ -99,16 +99,16 @@
     "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1789661079,
-        "narHash": "sha256-geVTQ51PGZ1mLULM5k7wO7qt/6xenOR/YG8X7Q3eCaI=",
+        "lastModified": 1793000687,
+        "narHash": "sha256-8mCor0DDjNhi+0e+FllfqiMABujBl+/RxYW+wgMpcto=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "edb70f031e4170c780799633a1226ff73e1077f4",
+        "rev": "c6069d2a943b71b0a90d91fc1ac93cb9c1634dcc",
         "type": "github"
       },
       "original": {
         "owner": "Homebrew",
-        "ref": "7.0.4",
+        "ref": "7.0.11",
         "repo": "brew",
         "type": "github"
       }
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1793453973,
-        "narHash": "sha256-evSvZIZjldX0Zux+0kH1nIsK8WDDlEa3i0gInY/MRy8=",
+        "lastModified": 1793544480,
+        "narHash": "sha256-x8rlZoZqMkR4CTOndyp+IZi2OrW9pOUMtHdq2oPnprg=",
         "ref": "refs/heads/main",
-        "rev": "bb9b3f464aae37af360d079c1d863524955b0363",
+        "rev": "92776fbf3875a5ee7424124e398956a998483056",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1793512069,
-        "narHash": "sha256-i4UBJIugcPJxG4xKnlsypbTb8QfPX+kagQYF9oswO/c=",
+        "lastModified": 1793543262,
+        "narHash": "sha256-qPyhfwkt2NA2oodsZ+vzjzyWlD5uv47i2Yd3zZsXPoM=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "8efcba308a6b12a92441cb4df624e484bad9e18a",
+        "rev": "e78ca7f96a07c5d9ab88a34f5e76d544c6d2a299",
         "type": "github"
       },
       "original": {
@@ -551,11 +551,11 @@
         "brew-src": "brew-src"
       },
       "locked": {
-        "lastModified": 1789928041,
-        "narHash": "sha256-iV37ieTcE4ZLOYEe0VznW6dWMBe4lEL8AbK1vblyZGM=",
+        "lastModified": 1793543863,
+        "narHash": "sha256-oDYLVD8KGT/M57c8HziYSSj0le4wCyA+jZ7+/qUS91M=",
         "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "c11cccfdd36dd69b5323d70d354b2853379c2426",
+        "rev": "52bc87da3f30c2261a6d1cfef3c892097b53daeb",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1793516873,
-        "narHash": "sha256-RwXhLafr9pHnIZAMCyz1ZDxRerRPNEkT2eKvnT7Zr/k=",
+        "lastModified": 1793544817,
+        "narHash": "sha256-JpUgvxXbv24lnGpmg2IOGeHj+zUbN0e4MY0ktPKs9aU=",
         "ref": "refs/heads/main",
-        "rev": "f1a55b0c26f2aeae6fca3aa249122914e6a642b3",
+        "rev": "381778defe058614b81c4d21e2aa2112304a27c9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1793468192,
-        "narHash": "sha256-t0L1Ubk9QliCICSg0CWiMdv9QAKNFh+osdi0C/uF/tM=",
+        "lastModified": 1793539799,
+        "narHash": "sha256-eX2H9IZ3HtxL89Iw17xh9Nrp44yIYyjZjjCgcA9xIcg=",
         "ref": "refs/heads/main",
-        "rev": "ecc462fd717c3582e1614b27f07ab45066dfec28",
+        "rev": "79c1f79f4e0e438a422ed56d2f3fdd6ebce536ae",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
