@@ -82,6 +82,7 @@ in
       force = true;
     };
     "nvim/nix-paths.json".text = builtins.toJSON {
+      astro_language_server = "${pkgs.astro-language-server}/bin/astro-ls";
       codelldb = "${codelldb}/bin/codelldb";
       java_debug_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
       lombok_jar = "${pkgs.lombok}/share/java/lombok.jar";
