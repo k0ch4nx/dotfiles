@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1794020980,
-        "narHash": "sha256-QTZ/Rk3C4LjkeWOVY+CZ3SCXOgrsMb9A6hwk2BbO7x0=",
+        "lastModified": 1794082798,
+        "narHash": "sha256-TJUx0Bmye+TFt/EzMam1lNlx7cA0zo0MAdDTWaPoAX4=",
         "ref": "refs/heads/main",
-        "rev": "395f30e0cc4b4061692c2f08b3e0d7e4d35b0aa6",
+        "rev": "a516d0a98246b902138f1e46da750d4ec7dc3f38",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794064691,
-        "narHash": "sha256-a2/vYgnX7W3MZurxMDkY8y+sIJuGT2z08tUER3wcbxY=",
+        "lastModified": 1794082768,
+        "narHash": "sha256-HqmGZDtD54Zznbb1yvk54oQaZCU2m/s+j78c5VgzWZM=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "3d32ec231e746b4253bda8bd427025b4dac51785",
+        "rev": "f24cf34af902f72498f7cebdbc7c73b8bc54c722",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794067995,
-        "narHash": "sha256-iXDAl/xvImPIhY9e0YbxUDXSzOkv9M9U4cKMJm55JQE=",
+        "lastModified": 1794084234,
+        "narHash": "sha256-0OWmItIJ6cIsJ2C/YC1k0N23p/In+iGN5p44R4Dstfg=",
         "ref": "refs/heads/main",
-        "rev": "c25ff93b56723e0075a4c82a789ac3b1acd06aeb",
+        "rev": "f1144b0391b0138e2afa5efb0af023f8e6af9b21",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -699,10 +699,10 @@
     "spring-boot-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794055875,
-        "narHash": "sha256-m/RMz4tkhFkMKpt4Yu7JQiVhi22YJv33LcZFITa8ql0=",
+        "lastModified": 1794079146,
+        "narHash": "sha256-QnUpBL3pyOznlH+W80QdmalRItM9PSOhgw6YyblLrJ8=",
         "ref": "refs/heads/main",
-        "rev": "75fff3deceaecfa2bdd781d0aa2fb60cfedd07f9",
+        "rev": "d92e63da9d7ad8a77b422d93774f0e2cd1838876",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/rrezartprebreza/spring-boot-skills.git"
