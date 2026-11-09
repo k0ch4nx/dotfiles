@@ -1,7 +1,6 @@
 let
   overlayPaths = [
     ./gamdl.nix
-    ./mcat.nix
     ./plannotator.nix
     ./sheets.nix
     ./superseedr.nix
