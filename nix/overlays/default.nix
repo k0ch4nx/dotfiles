@@ -3,7 +3,6 @@ let
     ./gamdl.nix
     ./mcat.nix
     ./plannotator.nix
-    ./pyrefly.nix
     ./sheets.nix
     ./superseedr.nix
   ];
