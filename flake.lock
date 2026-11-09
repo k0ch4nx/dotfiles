@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1794198041,
-        "narHash": "sha256-JR1993EG4FuWOgKZ5AVq1VkhC+YV3NJSQ+B4ngsBqtg=",
+        "lastModified": 1794244155,
+        "narHash": "sha256-2FWlsEblt3rbq2q8LbpDKRAifCem4nVl9npOq72CjhU=",
         "ref": "refs/heads/main",
-        "rev": "21be197f100a12b8d0dd9a211cc244c8179f84d3",
+        "rev": "bf9b0b4ae66831ad3bc683f7ff9319fbaaaae12c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1794001433,
-        "narHash": "sha256-91Vr7ig5BJiGnQayKRHXg8UPwBlxoXStYMGFYOKvrj0=",
+        "lastModified": 1794256308,
+        "narHash": "sha256-T2BksK3aOaSNZd+LZi1nFotrq/5uCGLiV9mAeacUs5M=",
         "ref": "refs/heads/main",
-        "rev": "62bab5b232c15b925d31e655ce844ab939c882b7",
+        "rev": "f89c76574007bc95c795c81c11e0d2adf42b0ccf",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794234370,
-        "narHash": "sha256-gxZsbfrcrQCWHo8pwTIYOtJYOxCl+WRRllj4h4wprn4=",
+        "lastModified": 1794260581,
+        "narHash": "sha256-F5xmJ8HT8A1D3RWGIRbdjF7h0rcVkncMVnWFgYW0Rqo=",
         "ref": "refs/heads/main",
-        "rev": "00dc11483fe7b3cf40895f0a3e11e1c9803cf2df",
+        "rev": "47cc3f367d161216c65ca222a8f4f1bc78a4bd96",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -404,11 +404,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793979366,
-        "narHash": "sha256-7OoWDsYO9teiPxl0QdlS5lYE20Pue8/5mpscSL32FUA=",
+        "lastModified": 1794260194,
+        "narHash": "sha256-jmaqtyhtPFNgK52WZo33PRvNPPs8AjOWBeCc07nTAM8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2c0c1f01521469cf0271180c453c79782d53c2f6",
+        "rev": "a9752a621164e9f84eb2a15858f1d54fd3cedab8",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794237218,
-        "narHash": "sha256-xWZmBeaV6v3+Z/IlGEwd/GZTed8LiovlzY+ZtI/z38w=",
+        "lastModified": 1794261849,
+        "narHash": "sha256-0GGcPZXDbDOhL04gapV75EerH2H4q6gXvoBoZPAzTJc=",
         "ref": "refs/heads/main",
-        "rev": "4ed06580a8f4fa72bc348f36ec5e303ee97b9636",
+        "rev": "d7f88abfaacfab0cecdf064c98853bf6be3ea3b1",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
