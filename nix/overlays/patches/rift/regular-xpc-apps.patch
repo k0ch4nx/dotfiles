@@ -9,7 +9,7 @@
  use objc2_application_services::AXError;
  use objc2_core_foundation::{CGPoint, CGRect, CGSize};
  use serde::{Deserialize, Serialize};
-@@ -2334,7 +2334,9 @@
+@@ -2720,7 +2720,9 @@
          info!(?pid, ?bundle_id, "Could not get ProcessInfo; exiting app thread");
          return;
      };
