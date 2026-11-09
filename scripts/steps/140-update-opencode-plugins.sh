@@ -4,9 +4,11 @@ set -euo pipefail
 
 [[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
-[[ "${SKIP_UPDATES:-}" == "1" ]] && return 0
-
 function main() {
+    if [[ "${SKIP_UPDATES:-}" == "1" ]]; then
+        return 0
+    fi
+
     command -v opencode2 >/dev/null 2>&1 || return
 
     local service_was_running=false

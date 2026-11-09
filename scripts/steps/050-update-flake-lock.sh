@@ -5,6 +5,10 @@ set -euo pipefail
 [[ "${BASH_SOURCE[0]}" == "$0" && "${GITHUB_ACTIONS:-}" != 'true' ]] && exit 1
 
 main() (
+    if [[ "${SKIP_UPDATES:-}" == "1" ]]; then
+        return 0
+    fi
+
     [[ -n "${DOTFILES_DIR:-}" ]] || {
         printf 'DOTFILES_DIR is not set\n' >&2
         exit 1
