@@ -1,6 +1,6 @@
 final: prev:
 let
-  version = "1.0.16";
+  version = "1.0.17";
 in
 {
   superseedr = prev.rustPlatform.buildRustPackage {
@@ -11,15 +11,18 @@ in
       owner = "Jagalite";
       repo = "superseedr";
       rev = "v${version}";
-      hash = "sha256-RJTXeO0gD2HMP/og0XZNlC7OKbhfkltj7nQ9N7UnjZQ=";
+      hash = "sha256-NsEQmUFdI0Bl9kQX4Z2rF/tzkzMY/tI/5CPAIXDEJSg=";
     };
 
-    cargoHash = "sha256-3g3IpuB9a9zVgdeuNG9iO0m7ZjYcCtuvxxMnaLVIXSA=";
+    cargoHash = "sha256-d7j5+QyYgKK+9y9roTRTkIm1QSjvI3YXSXWvfC2OP2s=";
 
     doCheck = false;
 
     nativeBuildInputs = [ prev.pkg-config ];
-    buildInputs = [ prev.openssl ];
+    buildInputs = [
+      prev.aws-lc
+      prev.openssl
+    ];
 
     meta = with prev.lib; {
       description = "A supercharged BitTorrent client for the terminal";
