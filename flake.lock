@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1794283027,
-        "narHash": "sha256-g2bQ9Kz5ecLrDJNYKzKzjOogVgg768v3BPBEEz+vmAE=",
+        "lastModified": 1794330845,
+        "narHash": "sha256-W6JGao0K+4D5ulRqT73TQmqLQfevve8JUYyAlhKExns=",
         "ref": "refs/heads/main",
-        "rev": "a6e6f93e9a4baaa6ff337aee5505bf5c2bae4ce6",
+        "rev": "4036c908aa8884757551948cde3009ed898f6667",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1794263235,
-        "narHash": "sha256-jURsGsveLY+/SbK2auhyRA5rUehI0tDXdbmU4i3MyVg=",
+        "lastModified": 1794347092,
+        "narHash": "sha256-Yk1bQdajKdM1Ce2eiw8n/MqdU1Mp+TqSRTe/I0GH47U=",
         "ref": "refs/heads/main",
-        "rev": "1930f25394c4b6338b64ffdb43083fca41614798",
+        "rev": "e5d88fb2c036ce7e0c27131469cd963221b9d9e7",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794328006,
-        "narHash": "sha256-J88Mq4I1xTwnMXVfjKQDU8AIb5k/ofEJ2wvN8OUG9a0=",
+        "lastModified": 1794337725,
+        "narHash": "sha256-PYqRrX4ErNEWL/HLfRwzKREEudoXalBCVbnJE7l1L20=",
         "ref": "refs/heads/main",
-        "rev": "819b16c76b34dd9e856221de6db569351d6627bb",
+        "rev": "64d010629e61e4a7d59fc21e042362f370b5888b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794329343,
-        "narHash": "sha256-Hj/ih+st9RaSpKtmba3QW0faOwGG4zgCiHe7ri1zFxg=",
+        "lastModified": 1794348880,
+        "narHash": "sha256-D84ArANVqXhXVHqQYImqc/EgmNAlaE8d/8e4wcRFaLQ=",
         "ref": "refs/heads/main",
-        "rev": "ecbad2efa1d7e89d041965612b2237760a024c50",
+        "rev": "7cb1a4e558d83031294453db12a2759faf6e6528",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -699,10 +699,10 @@
     "spring-boot-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794079146,
-        "narHash": "sha256-QnUpBL3pyOznlH+W80QdmalRItM9PSOhgw6YyblLrJ8=",
+        "lastModified": 1794343741,
+        "narHash": "sha256-0O92mEDZKPs6bl2oc2HbW8lUXSGFkxIIZ2inRoQriWU=",
         "ref": "refs/heads/main",
-        "rev": "d92e63da9d7ad8a77b422d93774f0e2cd1838876",
+        "rev": "1bdf531c77dda51110669032c6ab748206aa7c91",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/rrezartprebreza/spring-boot-skills.git"
@@ -901,10 +901,10 @@
     "yomiyasu": {
       "flake": false,
       "locked": {
-        "lastModified": 1793787168,
-        "narHash": "sha256-0ozlVPllwcxnKIn/o9Vs++3Mmr/F1N7068lnPGBua8U=",
+        "lastModified": 1794341672,
+        "narHash": "sha256-6+CiX3zd2iMUNm6ZlMJ/UVbAAMnm46GpW8aig/SagLg=",
         "ref": "refs/heads/main",
-        "rev": "8394e099486aaa2e28cf89992e46f5ebe5ed839d",
+        "rev": "7b212ff2f037953b8c233ae315e5c08e7fc36da6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nanaism/yomiyasu.git"
