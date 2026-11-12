@@ -1,12 +1,12 @@
 final: prev:
 let
-  version = "0.8.0";
+  version = "0.8.1";
 
   src = prev.fetchFromGitHub {
     owner = "acsandmann";
     repo = "rift";
     tag = "v${version}";
-    hash = "sha256-iGz3QRU3t0nNEvtZ/i/9LmUncCEyKWy14MkkuZVb4hQ=";
+    hash = "sha256-7YSffWhF4ZqFuArWOrLKxXCzPLkTXSqlyJ9QeAi06u8=";
   };
 in
 {
@@ -23,7 +23,7 @@ in
     cargoDeps = prev.rustPlatform.fetchCargoVendor {
       inherit src;
       name = "rift-wm-${version}";
-      hash = "sha256-lhOc53eMJIpdO8iPylcN6I9N5WwMTT6XhaZwh4jD6So=";
+      hash = "sha256-AgHR8thBePobjqe2r4H53m6W0b6GEI5V7BK+gjDdU9A=";
     };
   });
 }
