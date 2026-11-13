@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1794522340,
-        "narHash": "sha256-sTVDjLcIYGTanEnO27I/f32YCw94FT1WTtiqVNtWGJ8=",
+        "lastModified": 1794599380,
+        "narHash": "sha256-YC5SCJbzkbbwKXLcY5p/LVxZlYKpXlqpUzhGJJ1Y2SY=",
         "ref": "refs/heads/main",
-        "rev": "b9776560ea5710bc673891499aaec68c737d160a",
+        "rev": "4ed06ed0ddc523a6d356a4ad35ddfea331041888",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794584725,
-        "narHash": "sha256-kgdsOxuew6T3j59szYj51grqEDHSVy4arBvt+jHTPb4=",
+        "lastModified": 1794592285,
+        "narHash": "sha256-xC9q91jiQf1JRDMSXf5FRLNIQQgQOa1MNh3+BPGQ4aE=",
         "ref": "refs/heads/main",
-        "rev": "3956c97a31cc51d4981ad53d711ce2c2df21de95",
+        "rev": "67c4dbc8ff6313ef117d938e53bb21315fc281ae",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794551759,
-        "narHash": "sha256-kL6q4ItZT++IjrrDlcUOL9L0XNzTLb2+4xQgpHBzx/I=",
+        "lastModified": 1794602798,
+        "narHash": "sha256-/kvz1Xw5jcFfEssBYDz3rUwBKilvlkYlBnKSHfsPjDM=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "860075d959fc68c31fd405989daf85c1b1f0db38",
+        "rev": "09eaa868611f616917224e273ffe3329cfc9f977",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794585739,
-        "narHash": "sha256-p8mxzggnyJuuGy95bqebbxlvO/viHGF8fXOWhsAE3no=",
+        "lastModified": 1794608749,
+        "narHash": "sha256-PQIw+JEmqr57mbesBTItln4bcazs2VpNRmo/IsY3xIY=",
         "ref": "refs/heads/main",
-        "rev": "1904c27817b7eb8d1b9d09de8c7f46b5226d6780",
+        "rev": "2f6061c9bc760d2137ac1dd7abc3a11a2d613220",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
