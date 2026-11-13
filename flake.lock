@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794524394,
-        "narHash": "sha256-Z3Z1rR8PWyKUezlL4MIKAXxhu/nm8NZ12LzrSPbNca8=",
+        "lastModified": 1794584725,
+        "narHash": "sha256-kgdsOxuew6T3j59szYj51grqEDHSVy4arBvt+jHTPb4=",
         "ref": "refs/heads/main",
-        "rev": "85f227ea6a8f347d34b76039d826c446f891f75d",
+        "rev": "3956c97a31cc51d4981ad53d711ce2c2df21de95",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794555489,
-        "narHash": "sha256-XQ31iyeK4vSfEKqg0JMTSkRGgDwnhDRSiHbeK7jxu/w=",
+        "lastModified": 1794585739,
+        "narHash": "sha256-p8mxzggnyJuuGy95bqebbxlvO/viHGF8fXOWhsAE3no=",
         "ref": "refs/heads/main",
-        "rev": "da0e0ba8cae139938cba66ff96e1f794c48acf12",
+        "rev": "1904c27817b7eb8d1b9d09de8c7f46b5226d6780",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
