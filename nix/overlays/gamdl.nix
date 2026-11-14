@@ -78,19 +78,19 @@ in
 {
   gamdl = pythonPackages.buildPythonApplication rec {
     pname = "gamdl";
-    version = "3.9.1";
+    version = "4.0.1";
     pyproject = true;
 
     src = prev.fetchPypi {
       inherit pname version;
-      hash = "sha256-mxGeJqM3s7UevQrzAsv4BYbskxfX7vpJPspNhzYLySs=";
+      hash = "sha256-L5/Azl8+gCRKChGyhMFgdU6yKcLMdFuIyLFFDAKeKtI=";
     };
 
-    cargoRoot = "gamdl/downloader/ammuxer";
+    cargoRoot = "native";
     cargoDeps = prev.rustPlatform.fetchCargoVendor {
       inherit src;
-      cargoRoot = "gamdl/downloader/ammuxer";
-      hash = "sha256-qUpS+FxPxGt+692epTQLXjN1BsD2Wi0XK6lHnwArpu8=";
+      cargoRoot = "native";
+      hash = "sha256-ELWhOGx7YIeyMnZc445UX5lpzoIA3qs30Bb85rayWAc=";
     };
 
     nativeBuildInputs = with prev.rustPlatform; [
@@ -103,18 +103,18 @@ in
     dependencies = with pythonPackages; [
       async-lru
       click
-      colorama
       dataclassClick
       httpx
       httpx-retries
-      inquirerpy
       m3u8
-      mutagen
-      pillow
+      platformdirs
+      prompt-toolkit
       pyplayready
       pywidevine
+      pyyaml
+      questionary
+      rich
       structlog
-      yt-dlp
     ];
 
     doCheck = false;

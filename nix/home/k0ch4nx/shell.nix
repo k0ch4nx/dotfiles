@@ -105,10 +105,6 @@ in
           command eza "''${opts[@]}" "$@"
         }
 
-        function gamdl() {
-          command gamdl --config-path "${config.xdg.configHome}/gamdl/config.ini" "$@"
-        }
-
         function ghqf() {
           local eza_opts=(
             "--long"
@@ -234,6 +230,7 @@ in
     HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
 
     FZF_DEFAULT_OPTS_FILE = "${config.xdg.configHome}/fzf/fzfrc";
+    GAMDL_CONFIG = "${config.xdg.configHome}/gamdl/config.yml";
 
     GNUPGHOME = "${config.xdg.dataHome}/gnupg";
     GOPATH = "${config.xdg.dataHome}/go";

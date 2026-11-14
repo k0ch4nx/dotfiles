@@ -5,8 +5,8 @@ final: prev:
     src = prev.fetchFromGitHub {
       owner = "andrewcincotta";
       repo = "JankyBorders";
-      rev = "43df02eab171fdd4c8983428fe0af7070de08754";
-      hash = "sha256-COfEDShFm08QkskkTBcKfATxYX/kczLz4j9Abm4aD7c=";
+      rev = "fe8e98aad091839640d769517adb1dcae427c064";
+      hash = "sha256-Bq3Du0Fzh75EfHvOhz9vnOACI2JiToe1PWpa7rU8RTE=";
     };
   });
 }
