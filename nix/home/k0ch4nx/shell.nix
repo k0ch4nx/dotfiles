@@ -106,7 +106,15 @@ in
         }
 
         function gamdl() {
-          command gamdl --config-path "${config.xdg.configHome}/gamdl/config.ini" "$@"
+          # Gamdl 4 uses YAML and a subcommand; keep bare-URL calls working.
+          case "$1" in
+            auth|config|database|library|organize|rip|search|sync|--config|--no-config|--help|-h|--version|-v|"")
+              ;;
+            *)
+              set -- rip "$@"
+              ;;
+          esac
+          command gamdl --config "${config.xdg.configHome}/gamdl/config.yml" "$@"
         }
 
         function ghqf() {
