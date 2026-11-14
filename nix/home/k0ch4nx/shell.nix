@@ -105,18 +105,6 @@ in
           command eza "''${opts[@]}" "$@"
         }
 
-        function gamdl() {
-          # Gamdl 4 uses YAML and a subcommand; keep bare-URL calls working.
-          case "$1" in
-            auth|config|database|library|organize|rip|search|sync|--config|--no-config|--help|-h|--version|-v|"")
-              ;;
-            *)
-              set -- rip "$@"
-              ;;
-          esac
-          command gamdl --config "${config.xdg.configHome}/gamdl/config.yml" "$@"
-        }
-
         function ghqf() {
           local eza_opts=(
             "--long"
@@ -242,6 +230,7 @@ in
     HOMEBREW_NO_REQUIRE_TAP_TRUST = "1";
 
     FZF_DEFAULT_OPTS_FILE = "${config.xdg.configHome}/fzf/fzfrc";
+    GAMDL_CONFIG = "${config.xdg.configHome}/gamdl/config.yml";
 
     GNUPGHOME = "${config.xdg.dataHome}/gnupg";
     GOPATH = "${config.xdg.dataHome}/go";
