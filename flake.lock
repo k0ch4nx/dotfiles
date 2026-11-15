@@ -61,10 +61,10 @@
     "autoskills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794523564,
-        "narHash": "sha256-JlT+lvGHaW/cXZEw2O+3JyBDHx+nEqXQxYvm+Skki+4=",
+        "lastModified": 1794761810,
+        "narHash": "sha256-9gSoAXcSSoO1yZEHH3q/IKXYtDgRioNN3OISUR6AOPI=",
         "ref": "refs/heads/main",
-        "rev": "0cc23ef1dd7f08449b9c7c16ac799232ca8ccc77",
+        "rev": "46f50bab19243618547c46ae085ba30906332e0b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/midudev/autoskills.git"
@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1794761240,
-        "narHash": "sha256-VncBkFqR3X5YrQcWVfjyAs2G7p2xENpE6xyUsX0ek1o=",
+        "lastModified": 1794776692,
+        "narHash": "sha256-pFS6CdnCu/Hbapp/OmNLcRW7AyyUTIqnD87FVq7Tda4=",
         "ref": "refs/heads/main",
-        "rev": "7f27d4756f16a7861da528bebf605387a7ede4a0",
+        "rev": "c3addd2be27682e7d3f752aa9505426ed4551d8a",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794761448,
-        "narHash": "sha256-JBlsxOUQi4lWDun6jcZ06ZcYjUVnSn65d6AJ8IHCH1U=",
+        "lastModified": 1794778483,
+        "narHash": "sha256-Oihou4Ot41Ke6IHgZB9UhOplV+kJ7oUGxIclYUHHBfM=",
         "ref": "refs/heads/main",
-        "rev": "89ee0bd382d16ec16183a10e81a8930a92ed1909",
+        "rev": "913e6ea294413887fc9bb71a70a5e24a53936fbf",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1794759238,
-        "narHash": "sha256-9PEoqp1oyHfhL6Qpt/mzABCClQrJ6ULwx/lCv9xNBps=",
+        "lastModified": 1794770334,
+        "narHash": "sha256-HZsNThZnFaHaH1mjf9GEiEqhdhkPL27lz0qiJA0ivrQ=",
         "ref": "refs/heads/main",
-        "rev": "644f6e12966d7d121658555f9e4efa98e2b771c2",
+        "rev": "3ee5f70512b57a6db6a15ff672aec212b3a4d293",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
