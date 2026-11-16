@@ -44,10 +44,10 @@
     "anthropic-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794669402,
-        "narHash": "sha256-pEKTL8YlOAem5QfNzLkjJaEDTp7PhtG/uyzjPzOL7Jo=",
+        "lastModified": 1794838967,
+        "narHash": "sha256-Gr9LatjawHHK9uKpoclWoiDHZ0NTpP3/4Pmeatl8p/Q=",
         "ref": "refs/heads/main",
-        "rev": "1780c5e5a552fd4d1c9d6a7b0cab26b0c2bef064",
+        "rev": "e4bb5d960d87126ff3b3a8af1a104b7db67560ba",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/anthropics/skills.git"
@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1794802834,
-        "narHash": "sha256-QhczLSjzNolMl+wyeNrOeiLXbN2P79GLeZEsYQHgzMU=",
+        "lastModified": 1794852025,
+        "narHash": "sha256-OgFtzdDUX8DciY5gi7saTjyGQ4DUXCgTU9xgXK5r7VM=",
         "ref": "refs/heads/main",
-        "rev": "1530598131e773d2dc1bdefa7d28df64a7d6b656",
+        "rev": "12b74cb6c9d0854dbbe9e3b501fea1f29cedecab",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -218,10 +218,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1794000110,
-        "narHash": "sha256-2VyyXUOtCpz12fq36MgnxzauXSl/u92t7yX8nDwyOn0=",
+        "lastModified": 1794859415,
+        "narHash": "sha256-JJ1tEqpn5gZZnGgSjNHoFeKooyDBiArzbtHBor6HA/k=",
         "ref": "refs/heads/main",
-        "rev": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
+        "rev": "d4b97e60dd7d8cdf01962881776a758769c0ba85",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1794599380,
-        "narHash": "sha256-YC5SCJbzkbbwKXLcY5p/LVxZlYKpXlqpUzhGJJ1Y2SY=",
+        "lastModified": 1794850739,
+        "narHash": "sha256-hgQc7arCE6paCuMygylldsqFp9jN5gQJR8DCltFr15w=",
         "ref": "refs/heads/main",
-        "rev": "4ed06ed0ddc523a6d356a4ad35ddfea331041888",
+        "rev": "4fa64e71b9b4e1bb65a86cc2863574f561b82340",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794793555,
-        "narHash": "sha256-6zRW4XyAodnjJ/QtyOBc1MIK4m8nJlbIOKK3SIkEMw4=",
+        "lastModified": 1794859882,
+        "narHash": "sha256-i66HMgMzbWGkDuzOBNNI/kux2C5vvrPeD/FcPeGPS1U=",
         "ref": "refs/heads/main",
-        "rev": "3c4dda4af5a63049cca71d69be1f5536577e7a6c",
+        "rev": "56fba3e82a6b6914ad7028f9fd8a1c594479e899",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794820454,
-        "narHash": "sha256-Z2sBUXJcVRjI09FczdIQfUdeG8geA2lXaIPV8876nuc=",
+        "lastModified": 1794859254,
+        "narHash": "sha256-cMeamezCBOqN+KyYR6NZvvnEs0egqctHdOvkpVXylNk=",
         "ref": "refs/heads/main",
-        "rev": "33d26e441f91c3d2534071a8d36e8aa9d146d07f",
+        "rev": "800bd59c1a3a92f44c66401d65120b8e9d63977c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1794787394,
-        "narHash": "sha256-2TGoQ/jE503HWo4yh9BKWP0jf1wQX6r8pHsGJ82dQWc=",
+        "lastModified": 1794850462,
+        "narHash": "sha256-StcUkUTZmXwnTZbR9pNGDLYLkVuavXSfvV3C8GIfZnA=",
         "ref": "refs/heads/main",
-        "rev": "53b7f5982e7636d1e49bff4c81037466d46e343c",
+        "rev": "b77065999de3fff271b6e3de29757b7ca1221fe3",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
