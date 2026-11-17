@@ -7,7 +7,6 @@ let
   ];
 
   darwinOverlayPaths = [
-    ./azahar.nix
     ./borders.nix
     ./omni.nix
     ./rift.nix
