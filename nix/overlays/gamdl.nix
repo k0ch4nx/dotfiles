@@ -78,19 +78,19 @@ in
 {
   gamdl = pythonPackages.buildPythonApplication rec {
     pname = "gamdl";
-    version = "4.0.1";
+    version = "4.0.2";
     pyproject = true;
 
     src = prev.fetchPypi {
       inherit pname version;
-      hash = "sha256-L5/Azl8+gCRKChGyhMFgdU6yKcLMdFuIyLFFDAKeKtI=";
+      hash = "sha256-Ldr5fIiepK5VnSuuf8SYU0rPGeCQTjRfHDb/qZWOzb0=";
     };
 
     cargoRoot = "native";
     cargoDeps = prev.rustPlatform.fetchCargoVendor {
       inherit src;
       cargoRoot = "native";
-      hash = "sha256-ELWhOGx7YIeyMnZc445UX5lpzoIA3qs30Bb85rayWAc=";
+      hash = "sha256-J2+8LWmzG1Vb9N3kS7kV05sb455aumm72wcmviAyNEs=";
     };
 
     nativeBuildInputs = with prev.rustPlatform; [
