@@ -4,12 +4,12 @@
     "language": "ja",
     "historian": {
         "opencode": {
-            "model": "opencode-go/beam-free"
+            "model": "opencode-go/hy4-flash-free"
         }
     },
     "dreamer": {
         "opencode": {
-            "model": "opencode-go/beam-free"
+            "model": "opencode-go/hy4-flash-free"
         }
     },
     "memory": {
