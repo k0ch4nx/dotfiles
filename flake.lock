@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1794852025,
-        "narHash": "sha256-OgFtzdDUX8DciY5gi7saTjyGQ4DUXCgTU9xgXK5r7VM=",
+        "lastModified": 1794885459,
+        "narHash": "sha256-IuFun2+hRSUEyivlbOAWREqHP/JvC9BfXNi6XTdrWq4=",
         "ref": "refs/heads/main",
-        "rev": "12b74cb6c9d0854dbbe9e3b501fea1f29cedecab",
+        "rev": "b006fe0ee67c03076dadeba6c4360a6751b039f9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -218,10 +218,10 @@
     "ecc": {
       "flake": false,
       "locked": {
-        "lastModified": 1794859415,
-        "narHash": "sha256-JJ1tEqpn5gZZnGgSjNHoFeKooyDBiArzbtHBor6HA/k=",
+        "lastModified": 1794866782,
+        "narHash": "sha256-mOoSAahyxkXJlw67g6YRkHhYSm0dR9OJVk2PMZbKxik=",
         "ref": "refs/heads/main",
-        "rev": "d4b97e60dd7d8cdf01962881776a758769c0ba85",
+        "rev": "8abdf329ecbc9315dc4e3334a5702782f70b8b02",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/affaan-m/ecc.git"
@@ -404,11 +404,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794715309,
-        "narHash": "sha256-awkBBs5ctFKgEYjpNGpi3t/VqF589n5EWfdinRb2gNI=",
+        "lastModified": 1794865930,
+        "narHash": "sha256-a3My+u9CEwEFmuGXb3PV9COj7Gd8o28b19TvtDiKPfg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a1293da7dd8e497e08d26173f97e2976b36a31ea",
+        "rev": "9d7ba6bef3904a018d38b92f83132eaf01eb8ef3",
         "type": "github"
       },
       "original": {
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794808658,
-        "narHash": "sha256-RbvK/ghvMuWWx/riUqtCZCxjZFji2n3onTo2Kg60T3s=",
+        "lastModified": 1794883163,
+        "narHash": "sha256-V3WWylFEKFjCLQ/d8voBZZQGmapX5f99yxTyxzC9HTU=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "733d5b0fa81d5aad7c623dca8d8170ce411fba1d",
+        "rev": "97b2c73782356e4934a5d350fa4b6b7dbea1b646",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794859254,
-        "narHash": "sha256-cMeamezCBOqN+KyYR6NZvvnEs0egqctHdOvkpVXylNk=",
+        "lastModified": 1794886469,
+        "narHash": "sha256-MK78qx/yeyUE+rokQhP6jTo/RVWCkIGvUGr+rKMCl5s=",
         "ref": "refs/heads/main",
-        "rev": "800bd59c1a3a92f44c66401d65120b8e9d63977c",
+        "rev": "b6db4fad70c4dbdb526741721e1f09200bd08f17",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1794850462,
-        "narHash": "sha256-StcUkUTZmXwnTZbR9pNGDLYLkVuavXSfvV3C8GIfZnA=",
+        "lastModified": 1794865400,
+        "narHash": "sha256-2gAwy7vEBRR/CI4vs60ELNIDhW1wQBcEbOFyS8fUv2M=",
         "ref": "refs/heads/main",
-        "rev": "b77065999de3fff271b6e3de29757b7ca1221fe3",
+        "rev": "77abba97aa452e887c4bc5513b01c5bd1719ed4b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
