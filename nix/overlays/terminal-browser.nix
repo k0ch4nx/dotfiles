@@ -1,6 +1,6 @@
 final: prev:
 let
-  version = "0.15.3";
+  version = "0.15.5";
 in
 {
   terminal-browser = prev.stdenv.mkDerivation {
@@ -9,7 +9,7 @@ in
 
     src = prev.fetchurl {
       url = "https://terminal-browser.sh/install/dl/stable/v${version}/terminal-browser-darwin-arm64.tar.gz";
-      sha256 = "sha256-Ea+8HAzAuNErte/8LiuvCFB90yRW1uAFKCTBvDDBCPA=";
+      sha256 = "sha256-Cji6paGDZpa7BzGwWdJkrYUujvEYVdNVaG/oBmZ2CLo=";
     };
 
     dontConfigure = true;
