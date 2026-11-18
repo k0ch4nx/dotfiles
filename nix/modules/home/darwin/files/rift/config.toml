@@ -72,7 +72,7 @@ workspace_names = ["1", "2", "3", "4", "5"]
 "Alt + L" = { move_focus = "right" }
 "Alt + Shift + H" = { move_node = "left" }
 "Alt + Shift + L" = { move_node = "right" }
-"Alt + F" = "enter_fullscreen_within_gaps"
+"Alt + F" = { resize_window_by = { amount = 1.0 } }
 "Alt + T" = { toggle_window_floating = { center = true } }
 "Ctrl + Cmd + H" = { resize_window_shrink = "horizontal" }
 "Ctrl + Cmd + L" = { resize_window_grow = "horizontal" }

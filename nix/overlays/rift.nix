@@ -15,7 +15,6 @@ in
 
     patches = (old.patches or [ ]) ++ [
       ./patches/rift/regular-xpc-apps.patch
-      ./patches/rift/enter-fullscreen.patch
     ];
 
     doCheck = false;
