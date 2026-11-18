@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1794941067,
-        "narHash": "sha256-VgrJ50p0PqTQ5U83BgKFD0dJxvz5OkWw5z7SjgsJLFs=",
+        "lastModified": 1794971640,
+        "narHash": "sha256-rb77bk4Nr0FBxpROSqDjMDRDhI6MO+pULONUY4jvn0w=",
         "ref": "refs/heads/main",
-        "rev": "5e5cc3db7f9fb71bc2316417293cc2fc778ce482",
+        "rev": "63e7a6108d08cca2ccef94e480103fde03c5bbd0",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1794949511,
-        "narHash": "sha256-mEAFMIqXwsmyyD86ew4Jtq2sNzkmYja875wO9EBSPbU=",
+        "lastModified": 1794962331,
+        "narHash": "sha256-lqM3eUi5zaF94rcvZdhOp7YO67DDUcHaoWts6wEYv60=",
         "ref": "refs/heads/main",
-        "rev": "77c82a087a617d33b19f11f4b8903e102e972d2e",
+        "rev": "4f343cabc7b59ab990d7411e920094108524abff",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794949849,
-        "narHash": "sha256-TesKDGN354w4Aw9DML9e85bov30+FFagBf8PJDDQJM4=",
+        "lastModified": 1794955727,
+        "narHash": "sha256-dodbqFZWFmuLk10g/LoZZgXU4MDEs7IXTh19995mZMw=",
         "ref": "refs/heads/main",
-        "rev": "501c765a3248eb622dc760e83e50b9424581b2b0",
+        "rev": "739e294750207dcdb90e2a1b74c7517411a974d6",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -404,11 +404,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794951907,
-        "narHash": "sha256-NGosvpSW9V3FAvmw7WGMznXT7TWyBdY8hZ7BJWvNxl8=",
+        "lastModified": 1794963576,
+        "narHash": "sha256-+CPrP74GDJ63f7bgEFC9Av4hbxc7K9WUNv1ZVRifRe8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f81dc528488ad2ea5ef29d326ae107beac5d93e1",
+        "rev": "2b13c9cb3aa20653e6f8ee0b7f8331a53ea9b0a9",
         "type": "github"
       },
       "original": {
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1794950983,
-        "narHash": "sha256-rqNaV6RKsSAmNUb9RzxzY1bUildOqbz0YAM+sEWk9iw=",
+        "lastModified": 1794966560,
+        "narHash": "sha256-j/hTgvxxu3pOrDkgihm+sidmfRguTVKtxSn9+B9kU3w=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "cd5d0317c352f872585251a83db8b9387b41c04d",
+        "rev": "aca6bfb2440503d090003b1064a44df8a8a54b5f",
         "type": "github"
       },
       "original": {
@@ -582,11 +582,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1794705614,
-        "narHash": "sha256-DZ5eNWHA6heAHwkMt1SBtF1p8Lfgi4ivqdqmgxUZkLs=",
+        "lastModified": 1794840529,
+        "narHash": "sha256-ySrWnmZB5UsZTYGHHnBjllT05O5iFjElCRS+mabtfP0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "1c872b8c508bbbfebc1b0b74777ff391ce0a574c",
+        "rev": "e21fec321d73511849707a7585e4ea155ee4bf40",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1794951516,
-        "narHash": "sha256-0hMMJg+3aqB5cSD54lKOl5P7RGGTtwTIjPzUPvcZf7I=",
+        "lastModified": 1794972700,
+        "narHash": "sha256-8an/ZAOwII+QdK/oQf9TCzEyeOKTXJ+S1UqIYjpyXqQ=",
         "ref": "refs/heads/main",
-        "rev": "ae6b903359e3d80a55c87794b3bfc04eb59119e7",
+        "rev": "fdf0c95ad6fb62c312c613ae0b0f00ee3e60096b",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1794865400,
-        "narHash": "sha256-2gAwy7vEBRR/CI4vs60ELNIDhW1wQBcEbOFyS8fUv2M=",
+        "lastModified": 1794961720,
+        "narHash": "sha256-YeRXGNeoK37rsX5bP2cM6S9k4p+6AASsmHERG1H7V4g=",
         "ref": "refs/heads/main",
-        "rev": "77abba97aa452e887c4bc5513b01c5bd1719ed4b",
+        "rev": "e3153d332d9fa337a990f6620a3d14932a43bd38",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
@@ -901,10 +901,10 @@
     "yomiyasu": {
       "flake": false,
       "locked": {
-        "lastModified": 1794443311,
-        "narHash": "sha256-5CVfVx2cNxOdW8uKOdo3Gjs8zJrNYdBFqwR/qBg/Gpk=",
+        "lastModified": 1794968111,
+        "narHash": "sha256-9S44h2456IYZK0hJhSx5h29UAXjoGCWW3MOkrHEBx3I=",
         "ref": "refs/heads/main",
-        "rev": "db78b9bc5e868549b517a037df7a4d1c93edac23",
+        "rev": "3042154ee537c1b7093eefed00a97b40aae9446d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nanaism/yomiyasu.git"
