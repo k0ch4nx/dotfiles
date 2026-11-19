@@ -29,6 +29,7 @@
         }
     ],
     "enabled_providers": [
+        "claude-agent",
         "commandcode",
         "deepinfra",
         "google",

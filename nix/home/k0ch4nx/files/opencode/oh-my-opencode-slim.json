@@ -11,23 +11,19 @@
             "orchestrator": {
                 "model": [
                     {
-                        "id": "openai/gpt-6-luna-fast",
-                        "variant": "max"
+                        "id": "openai/gpt-6.1-terra",
+                        "variant": "medium"
+                    },
+                    {
+                        "id": "claude-agent/sonnet",
+                        "variant": "medium"
                     },
                     {
                         "id": "opencode-go/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "commandcode/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
-                        "variant": "max"
+                        "variant": "high"
                     }
                 ],
-                "variant": "max",
+                "variant": "medium",
                 "skills": [
                     "*"
                 ],
@@ -37,21 +33,8 @@
                 ]
             },
             "explorer": {
-                "model": [
-                    {
-                        "id": "opencode-go/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "commandcode/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
-                        "variant": "max"
-                    }
-                ],
-                "variant": "max",
+                "model": "opencode-go/deepseek-v4.1-flash",
+                "variant": "high",
                 "skills": [],
                 "mcps": [
                     "context7",
@@ -59,8 +42,21 @@
                 ]
             },
             "oracle": {
-                "model": "openai/gpt-6.1-sol",
-                "variant": "max",
+                "model": [
+                    {
+                        "id": "claude-agent/opus",
+                        "variant": "medium"
+                    },
+                    {
+                        "id": "openai/gpt-6.2-sol",
+                        "variant": "medium"
+                    },
+                    {
+                        "id": "opencode-go/deepseek-v4.1-flash",
+                        "variant": "high"
+                    }
+                ],
+                "variant": "medium",
                 "skills": [
                     "simplify"
                 ],
@@ -69,40 +65,27 @@
             "designer": {
                 "model": [
                     {
+                        "id": "claude-agent/sonnet",
+                        "variant": "medium"
+                    },
+                    {
+                        "id": "openai/gpt-6.1-terra",
+                        "variant": "medium"
+                    },
+                    {
                         "id": "opencode-go/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "commandcode/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
-                        "variant": "max"
+                        "variant": "high"
                     }
                 ],
-                "variant": "max",
+                "variant": "medium",
                 "skills": [
                     "agent-browser"
                 ],
                 "mcps": []
             },
             "fixer": {
-                "model": [
-                    {
-                        "id": "opencode-go/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "commandcode/deepseek-v4.1-flash",
-                        "variant": "max"
-                    },
-                    {
-                        "id": "deepinfra/deepseek-ai/DeepSeek-V4.1-Flash-1017",
-                        "variant": "max"
-                    }
-                ],
-                "variant": "max",
+                "model": "opencode-go/deepseek-v4.1-flash",
+                "variant": "high",
                 "skills": [],
                 "mcps": []
             }

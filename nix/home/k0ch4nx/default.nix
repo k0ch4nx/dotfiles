@@ -28,6 +28,7 @@
       bazelisk
       bottom
       bun
+      inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
       cloudflared
       cmake
       cocogitto
@@ -55,7 +56,7 @@
       nodejs_latest
       oh-my-posh
       onefetch
-      (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2)
+      inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2
       (if stdenv.hostPlatform.isLinux then opensshWithKerberos else openssh)
       plannotator
       progress
