@@ -22,24 +22,11 @@
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "high"
                     }
-                ],
-                "variant": "medium",
-                "skills": [
-                    "*"
-                ],
-                "mcps": [
-                    "*",
-                    "!context7"
                 ]
             },
             "explorer": {
                 "model": "opencode-go/deepseek-v4.1-flash",
-                "variant": "high",
-                "skills": [],
-                "mcps": [
-                    "context7",
-                    "gh_grep"
-                ]
+                "variant": "high"
             },
             "oracle": {
                 "model": [
@@ -55,12 +42,7 @@
                         "id": "opencode-go/deepseek-v4.1-flash",
                         "variant": "high"
                     }
-                ],
-                "variant": "medium",
-                "skills": [
-                    "simplify"
-                ],
-                "mcps": []
+                ]
             },
             "designer": {
                 "model": [
@@ -77,17 +59,11 @@
                         "variant": "high"
                     }
                 ],
-                "variant": "medium",
-                "skills": [
-                    "agent-browser"
-                ],
-                "mcps": []
+                "variant": "medium"
             },
             "fixer": {
                 "model": "opencode-go/deepseek-v4.1-flash",
-                "variant": "high",
-                "skills": [],
-                "mcps": []
+                "variant": "high"
             }
         }
     }
