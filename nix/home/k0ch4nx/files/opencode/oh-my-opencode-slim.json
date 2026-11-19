@@ -31,11 +31,11 @@
             "oracle": {
                 "model": [
                     {
-                        "id": "claude-agent/opus",
+                        "id": "openai/gpt-6.2-sol",
                         "variant": "medium"
                     },
                     {
-                        "id": "openai/gpt-6.2-sol",
+                        "id": "claude-agent/sonnet",
                         "variant": "medium"
                     },
                     {
