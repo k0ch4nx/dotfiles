@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1794982118,
-        "narHash": "sha256-j78j7KvN0DBD4csJpYQVoQ82yU/h6qSF6+e2we8AUOU=",
+        "lastModified": 1795051779,
+        "narHash": "sha256-Mkq4KUplsPh7VIjLUO6cPFwTJs798zgtYFk83/1eAKc=",
         "ref": "refs/heads/main",
-        "rev": "816626c8d07b29d345f9f364f2162c1dcd33291b",
+        "rev": "6c0bb15238cb5bfbf84ef27eb7e027720936e1e2",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1794962331,
-        "narHash": "sha256-lqM3eUi5zaF94rcvZdhOp7YO67DDUcHaoWts6wEYv60=",
+        "lastModified": 1795042741,
+        "narHash": "sha256-mri68sHVTYgzlvrjvo8mt6ZTMEl6H7w/BX1eFTMtNRw=",
         "ref": "refs/heads/main",
-        "rev": "4f343cabc7b59ab990d7411e920094108524abff",
+        "rev": "615d6bc8c95f277a16b30918606c0cd50a6e42cd",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1794955727,
-        "narHash": "sha256-dodbqFZWFmuLk10g/LoZZgXU4MDEs7IXTh19995mZMw=",
+        "lastModified": 1795053540,
+        "narHash": "sha256-cSGAXkkitMiB6Z8SUoyIbyo9RgP2FeGeh0sPctgCFlE=",
         "ref": "refs/heads/main",
-        "rev": "739e294750207dcdb90e2a1b74c7517411a974d6",
+        "rev": "06fff9e3edb7fc3c115a1769406047fcaf0a6289",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1795006283,
-        "narHash": "sha256-r7FdaobAHQKqvcS0phTNGlKuxa/m7vNPBpx4JeyWEm0=",
+        "lastModified": 1795053855,
+        "narHash": "sha256-2M31WhYLweKabSGqGM3GoNAGGsEOsQ7FIuv8d4g2lXc=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "09289cde7a20db940070cb01633587d79892d5c2",
+        "rev": "7a6051143c31b932c16345d7887aad1672dbefc3",
         "type": "github"
       },
       "original": {
@@ -566,11 +566,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1794495034,
-        "narHash": "sha256-E0hYoioqUtM2XmPPvYYpJgdADF5AW9oOoPSEiM9dTHQ=",
+        "lastModified": 1794840529,
+        "narHash": "sha256-ySrWnmZB5UsZTYGHHnBjllT05O5iFjElCRS+mabtfP0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "2074cc672349f14240fb7ea90d509e0b643e9dd4",
+        "rev": "e21fec321d73511849707a7585e4ea155ee4bf40",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1795006002,
-        "narHash": "sha256-XG2RZOoMYvfzi1HPQHD3BR7ljLEofiDUz4+PDEMI6qM=",
+        "lastModified": 1795057400,
+        "narHash": "sha256-17oYI7NE53jYe3ICOLk3D0R8+2NZJ+JDn9UHeIAMJvQ=",
         "ref": "refs/heads/main",
-        "rev": "392506102468cb92aeb66a6a39ef7b3130583070",
+        "rev": "5724f95182197bef11ed726debf42beee3eda002",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1794961720,
-        "narHash": "sha256-YeRXGNeoK37rsX5bP2cM6S9k4p+6AASsmHERG1H7V4g=",
+        "lastModified": 1795049957,
+        "narHash": "sha256-kWUMMQ4Mi6Gzjft8lcn8gGxg1uBeRszRlpVomcGfS2E=",
         "ref": "refs/heads/main",
-        "rev": "e3153d332d9fa337a990f6620a3d14932a43bd38",
+        "rev": "f7c5157967678ef0c065c8e1320995f775baf9a2",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
@@ -884,10 +884,10 @@
     "wshobson-agents": {
       "flake": false,
       "locked": {
-        "lastModified": 1795006023,
-        "narHash": "sha256-FJ952pvYDAVj956EMW6dRzhhGZ1yMku3fFp03If/Uxs=",
+        "lastModified": 1795007607,
+        "narHash": "sha256-Azub9g+GEohos2XocajDJPAiQbdbfQFrn76AiDEGXmk=",
         "ref": "refs/heads/main",
-        "rev": "9337ce4286eb44778cff5fe69b210656564017f5",
+        "rev": "42203085cfc5736204bf0f6d436dff7e1da0bf3f",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/wshobson/agents.git"
