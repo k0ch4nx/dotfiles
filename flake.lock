@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1795241446,
-        "narHash": "sha256-v8/CnsHh4/p58E5d0k208omIYUUu6EruiKRIYYNNuE0=",
+        "lastModified": 1795301827,
+        "narHash": "sha256-uv9dGypk4rUmpeHrxlyX7slE/ibGYUR8OmNxqixSHc8=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "a59764a6424689d67c1bd9070fd48afa44a47ee0",
+        "rev": "10544a426c3d7d09c4b1229b8947658c893e245f",
         "type": "github"
       },
       "original": {
@@ -582,11 +582,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1795217999,
-        "narHash": "sha256-Z5mAFcY8XTAaWe+RwTchz4Fx1gwaeQ2WD8A8bKX7njY=",
+        "lastModified": 1795249095,
+        "narHash": "sha256-8JDgyVvWUZg5m9hNlL8Ge9aT647ng3Ukc8NPMiKNTPQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "680275f0bb6afce84fbac3e75fc47c5f2272400b",
+        "rev": "93a9ed0a866099a230ed5146a5bb7d16fd5c9b14",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1795280987,
-        "narHash": "sha256-OJ46e7jxOpTxBbwc/T+5NiO4NEkhI4Iw3/VU5BGTfUw=",
+        "lastModified": 1795301800,
+        "narHash": "sha256-kXFwJFnJd6OU2fmtUiDyJqa3TwZqnQJ73ZqKKQWpsqM=",
         "ref": "refs/heads/main",
-        "rev": "fe48a6f224f94c963a2f501e72aefbca38002613",
+        "rev": "444399b60e64bf802bd650c3cb4f42c990640e00",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -800,10 +800,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1795188276,
-        "narHash": "sha256-Voqtm/ij6nv+LqZZK+h7wHmdgisuQ7N7OlCuzfBDXj4=",
+        "lastModified": 1795294502,
+        "narHash": "sha256-U3qRDx+cmxyvRjHLKME6XYYq4y/6/Dipwc4XAaJjOxg=",
         "ref": "refs/heads/main",
-        "rev": "fa9e5eb053d2a1da11f7ccba720a0d3d389c05a6",
+        "rev": "6cb727ebefb020b007f7f20c04bde255faa8baa9",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
