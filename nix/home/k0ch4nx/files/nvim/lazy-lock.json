@@ -49,6 +49,6 @@
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
   "vim-matchup": { "branch": "master", "commit": "0106b1afd4a2f7e1098037b5ceb161bab7471088" },
   "vimdoc-ja": { "branch": "master", "commit": "23bb2bcc8b4fdb90c126a01967fc29e22b516bbd" },
-  "wezterm-types": { "branch": "main", "commit": "1e6a0b7ac2206b197c741240743e981af37ce292" },
+  "wezterm-types": { "branch": "main", "commit": "230ad1fa651e0459c9a16fc59c328855604cc4e0" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
 }
