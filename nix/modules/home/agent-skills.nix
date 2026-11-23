@@ -21,6 +21,12 @@
         subdir = "skills";
       };
 
+      modern-web-guidance = {
+        input = "modern-web-guidance";
+        idPrefix = "modern-web-guidance";
+        subdir = "skills";
+      };
+
       cloudflare-skills = {
         input = "cloudflare-skills";
         idPrefix = "cloudflare-skills";
@@ -157,6 +163,7 @@
       "anthropic-skills/frontend-design"
       "openai-skills/gh-fix-ci"
       "kaynetik-skills/ultimate-nixos"
+      "modern-web-guidance/modern-web-guidance"
     ];
 
     targets.opencode.enable = true;

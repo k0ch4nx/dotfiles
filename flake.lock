@@ -693,7 +693,8 @@
         "terminal-browser": "terminal-browser",
         "trailofbits-skills": "trailofbits-skills",
         "wshobson-agents": "wshobson-agents",
-        "yomiyasu": "yomiyasu"
+        "yomiyasu": "yomiyasu",
+        "modern-web-guidance": "modern-web-guidance"
       }
     },
     "spring-boot-skills": {
@@ -913,6 +914,23 @@
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nanaism/yomiyasu.git"
+      }
+    },
+    "modern-web-guidance": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794841069,
+        "narHash": "sha256-6AKPHsrv7uP0clLZaezrCP8lHXY5EB0hJwQ3gnk4+UI=",
+        "ref": "refs/heads/main",
+        "rev": "64a6d708f5a43f2cd3fde5d4d7db3905ba1bdf65",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance.git"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance.git"
       }
     }
   },
