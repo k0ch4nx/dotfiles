@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1795366837,
-        "narHash": "sha256-ma3B+5J/HvCIFTc60drm9AklCHJbIA2qPyzlPv2BFhg=",
+        "lastModified": 1795390077,
+        "narHash": "sha256-CBSSo6G0XIc334sk5Ys5xYOoRyH6ejLZ9ZNKl1XyL7k=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "0cde3970ab62414aaba209787c74b11b951ec7e8",
+        "rev": "047fb45688a7c8b1f42e3042e0b13a984e0de597",
         "type": "github"
       },
       "original": {
@@ -616,10 +616,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1795374774,
-        "narHash": "sha256-qTa5FPlwzKhpq6aEn6412fNhjcG8v01ofpzBLumvsaM=",
+        "lastModified": 1795394319,
+        "narHash": "sha256-dTyU9V0imi8HYH7OkY5dXN9PUOKyZBj+SMiHOf+Zt+E=",
         "ref": "refs/heads/main",
-        "rev": "8ab246473799005efb51b47cd06910e696c7d3a8",
+        "rev": "461b02a48f587c038427570062eb785493c32bc7",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -901,10 +901,10 @@
     "yomiyasu": {
       "flake": false,
       "locked": {
-        "lastModified": 1795362830,
-        "narHash": "sha256-BuZM6JTObQfeQU7mzQ/WR5gtLfjs8kVQzH3SiPwZH9s=",
+        "lastModified": 1795387091,
+        "narHash": "sha256-dKl5PQEXqzaxXtB/h/dGyRwjalnQ+ZLjcaKPT8VX1jU=",
         "ref": "refs/heads/main",
-        "rev": "49a2c536ada1519e686eff43427021153af7efdc",
+        "rev": "ddf365b5d5b36a7aa4ffab798dce1b694dbb1afd",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nanaism/yomiyasu.git"
