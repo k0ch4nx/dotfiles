@@ -35,7 +35,7 @@ jobs:
       - name: Prepare the Nix cache
         env:
           DOTFILES_DIR: ${{ github.workspace }}
-          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+          TF_TOKEN_k0ch4nx_scalr_io: ${{ secrets.SCALR_TOKEN }}
         run: ./scripts/steps/030-prepare-nix-cache.sh
 
       - name: Build the configuration
@@ -63,7 +63,7 @@ jobs:
         env: &r2-env-darwin
           DOTFILES_DIR: ${{ github.workspace }}
           NIX_CACHE_CLOSURE_FILE: ${{ runner.temp }}/nix-cache-closure
-          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+          TF_TOKEN_k0ch4nx_scalr_io: ${{ secrets.SCALR_TOKEN }}
         run: ./scripts/steps/080-push-nix-cache.sh
 
       - name: Touch the cache
@@ -81,7 +81,7 @@ jobs:
       DOTFILES_USER: k0ch4nx
       NIX_CACHE_PRIVATE_KEY_FILE: /tmp/nix-cache-ci-private-key
       NIX_CACHE_CLOSURE_FILE: /tmp/nix-cache-closure
-      WSLENV: BASH_ENV/u:DOTFILES_DIR/u:DOTFILES_HOST/u:DOTFILES_USER/u:GITHUB_ACTIONS/u:NIX_EXTRA_CONF/u:TF_TOKEN_app_terraform_io/u:NIX_CACHE_PRIVATE_KEY/u:NIX_CACHE_PRIVATE_KEY_FILE/u:NIX_CACHE_CLOSURE_FILE/u
+      WSLENV: BASH_ENV/u:DOTFILES_DIR/u:DOTFILES_HOST/u:DOTFILES_USER/u:GITHUB_ACTIONS/u:NIX_EXTRA_CONF/u:TF_TOKEN_k0ch4nx_scalr_io/u:NIX_CACHE_PRIVATE_KEY/u:NIX_CACHE_PRIVATE_KEY_FILE/u:NIX_CACHE_CLOSURE_FILE/u
 
     steps:
       - name: Restore Ubuntu WSL installer cache
@@ -188,7 +188,7 @@ jobs:
       - name: Prepare the Nix cache
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         env:
-          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+          TF_TOKEN_k0ch4nx_scalr_io: ${{ secrets.SCALR_TOKEN }}
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles
@@ -219,7 +219,7 @@ jobs:
         if: *main-only
         uses: Ubuntu/WSL/.github/actions/wsl-bash@f861f1083e518354e4c3637b08c0edfcf8bc3d51
         env: &r2-env-wsl
-          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+          TF_TOKEN_k0ch4nx_scalr_io: ${{ secrets.SCALR_TOKEN }}
         with:
           distro: Ubuntu
           working-dir: /tmp/dotfiles

@@ -52,11 +52,11 @@ let
     hadolint
     nixfmt
     npm-groovy-lint
+    opentofu
     shellcheck
     shfmt
     sqruff
     statix
-    terraform
     trivy
     yamlfmt
     yamllint

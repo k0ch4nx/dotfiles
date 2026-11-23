@@ -177,8 +177,8 @@ in
         autoload -U +X bashcompinit
         bashcompinit
 
-        if command -v terraform &>/dev/null; then
-          complete -o nospace -C "$(command -v terraform)" terraform
+        if command -v tofu &>/dev/null; then
+          complete -o nospace -C "$(command -v tofu)" tofu
         fi
       '';
 

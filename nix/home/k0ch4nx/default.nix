@@ -58,6 +58,7 @@
       onefetch
       inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode2
       (if stdenv.hostPlatform.isLinux then opensshWithKerberos else openssh)
+      opentofu
       plannotator
       progress
       python314
@@ -67,7 +68,6 @@
       ripgrep
       rustup
       temurin-bin-25
-      terraform
       tokei
       tree-sitter
       uv

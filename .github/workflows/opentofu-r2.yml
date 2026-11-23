@@ -1,19 +1,19 @@
 # yaml-language-server: $schema=https://schemastore.org/github-workflow.json
 
-name: Terraform
+name: OpenTofu
 
 on:
   pull_request:
     paths:
       - "infra/**"
-      - ".github/workflows/terraform-r2.yml"
+      - ".github/workflows/opentofu-r2.yml"
 
   push:
     branches:
       - main
     paths:
       - "infra/**"
-      - ".github/workflows/terraform-r2.yml"
+      - ".github/workflows/opentofu-r2.yml"
 
   workflow_dispatch:
 
@@ -21,7 +21,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: terraform
+  group: opentofu
   cancel-in-progress: false
 
 jobs:
@@ -37,19 +37,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4
+      - name: Set up OpenTofu
+        uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2.0.2
         with:
-          terraform_wrapper: false
+          tofu_version: "1.13.9"
+          tofu_wrapper: false
 
       - name: Check formatting
-        run: terraform fmt -check -recursive ..
+        run: tofu fmt -check -recursive ..
 
       - name: Initialize providers
-        run: terraform init -backend=false -input=false -lockfile=readonly
+        run: tofu init -backend=false -input=false -lockfile=readonly
 
       - name: Validate configuration
-        run: terraform validate -no-color
+        run: tofu validate -no-color
 
   apply:
     name: Plan and apply
@@ -66,22 +67,23 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
+      TF_TOKEN_k0ch4nx_scalr_io: ${{ secrets.SCALR_TOKEN }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4
+      - name: Set up OpenTofu
+        uses: opentofu/setup-opentofu@a1320f892987e89d278cc92dc5adc984fb93aca4 # v2.0.2
         with:
-          terraform_wrapper: false
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          tofu_version: "1.13.9"
+          tofu_wrapper: false
 
-      - name: Initialize Terraform
-        run: terraform init -input=false -lockfile=readonly
+      - name: Initialize OpenTofu
+        run: tofu init -input=false -lockfile=readonly
 
       - name: Create saved plan
-        run: terraform plan -input=false -no-color -out=tfplan
+        run: tofu plan -input=false -no-color -out=tfplan
 
       - name: Apply saved plan
-        run: terraform apply -input=false -no-color tfplan
+        run: tofu apply -input=false -no-color tfplan

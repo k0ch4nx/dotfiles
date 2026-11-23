@@ -17,7 +17,7 @@ return {
             return linter
         end
 
-        lint.linters.terraform_validate = function()
+        lint.linters.opentofu_validate = function()
             local severity = {
                 notice = vim.diagnostic.severity.INFO,
                 warning = vim.diagnostic.severity.WARN,
@@ -25,7 +25,7 @@ return {
             }
 
             return {
-                cmd = "terraform",
+                cmd = "tofu",
                 args = {
                     function()
                         return "-chdir=" .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.:h")
@@ -63,7 +63,7 @@ return {
                                 end_lnum = tonumber(range["end"].line) - 1,
                                 end_col = tonumber(range["end"].column) - 1,
                                 message = message,
-                                source = "terraform validate",
+                                source = "tofu validate",
                                 severity = severity[diagnostic.severity] or vim.diagnostic.severity.ERROR,
                             })
                         end
@@ -85,9 +85,9 @@ return {
             sh = { "shellcheck" },
             sql = { "sqruff" },
             starlark = { "buildifier" },
-            terraform = { "terraform_validate", "trivy" },
-            tf = { "terraform_validate", "trivy" },
-            ["terraform-vars"] = { "terraform_validate", "trivy" },
+            terraform = { "opentofu_validate", "trivy" },
+            tf = { "opentofu_validate", "trivy" },
+            ["terraform-vars"] = { "opentofu_validate", "trivy" },
             yaml = { "yamllint" },
         }
 

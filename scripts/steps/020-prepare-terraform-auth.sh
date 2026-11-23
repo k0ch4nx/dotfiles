@@ -93,16 +93,16 @@ function decrypt_secret() (
         "${secret_file}"
 )
 
-function read_hcp_terraform_token() (
+function read_scalr_token() (
     set +x
 
-    if [[ -n "${TF_TOKEN_app_terraform_io:-}" ]]; then
-        printf '%s' "${TF_TOKEN_app_terraform_io}"
+    if [[ -n "${TF_TOKEN_k0ch4nx_scalr_io:-}" ]]; then
+        printf '%s' "${TF_TOKEN_k0ch4nx_scalr_io}"
         return 0
     fi
 
     decrypt_secret \
-        "$(find_secret auth/hcp-terraform-token)" \
+        "$(find_secret auth/scalr-token)" \
         "$(find_yubikey_identity)" \
         "$(find_rage)" \
         "$(find_age_plugin_yubikey)"
@@ -123,30 +123,29 @@ function read_nix_cache_private_key() (
         "$(find_age_plugin_yubikey)"
 )
 
-function terraform_cli() (
+function tofu_cli() (
     set +x
 
     [[ -n "${DOTFILES_DIR:-}" ]]
 
     local token
-    token="$(read_hcp_terraform_token)"
+    token="$(read_scalr_token)"
 
-    if [[ -z "${token}" || "${token}" == *$'\n'* || "${token}" == *$'\r'* ]]; then
-        printf 'The HCP Terraform token has an invalid value.\n' >&2
+    if [[ -z "${token}" || "${token}" == *[[:space:]]* ]]; then
+        printf 'The Scalr token has an invalid value.\n' >&2
         return 1
     fi
 
     local status=0
-    if command -v terraform >/dev/null 2>&1; then
-        TF_TOKEN_app_terraform_io="${token}" terraform "$@" || status=$?
+    if command -v tofu >/dev/null 2>&1; then
+        TF_TOKEN_k0ch4nx_scalr_io="${token}" tofu "$@" || status=$?
     else
-        NIXPKGS_ALLOW_UNFREE=1 \
-            TF_TOKEN_app_terraform_io="${token}" \
+        TF_TOKEN_k0ch4nx_scalr_io="${token}" \
             nix run \
             --impure \
             --accept-flake-config \
             --no-update-lock-file \
-            'nixpkgs#terraform' \
+            'nixpkgs#opentofu' \
             -- \
             "$@" || status=$?
     fi
@@ -165,11 +164,11 @@ function main() {
     [[ -n "${DOTFILES_DIR:-}" ]]
 
     if [[ "${GITHUB_ACTIONS:-}" == 'true' ]]; then
-        if [[ -z "${TF_TOKEN_app_terraform_io:-}" ]]; then
-            printf 'TF_TOKEN_app_terraform_io is required in CI.\n' >&2
+        if [[ -z "${TF_TOKEN_k0ch4nx_scalr_io:-}" ]]; then
+            printf 'TF_TOKEN_k0ch4nx_scalr_io is required in CI.\n' >&2
             return 1
         fi
-    elif [[ -z "${TF_TOKEN_app_terraform_io:-}" || -z "${NIX_CACHE_PRIVATE_KEY:-}" || -z "${GH_TOKEN:-}" ]]; then
+    elif [[ -z "${TF_TOKEN_k0ch4nx_scalr_io:-}" || -z "${NIX_CACHE_PRIVATE_KEY:-}" || -z "${GH_TOKEN:-}" ]]; then
         local token_file
         local private_key_file
         local gh_token_file
@@ -177,15 +176,20 @@ function main() {
         local rage
         local age_plugin_yubikey
 
-        local token="${TF_TOKEN_app_terraform_io:-}"
+        local token="${TF_TOKEN_k0ch4nx_scalr_io:-}"
         local private_key="${NIX_CACHE_PRIVATE_KEY:-}"
         local gh_token="${GH_TOKEN:-}"
 
-        token_file="$(find_secret auth/hcp-terraform-token)"
-        private_key_file="$(find_secret auth/nix-cache-local-private-key)"
+        if [[ -z "${token}" ]]; then
+            token_file="$(find_secret auth/scalr-token)"
+        fi
+        if [[ -z "${private_key}" ]]; then
+            private_key_file="$(find_secret auth/nix-cache-local-private-key)"
+        fi
         if [[ -z "${gh_token}" ]]; then
             gh_token_file="$(find_secret env/gh-token)"
         fi
+
         identity_file="$(find_yubikey_identity)"
         rage="$(find_rage)"
         age_plugin_yubikey="$(find_age_plugin_yubikey)"
@@ -234,7 +238,7 @@ function main() {
         fi
 
         if [[ -z "${token}" || "${token}" == *$'\n'* || "${token}" == *$'\r'* ]]; then
-            printf 'The HCP Terraform token has an invalid value.\n' >&2
+            printf 'The Scalr token has an invalid value.\n' >&2
             return 1
         fi
 
@@ -248,8 +252,8 @@ function main() {
             return 1
         fi
 
-        TF_TOKEN_app_terraform_io="${token}"
-        export TF_TOKEN_app_terraform_io
+        TF_TOKEN_k0ch4nx_scalr_io="${token}"
+        export TF_TOKEN_k0ch4nx_scalr_io
 
         NIX_CACHE_PRIVATE_KEY="${private_key}"
 
@@ -264,4 +268,4 @@ function main() {
     fi
 }
 
-main
+[[ "${DOTFILES_AUTH_SKIP_MAIN:-}" == '1' ]] || main
