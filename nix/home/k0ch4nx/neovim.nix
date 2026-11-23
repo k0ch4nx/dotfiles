@@ -23,6 +23,7 @@ let
     dockerfile-language-server
     jdt-language-server
     lua-language-server
+    mdx-language-server
     nil
     oxfmt
     oxlint
@@ -86,6 +87,7 @@ in
       codelldb = "${codelldb}/bin/codelldb";
       java_debug_dir = "${pkgs.vscode-extensions.vscjava.vscode-java-debug}/share/vscode/extensions/vscjava.vscode-java-debug/server";
       lombok_jar = "${pkgs.lombok}/share/java/lombok.jar";
+      mdx_language_server = "${pkgs.mdx-language-server}/bin/mdx-language-server";
       powershell_bundle = "${pkgs.powershell-editor-services}/lib/powershell-editor-services";
       rust_analyzer = "${pkgs.rust-analyzer}/bin/rust-analyzer";
       typescript_tsdk = "${pkgs.typescript_5}/lib/node_modules/typescript/lib";
