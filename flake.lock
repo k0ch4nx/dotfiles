@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1795371093,
-        "narHash": "sha256-WMlphbfHJhWIRUQxY2oOQLs/h6+jEvMuW4PfJ0wMTSo=",
+        "lastModified": 1795407665,
+        "narHash": "sha256-104gytKTb5m5VBbSjHZhMafH8BL772f3T89wOan7UZY=",
         "ref": "refs/heads/main",
-        "rev": "89b2877c8e707be57e7caa502e6ead3783a23fcb",
+        "rev": "c1bc5c1df4ff0bffb9a04d8f7790543681232423",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1795390077,
-        "narHash": "sha256-CBSSo6G0XIc334sk5Ys5xYOoRyH6ejLZ9ZNKl1XyL7k=",
+        "lastModified": 1795416666,
+        "narHash": "sha256-b1GmfrMPoZ2ANkR0we9Q9KQN6n1e+vNyDqt1p4CNEAY=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "047fb45688a7c8b1f42e3042e0b13a984e0de597",
+        "rev": "5330ee115c06d2b43f49e902130125eab579b22f",
         "type": "github"
       },
       "original": {
@@ -506,6 +506,23 @@
         "shallow": true,
         "type": "git",
         "url": "https://github.com/mattpocock/skills.git"
+      }
+    },
+    "modern-web-guidance": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794841069,
+        "narHash": "sha256-6AKPHsrv7uP0clLZaezrCP8lHXY5EB0hJwQ3gnk4+UI=",
+        "ref": "refs/heads/main",
+        "rev": "64a6d708f5a43f2cd3fde5d4d7db3905ba1bdf65",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance.git"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/GoogleChrome/modern-web-guidance.git"
       }
     },
     "natural-japanese": {
@@ -616,10 +633,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1795394319,
-        "narHash": "sha256-dTyU9V0imi8HYH7OkY5dXN9PUOKyZBj+SMiHOf+Zt+E=",
+        "lastModified": 1795423458,
+        "narHash": "sha256-QS/V5H3RWqTXwgexjerwMLJhC4+wjra4McT3G4ZShl8=",
         "ref": "refs/heads/main",
-        "rev": "461b02a48f587c038427570062eb785493c32bc7",
+        "rev": "08eaf404075b67d29ae13f1019db14cd88072a60",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -681,6 +698,7 @@
         "kiro-skills": "kiro-skills",
         "llm-agents": "llm-agents",
         "mattpocock-skills": "mattpocock-skills",
+        "modern-web-guidance": "modern-web-guidance",
         "natural-japanese": "natural-japanese",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
@@ -693,8 +711,7 @@
         "terminal-browser": "terminal-browser",
         "trailofbits-skills": "trailofbits-skills",
         "wshobson-agents": "wshobson-agents",
-        "yomiyasu": "yomiyasu",
-        "modern-web-guidance": "modern-web-guidance"
+        "yomiyasu": "yomiyasu"
       }
     },
     "spring-boot-skills": {
@@ -914,23 +931,6 @@
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nanaism/yomiyasu.git"
-      }
-    },
-    "modern-web-guidance": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1794841069,
-        "narHash": "sha256-6AKPHsrv7uP0clLZaezrCP8lHXY5EB0hJwQ3gnk4+UI=",
-        "ref": "refs/heads/main",
-        "rev": "64a6d708f5a43f2cd3fde5d4d7db3905ba1bdf65",
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/GoogleChrome/modern-web-guidance.git"
-      },
-      "original": {
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/GoogleChrome/modern-web-guidance.git"
       }
     }
   },
