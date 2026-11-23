@@ -74,6 +74,12 @@ return {
             })
         end
 
+        if nix.mdx_language_server then
+            vim.lsp.config("mdx_analyzer", {
+                cmd = { nix.mdx_language_server, "--stdio" },
+            })
+        end
+
         vim.lsp.enable({
             "astro",
             "bashls",
@@ -87,6 +93,7 @@ return {
             "jedi_language_server",
             "jsonls",
             "lua_ls",
+            "mdx_analyzer",
             "nil_ls",
             "oxfmt",
             "oxlint",

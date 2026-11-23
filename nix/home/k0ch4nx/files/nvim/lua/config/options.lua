@@ -54,6 +54,7 @@ end
 
 vim.filetype.add({
     extension = {
+        ["mdx"] = "mdx",
         ["tmpl"] = "gotmpl",
     },
     filename = {

@@ -39,6 +39,8 @@ return {
 
         vim.treesitter.language.register("dotenv", { "env" })
 
+        vim.treesitter.language.register("markdown", "mdx")
+
         return {}
     end,
 }
