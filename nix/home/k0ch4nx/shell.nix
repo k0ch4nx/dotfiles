@@ -224,6 +224,7 @@ in
     XDG_STATE_HOME = "${config.xdg.stateHome}";
 
     DO_NOT_TRACK = "1";
+    DISABLE_TELEMETRY = "1";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
     HOMEBREW_NO_ANALYTICS = "1";
     OMO_SEND_ANONYMOUS_TELEMETRY = "0";

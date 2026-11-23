@@ -168,6 +168,11 @@ in
         flake = false;
       };
 
+      modern-web-guidance = {
+        url = "git+https://github.com/GoogleChrome/modern-web-guidance.git?shallow=1";
+        flake = false;
+      };
+
       agenix = {
         url = "github:ryantm/agenix/main";
         inputs.nixpkgs.follows = "nixpkgs";

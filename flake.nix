@@ -101,6 +101,10 @@
       url = "git+https://github.com/mattpocock/skills.git?shallow=1";
       flake = false;
     };
+    modern-web-guidance = {
+      url = "git+https://github.com/GoogleChrome/modern-web-guidance.git?shallow=1";
+      flake = false;
+    };
     natural-japanese = {
       url = "git+https://github.com/coji/natural-japanese.git?shallow=1";
       flake = false;
