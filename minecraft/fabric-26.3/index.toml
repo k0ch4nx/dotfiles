@@ -32,7 +32,7 @@ metafile = true
 
 [[files]]
 file = "mods/fabric-api.pw.toml"
-hash = "fb72a70cb53c63f1da4520c25c8a7d806cc1c733e827016615623b65d751852d"
+hash = "d8561ff9c3bd2eeb7bb8121241f126c33725734719dcb4973bedeb97750260f8"
 hash-format = "sha256"
 metafile = true
 
@@ -104,19 +104,19 @@ metafile = true
 
 [[files]]
 file = "mods/reeses-sodium-options.pw.toml"
-hash = "038f11a9baea7842bf71b5d05395872b916a91644602e8b6ca3419ca883b20c8"
+hash = "2e7918bb25dc98e976f945ee08ccc9a1f953a5a9cb160fc57a699c1f3b8f76da"
 hash-format = "sha256"
 metafile = true
 
 [[files]]
 file = "mods/sodium-extra.pw.toml"
-hash = "259d2b2f633bf07cd6eb7a99b18a2869ff6c313329631f2802512e40411e2874"
+hash = "9d888d071aa1f59404c41d990e9ae334baab66e91e022013ca5b0689d723ad18"
 hash-format = "sha256"
 metafile = true
 
 [[files]]
 file = "mods/sodium.pw.toml"
-hash = "4efa5c428c12487bd6da07d525fb19af4f33ea3adf9bec94a0dedc8f77a08550"
+hash = "f92dd3c24c5b62edbc368a540769ea82f88e97a5759eaffda011d045b1bf4be2"
 hash-format = "sha256"
 metafile = true
 
