@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1795537096,
-        "narHash": "sha256-zhKRJq2jR3D61Mcz7CA/IUU1Pd0q69doHBKTgF0s3/Y=",
+        "lastModified": 1795562919,
+        "narHash": "sha256-aI1n91zFfhu/1o84j0X9AHE1vwcBUxsdhdrS3FinZgY=",
         "ref": "refs/heads/main",
-        "rev": "be9f77d7efb1f34968eb83e673ca3c97b732ffe0",
+        "rev": "6db5ee05400346eaf1ad85f6d9de03ffb040fdc1",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -201,10 +201,10 @@
     "dotnet-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1795523212,
-        "narHash": "sha256-7z6nJekFcGbLTesYJCyEu0PFGoCc4e9b1FG3X09wEBU=",
+        "lastModified": 1795560173,
+        "narHash": "sha256-k0qp+Wup0YvWaIZBiyICboWDpTxRXL08mrdHnEmkIks=",
         "ref": "refs/heads/main",
-        "rev": "9d2962064a5387978ad1fcdcba45f31a18fb10d1",
+        "rev": "746910bb13d153e2df74816947c6d269006e7ba1",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/dotnet/skills.git"
@@ -309,10 +309,10 @@
     "gemini-cli": {
       "flake": false,
       "locked": {
-        "lastModified": 1795490163,
-        "narHash": "sha256-UBI01ug0MpxDU5m/gO3lEM6UDDqr+hOm97XbA6r2B58=",
+        "lastModified": 1795564304,
+        "narHash": "sha256-mQYnGRPek3h0dvr+DX0zwAqWRPwRD+lYV3yg19sP3ZY=",
         "ref": "refs/heads/main",
-        "rev": "03862c4164844c6cf8063b4cc48546ec1609cf2e",
+        "rev": "08e9a20f749aefcbda38622ac757899c3d6216e0",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google-gemini/gemini-cli.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1795540972,
-        "narHash": "sha256-IZJq/C/jgUyItSS64lV2lIzgVPrOZJR+ProriR5Gefw=",
+        "lastModified": 1795562246,
+        "narHash": "sha256-IF2m+8aDhADwXsZoveURi5O7SEAiGgMLt+hjdc1dr94=",
         "ref": "refs/heads/main",
-        "rev": "089e3cccacf99547898bd513d78cf8efd28da9cf",
+        "rev": "a6782daef41b064c659f0b16cb46609cf4b8211d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -633,10 +633,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1795541544,
-        "narHash": "sha256-xj/4ftaJRQWn89szvsHY5zSo7IiN072ttfLhggdUuXY=",
+        "lastModified": 1795572581,
+        "narHash": "sha256-fUMI+xrRHVNH0XWXMm39LIwQd64GELPBm49CbKtrlic=",
         "ref": "refs/heads/main",
-        "rev": "adb00813fb517ceb9ff47d51f392005eea5b6e6f",
+        "rev": "4a180835802dcd0289bc701c907fb3f7aa69f799",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
@@ -818,10 +818,10 @@
     "terminal-browser": {
       "flake": false,
       "locked": {
-        "lastModified": 1795487958,
-        "narHash": "sha256-O6FX8DrcBDyx7Gnv+j6xoyaOGSObs2p5QcU6OHxTdpI=",
+        "lastModified": 1795561744,
+        "narHash": "sha256-/z/xHpzLaLfnZESlaHgP2Ww2cZC4sQcUOP+Ko3YrsxQ=",
         "ref": "refs/heads/main",
-        "rev": "a47886a06f6cfb5e74906a6de1e16e0199a3cc97",
+        "rev": "99022d83537b8af5d42471c092164842f21e4a7c",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/zenbu-labs/terminal-browser.git"
