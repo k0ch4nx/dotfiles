@@ -66,9 +66,9 @@
       python3Packages.lizard
       rage
       ripgrep
+      ripcloc
       rustup
       temurin-bin-25
-      tokei
       tree-sitter
       uv
       yubikey-manager
