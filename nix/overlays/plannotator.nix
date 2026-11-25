@@ -1,15 +1,15 @@
 final: prev:
 let
-  version = "0.28.67";
+  version = "0.29.4";
 
   assets = {
     aarch64-darwin = {
       name = "plannotator-darwin-arm64";
-      hash = "sha256-JtRrHZFH7hLl3L+UdCHUh7eysR63y0Flfa0ExzLsNlg=";
+      hash = "sha256-vELQqGl4k+tqujUNZgawoAPdPAf52BGbWd6XvFZ5jcg=";
     };
     x86_64-linux = {
       name = "plannotator-linux-x64";
-      hash = "sha256-OTNZBc2VOUQteugwlKRkx5ae5VYou4kQUBbkl/fmh+s=";
+      hash = "sha256-kMaO7d50WN7BzpiZGAXNG8DgOKqYEf5+YF8x+ASLCh8=";
     };
   };
 

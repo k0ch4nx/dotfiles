@@ -3,6 +3,7 @@ let
     ./gamdl.nix
     ./mdx-language-server.nix
     ./plannotator.nix
+    ./ripcloc.nix
     ./sheets.nix
     ./superseedr.nix
   ];
