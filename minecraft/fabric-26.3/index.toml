@@ -14,7 +14,7 @@ metafile = true
 
 [[files]]
 file = "mods/c2me-fabric.pw.toml"
-hash = "1e3df3c319ea1f964ffb4c69dd5691633c514dae9b2d8e1b5d56be206c923558"
+hash = "21d83b437d13e672c12f4760320c0b487ab8fbc6bd5f5a4a051ef54a44ebea21"
 hash-format = "sha256"
 metafile = true
 
@@ -26,7 +26,7 @@ metafile = true
 
 [[files]]
 file = "mods/cloth-config.pw.toml"
-hash = "2b9727522c90a979eb9671ad7c5421443d91391b0697d1772146e6bfa19cb3c1"
+hash = "14547eb6c0001ea7845955fecf7c0093c2a66ce838fb3e532096ebb28114d912"
 hash-format = "sha256"
 metafile = true
 
@@ -104,13 +104,13 @@ metafile = true
 
 [[files]]
 file = "mods/reeses-sodium-options.pw.toml"
-hash = "2e7918bb25dc98e976f945ee08ccc9a1f953a5a9cb160fc57a699c1f3b8f76da"
+hash = "161f4cb2ff5fb0fe58bf56d2afad29160916841689f63e63ff21c6eabef6f098"
 hash-format = "sha256"
 metafile = true
 
 [[files]]
 file = "mods/sodium-extra.pw.toml"
-hash = "9d888d071aa1f59404c41d990e9ae334baab66e91e022013ca5b0689d723ad18"
+hash = "0b88d6e9ef3dba77e993ac99510253710c41024b887aece26967ccd921889e52"
 hash-format = "sha256"
 metafile = true
 
