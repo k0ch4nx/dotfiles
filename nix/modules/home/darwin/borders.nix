@@ -7,9 +7,9 @@
 
 let
   restartBorders = ''
-    userId="$(id -u)"
-    if launchctl print "gui/$userId/${config.launchd.agents.borders.config.Label}" >/dev/null 2>&1; then
-      launchctl kickstart -k "gui/$userId/${config.launchd.agents.borders.config.Label}"
+    userId="$(/usr/bin/id -u)"
+    if /bin/launchctl print "gui/$userId/${config.launchd.agents.borders.config.Label}" >/dev/null 2>&1; then
+      /bin/launchctl kickstart -k "gui/$userId/${config.launchd.agents.borders.config.Label}"
     fi
   '';
 in
