@@ -38,7 +38,7 @@ in
     pmset -b lessbright 0
     pmset -c sleep 0
 
-    /usr/bin/launchctl asuser "$(id -u ${primaryUser})" \
+    /bin/launchctl asuser "$(id -u ${primaryUser})" \
       /usr/bin/sudo -u ${primaryUser} --set-home \
       /usr/bin/defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 \
       ${disabledHotkey}
