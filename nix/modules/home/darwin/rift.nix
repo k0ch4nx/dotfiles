@@ -24,9 +24,9 @@ let
   riftLabel = "org.nix-community.home.rift";
 
   restartRift = ''
-    userId="$(id -u)"
-    if launchctl print "gui/$userId/${riftLabel}" >/dev/null 2>&1; then
-      launchctl kickstart -k "gui/$userId/${riftLabel}"
+    userId="$(/usr/bin/id -u)"
+    if /bin/launchctl print "gui/$userId/${riftLabel}" >/dev/null 2>&1; then
+      /bin/launchctl kickstart -k "gui/$userId/${riftLabel}"
     fi
   '';
 

@@ -34,11 +34,11 @@ in
   networking.hostName = "MacBook-Pro";
 
   system.activationScripts.postActivation.text = lib.mkAfter ''
-    pmset -a displaysleep 10
-    pmset -b lessbright 0
-    pmset -c sleep 0
+    /usr/bin/pmset -a displaysleep 10
+    /usr/bin/pmset -b lessbright 0
+    /usr/bin/pmset -c sleep 0
 
-    /usr/bin/launchctl asuser "$(id -u ${primaryUser})" \
+    /bin/launchctl asuser "$(/usr/bin/id -u ${primaryUser})" \
       /usr/bin/sudo -u ${primaryUser} --set-home \
       /usr/bin/defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 \
       ${disabledHotkey}
