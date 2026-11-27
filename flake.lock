@@ -150,10 +150,10 @@
     "cc-templates": {
       "flake": false,
       "locked": {
-        "lastModified": 1795749126,
-        "narHash": "sha256-uz1ng/xvcomdexNsQJeAmhdiPzyBLgYIRk+c5k2LVLc=",
+        "lastModified": 1795797722,
+        "narHash": "sha256-N1dTfm16RPuwYI9RD41Wtl95wY4LNx4up90J1c2zc/A=",
         "ref": "refs/heads/main",
-        "rev": "77e05e435a9c49f3e7825eca64cb207d3e38c827",
+        "rev": "452f1d6795319fa16e960d45d05edd8e8f2fce92",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/davila7/claude-code-templates.git"
@@ -366,10 +366,10 @@
     "google-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1795715507,
-        "narHash": "sha256-3Im2p2Bp28aZeqYl72p5Uhy2FejzBOGX4EH4Lg4EWtw=",
+        "lastModified": 1795790493,
+        "narHash": "sha256-5QPx4TEiD6lzBm34wBBCClnJwZBzWYM5eOlS7RF/Z+Y=",
         "ref": "refs/heads/main",
-        "rev": "6dc0d53303b9f96f166ac72d7f8f1920cb260f24",
+        "rev": "4d3b4526d54107f92c01ed4057220f249bb17e75",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/google/skills.git"
@@ -478,11 +478,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1795764997,
-        "narHash": "sha256-dkX4GGtumxtSOcdwTsS6Dy5LyPv9Nx6Ya6yRx1i3y1o=",
+        "lastModified": 1795789832,
+        "narHash": "sha256-euPmSl9HzbTktN83I1EbJvMkzqQ0TcB/Cq46bx2VS3s=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "ccf868b7a2a8de6713c0a572885657739a448cf0",
+        "rev": "ed78f78388f2bcea00f5edd0b27bab753723c343",
         "type": "github"
       },
       "original": {
@@ -494,10 +494,10 @@
     "mattpocock-skills": {
       "flake": false,
       "locked": {
-        "lastModified": 1795608503,
-        "narHash": "sha256-kM/OK6+kbTHzlN5d6wjL9hM80lolcSCoO8A1oRvEJEU=",
+        "lastModified": 1795799261,
+        "narHash": "sha256-Y+tDX8bKHQ5hGp0R+DSmF2qs8r2tdBg/f4SA9kSeAm4=",
         "ref": "refs/heads/main",
-        "rev": "6f7f7831a625f040a8e06a0e7954826b87ce775a",
+        "rev": "bbadaa631c37af594e5a05c9cefacd9956136b18",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/mattpocock/skills.git"
@@ -633,10 +633,10 @@
     "openclaw": {
       "flake": false,
       "locked": {
-        "lastModified": 1795765281,
-        "narHash": "sha256-0Huz4D3rzy0LBn9uJL2HlHt/1kjNAJeJaP4cbG6eM/g=",
+        "lastModified": 1795803048,
+        "narHash": "sha256-P2AAjHgLgL2nuqusuzr6Yf49leJQ1IQ8VEe4VM1IIlg=",
         "ref": "refs/heads/main",
-        "rev": "bad21b1eba43f83c5228ccb912bc29251b3d263f",
+        "rev": "a3954edd50a5d769849c2ce22599872c85a6e67e",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/openclaw/openclaw.git"
